@@ -51,6 +51,10 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="main.cpp" />
+		<Unit filename="src/Sprite/AnimatedSprite.cpp" />
+		<Unit filename="src/Sprite/AnimatedSprite.h" />
+		<Unit filename="src/Sprite/Animation.cpp" />
+		<Unit filename="src/Sprite/Animation.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
