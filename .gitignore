@@ -16,6 +16,7 @@
 # *.la
 # *.a
 
-# Local dependencies
+# Local stuff
 *.depend
 *.layout
+*.db
