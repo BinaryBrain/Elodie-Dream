@@ -2,7 +2,7 @@
 #include "src/Sprite/AnimatedSprite.h"
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(1280, 720), "Animated Sprite Test", sf::Style::Default);
+    sf::RenderWindow window(sf::VideoMode(1280, 720), "Animated Sprite Test 2", sf::Style::Default);
 
     sf::Texture texture;
     if(!texture.loadFromFile("assets/img/sprite.jpg")) {
