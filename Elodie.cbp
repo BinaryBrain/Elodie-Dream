@@ -50,6 +50,8 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="src/EventHandler/EventHandler.cpp" />
+		<Unit filename="src/EventHandler/EventHandler.h" />
 		<Unit filename="src/FileHandler.cpp" />
 		<Unit filename="src/FileHandler.h" />
 		<Unit filename="src/SaveHandler.cpp" />
