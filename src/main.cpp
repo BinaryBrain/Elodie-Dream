@@ -1,7 +1,11 @@
 #include <SFML/Graphics.hpp>
-#include "src/Sprite/AnimatedSprite.h"
+
+#include "Sprite/AnimatedSprite.h"
+#include "FileHandler.h"
+#include "SaveHandler.h"
 
 int main() {
+    /*
     sf::RenderWindow window(sf::VideoMode(1280, 720), "Animated Sprite Test 2", sf::Style::Default);
 
     sf::Texture texture;
@@ -59,6 +63,10 @@ int main() {
         window.draw(animatedSprite);
         window.display();
     }
+    */
+
+    SaveHandler sh("save/save.txt");
+    sh.save();
 
     return 0;
 }
