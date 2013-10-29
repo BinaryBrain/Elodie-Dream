@@ -1,6 +1,5 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
-#include <iostream>
 #include <time.h>
 
 #include "EventHandler.h"
