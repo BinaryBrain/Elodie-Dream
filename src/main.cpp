@@ -1,12 +1,14 @@
 #include <SFML/Graphics.hpp>
+#include <vector>
 
 #include "Sprite/AnimatedSprite.h"
+#include "EventHandler/EventHandler.h"
 #include "FileHandler.h"
 #include "SaveHandler.h"
 
 int main() {
-    /*
     sf::RenderWindow window(sf::VideoMode(1280, 720), "Animated Sprite Test 2", sf::Style::Default);
+    EventHandler e(window);
 
     sf::Texture texture;
     if(!texture.loadFromFile("assets/img/sprite.jpg")) {
@@ -25,35 +27,54 @@ int main() {
     walkingAnimation.addFrame(sf::IntRect(85+246, 0, 46, 64));
     walkingAnimation.addFrame(sf::IntRect(85+290, 0, 46, 64));
 
+    Animation standingAnimation;
+    standingAnimation.setSpriteSheet(texture);
+    standingAnimation.addFrame(sf::IntRect(0, 0, 43, 64));
+
     // set up AnimatesSprite
     AnimatedSprite animatedSprite(sf::seconds(0.1));
-    animatedSprite.setAnimation(walkingAnimation);
+    animatedSprite.setAnimation(standingAnimation);
 
     animatedSprite.setPosition(100, 300);
 
     sf::Clock frameClock;
 
+    std::vector<int> esc;
+    esc.push_back(sf::Keyboard::Escape);
+    esc.push_back(sf::Keyboard::LShift);
+
+    std::vector<int> movement;
+    movement.push_back(sf::Keyboard::Left);
+    movement.push_back(sf::Keyboard::Right);
+    movement.push_back(sf::Keyboard::Up);
+    movement.push_back(sf::Keyboard::Down);
+
     while (window.isOpen()) {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed) {
-                window.close();
-            }
+        e.listening();
 
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-                window.close();
-            }
+        if (e.keyIsHold(esc))
+            window.close();
 
-            // Screenshot
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::F1)) {
-                sf::Image screen = window.capture();
-                screen.saveToFile("screenshot.jpg");
-            }
+        if (e.keyIsPressed(sf::Keyboard::F1)) {
+            sf::Image screen = window.capture();
+            screen.saveToFile("screenshot.jpg");
         }
 
+        if (e.keyIsReleased(movement) && !e.keyIsHold(movement))
+            animatedSprite.setAnimation(standingAnimation);
+        if (e.keyIsPressed(movement) && !e.keyIsHold(movement))
+            animatedSprite.setAnimation(walkingAnimation);
+
+        if (e.keyIsHold(sf::Keyboard::Down))
+            animatedSprite.move(0, +0.05);
+        if (e.keyIsHold(sf::Keyboard::Up))
+            animatedSprite.move(0, -0.05);
+        if (e.keyIsHold(sf::Keyboard::Left))
+            animatedSprite.move(-0.05, 0);
+        if (e.keyIsHold(sf::Keyboard::Right))
+            animatedSprite.move(+0.05, 0);
+
         animatedSprite.update(frameClock.restart());
-        animatedSprite.move(0.05, 0);
 
         if(animatedSprite.getPosition().x > window.getSize().x) {
             animatedSprite.setPosition(-50, animatedSprite.getPosition().y);
@@ -63,10 +84,9 @@ int main() {
         window.draw(animatedSprite);
         window.display();
     }
-    */
 
-    SaveHandler sh("save/save.txt");
-    sh.save();
+    //SaveHandler sh("save/save.txt");
+    //sh.save();
 
     return 0;
 }
