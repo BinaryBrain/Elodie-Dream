@@ -1,7 +1,5 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
-#include <rapidjson/document.h>
-#include <cstdio>
 
 #include "Sprite/AnimatedSprite.h"
 #include "EventHandler/EventHandler.h"
@@ -84,12 +82,6 @@ int main() {
         window.draw(animatedSprite);
         window.display();
     }
-    const char json[] = "{ \"hello\" : \"world\" }";
-
-    rapidjson::Document d;
-    d.Parse<0>(json);
-
-    printf("%s\n", d["hello"].GetString());
 
     return 0;
 }
