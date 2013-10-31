@@ -5,8 +5,9 @@
 
 #include "JsonHandler.h"
 
-using namespace std;
-
+using std::cout;
+using std::endl;
+using std::string;
 
 JsonHandler::JsonHandler() {}
 
@@ -15,8 +16,11 @@ std::string encode(rapidjson::Document &doc) {
     return "tout doux";
 }
 
-rapidjson::Document decode(std::string s) {
-    const char json[] = " { \"hello\" : \"world\", \"t\" : true , \"f\" : false, \"n\": null, \"i\":123, \"pi\": 3.1416, \"a\":[1, 2, 3, 4] } ";
+rapidjson::Document decode(string s) {
+    char json[s.length()];
+    for(int i(0); i< s.length(); i++){
+        json[i] = s.at(i);
+    }
 	printf("Original JSON:\n %s\n", json);
 
 	rapidjson::Document document;	// Default template parameter uses UTF8 and MemoryPoolAllocator.

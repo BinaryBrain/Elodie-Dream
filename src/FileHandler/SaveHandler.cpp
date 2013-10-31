@@ -8,9 +8,7 @@
 
 #include "SaveHandler.h"
 
-using namespace std;
-
-SaveHandler::SaveHandler(string path): m_path(path) {}
+SaveHandler::SaveHandler(std::string path): m_path(path) {}
 
 void SaveHandler::save() {
     /*ofstream stream(m_path.c_str());
