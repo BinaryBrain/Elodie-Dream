@@ -55,10 +55,12 @@
 		<Unit filename="src/EventHandler/EventHandler.h" />
 		<Unit filename="src/FileHandler/FileHandler.cpp" />
 		<Unit filename="src/FileHandler/FileHandler.h" />
-		<Unit filename="src/FileHandler/json/SaveHandler.cpp" />
-		<Unit filename="src/FileHandler/json/SaveHandler.h" />
+		<Unit filename="src/FileHandler/SaveHandler.cpp" />
+		<Unit filename="src/FileHandler/SaveHandler.h" />
 		<Unit filename="src/Game/Game.cpp" />
 		<Unit filename="src/Game/Game.h" />
+		<Unit filename="src/JsonHandler/JsonHandler.cpp" />
+		<Unit filename="src/JsonHandler/JsonHandler.h" />
 		<Unit filename="src/Map/MapParser.cpp" />
 		<Unit filename="src/Map/MapParser.h" />
 		<Unit filename="src/Sprite/AnimatedSprite.cpp" />
