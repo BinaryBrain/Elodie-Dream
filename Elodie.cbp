@@ -57,12 +57,28 @@
 		<Unit filename="src/EventHandler/EventHandler.h" />
 		<Unit filename="src/FileHandler.cpp" />
 		<Unit filename="src/FileHandler.h" />
+		<Unit filename="src/Game/Game.cpp" />
+		<Unit filename="src/Game/Game.h" />
+		<Unit filename="src/Map/MapParser.cpp" />
+		<Unit filename="src/Map/MapParser.h" />
 		<Unit filename="src/SaveHandler.cpp" />
 		<Unit filename="src/SaveHandler.h" />
 		<Unit filename="src/Sprite/AnimatedSprite.cpp" />
 		<Unit filename="src/Sprite/AnimatedSprite.h" />
 		<Unit filename="src/Sprite/Animation.cpp" />
 		<Unit filename="src/Sprite/Animation.h" />
+		<Unit filename="src/Sprite/CharacterSprite.cpp" />
+		<Unit filename="src/Sprite/CharacterSprite.h" />
+		<Unit filename="src/Sprite/ElodieSprite.cpp" />
+		<Unit filename="src/Sprite/ElodieSprite.h" />
+		<Unit filename="src/Sprite/EnemySprite.cpp" />
+		<Unit filename="src/Sprite/EnemySprite.h" />
+		<Unit filename="src/Sprite/EnvSprite.cpp" />
+		<Unit filename="src/Sprite/EnvSprite.h" />
+		<Unit filename="src/Sprite/Interactive.cpp" />
+		<Unit filename="src/Sprite/Interactive.h" />
+		<Unit filename="src/Sprite/TileSprite.cpp" />
+		<Unit filename="src/Sprite/TileSprite.h" />
 		<Unit filename="src/main.cpp" />
 		<Extensions>
 			<code_completion />
