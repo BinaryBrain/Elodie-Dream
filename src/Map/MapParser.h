@@ -3,11 +3,17 @@
 
 #include <string>
 #include <vector>
+#include <iostream>
 #include <SFML/Graphics.hpp>
 
 #include "../Sprite/ElodieSprite.h"
 #include "../Sprite/EnvSprite.h"
 #include "../Sprite/TileSprite.h"
+#include "../Entities/Entities.h"
+#include "../Entities/Elodie.h"
+
+typedef std::vector< std::vector<TileSprite*> > TileMap;
+typedef std::vector< std::vector<Entities*> > EntitieMap;
 
 class MapParser {
     private:
@@ -23,7 +29,8 @@ class MapParser {
 
     public:
         MapParser();
-        void parse(std::string str, std::vector< std::vector<sf::Sprite*> >& level);
+        static void parse(std::string str, TileMap& tiles, EntitieMap& entities);
+        static void print(TileMap& tiles, EntitieMap& entities);
 };
 
 

@@ -9,3 +9,7 @@ TileSprite::~TileSprite()
 {
     //dtor
 }
+
+TileType TileSprite::getType() {
+    return this->type;
+}
