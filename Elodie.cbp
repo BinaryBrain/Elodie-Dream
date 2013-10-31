@@ -51,6 +51,10 @@
 			<Add directory="rapidjson/include" />
 			<Add directory="sfml/include" />
 		</Compiler>
+		<Unit filename="src/Entities/Elodie.cpp" />
+		<Unit filename="src/Entities/Elodie.h" />
+		<Unit filename="src/Entities/Entities.cpp" />
+		<Unit filename="src/Entities/Entities.h" />
 		<Unit filename="src/EventHandler/EventHandler.cpp" />
 		<Unit filename="src/EventHandler/EventHandler.h" />
 		<Unit filename="src/FileHandler/FileHandler.cpp" />
@@ -61,6 +65,8 @@
 		<Unit filename="src/Game/Game.h" />
 		<Unit filename="src/JsonHandler/JsonHandler.cpp" />
 		<Unit filename="src/JsonHandler/JsonHandler.h" />
+		<Unit filename="src/Level/Level.cpp" />
+		<Unit filename="src/Level/Level.h" />
 		<Unit filename="src/Map/MapParser.cpp" />
 		<Unit filename="src/Map/MapParser.h" />
 		<Unit filename="src/Sprite/AnimatedSprite.cpp" />
