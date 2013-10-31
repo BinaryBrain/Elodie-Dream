@@ -1,10 +1,10 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include "rapidjson/document.h"
+#include <cstdio>
 
 #include "Sprite/AnimatedSprite.h"
 #include "EventHandler/EventHandler.h"
-#include "FileHandler.h"
-#include "SaveHandler.h"
 
 int main() {
     sf::RenderWindow window(sf::VideoMode(1280, 720), "Animated Sprite Test 2", sf::Style::Default);
@@ -84,9 +84,12 @@ int main() {
         window.draw(animatedSprite);
         window.display();
     }
+    /*const char json[] = "{ \"hello\" : \"world\" }";
 
-    //SaveHandler sh("save/save.txt");
-    //sh.save();
+    rapidjson::Document d;
+    d.Parse<0>(json);
 
-    return 0;
+    printf("%s\n", d["hello"].GetString());
+
+    return 0;*/
 }
