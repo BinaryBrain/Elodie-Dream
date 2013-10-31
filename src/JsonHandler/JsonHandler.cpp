@@ -18,7 +18,7 @@ std::string encode(rapidjson::Document &doc) {
 
 rapidjson::Document decode(string s) {
     char json[s.length()];
-    for(int i(0); i< s.length(); i++){
+    for(unsigned int i(0); i< s.length(); i++){
         json[i] = s.at(i);
     }
 	printf("Original JSON:\n %s\n", json);
