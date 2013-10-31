@@ -3,8 +3,10 @@
 
 #include "Sprite/AnimatedSprite.h"
 #include "EventHandler/EventHandler.h"
+#include "JsonHandler/JsonHandler.h"
 
 int main() {
+
     sf::RenderWindow window(sf::VideoMode(1280, 720), "Animated Sprite Test 2", sf::Style::Default);
     EventHandler e(window);
 
