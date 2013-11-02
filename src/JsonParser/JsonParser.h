@@ -5,14 +5,19 @@
 #include "rapidjson/prettywriter.h"	// for stringify JSON
 #include "rapidjson/filestream.h"	// wrapper of C stream for prettywriter as output<w>
 #include <string>
+#include <iostream>
 
-class JsonHandler
+#include "../Utils/Utils.h"
+
+using std::string;
+
+class JsonParser
 {
     public:
-        JsonHandler();
-        static std::string encode(rapidjson::Document &doc);
-        static rapidjson::Document decode(std::string s, bool isFile);
-        ~JsonHandler();
+        JsonParser();
+        static string encode(rapidjson::Document &doc);
+        static rapidjson::Document* decode(string s, bool isFile);
+        ~JsonParser();
 
     private:
 };

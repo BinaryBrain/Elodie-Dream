@@ -1,25 +1,18 @@
-#include "rapidjson/document.h"		// rapidjson's DOM-style API
-#include "rapidjson/prettywriter.h"	// for stringify JSON
-#include "rapidjson/filestream.h"	// wrapper of C stream for prettywriter as output
-#include <iostream>
-#include <string>
-
 #include "JsonParser.h"
-#include "../Utils/Utils.h"
 
 using std::string;
 using std::cerr;
 using std::endl;
 
-JsonHandler::JsonHandler() {}
+JsonParser::JsonParser() {}
 
-string encode(rapidjson::Document &doc)
+string JsonParser::encode(rapidjson::Document &doc)
 {
     //todo
     return "tout doux";
 }
 
-rapidjson::Document decode(string s, bool isFile)
+rapidjson::Document* JsonParser::decode(string s, bool isFile)
 {
     rapidjson::Document document;// Default template parameter uses UTF8 and MemoryPoolAllocator.
     if(isFile)
@@ -53,7 +46,7 @@ rapidjson::Document decode(string s, bool isFile)
             cerr << "Parse error" << endl;
         }
     }
-    return document;
+    return &document;
 }
 
-JsonHandler::~JsonHandler() {}
+JsonParser::~JsonParser() {}
