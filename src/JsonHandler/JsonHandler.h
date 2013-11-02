@@ -10,8 +10,8 @@ class JsonHandler
 {
     public:
         JsonHandler();
-        std::string encode(rapidjson::Document &doc);
-        rapidjson::Document decode(std::string s, bool isFile);
+        static std::string encode(rapidjson::Document &doc);
+        static rapidjson::Document decode(std::string s, bool isFile);
         ~JsonHandler();
 
     private:

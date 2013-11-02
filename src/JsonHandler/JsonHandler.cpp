@@ -2,15 +2,18 @@
 #include "rapidjson/prettywriter.h"	// for stringify JSON
 #include "rapidjson/filestream.h"	// wrapper of C stream for prettywriter as output
 #include <iostream>
+#include <string>
 
 #include "JsonHandler.h"
 #include "../Utils/Utils.h"
 
-using namespace std;
+using std::string;
+using std::cerr;
+using std::endl;
 
 JsonHandler::JsonHandler() {}
 
-std::string encode(rapidjson::Document &doc)
+string encode(rapidjson::Document &doc)
 {
     //todo
     return "tout doux";
