@@ -63,8 +63,8 @@
 		<Unit filename="src/FileHandler/SaveHandler.h" />
 		<Unit filename="src/Game/Game.cpp" />
 		<Unit filename="src/Game/Game.h" />
-		<Unit filename="src/JsonHandler/JsonHandler.cpp" />
-		<Unit filename="src/JsonHandler/JsonHandler.h" />
+		<Unit filename="src/JsonParser/JsonParser.cpp" />
+		<Unit filename="src/JsonParser/JsonParser.h" />
 		<Unit filename="src/Level/Level.cpp" />
 		<Unit filename="src/Level/Level.h" />
 		<Unit filename="src/Map/MapParser.cpp" />

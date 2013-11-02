@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 
-#include "JsonHandler.h"
+#include "JsonParser.h"
 #include "../Utils/Utils.h"
 
 using std::string;

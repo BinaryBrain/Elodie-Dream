@@ -3,7 +3,7 @@
 
 #include "Sprite/AnimatedSprite.h"
 #include "EventHandler/EventHandler.h"
-#include "JsonHandler/JsonHandler.h"
+#include "JsonParser/JsonParser.h"
 
 int main() {
 
