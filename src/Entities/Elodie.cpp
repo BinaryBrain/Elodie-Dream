@@ -1,11 +1,19 @@
 #include "Elodie.h"
 
-Elodie::Elodie()
-{
-    //ctor
+Elodie::Elodie() {
+    this->init();
+}
+
+Elodie::Elodie(sf::Vector2f position) {
+    this->init();
+    this->sprite->setPosition(position);
+}
+
+void Elodie::init() {
+    this->sprite = new ElodieSprite();
 }
 
 Elodie::~Elodie()
 {
-    //dtor
+    delete this->sprite;
 }

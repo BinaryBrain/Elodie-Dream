@@ -13,7 +13,7 @@
 #include "../Entities/Elodie.h"
 
 typedef std::vector< std::vector<TileSprite*> > TileMap;
-typedef std::vector< std::vector<Entities*> > EntitieMap;
+typedef std::vector<Entities*> EntitieMap;
 
 class MapParser {
     private:
