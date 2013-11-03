@@ -9,16 +9,26 @@ void MapParser::parse(std::string str, TileMap& tiles, EntitieMap& entities) {
 
     // FIXME Use Insert instead of Push_back
     for(unsigned int i = 0; i < str.length(); i++) {
+        // Entities
         switch(str[i]) {
             case MAP_ELODIE:
-                entities[x].push_back(new Elodie());
+                entities.push_back(new Elodie());
                 break;
+            default:
+                break;
+        }
 
+        // Terrain
+        switch(str[i]) {
             case MAP_GROUND:
                 tiles[x].push_back(new TileSprite()); // Tile::GROUND
+
                 break;
 
             case MAP_LINE_BREAK:
+                // TODO Blank Sprite?
+                tiles[x].push_back(NULL);
+
                 x = 0;
                 break;
 
