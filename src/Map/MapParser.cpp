@@ -35,9 +35,11 @@ void MapParser::parse(std::string str, TileMap& tiles, EntitieMap& entities) {
                 y++;
                 break;
 
-            default:
-                // TODO Blank Sprite?
+            case MAP_NULL:
                 tiles[y].push_back(NULL);
+                break;
+
+            default:
                 break;
         }
     }
