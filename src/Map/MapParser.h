@@ -26,7 +26,7 @@ class MapParser {
 
         // Misc
         static const char MAP_LINE_BREAK = '\n';
-        static const char MAP_NULL = '.';
+        static const char MAP_NULL = ' ';
 
     public:
         MapParser();
