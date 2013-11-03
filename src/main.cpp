@@ -18,7 +18,7 @@ int main() {
 
     // Conf test
     JsonAccessor language = JsonAccessor();
-    language.load("assets/config/FR.cfg");
+    language.load("assets/config/languages/FR.lang");
 
     // Strings test
     cout << language.getString("Intro") << endl;

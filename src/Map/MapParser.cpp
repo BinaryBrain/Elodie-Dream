@@ -50,7 +50,6 @@ void MapParser::print(TileMap& tiles, EntitieMap& entities) {
     std::cout << "PRINTING MAP" << std::endl;
 
     std::string out = "";
-
     for (TileMap::iterator col = tiles.begin(); col != tiles.end(); ++col) {
         for (std::vector<TileSprite*>::iterator it = col->begin(); it != col->end(); ++it) {
             TileSprite* tile = *it;
@@ -62,7 +61,6 @@ void MapParser::print(TileMap& tiles, EntitieMap& entities) {
                 out += MAP_GROUND;
             }
         }
-
         out += MAP_LINE_BREAK;
     }
 

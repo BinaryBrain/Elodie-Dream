@@ -19,5 +19,7 @@ Level Game::loadLevel(std::string filename) {
     EntitieMap entities;
 
     MapParser::parse(level, tiles, entities);
+
     MapParser::print(tiles, entities);
+
 }

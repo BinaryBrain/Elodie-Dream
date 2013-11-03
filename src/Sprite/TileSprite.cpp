@@ -2,7 +2,7 @@
 
 TileSprite::TileSprite()
 {
-    //ctor
+    type = TILE_GROUND;
 }
 
 TileSprite::~TileSprite()
