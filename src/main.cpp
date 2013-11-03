@@ -18,7 +18,6 @@ int main() {
     cout << language.getString("Intro") << endl;
     cout << language.getString("Dev") << endl;
     cout << language.getString("End") << endl;
-    cout << language.getInt("Entries") << endl;
 
     sf::RenderWindow window(sf::VideoMode(1280, 720), "Animated Sprite Test 2", sf::Style::Default);
     EventHandler e(window);
