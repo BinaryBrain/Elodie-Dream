@@ -8,7 +8,6 @@ void MapParser::parse(std::string str, TileMap& tiles, EntitieMap& entities) {
     std::cout << "PARSING MAP" << std::endl;
     unsigned int y = 0;
 
-    // FIXME Use Insert instead of Push_back
     for(unsigned int i = 0; i < str.length(); i++) {
         // Entities
         switch(str[i]) {
