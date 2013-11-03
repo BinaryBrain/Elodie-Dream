@@ -8,7 +8,7 @@ enum class TileType { GROUND, GRASS, STONE };
 class TileSprite : public EnvSprite
 {
     public:
-        TileSprite();
+        TileSprite(TileType type);
         virtual ~TileSprite();
 
         TileType getType();

@@ -1,8 +1,8 @@
 #include "TileSprite.h"
 
-TileSprite::TileSprite()
+TileSprite::TileSprite(TileType type)
 {
-    type = TileType::GROUND;
+    this->type = type;
 }
 
 TileSprite::~TileSprite()

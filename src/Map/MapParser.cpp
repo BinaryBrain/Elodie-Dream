@@ -27,7 +27,7 @@ void MapParser::parse(std::string str, TileMap& tiles, EntitieMap& entities) {
 
         switch(str[i]) {
             case MAP_GROUND:
-                tiles[y].push_back(new TileSprite()); // Tile::GROUND
+                tiles[y].push_back(new TileSprite(TileType::GROUND));
                 break;
 
             case MAP_LINE_BREAK:
