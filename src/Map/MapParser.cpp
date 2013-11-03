@@ -65,4 +65,6 @@ void MapParser::print(TileMap& tiles, EntitieMap& entities) {
 
         out += MAP_LINE_BREAK;
     }
+
+    std::cout << out;
 }
