@@ -11,8 +11,6 @@ class Level
     public:
         Level();
         virtual ~Level();
-
-        void loadLevel(std::string filename);
     protected:
     private:
 };

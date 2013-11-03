@@ -6,15 +6,21 @@
 #include "EventHandler/EventHandler.h"
 #include "JsonParser/JsonParser.h"
 #include "JsonAccessor/JsonAccessor.h"
+#include "Game/Game.h"
 
 using std::cout;
 using std::endl;
 
 int main() {
+    // Map Parsing test
+    // Game game;
+    // game.loadLevel("assets/levels/level1.txt");
 
+    // Conf test
     JsonAccessor language = JsonAccessor();
     language.load("assets/config/FR.cfg");
 
+    // Strings test
     cout << language.getString("Intro") << endl;
     cout << language.getString("Dev") << endl;
     cout << language.getString("End") << endl;
