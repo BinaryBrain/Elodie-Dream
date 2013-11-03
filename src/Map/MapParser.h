@@ -34,5 +34,4 @@ class MapParser {
         static void print(TileMap& tiles, EntitieMap& entities);
 };
 
-
 #endif // MAPPARSER_H
