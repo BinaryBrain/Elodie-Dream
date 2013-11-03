@@ -5,8 +5,8 @@ MapParser::MapParser() {
 }
 
 void MapParser::parse(std::string str, TileMap& tiles, EntitieMap& entities) {
-    std::cout << "PARSING" << std::endl;
-    unsigned int x = 0;
+    std::cout << "PARSING MAP" << std::endl;
+    unsigned int y = 0;
 
     // FIXME Use Insert instead of Push_back
     for(unsigned int i = 0; i < str.length(); i++) {
@@ -21,45 +21,42 @@ void MapParser::parse(std::string str, TileMap& tiles, EntitieMap& entities) {
         }
 
         // Terrain
-        if(x >= tiles.size()) {
+        if(y >= tiles.size()) {
             tiles.push_back(std::vector<TileSprite*>());
         }
 
         switch(str[i]) {
             case MAP_GROUND:
-                tiles[x].push_back(new TileSprite()); // Tile::GROUND
+                tiles[y].push_back(new TileSprite()); // Tile::GROUND
 
                 break;
 
             case MAP_LINE_BREAK:
-                // TODO Blank Sprite?
-                tiles[x].push_back(NULL);
-
-                x = 0;
+                y++;
                 break;
 
             default:
                 // TODO Blank Sprite?
-                tiles[x].push_back(NULL);
+                tiles[y].push_back(NULL);
                 break;
         }
     }
 }
 
 void MapParser::print(TileMap& tiles, EntitieMap& entities) {
-    std::cout << "PRINTING" << std::endl;
+    std::cout << "PRINTING MAP" << std::endl;
 
     for (TileMap::iterator col = tiles.begin(); col != tiles.end(); ++col) {
         for (std::vector<TileSprite*>::iterator it = col->begin(); it != col->end(); ++it) {
             TileSprite* tile = *it;
 
-            if(tile) {
-                std::cout << ' ';
+            if(!tile) {
+                std::cout << MAP_NULL;
             }
-
-            if(tile->getType() == TILE_GROUND) {
-                std::cout << '#';
+            else if(tile->getType() == TILE_GROUND) {
+                std::cout << MAP_GROUND;
             }
         }
+        std::cout << MAP_LINE_BREAK;
     }
 }
