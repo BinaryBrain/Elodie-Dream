@@ -21,26 +21,26 @@ string JsonAccessor::getString(string key)
     }
     else
     {
-        return values[Utils::toCharArray(key)].GetString();
+        return values[key.c_str()].GetString();
     }
 }
 int JsonAccessor::getInt(string key)
 {
-    if(!loaded)
+    if(!this->loaded)
     {
         cerr << "Not loaded yet" << endl;
         return 0;
     }
     else
     {
-        return values[Utils::toCharArray(key)].GetInt();
+        return values[key.c_str()].GetInt();
     }
 }
 bool JsonAccessor::load(string file)
 {
-    if(!loaded)
+    if(!this->loaded)
     {
-        FILE * pFile = fopen (Utils::toCharArray(file) , "r");
+        FILE * pFile = fopen (file.c_str() , "r");
         rapidjson::FileStream is(pFile);
         if(values.ParseStream<0>(is).HasParseError())
         {

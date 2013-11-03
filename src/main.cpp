@@ -1,11 +1,24 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <iostream>
 
 #include "Sprite/AnimatedSprite.h"
 #include "EventHandler/EventHandler.h"
 #include "JsonParser/JsonParser.h"
+#include "JsonAccessor/JsonAccessor.h"
+
+using std::cout;
+using std::endl;
 
 int main() {
+
+    JsonAccessor language = JsonAccessor();
+    language.load("assets/config/FR.cfg");
+
+    cout << language.getString("Intro") << endl;
+    cout << language.getString("Dev") << endl;
+    cout << language.getString("End") << endl;
+    cout << language.getInt("Entries") << endl;
 
     sf::RenderWindow window(sf::VideoMode(1280, 720), "Animated Sprite Test 2", sf::Style::Default);
     EventHandler e(window);
