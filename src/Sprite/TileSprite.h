@@ -3,7 +3,7 @@
 
 #include "EnvSprite.h"
 
-enum TileType { TILE_GROUND, TILE_GRASS, TILE_STONE };
+enum class TileType { GROUND, GRASS, STONE };
 
 class TileSprite : public EnvSprite
 {
