@@ -40,6 +40,7 @@ void MapParser::parse(std::string str, TileMap& tiles, EntitieMap& entities) {
                 break;
 
             default:
+                tiles[y].push_back(NULL);
                 break;
         }
     }
