@@ -4,7 +4,7 @@ MapParser::MapParser() {
 
 }
 
-void MapParser::parse(std::string str, TileMap& tiles, EntitieMap& entities) {
+void MapParser::parse(std::string str, TileMap& tiles, EntitieVector& entities) {
     std::cout << "PARSING MAP" << std::endl;
     unsigned int y = 0;
 
@@ -44,7 +44,7 @@ void MapParser::parse(std::string str, TileMap& tiles, EntitieMap& entities) {
     }
 }
 
-void MapParser::print(TileMap& tiles, EntitieMap& entities) {
+void MapParser::print(TileMap& tiles, EntitieVector& entities) {
     std::cout << "PRINTING MAP" << std::endl;
 
     std::string out = "";

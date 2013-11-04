@@ -2,6 +2,7 @@
 
 Game::Game()
 {
+
 }
 
 Game::~Game()
@@ -16,10 +17,9 @@ Level Game::loadLevel(std::string filename) {
     std::cout << level << std::endl;
 
     TileMap tiles;
-    EntitieMap entities;
+    EntitieVector entities;
 
     MapParser::parse(level, tiles, entities);
 
     MapParser::print(tiles, entities);
-
 }

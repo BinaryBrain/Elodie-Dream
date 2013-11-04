@@ -7,6 +7,7 @@
 #include "JsonParser/JsonParser.h"
 #include "JsonAccessor/JsonAccessor.h"
 #include "Game/Game.h"
+#include "Overworld/Overworld.h"
 
 using std::cout;
 using std::endl;
@@ -27,6 +28,8 @@ int main() {
 
     sf::RenderWindow window(sf::VideoMode(1280, 720), "Elodie's Dream: Quest for Poros", sf::Style::Default);
     EventHandler e(window);
+
+    Overworld overworld;
 
     sf::Texture texture;
     if(!texture.loadFromFile("assets/img/sprite.jpg")) {
@@ -73,6 +76,10 @@ int main() {
         if (e.keyIsHold(esc))
             window.close();
 
+        if (e.keyIsPressed(sf::Keyboard::N)) {
+            overworld.evolve();
+        }
+
         if (e.keyIsPressed(sf::Keyboard::F1)) {
             sf::Image screen = window.capture();
             screen.saveToFile("screenshot.jpg");
@@ -98,7 +105,8 @@ int main() {
             animatedSprite.setPosition(-50, animatedSprite.getPosition().y);
         }
 
-        window.clear(sf::Color(0xFF, 0xFF, 0xFF));
+        window.clear(sf::Color(0x00, 0xFF, 0x00));
+        window.draw(*overworld.getCurrentSprite());
         window.draw(animatedSprite);
         window.display();
     }

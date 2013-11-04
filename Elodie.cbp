@@ -72,6 +72,8 @@
 		<Unit filename="src/Level/Level.h" />
 		<Unit filename="src/Map/MapParser.cpp" />
 		<Unit filename="src/Map/MapParser.h" />
+		<Unit filename="src/Overworld/Overworld.cpp" />
+		<Unit filename="src/Overworld/Overworld.h" />
 		<Unit filename="src/Sprite/AnimatedSprite.cpp" />
 		<Unit filename="src/Sprite/AnimatedSprite.h" />
 		<Unit filename="src/Sprite/Animation.cpp" />

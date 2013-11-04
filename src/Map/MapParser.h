@@ -13,7 +13,7 @@
 #include "../Entities/Elodie.h"
 
 typedef std::vector< std::vector<TileSprite*> > TileMap;
-typedef std::vector<Entities*> EntitieMap;
+typedef std::vector<Entities*> EntitieVector;
 
 class MapParser {
     private:
@@ -30,8 +30,8 @@ class MapParser {
 
     public:
         MapParser();
-        static void parse(std::string str, TileMap& tiles, EntitieMap& entities);
-        static void print(TileMap& tiles, EntitieMap& entities);
+        static void parse(std::string str, TileMap& tiles, EntitieVector& entities);
+        static void print(TileMap& tiles, EntitieVector& entities);
 };
 
 #endif // MAPPARSER_H
