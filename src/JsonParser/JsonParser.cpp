@@ -17,7 +17,7 @@ rapidjson::Document* JsonParser::decode(string s, bool isFile)
     rapidjson::Document document;// Default template parameter uses UTF8 and MemoryPoolAllocator.
     if(isFile)
     {
-        FILE * pFile = fopen (Utils::toCharArray(s) , "r");
+        FILE * pFile = fopen (s.c_str(), "r");
         rapidjson::FileStream is(pFile);
         if(document.ParseStream<0>(is).HasParseError())
         {
