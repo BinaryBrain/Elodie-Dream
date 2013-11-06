@@ -1,13 +1,19 @@
 #include "Game.h"
 
-Game::Game()
-{
-
+Game::Game() {
+    this->window = new sf::RenderWindow(sf::VideoMode(1280, 720), "Elodie's Dream: Quest for Poros", sf::Style::Default);
 }
 
-Game::~Game()
-{
-    //dtor
+Game::~Game() {
+    delete this->window;
+}
+
+void Game::init() {
+    // ???
+}
+
+void Game::draw() {
+
 }
 
 Level Game::loadLevel(std::string filename) {

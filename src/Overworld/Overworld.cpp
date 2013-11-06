@@ -33,6 +33,10 @@ void Overworld::evolve() {
         case VOLCANO:
             this->currentState = FRELJORD;
             break;
+        // FIXME Dev stuff
+        case FRELJORD:
+            this->currentState = UNIL;
+            break;
         default:
             break;
     }
