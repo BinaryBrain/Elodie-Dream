@@ -16,7 +16,7 @@ class JsonParser
     public:
         JsonParser();
         static string encode(rapidjson::Document &doc);
-        static rapidjson::Document* decode(string s, bool isFile);
+        static rapidjson::Document* decode(string s, rapidjson::Document* document, bool isFile);
         ~JsonParser();
 
     private:

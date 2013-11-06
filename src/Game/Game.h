@@ -17,7 +17,7 @@ class Game
         void init();
         void draw();
 
-        Level loadLevel(std::string filename);
+        void loadLevel(std::string filename);
     protected:
     private:
         sf::RenderWindow* window;

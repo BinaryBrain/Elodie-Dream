@@ -16,7 +16,7 @@ void Game::draw() {
 
 }
 
-Level Game::loadLevel(std::string filename) {
+void Game::loadLevel(std::string filename) {
     std::string level = FileHandler::getContent(filename);
 
     TileMap tiles;

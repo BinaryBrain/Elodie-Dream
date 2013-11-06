@@ -12,14 +12,14 @@ string JsonParser::encode(rapidjson::Document &doc)
     return "tout doux";
 }
 
-rapidjson::Document* JsonParser::decode(string s, bool isFile)
-{
-    rapidjson::Document document;// Default template parameter uses UTF8 and MemoryPoolAllocator.
+// FIXME address of local variable 'document' returned
+rapidjson::Document* JsonParser::decode(string s, rapidjson::Document* document, bool isFile) {
+    // Default template parameter uses UTF8 and MemoryPoolAllocator.
     if(isFile)
     {
-        FILE * pFile = fopen (s.c_str(), "r");
+        FILE* pFile = fopen (s.c_str(), "r");
         rapidjson::FileStream is(pFile);
-        if(document.ParseStream<0>(is).HasParseError())
+        if(document->ParseStream<0>(is).HasParseError())
         {
             cerr << "Parse Error" << endl;
         }
@@ -34,19 +34,20 @@ rapidjson::Document* JsonParser::decode(string s, bool isFile)
         printf("Original JSON:\n %s\n", json);
 
         // "normal" parsing, decode strings to new buffers. Can use other input stream via ParseStream().
-        if (document.Parse<0>(json).HasParseError())
+        if (document->Parse<0>(json).HasParseError())
         {
             cerr << "Parse error" << endl;
         }
         // In-situ parsing, decode strings directly in the source string. Source must be string.
         char buffer[sizeof(json)];
         memcpy(buffer, json, sizeof(json));
-        if (document.ParseInsitu<0>(buffer).HasParseError())
+        if (document->ParseInsitu<0>(buffer).HasParseError())
         {
             cerr << "Parse error" << endl;
         }
     }
-    return &document;
+
+    return document;
 }
 
 JsonParser::~JsonParser() {}

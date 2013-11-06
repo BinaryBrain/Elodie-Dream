@@ -48,7 +48,7 @@
 		<Compiler>
 			<Add option="-std=c++11" />
 			<Add option="-Wall" />
-			<Add option="-fexceptions" />
+			<Add option="-fexceptions -Werror" />
 			<Add directory="rapidjson/include" />
 			<Add directory="sfml/include" />
 		</Compiler>
