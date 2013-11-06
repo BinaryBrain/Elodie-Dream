@@ -70,8 +70,8 @@
 		<Unit filename="src/JsonParser/JsonParser.h" />
 		<Unit filename="src/Level/Level.cpp" />
 		<Unit filename="src/Level/Level.h" />
-		<Unit filename="src/Map/MapParser.cpp" />
-		<Unit filename="src/Map/MapParser.h" />
+		<Unit filename="src/Map/Mapper.cpp" />
+		<Unit filename="src/Map/Mapper.h" />
 		<Unit filename="src/Overworld/Overworld.cpp" />
 		<Unit filename="src/Overworld/Overworld.h" />
 		<Unit filename="src/Sprite/AnimatedSprite.cpp" />

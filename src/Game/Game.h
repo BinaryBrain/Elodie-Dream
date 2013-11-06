@@ -4,7 +4,7 @@
 #include <string>
 
 #include "../Level/Level.h"
-#include "../Map/MapParser.h"
+#include "../Map/Mapper.h"
 #include "../FileHandler/FileHandler.h"
 #include "../Overworld/Overworld.h"
 

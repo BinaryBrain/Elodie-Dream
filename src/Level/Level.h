@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "../Map/MapParser.h"
+#include "../Map/Mapper.h"
 #include "../FileHandler/FileHandler.h"
 
 class Level

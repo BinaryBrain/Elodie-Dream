@@ -15,7 +15,7 @@
 typedef std::vector< std::vector<TileSprite*> > TileMap;
 typedef std::vector<Entities*> EntitieVector;
 
-class MapParser {
+class Mapper {
     private:
         // ASCII Map
         // Terrain
@@ -29,7 +29,7 @@ class MapParser {
         static const char MAP_NULL = ' ';
 
     public:
-        MapParser();
+        Mapper();
         static void parse(std::string str, TileMap& tiles, EntitieVector& entities);
         static void print(TileMap& tiles, EntitieVector& entities);
 };
