@@ -7,6 +7,7 @@
 #include "../Map/Mapper.h"
 #include "../FileHandler/FileHandler.h"
 #include "../Overworld/Overworld.h"
+#include "../EventHandler/EventHandler.h"
 
 class Game
 {
@@ -16,11 +17,13 @@ class Game
 
         void init();
         void draw();
+        void run();
 
         void loadLevel(std::string filename);
     protected:
     private:
         sf::RenderWindow* window;
+        EventHandler* event;
         Overworld overworld;
         sf::Clock frameClock;
 };

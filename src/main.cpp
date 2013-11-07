@@ -26,11 +26,7 @@ int main() {
     cout << language.getString("Dev") << endl;
     cout << language.getString("End") << endl;
 
-    sf::RenderWindow window(sf::VideoMode(1280, 720), "Elodie's Dream: Quest for Poros", sf::Style::Default);
-    EventHandler e(window);
-
-    Overworld overworld;
-
+/*
     sf::Texture texture;
     if(!texture.loadFromFile("assets/img/sprite.jpg")) {
         return EXIT_FAILURE;
@@ -57,59 +53,9 @@ int main() {
     animatedSprite.setAnimation(standingAnimation);
 
     animatedSprite.setPosition(100, 300);
+*/
 
-    sf::Clock frameClock;
-
-    std::vector<int> esc;
-    esc.push_back(sf::Keyboard::Escape);
-    esc.push_back(sf::Keyboard::LShift);
-
-    std::vector<int> movement;
-    movement.push_back(sf::Keyboard::Left);
-    movement.push_back(sf::Keyboard::Right);
-    movement.push_back(sf::Keyboard::Up);
-    movement.push_back(sf::Keyboard::Down);
-
-    while (window.isOpen()) {
-        e.listening();
-
-        if (e.keyIsHold(esc))
-            window.close();
-
-        if (e.keyIsPressed(sf::Keyboard::N)) {
-            overworld.evolve();
-        }
-
-        if (e.keyIsPressed(sf::Keyboard::F1)) {
-            sf::Image screen = window.capture();
-            screen.saveToFile("screenshot.jpg");
-        }
-
-        if (e.keyIsReleased(movement) && !e.keyIsHold(movement))
-            animatedSprite.setAnimation(standingAnimation);
-        if (e.keyIsPressed(movement) && !e.keyIsHold(movement))
-            animatedSprite.setAnimation(walkingAnimation);
-
-        if (e.keyIsHold(sf::Keyboard::Down))
-            animatedSprite.move(0, +0.05);
-        if (e.keyIsHold(sf::Keyboard::Up))
-            animatedSprite.move(0, -0.05);
-        if (e.keyIsHold(sf::Keyboard::Left))
-            animatedSprite.move(-0.05, 0);
-        if (e.keyIsHold(sf::Keyboard::Right))
-            animatedSprite.move(+0.05, 0);
-
-        animatedSprite.update(frameClock.restart());
-
-        if(animatedSprite.getPosition().x > window.getSize().x) {
-            animatedSprite.setPosition(-50, animatedSprite.getPosition().y);
-        }
-
-        window.clear(sf::Color(0x00, 0xFF, 0x00));
-        window.draw(*overworld.getCurrentSprite());
-        window.draw(animatedSprite);
-        window.display();
-    }
+    game.run();
 
     return 0;
 }
