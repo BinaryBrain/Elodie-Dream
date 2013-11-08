@@ -13,7 +13,8 @@ typedef struct {
 class EventHandler
 {
 public:
-    EventHandler(sf::RenderWindow& window);
+    EventHandler(sf::RenderWindow* window);
+    virtual ~EventHandler();
     void listening();
 
     std::vector<int> keyPressed();

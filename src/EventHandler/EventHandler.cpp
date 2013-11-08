@@ -6,6 +6,16 @@
 
 using namespace std;
 
+EventHandler::EventHandler(sf::RenderWindow* window): m_window(window)
+{
+    m_window->setKeyRepeatEnabled(false);
+}
+
+EventHandler::~EventHandler()
+{
+
+}
+
 static void pushAll(vector<eventInput>& in, vector<eventInput> const& out)
 {
     for (unsigned int i(0); i < out.size(); ++i)
@@ -69,14 +79,6 @@ static bool checkIn(vector<eventInput> const& tab, vector<int> code)
     return false;
 }
 
-
-
-
-EventHandler::EventHandler(sf::RenderWindow& window): m_window(&window)
-{
-    m_window->setKeyRepeatEnabled(false);
-}
-
 void EventHandler::listening()
 {
     sf::Event event;
@@ -118,7 +120,6 @@ void EventHandler::listening()
         }
     }
 }
-
 
 vector<int> EventHandler::keyPressed()
 {

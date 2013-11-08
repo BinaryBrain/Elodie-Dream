@@ -10,9 +10,17 @@ class Level
 {
     public:
         Level();
+        Level(std::string filename);
         virtual ~Level();
+
+        void loadLevel(std::string filename);
+
+        TileMap getTiles();
+        EntitieVector getEntities();
     protected:
     private:
+        TileMap tiles;
+        EntitieVector entities;
 };
 
 #endif // LEVEL_H

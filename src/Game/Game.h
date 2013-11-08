@@ -8,6 +8,7 @@
 #include "../FileHandler/FileHandler.h"
 #include "../Overworld/Overworld.h"
 #include "../EventHandler/EventHandler.h"
+#include "GameView.h"
 
 class Game
 {
@@ -19,13 +20,15 @@ class Game
         void draw();
         void run();
 
-        void loadLevel(std::string filename);
+        Level loadLevel(std::string filename);
     protected:
     private:
-        sf::RenderWindow* window;
         EventHandler* event;
+
         Overworld overworld;
         sf::Clock frameClock;
+
+        GameView view;
 };
 
 #endif // GAME_H

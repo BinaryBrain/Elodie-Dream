@@ -1,12 +1,10 @@
 #include "Game.h"
 
 Game::Game() {
-    this->window = new sf::RenderWindow(sf::VideoMode(1280, 720), "Elodie's Dream: Quest for Poros", sf::Style::Default);
-    this->event = new EventHandler(*window);
+    this->event = new EventHandler(this->view.getWindow());
 }
 
 Game::~Game() {
-    delete window;
     delete event;
 }
 
@@ -25,13 +23,16 @@ void Game::run() {
     movement.push_back(sf::Keyboard::Up);
     movement.push_back(sf::Keyboard::Down);
 
-    loadLevel("assets/levels/level1.txt");
+    Level level("assets/levels/level1.txt");
+
+    sf::RenderWindow* window = view.getWindow();
 
     while (window->isOpen()) {
         event->listening();
 
-        if (event->keyIsHold(esc))
+        if (event->keyIsHold(esc)) {
             window->close();
+        }
 
         if (event->keyIsPressed(sf::Keyboard::N)) {
             overworld.evolve();
@@ -64,22 +65,6 @@ void Game::run() {
         }
         */
 
-        draw();
+        view.draw(overworld.getCurrentSprite());
     }
-}
-
-// TODO Separate the View from the controller
-void Game::draw() {
-    window->clear(sf::Color(0x00, 0xFF, 0x00));
-    window->draw(*overworld.getCurrentSprite());
-    window->display();
-}
-
-void Game::loadLevel(std::string filename) {
-    std::string level = FileHandler::getContent(filename);
-
-    TileMap tiles;
-    EntitieVector entities;
-
-    Mapper::parse(level, tiles, entities);
 }
