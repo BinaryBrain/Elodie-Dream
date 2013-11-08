@@ -39,7 +39,8 @@ void Game::run() {
             sf::Image screen = window->capture();
             screen.saveToFile("screenshot.jpg");
         }
-/*
+
+        /*
         if (event->keyIsReleased(movement) && !event->keyIsHold(movement))
             animatedSprite.setAnimation(standingAnimation);
         if (event->keyIsPressed(movement) && !event->keyIsHold(movement))
@@ -59,7 +60,7 @@ void Game::run() {
         if(animatedSprite.getPosition().x > window.getSize().x) {
             animatedSprite.setPosition(-50, animatedSprite.getPosition().y);
         }
-*/
+        */
 
         draw();
     }

@@ -15,6 +15,7 @@ class TileSprite : public EnvSprite
     protected:
     private:
         TileType type;
+        sf::Texture texture;
 };
 
 #endif // TILESPRITE_H
