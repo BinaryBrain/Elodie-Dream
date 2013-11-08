@@ -14,8 +14,21 @@ sf::RenderWindow* GameView::getWindow() {
     return window;
 }
 
-void GameView::draw(sf::Drawable* drawable) {
+void GameView::addDrawable(sf::Drawable* drawable) {
+    toDraw.push_back(drawable);
+}
+
+void GameView::draw() {
+    sf::View view = window->getView();
+    view.move(0, 0);
+    window->setView(view);
+
     window->clear(sf::Color(0x00, 0xFF, 0x00));
-    window->draw(*drawable);
+
+    for(std::vector<sf::Drawable*>::iterator it = toDraw.begin(); it != toDraw.end(); ++it) {
+        sf::Drawable* drawable = *it;
+        window->draw(*drawable);
+    }
+
     window->display();
 }

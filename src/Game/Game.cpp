@@ -65,6 +65,7 @@ void Game::run() {
         }
         */
 
-        view.draw(overworld.getCurrentSprite());
+        view.addDrawable(overworld.getCurrentSprite());
+        view.draw();
     }
 }

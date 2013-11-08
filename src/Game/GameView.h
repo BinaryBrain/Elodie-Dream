@@ -10,12 +10,13 @@ class GameView
         virtual ~GameView();
 
         void draw();
-        void draw(sf::Drawable* drawable);
+        void addDrawable(sf::Drawable*);
 
         sf::RenderWindow* getWindow();
     protected:
     private:
         sf::RenderWindow* window;
+        std::vector<sf::Drawable*> toDraw;
 };
 
 #endif // GAMEVIEW_H
