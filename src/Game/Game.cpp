@@ -25,6 +25,8 @@ void Game::run() {
     movement.push_back(sf::Keyboard::Up);
     movement.push_back(sf::Keyboard::Down);
 
+    loadLevel("assets/levels/level1.txt");
+
     while (window->isOpen()) {
         event->listening();
 
@@ -66,6 +68,7 @@ void Game::run() {
     }
 }
 
+// TODO Separate the View from the controller
 void Game::draw() {
     window->clear(sf::Color(0x00, 0xFF, 0x00));
     window->draw(*overworld.getCurrentSprite());

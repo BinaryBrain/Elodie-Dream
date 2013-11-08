@@ -9,6 +9,7 @@ TileSprite::TileSprite(TileType type) {
     this->setTexture(this->texture);
     // TODO Change the coords according to the type
     this->setTextureRect(sf::IntRect(32, 64, 32, 32));
+    this->setScale(32, 32);
 }
 
 TileSprite::~TileSprite() {

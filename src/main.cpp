@@ -15,7 +15,6 @@ using std::endl;
 int main() {
     // Map Parsing test
     Game game;
-    game.loadLevel("assets/levels/level1.txt");
 
     // Conf test
     JsonAccessor language = JsonAccessor();
