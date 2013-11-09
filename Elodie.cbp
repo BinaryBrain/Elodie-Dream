@@ -64,6 +64,8 @@
 		<Unit filename="src/FileHandler/SaveHandler.h" />
 		<Unit filename="src/Game/Game.cpp" />
 		<Unit filename="src/Game/Game.h" />
+		<Unit filename="src/Game/GameView.cpp" />
+		<Unit filename="src/Game/GameView.h" />
 		<Unit filename="src/JsonAccessor/JsonAccessor.cpp" />
 		<Unit filename="src/JsonAccessor/JsonAccessor.h" />
 		<Unit filename="src/JsonParser/JsonParser.cpp" />
