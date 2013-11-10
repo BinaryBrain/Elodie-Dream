@@ -29,7 +29,7 @@ void GameView::draw() {
         sf::Drawable* drawable = *it;
         window->draw(*drawable);
     }
-    toDraw.clear();
+
     window->display();
 
     toDraw.clear();
