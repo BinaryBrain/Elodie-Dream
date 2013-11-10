@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream>
+#include <vector>
 
 #include "../JsonParser/JsonParser.h"
 #include "../Utils/Utils.h"
@@ -16,6 +17,7 @@ class JsonAccessor
         virtual ~JsonAccessor();
         string getString(string key);
         int getInt(string key);
+        std::vector<int>* getIntVector(string key);
         bool load(string file);
     protected:
     private:

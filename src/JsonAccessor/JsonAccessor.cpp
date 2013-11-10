@@ -36,6 +36,28 @@ int JsonAccessor::getInt(string key)
         return values[key.c_str()].GetInt();
     }
 }
+
+std::vector<int>* JsonAccessor::getIntVector(string key)
+{
+    if(!this->loaded)
+    {
+        cerr << "Not loaded yet" << endl;
+        return 0;
+    }
+    else
+    {
+        std::vector<int>* vec = new std::vector<int>();
+        const rapidjson::Value& a = values[key.c_str()];
+        assert(a.IsArray());
+        for (rapidjson::SizeType i = 0; i < a.Size(); i++)
+        {
+            vec->push_back(a[i].GetInt());
+        }
+
+        return vec;
+    }
+}
+
 bool JsonAccessor::load(string file)
 {
     if(!this->loaded)

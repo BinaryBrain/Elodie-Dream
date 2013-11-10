@@ -5,12 +5,22 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
+#include "../Entities/Elodie.h"
+#include "../JsonAccessor/JsonAccessor.h"
+
 class Overworld
 {
     public:
         Overworld();
         virtual ~Overworld();
         sf::Sprite* getCurrentSprite();
+        ElodieSprite* getElodieSprite();
+        Elodie* getElodie();
+        sf::VertexArray* getPath();
+        int moveUp();
+        int moveDown();
+        int moveRight();
+        int moveLeft();
         void evolve();
 
     protected:
@@ -24,6 +34,12 @@ class Overworld
 
         states currentState;
         std::vector<sf::Sprite*> overworldSprites;
+        std::vector<sf::VertexArray*> paths;
+        std::vector<std::vector<int>*> levelPos;
+
+        size_t curPosInPath=0;
+
+        Elodie* elodie;
 };
 
 #endif // OVERWORLD_H

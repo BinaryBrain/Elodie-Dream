@@ -10,6 +10,11 @@ class Elodie : public Entities
     public:
         Elodie();
         Elodie(sf::Vector2f position);
+        Elodie(float x, float y);
+        ElodieSprite* getSprite();
+        sf::Vector2f* getPosition();
+        void walk();
+        void stand();
         virtual ~Elodie();
 
     protected:
@@ -18,6 +23,9 @@ class Elodie : public Entities
         void init();
 
         ElodieSprite *sprite;
+
+        int centerX = 21;
+        int centerY = 32;
 };
 
 #endif // ELODIE_H

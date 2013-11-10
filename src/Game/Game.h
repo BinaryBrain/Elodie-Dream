@@ -29,6 +29,15 @@ class Game
         sf::Clock frameClock;
 
         GameView view;
+
+        float toMove = 0;
+        float speed = 0.3;
+        bool goingUp = false;
+        bool goingDown = false;
+        bool goingRight = false;
+        bool goingLeft = false;
+        bool isMoving();
+        void noMoves();
 };
 
 #endif // GAME_H
