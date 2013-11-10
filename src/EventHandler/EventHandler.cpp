@@ -32,6 +32,16 @@ static int inVector(vector<eventInput> const& tab, int val)
     return -1;
 }
 
+static int inVector(vector<eventMouse> const& tab, int val)
+{
+    for (int i(0); i < (int)tab.size(); ++i)
+    {
+        if (tab[i].code == val)
+            return i;
+    }
+    return -1;
+}
+
 /*static void extractByTime(vector<eventInput>& tab, time_t curTime)
 {
     for (int i(0); i < (int)tab.size(); ++i)
@@ -42,6 +52,17 @@ static int inVector(vector<eventInput> const& tab, int val)
 }*/
 
 static void extractByCode(vector<eventInput>& tab, int code)
+{
+    for (int i(0); i < (int)tab.size(); ++i)
+    {
+        if (tab[i].code == code) {
+            tab.erase(tab.begin() + i);
+            return ;
+        }
+    }
+}
+
+static void extractByCode(vector<eventMouse>& tab, int code)
 {
     for (int i(0); i < (int)tab.size(); ++i)
     {
@@ -88,9 +109,13 @@ void EventHandler::listening()
     pushAll(m_keyHold, m_keyPressed);
     m_keyPressed.clear();
     m_keyReleased.clear();
+    m_mousePressed.clear();
+    m_mouseReleased.clear();
+    m_mouseWheel.code = 0;
     while (m_window->pollEvent(event))
     {
         eventInput newInput;
+        eventMouse newMouse;
 
         switch (event.type)
         {
@@ -114,9 +139,39 @@ void EventHandler::listening()
                 newInput.time = curTime;
                 m_keyReleased.push_back(newInput);
                 break;
+
+            case sf::Event::MouseWheelMoved:
+                m_mouseWheel.code = event.mouseWheel.delta;
+                m_mouseWheel.x = event.mouseWheel.x;
+                m_mouseWheel.y = event.mouseWheel.y;
+                m_mouseWheel.time = curTime;
+                break;
+
             case sf::Event::MouseButtonPressed:
                 std::cout << "Mouse pos : (" << event.mouseButton.x << "; " << event.mouseButton.y << ")" << std::endl;
+                if (inVector(m_mousePressed, event.key.code) < 0 || inVector(m_mouseHold, event.key.code) < 0)
+                {
+                    newMouse.code = event.mouseButton.button;
+                    newMouse.x = event.mouseButton.x;
+                    newMouse.y = event.mouseButton.y;
+                    newMouse.time = curTime;
+                    m_mousePressed.push_back(newMouse);
+                }
                 break;
+
+            case sf::Event::MouseButtonReleased:
+                extractByCode(m_mousePressed, event.mouseButton.button);
+                extractByCode(m_mouseHold, event.mouseButton.button);
+                newMouse.code = event.mouseButton.button;
+                newMouse.x = event.mouseButton.x;
+                newMouse.y = event.mouseButton.y;
+                newMouse.time = curTime;
+                m_mouseReleased.push_back(newMouse);
+                break;
+
+            case sf::Event::MouseMoved:
+                break;
+
             default:
                 break;
         }

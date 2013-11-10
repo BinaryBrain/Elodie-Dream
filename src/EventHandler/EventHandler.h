@@ -10,6 +10,13 @@ typedef struct {
     std::time_t time;
 } eventInput;
 
+typedef struct {
+    int code;
+    int x;
+    int y;
+    std::time_t time;
+} eventMouse;
+
 class EventHandler
 {
 public:
@@ -29,8 +36,9 @@ public:
     bool keyIsReleased(int code);
     bool keyIsReleased(std::vector<int> code);
 private:
-    std::vector<eventInput> m_keyPressed, m_keyHold, m_keyReleased, m_mousePressed, m_mouseReleased;
-    int m_mouseWheel;
+    std::vector<eventInput> m_keyPressed, m_keyHold, m_keyReleased;
+    std::vector<eventMouse> m_mousePressed, m_mouseHold, m_mouseReleased;
+    eventMouse m_mouseWheel;
     sf::RenderWindow* m_window;
 };
 
