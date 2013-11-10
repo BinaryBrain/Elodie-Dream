@@ -31,4 +31,6 @@ void GameView::draw() {
     }
 
     window->display();
+
+    toDraw.clear();
 }
