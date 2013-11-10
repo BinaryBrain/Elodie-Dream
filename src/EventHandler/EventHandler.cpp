@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <time.h>
-
+#include <iostream>
 #include "EventHandler.h"
 
 using namespace std;
@@ -114,7 +114,9 @@ void EventHandler::listening()
                 newInput.time = curTime;
                 m_keyReleased.push_back(newInput);
                 break;
-
+            case sf::Event::MouseButtonPressed:
+                std::cout << "Mouse pos : (" << event.mouseButton.x << "; " << event.mouseButton.y << ")" << std::endl;
+                break;
             default:
                 break;
         }
