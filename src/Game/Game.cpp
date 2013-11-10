@@ -67,7 +67,6 @@ void Game::run()
 
         if(isMoving())
         {
-            overworld.getElodie()->walk();
             if (goingDown)
             {
                 toMove -= speed;
@@ -98,6 +97,7 @@ void Game::run()
             toMove = overworld.moveDown();
             if(toMove > 0)
             {
+                overworld.getElodie()->walk();
                 goingDown = true;
             }
         }
@@ -106,6 +106,7 @@ void Game::run()
             toMove = overworld.moveUp();
             if(toMove > 0)
             {
+                overworld.getElodie()->walk();
                 goingUp = true;
             }
         }
@@ -114,6 +115,7 @@ void Game::run()
             toMove = overworld.moveLeft();
             if(toMove > 0)
             {
+                overworld.getElodie()->walk();
                 goingLeft = true;
             }
         }
@@ -122,6 +124,7 @@ void Game::run()
             toMove = overworld.moveRight();
             if(toMove > 0)
             {
+                overworld.getElodie()->walk();
                 goingRight = true;
             }
         }

@@ -2,7 +2,7 @@
 
 ElodieSprite::ElodieSprite() : CharacterSprite()
 {
-    this->texture.loadFromFile("assets/img/sprite.jpg");
+    this->texture.loadFromFile("assets/img/sprite.png");
 
     // push frames
     this->walkingAnimation.setSpriteSheet(this->texture);
