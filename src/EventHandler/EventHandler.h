@@ -17,8 +17,7 @@ typedef struct {
     std::time_t time;
 } eventMouse;
 
-class EventHandler
-{
+class EventHandler {
 public:
     EventHandler(sf::RenderWindow* window);
     virtual ~EventHandler();
@@ -35,6 +34,18 @@ public:
     std::vector<int> keyReleased();
     bool keyIsReleased(int code);
     bool keyIsReleased(std::vector<int> code);
+
+    bool mouseIsPressed(int code);
+    eventMouse mouseInfoPressed(int code);
+
+    bool mouseIsHold(int code);
+    eventMouse mouseInfoHold(int code);
+
+    bool mouseIsReleased(int code);
+    eventMouse mouseInfoReleased(int code);
+
+    int mouseIsWheeled();
+    eventMouse mouseInfoWheeled();
 private:
     std::vector<eventInput> m_keyPressed, m_keyHold, m_keyReleased;
     std::vector<eventMouse> m_mousePressed, m_mouseHold, m_mouseReleased;

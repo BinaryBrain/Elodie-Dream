@@ -51,6 +51,14 @@ void Game::run()
             screen.saveToFile("screenshot.jpg");
         }
 
+        if (event->mouseIsPressed(sf::Mouse::Left))
+        {
+            eventMouse leftClick(event->mouseInfoPressed(sf::Mouse::Left));
+            std::cout << "Mouse pos : (" << leftClick.x << "; " << leftClick.y << ")" << std::endl;
+        }
+
+        if (event->mouseIsWheeled())
+            std::cout << "Wheeeee " << event->mouseIsWheeled() << std::endl;
         /*
         if (event->keyIsReleased(movement) && !event->keyIsHold(movement))
             animatedSprite.setAnimation(standingAnimation);

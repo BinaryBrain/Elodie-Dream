@@ -4,7 +4,7 @@
 #include <iostream>
 #include "EventHandler.h"
 
-using namespace std;
+using std::vector;
 
 EventHandler::EventHandler(sf::RenderWindow* window): m_window(window)
 {
@@ -13,15 +13,26 @@ EventHandler::EventHandler(sf::RenderWindow* window): m_window(window)
 
 EventHandler::~EventHandler()
 {
-
+    //TODO: Check if there is something to delete when the game is closed
 }
 
-static void pushAll(vector<eventInput>& in, vector<eventInput> const& out)
+/*
+** pushAll is used to push all the content of one tab to another one
+** (used to pass all the data of m_*pressed to m_*hold)
+*/
+static void pushAll(vector<eventInput> const& tabFrom, vector<eventInput>& tabTo)
 {
-    for (unsigned int i(0); i < out.size(); ++i)
-        in.push_back(out[i]);
+    for (unsigned int i(0); i < tabFrom.size(); ++i)
+        tabTo.push_back(tabFrom[i]);
 }
 
+static void pushAll(vector<eventMouse> const& tabFrom, vector<eventMouse>& tabTo)
+{
+    for (unsigned int i(0); i < tabFrom.size(); ++i)
+        tabTo.push_back(tabFrom[i]);
+}
+
+//inVector return the position of an element if he's in the vector and -1 otherwhise
 static int inVector(vector<eventInput> const& tab, int val)
 {
     for (int i(0); i < (int)tab.size(); ++i)
@@ -51,6 +62,7 @@ static int inVector(vector<eventMouse> const& tab, int val)
     }
 }*/
 
+//extractByCode delete an element from a vector based on the code given in the parameters
 static void extractByCode(vector<eventInput>& tab, int code)
 {
     for (int i(0); i < (int)tab.size(); ++i)
@@ -73,6 +85,7 @@ static void extractByCode(vector<eventMouse>& tab, int code)
     }
 }
 
+//codeContent return all the keycode that are in the given tab
 static vector<int> codeContent(vector<eventInput> const& tab)
 {
    vector<int> ret;
@@ -83,6 +96,22 @@ static vector<int> codeContent(vector<eventInput> const& tab)
     return ret;
 }
 
+/*
+** getInfoByCode return the informations about the mousekey (code) given in the parameters
+** If the mouseKey is not in the tab, an empty struct is returned (maybe change it to an exception later)
+*/
+static eventMouse getInfoByCode(vector<eventMouse> const &tab, int code)
+{
+    eventMouse emptyStruct;
+
+    for(unsigned int i(0); i < tab.size(); ++i) {
+        if (tab[i].code == code)
+            return tab[i];
+    }
+    return emptyStruct;
+}
+
+//checkIn return true or false if the code(s) is/are in the given tab
 static bool checkIn(vector<eventInput> const& tab, int code)
 {
     if (inVector(tab, code) < 0)
@@ -100,13 +129,26 @@ static bool checkIn(vector<eventInput> const& tab, vector<int> code)
     return false;
 }
 
+static bool checkIn(vector<eventMouse> const& tab, int code)
+{
+    if (inVector(tab, code) < 0)
+        return false;
+    return true;
+}
+
+/*
+** EventHandler::listening() has to be called at each turn of the game.
+** It calculates which events have occured and stock then in the right tab.
+** It's important to call it before trying to use any other function of EventHandler
+*/
 void EventHandler::listening()
 {
     sf::Event event;
     time_t curTime;
 
     time(&curTime);
-    pushAll(m_keyHold, m_keyPressed);
+    pushAll(m_keyPressed, m_keyHold);
+    pushAll(m_mousePressed, m_mouseHold);
     m_keyPressed.clear();
     m_keyReleased.clear();
     m_mousePressed.clear();
@@ -148,7 +190,6 @@ void EventHandler::listening()
                 break;
 
             case sf::Event::MouseButtonPressed:
-                std::cout << "Mouse pos : (" << event.mouseButton.x << "; " << event.mouseButton.y << ")" << std::endl;
                 if (inVector(m_mousePressed, event.key.code) < 0 || inVector(m_mouseHold, event.key.code) < 0)
                 {
                     newMouse.code = event.mouseButton.button;
@@ -223,4 +264,52 @@ bool EventHandler::keyIsReleased(int code)
 bool EventHandler::keyIsReleased(vector<int> code)
 {
     return checkIn(m_keyReleased, code);
+}
+
+
+bool EventHandler::mouseIsPressed(int code)
+{
+    return checkIn(m_mousePressed, code);
+}
+
+eventMouse EventHandler::mouseInfoPressed(int code)
+{
+    return getInfoByCode(m_mousePressed, code);
+}
+
+
+bool EventHandler::mouseIsHold(int code)
+{
+    return checkIn(m_mouseHold, code);
+}
+
+eventMouse EventHandler::mouseInfoHold(int code)
+{
+    return getInfoByCode(m_mouseHold, code);
+}
+
+
+bool EventHandler::mouseIsReleased(int code)
+{
+    return checkIn(m_mouseReleased, code);
+}
+
+eventMouse EventHandler::mouseInfoReleased(int code)
+{
+    return getInfoByCode(m_mouseReleased, code);
+}
+
+
+int EventHandler::mouseIsWheeled()
+{
+    return m_mouseWheel.code;
+}
+
+eventMouse EventHandler::mouseInfoWheeled()
+{
+    eventMouse emptyStruct;
+    if (m_mouseWheel.code)
+        return m_mouseWheel;
+    else
+        return emptyStruct;
 }
