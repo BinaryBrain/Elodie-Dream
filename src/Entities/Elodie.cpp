@@ -42,6 +42,84 @@ void Elodie::init()
     this->sprite = new ElodieSprite();
 }
 
+void Elodie::move()
+{
+    if (goingDown)
+    {
+        toMove -= speed;
+        this->sprite->move(0, speed);
+    }
+    else if (goingLeft)
+    {
+        toMove -= speed;
+        this->sprite->move(-speed, 0);
+    }
+    else if (goingRight)
+    {
+        toMove -= speed;
+        this->sprite->move(+speed, 0);
+    }
+    else if (goingUp)
+    {
+        toMove -= speed;
+        this->sprite->move(0, -speed);
+    }
+    else
+    {
+        noMoves();
+    }
+}
+
+void Elodie::walkDown()
+{
+    this->walk();
+    goingDown = true;
+}
+void Elodie::walkUp()
+{
+    this->walk();
+    goingUp = true;
+}
+void Elodie::walkRight()
+{
+    this->walk();
+    goingRight = true;
+}
+void Elodie::walkLeft()
+{
+    this->walk();
+    goingLeft = true;
+}
+
+void Elodie::setDistanceToMove(float dist)
+{
+    toMove = dist;
+}
+
+bool Elodie::hasToMove()
+{
+    return toMove > 0;
+}
+
+bool Elodie::isMoving()
+{
+    return goingDown or goingLeft or goingRight or goingUp;
+}
+
+void Elodie::noMoves()
+{
+    toMove = 0;
+    goingDown = false;
+    goingLeft = false;
+    goingRight = false;
+    goingUp = false;
+}
+
+void Elodie::update(sf::Time deltaTime)
+{
+    this->sprite->update(deltaTime);
+}
+
 Elodie::~Elodie()
 {
     //  TODO : maybe source of memory leak

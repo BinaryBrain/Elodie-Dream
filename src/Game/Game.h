@@ -30,14 +30,7 @@ class Game
 
         GameView view;
 
-        float toMove = 0;
-        float speed = 0.3;
-        bool goingUp = false;
-        bool goingDown = false;
-        bool goingRight = false;
-        bool goingLeft = false;
-        bool isMoving();
-        void noMoves();
+        bool inLevel = false;
 };
 
 #endif // GAME_H

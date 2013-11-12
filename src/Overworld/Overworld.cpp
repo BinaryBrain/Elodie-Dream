@@ -173,11 +173,6 @@ sf::Sprite* Overworld::getCurrentSprite()
     return this->overworldSprites[this->currentState];
 }
 
-ElodieSprite* Overworld::getElodieSprite()
-{
-    return this->elodie->getSprite();
-}
-
 Elodie* Overworld::getElodie()
 {
     return this->elodie;

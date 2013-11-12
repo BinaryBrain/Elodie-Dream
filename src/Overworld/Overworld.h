@@ -14,7 +14,6 @@ class Overworld
         Overworld();
         virtual ~Overworld();
         sf::Sprite* getCurrentSprite();
-        ElodieSprite* getElodieSprite();
         Elodie* getElodie();
         sf::VertexArray* getPath();
         int moveUp();

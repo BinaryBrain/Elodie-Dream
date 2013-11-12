@@ -7,25 +7,43 @@
 
 class Elodie : public Entities
 {
-    public:
-        Elodie();
-        Elodie(sf::Vector2f position);
-        Elodie(float x, float y);
-        ElodieSprite* getSprite();
-        sf::Vector2f* getPosition();
-        void walk();
-        void stand();
-        virtual ~Elodie();
+public:
+    Elodie();
+    Elodie(sf::Vector2f position);
+    Elodie(float x, float y);
+    ElodieSprite* getSprite();
+    sf::Vector2f* getPosition();
+    void walkDown();
+    void walkUp();
+    void walkRight();
+    void walkLeft();
+    void update(sf::Time deltaTime);
+    void stand();
+    void move();
+    void setDistanceToMove(float dist);
+    bool isMoving();
+    bool hasToMove();
+    void noMoves();
+    virtual ~Elodie();
 
-    protected:
+protected:
 
-    private:
-        void init();
+private:
+    void init();
 
-        ElodieSprite *sprite;
+    void walk();
 
-        int centerX = 21;
-        int centerY = 32;
+    ElodieSprite *sprite;
+
+    int centerX = 21;
+    int centerY = 32;
+
+    float toMove = 0;
+    float speed = 0.3;
+    bool goingUp = false;
+    bool goingDown = false;
+    bool goingRight = false;
+    bool goingLeft = false;
 };
 
 #endif // ELODIE_H

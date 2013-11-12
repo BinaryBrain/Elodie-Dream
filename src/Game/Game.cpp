@@ -66,98 +66,67 @@ void Game::run()
             animatedSprite.setAnimation(walkingAnimation);
         */
 
-        if(toMove <= 0)
+        if(!overworld.getElodie()->hasToMove())
         {
-            toMove = 0;
-            noMoves();
+            overworld.getElodie()->noMoves();
             overworld.getElodie()->stand();
         }
 
-        if(isMoving())
+        if(overworld.getElodie()->isMoving())
         {
-            if (goingDown)
-            {
-                toMove -= speed;
-                overworld.getElodieSprite()->move(0, speed);
-            }
-            else if (goingLeft)
-            {
-                toMove -= speed;
-                overworld.getElodieSprite()->move(-speed, 0);
-            }
-            else if (goingRight)
-            {
-                toMove -= speed;
-                overworld.getElodieSprite()->move(+speed, 0);
-            }
-            else if (goingUp)
-            {
-                toMove -= speed;
-                overworld.getElodieSprite()->move(0, -speed);
-            }
-            else
-            {
-                noMoves();
-            }
+            overworld.getElodie()->move();
         }
         else if (event->keyIsHold(sf::Keyboard::Down))
         {
-            toMove = overworld.moveDown();
-            if(toMove > 0)
+            overworld.getElodie()->setDistanceToMove(overworld.moveDown());
+            if(overworld.getElodie()->hasToMove())
             {
-                overworld.getElodie()->walk();
-                goingDown = true;
+                overworld.getElodie()->walkDown();
             }
         }
         else if (event->keyIsHold(sf::Keyboard::Up))
         {
-            toMove = overworld.moveUp();
-            if(toMove > 0)
+            overworld.getElodie()->setDistanceToMove(overworld.moveUp());
+            if(overworld.getElodie()->hasToMove())
             {
-                overworld.getElodie()->walk();
-                goingUp = true;
+                overworld.getElodie()->walkUp();
             }
         }
         else if (event->keyIsHold(sf::Keyboard::Left))
         {
-            toMove = overworld.moveLeft();
-            if(toMove > 0)
+            overworld.getElodie()->setDistanceToMove(overworld.moveLeft());
+            if(overworld.getElodie()->hasToMove())
             {
-                overworld.getElodie()->walk();
-                goingLeft = true;
+                overworld.getElodie()->walkLeft();
             }
         }
         else if (event->keyIsHold(sf::Keyboard::Right))
         {
-            toMove = overworld.moveRight();
-            if(toMove > 0)
+            overworld.getElodie()->setDistanceToMove(overworld.moveRight());
+            if(overworld.getElodie()->hasToMove())
             {
-                overworld.getElodie()->walk();
-                goingRight = true;
+                overworld.getElodie()->walkRight();
             }
         }
 
-        overworld.getElodieSprite()->update(frameClock.restart());
+        if (event->keyIsPressed(sf::Keyboard::Return))
+        {
+            inLevel = !inLevel;
+        }
 
-//        view.addDrawable(overworld.getCurrentSprite());
-//        view.addDrawable(overworld.getElodieSprite());
-//        view.addDrawable(overworld.getPath());
+        if (inLevel)
+        {
+            level.draw(&view);
+        }
+        else
+        {
+            overworld.getElodie()->update(frameClock.restart());
 
-        level.draw(&view);
+            view.addDrawable(overworld.getCurrentSprite());
+            view.addDrawable(overworld.getElodie()->getSprite());
+            view.addDrawable(overworld.getPath());
+        }
 
         view.draw();
     }
-}
-
-bool Game::isMoving()
-{
-    return goingDown or goingLeft or goingRight or goingUp;
-}
-
-void Game::noMoves()
-{
-    goingDown = false;
-    goingLeft = false;
-    goingRight = false;
-    goingUp = false;
 }
