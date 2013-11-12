@@ -6,14 +6,13 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
+#include "../env.h"
+
 #include "../Sprite/ElodieSprite.h"
 #include "../Sprite/EnvSprite.h"
 #include "../Sprite/TileSprite.h"
 #include "../Entities/Entities.h"
 #include "../Entities/Elodie.h"
-
-typedef std::vector< std::vector<TileSprite*> > TileMap;
-typedef std::vector<Entities*> EntitieVector;
 
 class Mapper {
     private:

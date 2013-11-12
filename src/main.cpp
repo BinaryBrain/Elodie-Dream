@@ -2,6 +2,8 @@
 #include <vector>
 #include <iostream>
 
+#include "env.h"
+
 #include "Sprite/AnimatedSprite.h"
 #include "EventHandler/EventHandler.h"
 #include "JsonParser/JsonParser.h"

@@ -5,6 +5,7 @@
 
 #include "../Map/Mapper.h"
 #include "../FileHandler/FileHandler.h"
+#include "../Game/GameView.h"
 
 class Level
 {
@@ -17,6 +18,8 @@ class Level
 
         TileMap getTiles();
         EntitieVector getEntities();
+
+        void draw(GameView* view);
     protected:
     private:
         TileMap tiles;

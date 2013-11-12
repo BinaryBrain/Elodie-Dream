@@ -139,11 +139,11 @@ void Game::run()
 
         overworld.getElodieSprite()->update(frameClock.restart());
 
-        view.addDrawable(overworld.getCurrentSprite());
+//        view.addDrawable(overworld.getCurrentSprite());
+//        view.addDrawable(overworld.getElodieSprite());
+//        view.addDrawable(overworld.getPath());
 
-        view.addDrawable(overworld.getElodieSprite());
-
-        view.addDrawable(overworld.getPath());
+        level.draw(&view);
 
         view.draw();
     }

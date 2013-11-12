@@ -17,3 +17,14 @@ void Level::loadLevel(std::string filename) {
 
     Mapper::parse(levelSource, this->tiles, this->entities);
 }
+
+void Level::draw(GameView* view) {
+    for(unsigned int y=0; y<tiles.size(); y++) {
+        for(unsigned int x=0; x<tiles[y].size(); x++) {
+            if(tiles[y][x]) {
+                tiles[y][x]->setPosition(x*32, y*32);
+                view->addDrawable(tiles[y][x]);
+            }
+        }
+    }
+}
