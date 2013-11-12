@@ -36,23 +36,23 @@ void TileSprite::addSide(TileSide side) {
 void TileSprite::setSide(int side) {
     this->side = side;
 
-    if(this->side & (int) TileSide::TOP) {
+    if(this->side == (int) TileSide::TOP) {
         this->setTextureRect(sf::IntRect(32, 32, 32, 32));
     }
 
-    if(this->side & (int) TileSide::LEFT) {
+    if(this->side == (int) TileSide::LEFT) {
         this->setTextureRect(sf::IntRect(0, 64, 32, 32));
     }
 
-    if(this->side & (int) TileSide::RIGHT) {
+    if(this->side == (int) TileSide::RIGHT) {
         this->setTextureRect(sf::IntRect(64, 64, 32, 32));
     }
 
-    if(this->side & (int) TileSide::TOP && this->side & (int) TileSide::LEFT) {
+    if(this->side == ((int) TileSide::TOP | (int) TileSide::LEFT)) {
         this->setTextureRect(sf::IntRect(0, 32, 32, 32));
     }
 
-    if(this->side & (int) TileSide::TOP && this->side & (int) TileSide::RIGHT) {
+    if(this->side == ((int) TileSide::TOP | (int) TileSide::RIGHT)) {
         this->setTextureRect(sf::IntRect(64, 32, 32, 32));
     }
 }
