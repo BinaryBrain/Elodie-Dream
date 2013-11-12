@@ -20,7 +20,8 @@ void GameView::addDrawable(sf::Drawable* drawable) {
 
 void GameView::draw() {
     sf::View view = window->getView();
-    view.move(0, 0);
+    //view.setCenter(0,0);
+    //view.setSize(160, 100);
     window->setView(view);
 
     window->clear(sf::Color(0x00, 0xFF, 0x00));
