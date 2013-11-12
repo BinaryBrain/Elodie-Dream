@@ -22,7 +22,6 @@
 					<Add library="sfml\lib\libsfml-main-d.a" />
 					<Add library="sfml\lib\libsfml-network-d.a" />
 					<Add directory="sfml/lib" />
-					<Add directory="E:/Documents/Github/Elodie-game/jsoncpp/src/lib_json" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -94,6 +93,7 @@
 		<Unit filename="src/Sprite/TileSprite.h" />
 		<Unit filename="src/Utils/Utils.cpp" />
 		<Unit filename="src/Utils/Utils.h" />
+		<Unit filename="src/env.h" />
 		<Unit filename="src/main.cpp" />
 		<Extensions>
 			<code_completion />
