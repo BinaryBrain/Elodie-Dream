@@ -44,6 +44,28 @@ void Mapper::parse(std::string str, TileMap& tiles, EntitieVector& entities) {
     }
 }
 
+void Mapper::beautify(TileMap& tiles) {
+    std::cout << "BEAUTIFYING MAP" << std::endl;
+
+    for(unsigned int y=0; y<tiles.size(); y++) {
+        for(unsigned int x=0; x<tiles[y].size(); x++) {
+            if(tiles[y][x]) {
+                if(y >= 1 && !tiles[y-1][x]) {
+                    tiles[y][x]->addSide(TileSide::TOP);
+                }
+
+                if(x >= 1 && !tiles[y][x-1]) {
+                    tiles[y][x]->addSide(TileSide::LEFT);
+                }
+
+                if(x < tiles[y].size()-1 && !tiles[y][x+1]) {
+                    tiles[y][x]->addSide(TileSide::RIGHT);
+                }
+            }
+        }
+    }
+}
+
 void Mapper::print(TileMap& tiles, EntitieVector& entities) {
     std::cout << "PRINTING MAP" << std::endl;
 

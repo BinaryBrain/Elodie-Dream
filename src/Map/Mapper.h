@@ -30,6 +30,7 @@ class Mapper {
     public:
         Mapper();
         static void parse(std::string str, TileMap& tiles, EntitieVector& entities);
+        static void beautify(TileMap& tiles);
         static void print(TileMap& tiles, EntitieVector& entities);
 };
 

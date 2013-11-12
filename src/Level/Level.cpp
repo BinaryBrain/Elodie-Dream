@@ -16,6 +16,7 @@ void Level::loadLevel(std::string filename) {
     std::string levelSource = FileHandler::getContent(filename);
 
     Mapper::parse(levelSource, this->tiles, this->entities);
+    Mapper::beautify(this->tiles);
 }
 
 void Level::draw(GameView* view) {

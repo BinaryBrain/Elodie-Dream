@@ -24,7 +24,7 @@ void GameView::draw() {
     //view.setSize(160, 100);
     window->setView(view);
 
-    window->clear(sf::Color(0x00, 0xFF, 0x00));
+    window->clear(sf::Color(0x00, 0x00, 0xFF));
 
     for(std::vector<sf::Drawable*>::iterator it = toDraw.begin(); it != toDraw.end(); ++it) {
         sf::Drawable* drawable = *it;
