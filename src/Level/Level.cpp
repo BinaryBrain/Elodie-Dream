@@ -28,4 +28,13 @@ void Level::draw(GameView* view) {
             }
         }
     }
+
+    for(EntitieVector::iterator entity_ptr = entities.begin(); entity_ptr != entities.end(); ++entity_ptr) {
+        Entity* entity = *entity_ptr;
+        sf::Sprite* sprite = entity->getSprite();
+
+        if(sprite) {
+            view->addDrawable(sprite);
+        }
+    }
 }

@@ -11,8 +11,8 @@
 #include "../Sprite/ElodieSprite.h"
 #include "../Sprite/EnvSprite.h"
 #include "../Sprite/TileSprite.h"
-#include "../Entities/Entities.h"
-#include "../Entities/Elodie.h"
+#include "../Entity/Entity.h"
+#include "../Entity/Elodie.h"
 
 class Mapper {
     private:

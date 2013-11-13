@@ -17,6 +17,8 @@ ElodieSprite::ElodieSprite() : CharacterSprite()
 
     this->standingAnimation.setSpriteSheet(this->texture);
     this->standingAnimation.addFrame(sf::IntRect(0, 0, 43, 64));
+
+    this->setAnimation(standingAnimation);
 }
 
 ElodieSprite::~ElodieSprite()

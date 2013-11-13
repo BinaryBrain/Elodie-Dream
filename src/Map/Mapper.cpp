@@ -7,13 +7,13 @@ Mapper::Mapper() {
 void Mapper::parse(std::string str, TileMap& tiles, EntitieVector& entities) {
     std::cout << "PARSING MAP" << std::endl;
     unsigned int y = 0;
+    unsigned int x = 0;
 
     for(unsigned int i = 0; i < str.length(); i++) {
         // Entities
         switch(str[i]) {
             case MAP_ELODIE:
-
-                entities.push_back(new Elodie());
+                entities.push_back(new Elodie(x*32, y*32));
                 break;
             default:
                 break;
@@ -31,6 +31,7 @@ void Mapper::parse(std::string str, TileMap& tiles, EntitieVector& entities) {
 
             case MAP_LINE_BREAK:
                 y++;
+                x=0;
                 break;
 
             case MAP_NULL:
@@ -41,6 +42,8 @@ void Mapper::parse(std::string str, TileMap& tiles, EntitieVector& entities) {
                 tiles[y].push_back(NULL);
                 break;
         }
+
+        ++x;
     }
 }
 

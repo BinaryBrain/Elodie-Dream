@@ -1,11 +1,11 @@
 #ifndef ELODIE_H
 #define ELODIE_H
 
-#include "Entities.h"
+#include "Entity.h"
 #include "../Sprite/ElodieSprite.h"
 
 
-class Elodie : public Entities
+class Elodie : public Entity
 {
 public:
     Elodie();
@@ -33,7 +33,7 @@ private:
 
     void walk();
 
-    ElodieSprite *sprite;
+    ElodieSprite* sprite;
 
     int centerX = 21;
     int centerY = 32;

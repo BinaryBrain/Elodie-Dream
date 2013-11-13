@@ -5,7 +5,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-#include "../Entities/Elodie.h"
+#include "../Entity/Elodie.h"
 #include "../JsonAccessor/JsonAccessor.h"
 
 class Overworld
