@@ -12,20 +12,23 @@ public:
     Elodie(sf::Vector2f position);
     Elodie(float x, float y);
     ElodieSprite* getSprite();
+    virtual ~Elodie();
+
     sf::Vector2f* getPosition();
+
     void walkDown();
     void walkUp();
     void walkRight();
     void walkLeft();
-    void update(sf::Time deltaTime);
+
     void stand();
     void move();
     void setDistanceToMove(float dist);
     bool isMoving();
     bool hasToMove();
     void noMoves();
-    virtual ~Elodie();
 
+    void update(sf::Time deltaTime);
 protected:
 
 private:
