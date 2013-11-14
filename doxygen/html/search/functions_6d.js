@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['mapper',['Mapper',['../class_mapper.html',1,'']]],
   ['mouseinfohold',['mouseInfoHold',['../class_event_handler.html#a83d4ae5edd55295d3ad8edf339e41437',1,'EventHandler']]],
   ['mouseinfopressed',['mouseInfoPressed',['../class_event_handler.html#aa4fb5cd4518ba6343189aa8110c4fa9a',1,'EventHandler']]],
   ['mouseinforeleased',['mouseInfoReleased',['../class_event_handler.html#a79b19a1b5a5de09f6913746c34d424c4',1,'EventHandler']]],

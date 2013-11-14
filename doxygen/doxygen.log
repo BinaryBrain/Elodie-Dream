@@ -1,17 +1,17 @@
-E:/Documents/Github/Elodie-game/src/EventHandler/EventHandler.cpp:279: warning: no matching class member found for 
-  bool EventHandler::keyIsPressed(vector< int > code)
+E:/Documents/Github/Elodie-game/src/EventHandler/EventHandler.cpp:318: warning: no matching class member found for 
+  bool EventHandler::keyIsPressed(vector< int > codes)
 Possible candidates:
   bool EventHandler::keyIsPressed(int code)
   bool EventHandler::keyIsPressed(std::vector< int > code)
 
-E:/Documents/Github/Elodie-game/src/EventHandler/EventHandler.cpp:295: warning: no matching class member found for 
-  bool EventHandler::keyIsHold(vector< int > code)
+E:/Documents/Github/Elodie-game/src/EventHandler/EventHandler.cpp:351: warning: no matching class member found for 
+  bool EventHandler::keyIsHold(vector< int > codes)
 Possible candidates:
   bool EventHandler::keyIsHold(int code)
   bool EventHandler::keyIsHold(std::vector< int > code)
 
-E:/Documents/Github/Elodie-game/src/EventHandler/EventHandler.cpp:311: warning: no matching class member found for 
-  bool EventHandler::keyIsReleased(vector< int > code)
+E:/Documents/Github/Elodie-game/src/EventHandler/EventHandler.cpp:384: warning: no matching class member found for 
+  bool EventHandler::keyIsReleased(vector< int > codes)
 Possible candidates:
   bool EventHandler::keyIsReleased(int code)
   bool EventHandler::keyIsReleased(std::vector< int > code)

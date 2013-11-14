@@ -7,7 +7,7 @@
 using std::vector;
 
 /**
-* \brief Constructor of EventHandler.
+* \brief The constructor of EventHandler.
 *
 * \param[in] window The RenderWindow of SFML on which we do different things.
 */
@@ -17,7 +17,7 @@ EventHandler::EventHandler(sf::RenderWindow* window): m_window(window)
 }
 
 /**
-* \brief Destructor of EventHandler.
+* \brief The destructor of EventHandler.
 */
 EventHandler::~EventHandler()
 {
@@ -27,8 +27,8 @@ EventHandler::~EventHandler()
 /**
 * \brief Used to push all the content of one tab to another one.
 *
-* \param[in] tabFrom A constant vector of eventInput, the data to pass.
-* \param[out] tabTo The vector of eventInput in which the data will be put.
+* \param[in] tabFrom A vector of eventInput, the data to pass.
+* \param[out] tabTo A vector of eventInput in which the data will be put.
 */
 static void pushAll(vector<eventInput> const& tabFrom, vector<eventInput>& tabTo)
 {
@@ -37,10 +37,10 @@ static void pushAll(vector<eventInput> const& tabFrom, vector<eventInput>& tabTo
 }
 
 /**
-* \brief Used to push all the content of one tab to another one.
+* \brief Used to push all the contents of one tab to another one.
 *
 * \param[in] tabFrom A vector of eventMouse, the data to pass.
-* \param[out] tabTo The vector of eventMouse in which the data will be put.
+* \param[out] tabTo A vector of eventMouse, in which the data will be put.
 */
 static void pushAll(vector<eventMouse> const& tabFrom, vector<eventMouse>& tabTo)
 {
@@ -49,34 +49,34 @@ static void pushAll(vector<eventMouse> const& tabFrom, vector<eventMouse>& tabTo
 }
 
 /**
-* \brief Returns the position of an element if he's in the vector and -1 otherwhise.
+* \brief Returns the position of an element if he's in the vector and -1 otherwise.
 *
-* \param[in] tab The vector of eventInput.
-* \param[in] val The value to find in tab.
-* \return An int, the position of the element of the vector (or -1 if not found).
+* \param[in] tab A vector of eventInput in which we will search.
+* \param[in] code The code to find in tab.
+* \return An int, the position of the code in the tab (or -1 if not found).
 */
-static int inVector(vector<eventInput> const& tab, int val)
+static int inVector(vector<eventInput> const& tab, int code)
 {
     for (int i(0); i < (int)tab.size(); ++i)
     {
-        if (tab[i].code == val)
+        if (tab[i].code == code)
             return i;
     }
     return -1;
 }
 
 /**
-* \brief Returns the position of an element if he's in the vector and -1 otherwhise.
+* \brief Returns the position of an element if he's in the vector and -1 otherwise.
 *
-* \param[in] tab The vector of eventMouse.
-* \param[in] val The value to find in tab.
-* \return An int, the position of the element of the vector (or -1 if not found).
+* \param[in] tab A vector of eventMouse in which we will search.
+* \param[in] code The code to find in tab.
+* \return An int, the position of the code in the tab (or -1 if not found).
 */
-static int inVector(vector<eventMouse> const& tab, int val)
+static int inVector(vector<eventMouse> const& tab, int code)
 {
     for (int i(0); i < (int)tab.size(); ++i)
     {
-        if (tab[i].code == val)
+        if (tab[i].code == code)
             return i;
     }
     return -1;
@@ -94,8 +94,8 @@ static int inVector(vector<eventMouse> const& tab, int val)
 /**
 * \brief Deletes an element from a vector based on the code given in the parameters.
 *
-* \param[in, out] tab The vector of eventInput.
-* \param[in] code The code (int) used to known which elements to remove.
+* \param[in, out] tab A vector of eventInput, from which elements will be deleted.
+* \param[in] code The code used to known which elements to remove.
 */
 static void extractByCode(vector<eventInput>& tab, int code)
 {
@@ -111,8 +111,8 @@ static void extractByCode(vector<eventInput>& tab, int code)
 /**
 * \brief Deletes an element from a vector based on the code given in the parameters.
 *
-* \param[in, out] tab The vector of eventMouse.
-* \param[in] code The code (int) used to known which elements to remove.
+* \param[in, out] tab A vector of eventMouse, from which elements will be deleted.
+* \param[in] code The code used to known which elements to remove.
 */
 static void extractByCode(vector<eventMouse>& tab, int code)
 {
@@ -126,10 +126,10 @@ static void extractByCode(vector<eventMouse>& tab, int code)
 }
 
 /**
-* \brief Returns all the keycode that are in the given tab.
+* \brief Returns all the code that are in the given tab.
 *
-* \param tab The vector of eventInput.
-* \return
+* \param[in] tab A vector of eventInput, from which elements will be taken.
+* \return A vector of int containing the code for each element in tab.
 */
 static vector<int> codeContent(vector<eventInput> const& tab)
 {
@@ -141,9 +141,15 @@ static vector<int> codeContent(vector<eventInput> const& tab)
     return ret;
 }
 
-/*
-** getInfoByCode return the informations about the mousekey (code) given in the parameters
-** If the mouseKey is not in the tab, an empty struct is returned (maybe change it to an exception later)
+/**
+* \brief Returns the eventMouse corresponding to the code.
+*
+* \param[in] tab The vector of eventMouse in which we will search.
+* \param[in] code The code used to know which eventMouse to return.
+* \return The eventMouse corresponding to the code.
+*
+* If there is an eventMouse corresponding to the code in tab, it is returned.
+* Else if the eventMouse is not in tab, an empty struct is returned (maybe change it to an exception later).
 */
 static eventMouse getInfoByCode(vector<eventMouse> const &tab, int code)
 {
@@ -156,36 +162,52 @@ static eventMouse getInfoByCode(vector<eventMouse> const &tab, int code)
     return emptyStruct;
 }
 
-//checkIn return true or false if the code(s) is/are in the given tab
+/**
+* \brief Checks if the code is in the given tab.
+*
+* \param[in] tab A vector of evenInput in which we will search.
+* \param[in] code The code (int) we want to search.
+* \return A boolean describing if the code was found.
+*/
 static bool checkIn(vector<eventInput> const& tab, int code)
 {
-    if (inVector(tab, code) < 0)
-        return false;
-    return true;
+   return (inVector(tab, code) >= 0);
 }
 
-static bool checkIn(vector<eventInput> const& tab, vector<int> code)
+/**
+* \brief Checks for each code in codes if it is in tab, and returns true in this case.
+*
+* \param[in] tab A vector of evenInput in which we will search.
+* \param[in] codes The vector of int which contains elements we want to search.
+* \return A boolean describing if the code was found.
+*/
+static bool checkIn(vector<eventInput> const& tab, vector<int> codes)
 {
-    for (int i(0); i < (int)code.size(); ++i)
+    for (int i(0); i < (int)codes.size(); ++i)
     {
-        if (inVector(tab, code[i]) >= 0)
+        if (inVector(tab, codes[i]) >= 0)
             return true;
     }
     return false;
 }
 
+/**
+* \brief Checks if the code is in the given tab.
+*
+* \param[in] tab A vector of eventMouse in which we will search.
+* \param[in] code The code we want to search.
+* \return A boolean describing if the code was found.
+*/
 static bool checkIn(vector<eventMouse> const& tab, int code)
 {
-    if (inVector(tab, code) < 0)
-        return false;
-    return true;
+    return (inVector(tab, code) >= 0);
 }
 
 /**
-* \brief Calculates which events have occured and stock then in the right tab.
+* \brief Calculates which events have occured and stocks then in the right vector.
 *
 * Has to be called at each turn of the game.
-* It calculates which events have occured and stock then in the right tab.
+* It calculates which events have occured and stock then in the right vector.
 * It's important to call it before trying to use any other function of EventHandler.
 */
 void EventHandler::listening()
@@ -266,92 +288,188 @@ void EventHandler::listening()
     }
 }
 
+/**
+* \brief Returns the codes obtained from m_keyPressed.
+*
+* \return A vector of int which contains the codes of m_keyPressed.
+*/
 vector<int> EventHandler::keyPressed()
 {
     return codeContent(m_keyPressed);
 }
 
+/**
+* \brief Checks if the code is in m_keyIsPressed.
+* \param[in] code The code we want to search.
+*
+* \return A boolean which describes if code was found.
+*/
 bool EventHandler::keyIsPressed(int code)
 {
     return checkIn(m_keyPressed, code);
 }
 
-bool EventHandler::keyIsPressed(vector<int> code)
+/**
+* \brief Checks if a code in codes is in m_keyPressed.
+* \param[in] codes The code we want to search.
+*
+* \return A boolean which describes if a code was found.
+*/
+bool EventHandler::keyIsPressed(vector<int> codes)
 {
-    return checkIn(m_keyPressed, code);
+    return checkIn(m_keyPressed, codes);
 }
 
 
+/**
+* \brief Returns the codes obtained from m_keyHold.
+*
+* \return A vector of int which contains the codes of m_keyHold.
+*/
 vector<int> EventHandler::keyHold()
 {
     return codeContent(m_keyHold);
 }
 
+/**
+* \brief Checks if the code is in m_keyHold.
+* \param[in] code The code we want to search.
+*
+* \return A boolean which describes if code was found.
+*/
 bool EventHandler::keyIsHold(int code)
 {
     return checkIn(m_keyHold, code);
 }
 
-bool EventHandler::keyIsHold(vector<int> code)
+/**
+* \brief Checks if a code in codes is in m_keyHold.
+* \param[in] codes The code we want to search.
+*
+* \return A boolean which describes if a code was found.
+*/
+bool EventHandler::keyIsHold(vector<int> codes)
 {
-    return checkIn(m_keyHold, code);
+    return checkIn(m_keyHold, codes);
 }
 
 
+/**
+* \brief Returns the codes obtained from m_keyReleased.
+*
+* \return A vector of int which contains the codes of m_keyReleased.
+*/
 vector<int> EventHandler::keyReleased()
 {
     return codeContent(m_keyReleased);
 }
 
+/**
+* \brief Checks if the code is in m_keyReleased.
+* \param[in] code The code we want to search.
+*
+* \return A boolean which describes if code was found.
+*/
 bool EventHandler::keyIsReleased(int code)
 {
     return checkIn(m_keyReleased, code);
 }
 
-bool EventHandler::keyIsReleased(vector<int> code)
+/**
+* \brief Checks if a code in codes is in m_keyReleased.
+* \param[in] codes The code we want to search.
+*
+* \return A boolean which describes if a code was found.
+*/
+bool EventHandler::keyIsReleased(vector<int> codes)
 {
-    return checkIn(m_keyReleased, code);
+    return checkIn(m_keyReleased, codes);
 }
 
 
+/**
+* \brief Checks if the code is in m_mousePressed.
+* \param[in] code The code we want to search.
+*
+* \return A boolean which describes if code was found.
+*/
 bool EventHandler::mouseIsPressed(int code)
 {
     return checkIn(m_mousePressed, code);
 }
 
+/**
+* \brief Gets the eventMouse for code in m_mousePressed.
+* \param[in] code The code we want to use to find the eventMouse.
+*
+* \return An eventMouse corresponding to the code.
+*/
 eventMouse EventHandler::mouseInfoPressed(int code)
 {
     return getInfoByCode(m_mousePressed, code);
 }
 
 
+/**
+* \brief Checks if the code is in m_mouseHold.
+* \param[in] code The code we want to search.
+*
+* \return A boolean which describes if code was found.
+*/
 bool EventHandler::mouseIsHold(int code)
 {
     return checkIn(m_mouseHold, code);
 }
 
+/**
+* \brief Gets the eventMouse for code in m_mouseHold.
+* \param[in] code The code we want to use to find the eventMouse.
+*
+* \return An eventMouse corresponding to the code.
+*/
 eventMouse EventHandler::mouseInfoHold(int code)
 {
     return getInfoByCode(m_mouseHold, code);
 }
 
 
+/**
+* \brief Checks if the code is in mouseIsReleased.
+* \param[in] code The code we want to search.
+*
+* \return A boolean which describes if code was found.
+*/
 bool EventHandler::mouseIsReleased(int code)
 {
     return checkIn(m_mouseReleased, code);
 }
 
+/**
+* \brief Gets the eventMouse for code in m_mouseReleased.
+* \param[in] code The code we want to use to find the eventMouse.
+*
+* \return An eventMouse corresponding to the code.
+*/
 eventMouse EventHandler::mouseInfoReleased(int code)
 {
     return getInfoByCode(m_mouseReleased, code);
 }
 
-
+/**
+* \brief Returns the code obtained from m_mouseWheel.
+*
+* \return An int, the code of m_mouseWheel.
+*/
 int EventHandler::mouseIsWheeled()
 {
     return m_mouseWheel.code;
 }
 
+/**
+* \brief Returns the eventMouse obtained from m_mouseWheel.
+*
+* \return An eventMouse corresponding to the code of m_mouseWheel.
+*/
 eventMouse EventHandler::mouseInfoWheeled()
 {
     eventMouse emptyStruct;
