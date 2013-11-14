@@ -12,6 +12,7 @@ Level::~Level() {
     //dtor
 }
 
+// Load a level from the file system
 void Level::loadLevel(std::string filename) {
     std::string levelSource = FileHandler::getContent(filename);
 
@@ -19,6 +20,7 @@ void Level::loadLevel(std::string filename) {
     Mapper::beautify(this->tiles);
 }
 
+// Ask the given view to draw a Level frame
 void Level::draw(GameView* view) {
     for(unsigned int y=0; y<tiles.size(); y++) {
         for(unsigned int x=0; x<tiles[y].size(); x++) {

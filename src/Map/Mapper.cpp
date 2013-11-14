@@ -4,14 +4,15 @@ Mapper::Mapper() {
 
 }
 
-void Mapper::parse(std::string str, TileMap& tiles, EntitieVector& entities) {
+// The parser takes the ASCII level and modify the the TileMap and the EntityVector
+void Mapper::parse(std::string asciiLevel, TileMap& tiles, EntitieVector& entities) {
     std::cout << "PARSING MAP" << std::endl;
     unsigned int y = 0;
     unsigned int x = 0;
 
-    for(unsigned int i = 0; i < str.length(); i++) {
+    for(unsigned int i = 0; i < asciiLevel.length(); i++) {
         // Entities
-        switch(str[i]) {
+        switch(asciiLevel[i]) {
             case MAP_ELODIE:
                 entities.push_back(new Elodie(x*32, y*32));
                 break;
@@ -24,7 +25,7 @@ void Mapper::parse(std::string str, TileMap& tiles, EntitieVector& entities) {
             tiles.push_back(std::vector<TileSprite*>());
         }
 
-        switch(str[i]) {
+        switch(asciiLevel[i]) {
             case MAP_GROUND:
                 tiles[y].push_back(new TileSprite(TileType::GROUND));
                 break;
@@ -47,6 +48,7 @@ void Mapper::parse(std::string str, TileMap& tiles, EntitieVector& entities) {
     }
 }
 
+// Once the Map is parsed, we can automaticaly choose the right tiles
 void Mapper::beautify(TileMap& tiles) {
     std::cout << "BEAUTIFYING MAP" << std::endl;
 
@@ -77,6 +79,7 @@ void Mapper::beautify(TileMap& tiles) {
     }
 }
 
+// Print the map in the console for testing purpose
 void Mapper::print(TileMap& tiles, EntitieVector& entities) {
     std::cout << "PRINTING MAP" << std::endl;
 
