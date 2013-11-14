@@ -6,19 +6,29 @@
 
 using std::vector;
 
+/**
+* \brief Constructor of EventHandler.
+*
+* \param[in] window The RenderWindow of SFML on which we do different things.
+*/
 EventHandler::EventHandler(sf::RenderWindow* window): m_window(window)
 {
     m_window->setKeyRepeatEnabled(false);
 }
 
+/**
+* \brief Destructor of EventHandler.
+*/
 EventHandler::~EventHandler()
 {
-    //TODO: Check if there is something to delete when the game is closed
+    // TODO: Check if there is something to delete when the game is closed
 }
 
-/*
-** pushAll is used to push all the content of one tab to another one
-** (used to pass all the data of m_*pressed to m_*hold)
+/**
+* \brief Used to push all the content of one tab to another one.
+*
+* \param[in] tabFrom A constant vector of eventInput, the data to pass.
+* \param[out] tabTo The vector of eventInput in which the data will be put.
 */
 static void pushAll(vector<eventInput> const& tabFrom, vector<eventInput>& tabTo)
 {
@@ -26,13 +36,25 @@ static void pushAll(vector<eventInput> const& tabFrom, vector<eventInput>& tabTo
         tabTo.push_back(tabFrom[i]);
 }
 
+/**
+* \brief Used to push all the content of one tab to another one.
+*
+* \param[in] tabFrom A vector of eventMouse, the data to pass.
+* \param[out] tabTo The vector of eventMouse in which the data will be put.
+*/
 static void pushAll(vector<eventMouse> const& tabFrom, vector<eventMouse>& tabTo)
 {
     for (unsigned int i(0); i < tabFrom.size(); ++i)
         tabTo.push_back(tabFrom[i]);
 }
 
-//inVector return the position of an element if he's in the vector and -1 otherwhise
+/**
+* \brief Returns the position of an element if he's in the vector and -1 otherwhise.
+*
+* \param[in] tab The vector of eventInput.
+* \param[in] val The value to find in tab.
+* \return An int, the position of the element of the vector (or -1 if not found).
+*/
 static int inVector(vector<eventInput> const& tab, int val)
 {
     for (int i(0); i < (int)tab.size(); ++i)
@@ -43,6 +65,13 @@ static int inVector(vector<eventInput> const& tab, int val)
     return -1;
 }
 
+/**
+* \brief Returns the position of an element if he's in the vector and -1 otherwhise.
+*
+* \param[in] tab The vector of eventMouse.
+* \param[in] val The value to find in tab.
+* \return An int, the position of the element of the vector (or -1 if not found).
+*/
 static int inVector(vector<eventMouse> const& tab, int val)
 {
     for (int i(0); i < (int)tab.size(); ++i)
@@ -62,7 +91,12 @@ static int inVector(vector<eventMouse> const& tab, int val)
     }
 }*/
 
-//extractByCode delete an element from a vector based on the code given in the parameters
+/**
+* \brief Deletes an element from a vector based on the code given in the parameters.
+*
+* \param[in, out] tab The vector of eventInput.
+* \param[in] code The code (int) used to known which elements to remove.
+*/
 static void extractByCode(vector<eventInput>& tab, int code)
 {
     for (int i(0); i < (int)tab.size(); ++i)
@@ -74,6 +108,12 @@ static void extractByCode(vector<eventInput>& tab, int code)
     }
 }
 
+/**
+* \brief Deletes an element from a vector based on the code given in the parameters.
+*
+* \param[in, out] tab The vector of eventMouse.
+* \param[in] code The code (int) used to known which elements to remove.
+*/
 static void extractByCode(vector<eventMouse>& tab, int code)
 {
     for (int i(0); i < (int)tab.size(); ++i)
@@ -85,7 +125,12 @@ static void extractByCode(vector<eventMouse>& tab, int code)
     }
 }
 
-//codeContent return all the keycode that are in the given tab
+/**
+* \brief Returns all the keycode that are in the given tab.
+*
+* \param tab The vector of eventInput.
+* \return
+*/
 static vector<int> codeContent(vector<eventInput> const& tab)
 {
    vector<int> ret;
@@ -136,10 +181,12 @@ static bool checkIn(vector<eventMouse> const& tab, int code)
     return true;
 }
 
-/*
-** EventHandler::listening() has to be called at each turn of the game.
-** It calculates which events have occured and stock then in the right tab.
-** It's important to call it before trying to use any other function of EventHandler
+/**
+* \brief Calculates which events have occured and stock then in the right tab.
+*
+* Has to be called at each turn of the game.
+* It calculates which events have occured and stock then in the right tab.
+* It's important to call it before trying to use any other function of EventHandler.
 */
 void EventHandler::listening()
 {
