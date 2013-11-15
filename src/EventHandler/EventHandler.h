@@ -51,20 +51,20 @@ public:
     void listening();
 
     /**
-    * \brief Returns the codes obtained from m_keyPressed.
+    * \brief Returns the codes obtained from keyPressedVector.
     *
-    * \return A vector of int which contains the codes of m_keyPressed.
+    * \return A vector of int which contains the codes of keyPressedVector.
     */
     std::vector<int> keyPressed();
     /**
-    * \brief Checks if the code is in m_keyIsPressed.
+    * \brief Checks if the code is in keyIsPressedVector.
     * \param[in] code The code we want to search.
     *
     * \return A boolean which describes if code was found.
     */
     bool keyIsPressed(int code);
     /**
-    * \brief Checks if a code in codes is in m_keyPressed.
+    * \brief Checks if a code in codes is in keyPressedVector.
     * \param[in] codes The code we want to search.
     *
     * \return A boolean which describes if a code was found.
@@ -72,20 +72,20 @@ public:
     bool keyIsPressed(std::vector<int> codes);
 
     /**
-    * \brief Returns the codes obtained from m_keyHold.
+    * \brief Returns the codes obtained from keyHoldVector.
     *
-    * \return A vector of int which contains the codes of m_keyHold.
+    * \return A vector of int which contains the codes of keyHoldVector.
     */
     std::vector<int> keyHold();
     /**
-    * \brief Checks if the code is in m_keyHold.
+    * \brief Checks if the code is in keyHoldVector.
     * \param[in] code The code we want to search.
     *
     * \return A boolean which describes if code was found.
     */
     bool keyIsHold(int code);
     /**
-    * \brief Checks if a code in codes is in m_keyHold.
+    * \brief Checks if a code in codes is in keyHoldVector.
     * \param[in] codes The code we want to search.
     *
     * \return A boolean which describes if a code was found.
@@ -93,20 +93,20 @@ public:
     bool keyIsHold(std::vector<int> codes);
 
     /**
-    * \brief Returns the codes obtained from m_keyReleased.
+    * \brief Returns the codes obtained from keyReleasedVector.
     *
-    * \return A vector of int which contains the codes of m_keyReleased.
+    * \return A vector of int which contains the codes of keyReleasedVector.
     */
     std::vector<int> keyReleased();
     /**
-    * \brief Checks if the code is in m_keyReleased.
+    * \brief Checks if the code is in keyReleasedVector.
     * \param[in] code The code we want to search.
     *
     * \return A boolean which describes if code was found.
     */
     bool keyIsReleased(int code);
     /**
-    * \brief Checks if a code in codes is in m_keyReleased.
+    * \brief Checks if a code in codes is in keyReleasedVector.
     * \param[in] codes The code we want to search.
     *
     * \return A boolean which describes if a code was found.
@@ -114,14 +114,14 @@ public:
     bool keyIsReleased(std::vector<int> codes);
 
     /**
-    * \brief Checks if the code is in m_mousePressed.
+    * \brief Checks if the code is in mousePressedVector.
     * \param[in] code The code we want to search.
     *
     * \return A boolean which describes if code was found.
     */
     bool mouseIsPressed(int code);
     /**
-    * \brief Gets the eventMouse for code in m_mousePressed.
+    * \brief Gets the eventMouse for code in mousePressedVector.
     * \param[in] code The code we want to use to find the eventMouse.
     *
     * \return An eventMouse corresponding to the code.
@@ -129,14 +129,14 @@ public:
     eventMouse mouseInfoPressed(int code);
 
     /**
-    * \brief Checks if the code is in m_mouseHold.
+    * \brief Checks if the code is in mouseHoldVector.
     * \param[in] code The code we want to search.
     *
     * \return A boolean which describes if code was found.
     */
     bool mouseIsHold(int code);
     /**
-    * \brief Gets the eventMouse for code in m_mouseHold.
+    * \brief Gets the eventMouse for code in mouseHoldVector.
     * \param[in] code The code we want to use to find the eventMouse.
     *
     * \return An eventMouse corresponding to the code.
@@ -144,14 +144,14 @@ public:
     eventMouse mouseInfoHold(int code);
 
     /**
-    * \brief Checks if the code is in m_mouseIsReleased.
+    * \brief Checks if the code is in mouseIsReleasedVector.
     * \param[in] code The code we want to search.
     *
     * \return A boolean which describes if code was found.
     */
     bool mouseIsReleased(int code);
     /**
-    * \brief Gets the eventMouse for code in m_mouseReleased.
+    * \brief Gets the eventMouse for code in mouseIsReleasedVector.
     * \param[in] code The code we want to use to find the eventMouse.
     *
     * \return An eventMouse corresponding to the code.
@@ -159,15 +159,15 @@ public:
     eventMouse mouseInfoReleased(int code);
 
     /**
-    * \brief Returns the code obtained from m_mouseWheel.
+    * \brief Returns the code obtained from mouseWheel.
     *
-    * \return An int, the code of m_mouseWheel.
+    * \return An int, the code of mouseWheel.
     */
     int mouseIsWheeled();
     /**
-    * \brief Returns the eventMouse obtained from m_mouseWheel.
+    * \brief Returns the eventMouse obtained from mouseWheel.
     *
-    * \return An eventMouse corresponding to the code of m_mouseWheel.
+    * \return An eventMouse corresponding to the code of mouseWheel.
     */
     eventMouse mouseInfoWheeled();
 
@@ -269,10 +269,10 @@ private:
     */
     bool checkIn(std::vector<eventMouse> const& tab, int code);
 
-    std::vector<eventInput> m_keyPressed, m_keyHold, m_keyReleased;
-    std::vector<eventMouse> m_mousePressed, m_mouseHold, m_mouseReleased;
-    eventMouse m_mouseWheel;
-    sf::RenderWindow* m_window;
+    std::vector<eventInput> keyPressedVector, keyHoldVector, keyReleasedVector;
+    std::vector<eventMouse> mousePressedVector, mouseHoldVector, mouseReleasedVector;
+    eventMouse mouseWheel;
+    sf::RenderWindow* window;
 };
 
 #endif // EVENT_H_INCLUDED
