@@ -134,7 +134,7 @@ public:
     eventMouse mouseInfoHold(int code);
 
     /**
-    * \brief Checks if the code is in mouseIsReleased.
+    * \brief Checks if the code is in m_mouseIsReleased.
     * \param[in] code The code we want to search.
     *
     * \return A boolean which describes if code was found.

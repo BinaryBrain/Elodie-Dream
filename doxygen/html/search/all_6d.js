@@ -8,5 +8,6 @@ var searchData=
   ['mouseishold',['mouseIsHold',['../class_event_handler.html#a2ac1c76fd12d27b84d77ddee32647514',1,'EventHandler']]],
   ['mouseispressed',['mouseIsPressed',['../class_event_handler.html#a5315a3b8aed13526d06dbb3a45ff3e9f',1,'EventHandler']]],
   ['mouseisreleased',['mouseIsReleased',['../class_event_handler.html#a443f9deed2147f7d2bbc5fea4a8edd4a',1,'EventHandler']]],
-  ['mouseiswheeled',['mouseIsWheeled',['../class_event_handler.html#a9a1eb091330b28f343e78cea8da6a994',1,'EventHandler']]]
+  ['mouseiswheeled',['mouseIsWheeled',['../class_event_handler.html#a9a1eb091330b28f343e78cea8da6a994',1,'EventHandler']]],
+  ['move',['move',['../class_elodie.html#aa689b5778b0ccca0ebae02478567dba3',1,'Elodie']]]
 ];

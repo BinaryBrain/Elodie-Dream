@@ -33,19 +33,9 @@ sf::Vector2f* Elodie::getPosition()
     return new sf::Vector2f(this->sprite->getPosition().x+centerX,this->sprite->getPosition().y+centerY);
 }
 
-void Elodie::walk()
-{
-    this->sprite->walk();
-}
-
 void Elodie::stand()
 {
     this->sprite->stand();
-}
-
-void Elodie::init()
-{
-    this->sprite = new ElodieSprite();
 }
 
 void Elodie::move()
@@ -102,14 +92,14 @@ void Elodie::setDistanceToMove(float dist)
     toMove = dist;
 }
 
-bool Elodie::hasToMove()
-{
-    return toMove > 0;
-}
-
 bool Elodie::isMoving()
 {
     return goingDown or goingLeft or goingRight or goingUp;
+}
+
+bool Elodie::hasToMove()
+{
+    return toMove > 0;
 }
 
 void Elodie::noMoves()
@@ -132,4 +122,16 @@ int Elodie::getImmersionLevel() {
 
 int Elodie::getNightmareLevel() {
     return this->nightmareLevel;
+}
+
+
+
+void Elodie::init()
+{
+    this->sprite = new ElodieSprite();
+}
+
+void Elodie::walk()
+{
+    this->sprite->walk();
 }
