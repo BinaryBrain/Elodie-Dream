@@ -8,18 +8,18 @@ Elodie::Elodie()
 Elodie::Elodie(sf::Vector2f position)
 {
     this->init();
-    this->sprite->setPosition(position.x-centerX, position.y-centerY);
+    this->m_sprite->setPosition(position.x - m_centerX, position.y - m_centerY);
 }
 
 Elodie::Elodie(float x, float y)
 {
     this->init();
-    this->sprite->setPosition(x-centerX, y-centerY);
+    this->m_sprite->setPosition(x - m_centerX, y - m_centerY);
 }
 
 ElodieSprite* Elodie::getSprite()
 {
-    return this->sprite;
+    return this->m_sprite;
 }
 
 Elodie::~Elodie()
@@ -30,35 +30,35 @@ Elodie::~Elodie()
 
 sf::Vector2f* Elodie::getPosition()
 {
-    return new sf::Vector2f(this->sprite->getPosition().x+centerX,this->sprite->getPosition().y+centerY);
+    return new sf::Vector2f(this->m_sprite->getPosition().x + m_centerX, this->m_sprite->getPosition().y + m_centerY);
 }
 
 void Elodie::stand()
 {
-    this->sprite->stand();
+    this->m_sprite->stand();
 }
 
 void Elodie::move()
 {
-    if (goingDown)
+    if (m_goingDown)
     {
-        toMove -= speed;
-        this->sprite->move(0, speed);
+        m_toMove -= m_speed;
+        this->m_sprite->move(0, m_speed);
     }
-    else if (goingLeft)
+    else if (m_goingLeft)
     {
-        toMove -= speed;
-        this->sprite->move(-speed, 0);
+        m_toMove -= m_speed;
+        this->m_sprite->move(-m_speed, 0);
     }
-    else if (goingRight)
+    else if (m_goingRight)
     {
-        toMove -= speed;
-        this->sprite->move(+speed, 0);
+        m_toMove -= m_speed;
+        this->m_sprite->move(+m_speed, 0);
     }
-    else if (goingUp)
+    else if (m_goingUp)
     {
-        toMove -= speed;
-        this->sprite->move(0, -speed);
+        m_toMove -= m_speed;
+        this->m_sprite->move(0, -m_speed);
     }
     else
     {
@@ -69,69 +69,69 @@ void Elodie::move()
 void Elodie::walkDown()
 {
     this->walk();
-    goingDown = true;
+    m_goingDown = true;
 }
 void Elodie::walkUp()
 {
     this->walk();
-    goingUp = true;
+    m_goingUp = true;
 }
 void Elodie::walkRight()
 {
     this->walk();
-    goingRight = true;
+    m_goingRight = true;
 }
 void Elodie::walkLeft()
 {
     this->walk();
-    goingLeft = true;
+    m_goingLeft = true;
 }
 
 void Elodie::setDistanceToMove(float dist)
 {
-    toMove = dist;
+    m_toMove = dist;
 }
 
 bool Elodie::isMoving()
 {
-    return goingDown or goingLeft or goingRight or goingUp;
+    return m_goingDown or m_goingLeft or m_goingRight or m_goingUp;
 }
 
 bool Elodie::hasToMove()
 {
-    return toMove > 0;
+    return m_toMove > 0;
 }
 
 void Elodie::noMoves()
 {
-    toMove = 0;
-    goingDown = false;
-    goingLeft = false;
-    goingRight = false;
-    goingUp = false;
+    m_toMove = 0;
+    m_goingDown = false;
+    m_goingLeft = false;
+    m_goingRight = false;
+    m_goingUp = false;
 }
 
 void Elodie::update(sf::Time deltaTime)
 {
-    this->sprite->update(deltaTime);
+    this->m_sprite->update(deltaTime);
 }
 
 int Elodie::getImmersionLevel() {
-    return this->immersionLevel;
+    return this->m_immersionLevel;
 }
 
 int Elodie::getNightmareLevel() {
-    return this->nightmareLevel;
+    return this->m_nightmareLevel;
 }
 
 
 
 void Elodie::init()
 {
-    this->sprite = new ElodieSprite();
+    this->m_sprite = new ElodieSprite();
 }
 
 void Elodie::walk()
 {
-    this->sprite->walk();
+    this->m_sprite->walk();
 }

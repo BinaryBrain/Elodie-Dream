@@ -13,7 +13,7 @@ class Entity
         virtual sf::Sprite* getSprite() = 0; // Make the class abstract
     protected:
     private:
-        sf::Sprite* sprite;
+        sf::Sprite* m_sprite;
 };
 
 #endif // ENTITIES_H

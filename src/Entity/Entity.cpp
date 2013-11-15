@@ -2,12 +2,12 @@
 
 Entity::Entity()
 {
-    this->sprite = NULL;
+    this->m_sprite = NULL;
 }
 
 Entity::~Entity()
 {
-    if(sprite) {
-        delete sprite;
+    if(m_sprite) {
+        delete m_sprite;
     }
 }
