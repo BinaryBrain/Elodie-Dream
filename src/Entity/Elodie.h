@@ -5,7 +5,9 @@
 #include "../Sprite/ElodieSprite.h"
 #include "../Item/Item.h"
 
-
+/**
+* The class representing Elodie, an Entity.
+*/
 class Elodie : public Entity
 {
 public:

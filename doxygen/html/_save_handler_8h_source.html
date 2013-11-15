@@ -107,26 +107,28 @@ $(document).ready(function(){initNavTree('_save_handler_8h_source.html','');});
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define SAVEHANDLER_H</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
-<div class="line"><a name="l00006"></a><span class="lineno"><a class="line" href="class_save_handler.html">    6</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_save_handler.html">SaveHandler</a> {</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        <a class="code" href="class_save_handler.html">SaveHandler</a>(std::string path);</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        <span class="keywordtype">void</span> save();</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        <span class="keyword">virtual</span> ~<a class="code" href="class_save_handler.html">SaveHandler</a>();</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        std::string m_path;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;};</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#endif // SAVEHANDLER_H</span></div>
-<div class="ttc" id="class_save_handler_html"><div class="ttname"><a href="class_save_handler.html">SaveHandler</a></div><div class="ttdef"><b>Definition:</b> SaveHandler.h:6</div></div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="class_save_handler.html">    9</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_save_handler.html">SaveHandler</a> {</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        <a class="code" href="class_save_handler.html#a57d7bdd78f98987a3c558f5c25b202b6">SaveHandler</a>(std::string path);</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="class_save_handler.html#a0e7fb831fb8c13b858e482f4356c0c94">save</a>();</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keyword">virtual</span> <a class="code" href="class_save_handler.html#ad4e1ad31a86b99cd9f9cb40b73e8ab3e">~SaveHandler</a>();</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        std::string m_path;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;};</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#endif // SAVEHANDLER_H</span></div>
+<div class="ttc" id="class_save_handler_html_a57d7bdd78f98987a3c558f5c25b202b6"><div class="ttname"><a href="class_save_handler.html#a57d7bdd78f98987a3c558f5c25b202b6">SaveHandler::SaveHandler</a></div><div class="ttdeci">SaveHandler(std::string path)</div><div class="ttdoc">The constructor of SaveHandler. Sets the path of the file. </div><div class="ttdef"><b>Definition:</b> SaveHandler.cpp:11</div></div>
+<div class="ttc" id="class_save_handler_html"><div class="ttname"><a href="class_save_handler.html">SaveHandler</a></div><div class="ttdef"><b>Definition:</b> SaveHandler.h:9</div></div>
+<div class="ttc" id="class_save_handler_html_ad4e1ad31a86b99cd9f9cb40b73e8ab3e"><div class="ttname"><a href="class_save_handler.html#ad4e1ad31a86b99cd9f9cb40b73e8ab3e">SaveHandler::~SaveHandler</a></div><div class="ttdeci">virtual ~SaveHandler()</div><div class="ttdoc">The destructor of SaveHandler. </div><div class="ttdef"><b>Definition:</b> SaveHandler.cpp:21</div></div>
+<div class="ttc" id="class_save_handler_html_a0e7fb831fb8c13b858e482f4356c0c94"><div class="ttname"><a href="class_save_handler.html#a0e7fb831fb8c13b858e482f4356c0c94">SaveHandler::save</a></div><div class="ttdeci">void save()</div><div class="ttdoc">Can save something in a file (not yet implemented). </div><div class="ttdef"><b>Definition:</b> SaveHandler.cpp:13</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_d853ea9df60fc8e0f0f623f9031b09f2.html">FileHandler</a></li><li class="navelem"><b>SaveHandler.h</b></li>
-    <li class="footer">Generated on Fri Nov 15 2013 10:55:39 for Elodie by
+    <li class="footer">Generated on Fri Nov 15 2013 11:40:34 for Elodie by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.5 </li>
   </ul>

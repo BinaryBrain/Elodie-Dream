@@ -73,3 +73,6 @@ Possible candidates:
   bool EventHandler::keyIsReleased(int code)
   bool EventHandler::keyIsReleased(std::vector< int > codes)
 
+E:/Documents/Github/Elodie-game/src/FileHandler/FileHandler.h:23: warning: argument 'file' of command @param is not found in the argument list of FileHandler::getContent(std::string filename)
+E:/Documents/Github/Elodie-game/src/FileHandler/FileHandler.h:23: warning: The following parameters of FileHandler::getContent(std::string filename) are not documented:
+  parameter 'filename'

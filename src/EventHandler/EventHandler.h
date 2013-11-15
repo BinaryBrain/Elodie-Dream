@@ -5,11 +5,17 @@
 #include <vector>
 #include <time.h>
 
+/**
+* The structure representing inputs events.
+*/
 typedef struct {
     int code;
     std::time_t time;
 } eventInput;
 
+/**
+* The structure representing mouse events.
+*/
 typedef struct {
     int code;
     int x;
@@ -17,7 +23,11 @@ typedef struct {
     std::time_t time;
 } eventMouse;
 
+/**
+* The class handling input and mouse events.
+*/
 class EventHandler {
+
 public:
 
     /**
