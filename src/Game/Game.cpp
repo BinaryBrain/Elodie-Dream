@@ -91,7 +91,7 @@ void Game::run() {
         }
 
         if (m_inLevel) {
-            level.(&m_view);
+            level.draw(&m_view);
         } else {
             m_overworld.getElodie()->update(m_frameClock.restart());
 

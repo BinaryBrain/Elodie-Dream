@@ -141,22 +141,22 @@ private:
     */
     void walk();
 
-    ElodieSprite* m_sprite;
+    ElodieSprite* sprite;
 
-    int m_centerX = 21;
-    int m_centerY = 32;
+    int centerX = 21;
+    int centerY = 32;
 
-    float m_toMove = 0;
-    float m_speed = 0.3;
-    bool m_goingUp = false;
-    bool m_goingDown = false;
-    bool m_goingRight = false;
-    bool m_goingLeft = false;
+    float toMove = 0;
+    float speed = 0.3;
+    bool goingUp = false;
+    bool goingDown = false;
+    bool goingRight = false;
+    bool goingLeft = false;
 
-    int m_immersionLevel = 100;
-    int m_nightmareLevel = 50; // Max: 100
+    int immersionLevel = 100;
+    int nightmareLevel = 50; // Max: 100
 
-    std::vector<Item> m_stuff;
+    std::vector<Item> stuff;
 };
 
 #endif // ELODIE_H

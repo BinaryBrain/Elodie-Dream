@@ -26,7 +26,7 @@ public:
     virtual sf::Sprite* getSprite() = 0;
 protected:
 private:
-    sf::Sprite* m_sprite;
+    sf::Sprite* sprite;
 };
 
 #endif // ENTITIES_H
