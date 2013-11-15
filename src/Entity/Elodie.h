@@ -3,6 +3,7 @@
 
 #include "Entity.h"
 #include "../Sprite/ElodieSprite.h"
+#include "../Item/Item.h"
 
 
 class Elodie : public Entity
@@ -29,6 +30,9 @@ public:
     void noMoves();
 
     void update(sf::Time deltaTime);
+
+    int getImmersionLevel();
+    int getNightmareLevel();
 protected:
 
 private:
@@ -47,6 +51,11 @@ private:
     bool goingDown = false;
     bool goingRight = false;
     bool goingLeft = false;
+
+    int immersionLevel = 100;
+    int nightmareLevel = 50; // Max: 100
+
+    std::vector<Item> stuff;
 };
 
 #endif // ELODIE_H

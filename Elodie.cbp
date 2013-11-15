@@ -65,6 +65,8 @@
 		<Unit filename="src/Game/Game.h" />
 		<Unit filename="src/Game/GameView.cpp" />
 		<Unit filename="src/Game/GameView.h" />
+		<Unit filename="src/Item/Item.cpp" />
+		<Unit filename="src/Item/Item.h" />
 		<Unit filename="src/JsonAccessor/JsonAccessor.cpp" />
 		<Unit filename="src/JsonAccessor/JsonAccessor.h" />
 		<Unit filename="src/JsonParser/JsonParser.cpp" />

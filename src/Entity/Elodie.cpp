@@ -22,6 +22,12 @@ ElodieSprite* Elodie::getSprite()
     return this->sprite;
 }
 
+Elodie::~Elodie()
+{
+    //  TODO : maybe source of memory leak
+    //  delete this->sprite;
+}
+
 sf::Vector2f* Elodie::getPosition()
 {
     return new sf::Vector2f(this->sprite->getPosition().x+centerX,this->sprite->getPosition().y+centerY);
@@ -120,8 +126,10 @@ void Elodie::update(sf::Time deltaTime)
     this->sprite->update(deltaTime);
 }
 
-Elodie::~Elodie()
-{
-    //  TODO : maybe source of memory leak
-    //  delete this->sprite;
+int Elodie::getImmersionLevel() {
+    return this->immersionLevel;
+}
+
+int Elodie::getNightmareLevel() {
+    return this->nightmareLevel;
 }
