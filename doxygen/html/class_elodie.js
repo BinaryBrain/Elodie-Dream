@@ -4,6 +4,8 @@ var class_elodie =
     [ "Elodie", "class_elodie.html#aa3c781636cda2058b9ae8cfa1532fb97", null ],
     [ "Elodie", "class_elodie.html#a128892588e557e31e86bf74c1369f202", null ],
     [ "~Elodie", "class_elodie.html#a2671761f1f09e6d6f72a0a6bc8b0f232", null ],
+    [ "getImmersionLevel", "class_elodie.html#add050a2776460eb3da44592afb1672d2", null ],
+    [ "getNightmareLevel", "class_elodie.html#a8822b7eae110b95f4e1feeec3edcdee2", null ],
     [ "getPosition", "class_elodie.html#a3f39c6bd4338b4d36cb8c62a6cb05816", null ],
     [ "getSprite", "class_elodie.html#ab886264d1774afc6459469617f17a8d7", null ],
     [ "hasToMove", "class_elodie.html#a8395f14e5b66fcd39145a13ea3e76926", null ],
