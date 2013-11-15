@@ -62,10 +62,12 @@ html, body {
   position: absolute;
   z-index: -100;
   
-  width: 300px;
+  width: 400px;
   bottom: 50%;
   left: 50%;
-  margin-left: -150px;
+  margin-left: -200px;
+  
+  text-align: center;
 }
 
 .line {
