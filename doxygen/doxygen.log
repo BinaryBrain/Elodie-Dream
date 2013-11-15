@@ -1,18 +1,75 @@
-E:/Documents/Github/Elodie-game/src/EventHandler/EventHandler.cpp:318: warning: no matching class member found for 
+E:/Documents/Github/Elodie-game/src/EventHandler/EventHandler.cpp:17: warning: no matching class member found for 
+  void EventHandler::pushAll(const vector< eventInput > &tabFrom, vector< eventInput > &tabTo)
+Possible candidates:
+  void EventHandler::pushAll(std::vector< eventInput > const &tabFrom, std::vector< eventInput > &tabTo)
+  void EventHandler::pushAll(std::vector< eventMouse > const &tabFrom, std::vector< eventMouse > &tabTo)
+
+E:/Documents/Github/Elodie-game/src/EventHandler/EventHandler.cpp:22: warning: no matching class member found for 
+  void EventHandler::pushAll(const vector< eventMouse > &tabFrom, vector< eventMouse > &tabTo)
+Possible candidates:
+  void EventHandler::pushAll(std::vector< eventInput > const &tabFrom, std::vector< eventInput > &tabTo)
+  void EventHandler::pushAll(std::vector< eventMouse > const &tabFrom, std::vector< eventMouse > &tabTo)
+
+E:/Documents/Github/Elodie-game/src/EventHandler/EventHandler.cpp:27: warning: no matching class member found for 
+  int EventHandler::inVector(const vector< eventInput > &tab, int code)
+Possible candidates:
+  int EventHandler::inVector(std::vector< eventInput > const &tab, int code)
+  int EventHandler::inVector(std::vector< eventMouse > const &tab, int code)
+
+E:/Documents/Github/Elodie-game/src/EventHandler/EventHandler.cpp:35: warning: no matching class member found for 
+  int EventHandler::inVector(const vector< eventMouse > &tab, int code)
+Possible candidates:
+  int EventHandler::inVector(std::vector< eventInput > const &tab, int code)
+  int EventHandler::inVector(std::vector< eventMouse > const &tab, int code)
+
+E:/Documents/Github/Elodie-game/src/EventHandler/EventHandler.cpp:52: warning: no matching class member found for 
+  void EventHandler::extractByCode(vector< eventInput > &tab, int code)
+Possible candidates:
+  void EventHandler::extractByCode(std::vector< eventInput > &tab, int code)
+  void EventHandler::extractByCode(std::vector< eventMouse > &tab, int code)
+
+E:/Documents/Github/Elodie-game/src/EventHandler/EventHandler.cpp:61: warning: no matching class member found for 
+  void EventHandler::extractByCode(vector< eventMouse > &tab, int code)
+Possible candidates:
+  void EventHandler::extractByCode(std::vector< eventInput > &tab, int code)
+  void EventHandler::extractByCode(std::vector< eventMouse > &tab, int code)
+
+E:/Documents/Github/Elodie-game/src/EventHandler/EventHandler.cpp:89: warning: no matching class member found for 
+  bool EventHandler::checkIn(const vector< eventInput > &tab, int code)
+Possible candidates:
+  bool EventHandler::checkIn(std::vector< eventInput > const &tab, int code)
+  bool EventHandler::checkIn(std::vector< eventInput > const &tab, std::vector< int > codes)
+  bool EventHandler::checkIn(std::vector< eventMouse > const &tab, int code)
+
+E:/Documents/Github/Elodie-game/src/EventHandler/EventHandler.cpp:93: warning: no matching class member found for 
+  bool EventHandler::checkIn(const vector< eventInput > &tab, vector< int > codes)
+Possible candidates:
+  bool EventHandler::checkIn(std::vector< eventInput > const &tab, int code)
+  bool EventHandler::checkIn(std::vector< eventInput > const &tab, std::vector< int > codes)
+  bool EventHandler::checkIn(std::vector< eventMouse > const &tab, int code)
+
+E:/Documents/Github/Elodie-game/src/EventHandler/EventHandler.cpp:101: warning: no matching class member found for 
+  bool EventHandler::checkIn(const vector< eventMouse > &tab, int code)
+Possible candidates:
+  bool EventHandler::checkIn(std::vector< eventInput > const &tab, int code)
+  bool EventHandler::checkIn(std::vector< eventInput > const &tab, std::vector< int > codes)
+  bool EventHandler::checkIn(std::vector< eventMouse > const &tab, int code)
+
+E:/Documents/Github/Elodie-game/src/EventHandler/EventHandler.cpp:186: warning: no matching class member found for 
   bool EventHandler::keyIsPressed(vector< int > codes)
 Possible candidates:
   bool EventHandler::keyIsPressed(int code)
-  bool EventHandler::keyIsPressed(std::vector< int > code)
+  bool EventHandler::keyIsPressed(std::vector< int > codes)
 
-E:/Documents/Github/Elodie-game/src/EventHandler/EventHandler.cpp:351: warning: no matching class member found for 
+E:/Documents/Github/Elodie-game/src/EventHandler/EventHandler.cpp:199: warning: no matching class member found for 
   bool EventHandler::keyIsHold(vector< int > codes)
 Possible candidates:
   bool EventHandler::keyIsHold(int code)
-  bool EventHandler::keyIsHold(std::vector< int > code)
+  bool EventHandler::keyIsHold(std::vector< int > codes)
 
-E:/Documents/Github/Elodie-game/src/EventHandler/EventHandler.cpp:384: warning: no matching class member found for 
+E:/Documents/Github/Elodie-game/src/EventHandler/EventHandler.cpp:212: warning: no matching class member found for 
   bool EventHandler::keyIsReleased(vector< int > codes)
 Possible candidates:
   bool EventHandler::keyIsReleased(int code)
-  bool EventHandler::keyIsReleased(std::vector< int > code)
+  bool EventHandler::keyIsReleased(std::vector< int > codes)
 
