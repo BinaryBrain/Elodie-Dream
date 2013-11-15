@@ -10,27 +10,26 @@
 #include "../EventHandler/EventHandler.h"
 #include "GameView.h"
 
-class Game
-{
-    public:
-        Game();
-        virtual ~Game();
+class Game {
+public:
+    Game();
+    virtual ~Game();
 
-        void init();
-        void draw();
-        void run();
+    void init();
+    void draw();
+    void run();
 
-        Level loadLevel(std::string filename);
-    protected:
-    private:
-        EventHandler* event;
+    Level loadLevel(std::string filename);
+protected:
+private:
+    EventHandler* m_event;
 
-        Overworld overworld;
-        sf::Clock frameClock;
+    Overworld m_overworld;
+    sf::Clock m_frameClock;
 
-        GameView view;
+    GameView m_view;
 
-        bool inLevel = false;
+    bool m_inLevel = false;
 };
 
 #endif // GAME_H

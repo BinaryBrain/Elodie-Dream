@@ -1,22 +1,18 @@
 #include "Game.h"
 
-Game::Game()
-{
-    this->event = new EventHandler(this->view.getWindow());
+Game::Game() {
+    this->m_event = new EventHandler(this->m_view.getWindow());
 }
 
-Game::~Game()
-{
-    delete event;
+Game::~Game() {
+    delete m_event;
 }
 
-void Game::init()
-{
+void Game::init() {
     // ???
 }
 
-void Game::run()
-{
+void Game::run() {
     // TODO Shouldn't be here
     std::vector<int> esc;
     esc.push_back(sf::Keyboard::Escape);
@@ -29,36 +25,31 @@ void Game::run()
 
     Level level("assets/levels/level1.txt");
 
-    sf::RenderWindow* window = view.getWindow();
+    sf::RenderWindow* window = m_view.getWindow();
 
-    while (window->isOpen())
-    {
-        event->listening();
+    while (window->isOpen()) {
+        m_event->listening();
 
-        if (event->keyIsHold(esc))
-        {
+        if (m_event->keyIsHold(esc)) {
             window->close();
         }
 
-        if (event->keyIsPressed(sf::Keyboard::N))
-        {
-            overworld.evolve();
+        if (m_event->keyIsPressed(sf::Keyboard::N)) {
+            m_overworld.evolve();
         }
 
-        if (event->keyIsPressed(sf::Keyboard::F1))
-        {
+        if (m_event->keyIsPressed(sf::Keyboard::F1)) {
             sf::Image screen = window->capture();
             screen.saveToFile("screenshot.jpg");
         }
 
-        if (event->mouseIsPressed(sf::Mouse::Left))
-        {
-            eventMouse leftClick(event->mouseInfoPressed(sf::Mouse::Left));
+        if (m_event->mouseIsPressed(sf::Mouse::Left)) {
+            eventMouse leftClick(m_event->mouseInfoPressed(sf::Mouse::Left));
             std::cout << "Mouse pos : (" << leftClick.x << "; " << leftClick.y << ")" << std::endl;
         }
 
-        if (event->mouseIsWheeled())
-            std::cout << "Wheeeee " << event->mouseIsWheeled() << std::endl;
+        if (m_event->mouseIsWheeled())
+            std::cout << "Wheeeee " << m_event->mouseIsWheeled() << std::endl;
         /*
         if (event->keyIsReleased(movement) && !event->keyIsHold(movement))
             animatedSprite.setAnimation(standingAnimation);
@@ -66,67 +57,49 @@ void Game::run()
             animatedSprite.setAnimation(walkingAnimation);
         */
 
-        if(!overworld.getElodie()->hasToMove())
-        {
-            overworld.getElodie()->noMoves();
-            overworld.getElodie()->stand();
+        if(!m_overworld.getElodie()->hasToMove()) {
+            m_overworld.getElodie()->noMoves();
+            m_overworld.getElodie()->stand();
         }
 
-        if(overworld.getElodie()->isMoving())
-        {
-            overworld.getElodie()->move();
-        }
-        else if (event->keyIsHold(sf::Keyboard::Down))
-        {
-            overworld.getElodie()->setDistanceToMove(overworld.moveDown());
-            if(overworld.getElodie()->hasToMove())
-            {
-                overworld.getElodie()->walkDown();
+        if(m_overworld.getElodie()->isMoving()) {
+            m_overworld.getElodie()->move();
+        } else if (m_event->keyIsHold(sf::Keyboard::Down)) {
+            m_overworld.getElodie()->setDistanceToMove(m_overworld.moveDown());
+            if(m_overworld.getElodie()->hasToMove()) {
+                m_overworld.getElodie()->walkDown();
             }
-        }
-        else if (event->keyIsHold(sf::Keyboard::Up))
-        {
-            overworld.getElodie()->setDistanceToMove(overworld.moveUp());
-            if(overworld.getElodie()->hasToMove())
-            {
-                overworld.getElodie()->walkUp();
+        } else if (m_event->keyIsHold(sf::Keyboard::Up)) {
+            m_overworld.getElodie()->setDistanceToMove(m_overworld.moveUp());
+            if(m_overworld.getElodie()->hasToMove()) {
+                m_overworld.getElodie()->walkUp();
             }
-        }
-        else if (event->keyIsHold(sf::Keyboard::Left))
-        {
-            overworld.getElodie()->setDistanceToMove(overworld.moveLeft());
-            if(overworld.getElodie()->hasToMove())
-            {
-                overworld.getElodie()->walkLeft();
+        } else if (m_event->keyIsHold(sf::Keyboard::Left)) {
+            m_overworld.getElodie()->setDistanceToMove(m_overworld.moveLeft());
+            if(m_overworld.getElodie()->hasToMove()) {
+                m_overworld.getElodie()->walkLeft();
             }
-        }
-        else if (event->keyIsHold(sf::Keyboard::Right))
-        {
-            overworld.getElodie()->setDistanceToMove(overworld.moveRight());
-            if(overworld.getElodie()->hasToMove())
-            {
-                overworld.getElodie()->walkRight();
+        } else if (m_event->keyIsHold(sf::Keyboard::Right)) {
+            m_overworld.getElodie()->setDistanceToMove(m_overworld.moveRight());
+            if(m_overworld.getElodie()->hasToMove()) {
+                m_overworld.getElodie()->walkRight();
             }
         }
 
-        if (event->keyIsPressed(sf::Keyboard::Return))
-        {
-            inLevel = !inLevel;
+        if (m_event->keyIsPressed(sf::Keyboard::Return)) {
+            m_inLevel = !m_inLevel;
         }
 
-        if (inLevel)
-        {
-            level.draw(&view);
-        }
-        else
-        {
-            overworld.getElodie()->update(frameClock.restart());
+        if (m_inLevel) {
+            level.(&m_view);
+        } else {
+            m_overworld.getElodie()->update(m_frameClock.restart());
 
-            view.addDrawable(overworld.getCurrentSprite());
-            view.addDrawable(overworld.getElodie()->getSprite());
-            view.addDrawable(overworld.getPath());
+            m_view.addDrawable(m_overworld.getCurrentSprite());
+            m_view.addDrawable(m_overworld.getElodie()->getSprite());
+            m_view.addDrawable(m_overworld.getPath());
         }
 
-        view.draw();
+        m_view.draw();
     }
 }
