@@ -1,11 +1,9 @@
 #include "EnemySprite.h"
 
-EnemySprite::EnemySprite()
-{
+EnemySprite::EnemySprite() {
     //ctor
 }
 
-EnemySprite::~EnemySprite()
-{
+EnemySprite::~EnemySprite() {
     //dtor
 }

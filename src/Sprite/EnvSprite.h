@@ -4,13 +4,12 @@
 #include <SFML/Graphics.hpp>
 
 
-class EnvSprite : public sf::Sprite
-{
-    public:
-        EnvSprite();
-        virtual ~EnvSprite();
-    protected:
-    private:
+class EnvSprite : public sf::Sprite {
+public:
+    EnvSprite();
+    virtual ~EnvSprite();
+protected:
+private:
 };
 
 #endif // ENVSPRITE_H

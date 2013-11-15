@@ -8,8 +8,7 @@
 /**
 * The class representing Elodie, an Entity.
 */
-class Elodie : public Entity
-{
+class Elodie : public Entity {
 public:
 
     /**

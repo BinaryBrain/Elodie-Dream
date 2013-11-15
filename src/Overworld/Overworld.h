@@ -8,37 +8,36 @@
 #include "../Entity/Elodie.h"
 #include "../JsonAccessor/JsonAccessor.h"
 
-class Overworld
-{
-    public:
-        Overworld();
-        virtual ~Overworld();
-        sf::Sprite* getCurrentSprite();
-        Elodie* getElodie();
-        sf::VertexArray* getPath();
-        int moveUp();
-        int moveDown();
-        int moveRight();
-        int moveLeft();
-        void evolve();
+class Overworld {
+public:
+    Overworld();
+    virtual ~Overworld();
+    sf::Sprite* getCurrentSprite();
+    Elodie* getElodie();
+    sf::VertexArray* getPath();
+    int moveUp();
+    int moveDown();
+    int moveRight();
+    int moveLeft();
+    void evolve();
 
-    protected:
-    private:
-        enum states {
-            UNIL = 0,
-            CASTLE = 1,
-            VOLCANO = 2,
-            FRELJORD = 3
-        };
+protected:
+private:
+    enum states {
+        UNIL = 0,
+        CASTLE = 1,
+        VOLCANO = 2,
+        FRELJORD = 3
+    };
 
-        states currentState;
-        std::vector<sf::Sprite*> overworldSprites;
-        std::vector<sf::VertexArray*> paths;
-        std::vector<std::vector<int>*> levelPos;
+    states currentState;
+    std::vector<sf::Sprite*> overworldSprites;
+    std::vector<sf::VertexArray*> paths;
+    std::vector<std::vector<int>*> levelPos;
 
-        size_t curPosInPath=0;
+    size_t curPosInPath=0;
 
-        Elodie* elodie;
+    Elodie* elodie;
 };
 
 #endif // OVERWORLD_H

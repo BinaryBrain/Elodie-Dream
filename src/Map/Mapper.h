@@ -15,23 +15,23 @@
 #include "../Entity/Elodie.h"
 
 class Mapper {
-    private:
-        // ASCII Map
-        // Terrain
-        static const char MAP_GROUND = '#';
+private:
+    // ASCII Map
+    // Terrain
+    static const char MAP_GROUND = '#';
 
-        // Characters
-        static const char MAP_ELODIE = 'E';
+    // Characters
+    static const char MAP_ELODIE = 'E';
 
-        // Misc
-        static const char MAP_LINE_BREAK = '\n';
-        static const char MAP_NULL = ' ';
+    // Misc
+    static const char MAP_LINE_BREAK = '\n';
+    static const char MAP_NULL = ' ';
 
-    public:
-        Mapper();
-        static void parse(std::string str, TileMap& tiles, EntitieVector& entities);
-        static void beautify(TileMap& tiles);
-        static void print(TileMap& tiles, EntitieVector& entities);
+public:
+    Mapper();
+    static void parse(std::string str, TileMap& tiles, EntitieVector& entities);
+    static void beautify(TileMap& tiles);
+    static void print(TileMap& tiles, EntitieVector& entities);
 };
 
 #endif // MAPPARSER_H

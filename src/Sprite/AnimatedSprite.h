@@ -31,8 +31,7 @@
 
 #include "Animation.h"
 
-class AnimatedSprite : public sf::Sprite
-{
+class AnimatedSprite : public sf::Sprite {
 public:
     explicit AnimatedSprite(sf::Time frameTime = sf::seconds(0.2f), bool paused = false, bool looped = true);
 

@@ -17,6 +17,6 @@ std::string FileHandler::getContent(std::string filename) {
 
     // Do NOT remove parentheses. (most vexing parse)
     std::string str((std::istreambuf_iterator<char>(stream)),
-                     std::istreambuf_iterator<char>());
+                    std::istreambuf_iterator<char>());
     return str;
 }

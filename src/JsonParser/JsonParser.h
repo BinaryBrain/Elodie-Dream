@@ -11,15 +11,14 @@
 
 using std::string;
 
-class JsonParser
-{
-    public:
-        JsonParser();
-        static string encode(rapidjson::Document &doc);
-        static rapidjson::Document* decode(string s, rapidjson::Document* document, bool isFile);
-        ~JsonParser();
+class JsonParser {
+public:
+    JsonParser();
+    static string encode(rapidjson::Document &doc);
+    static rapidjson::Document* decode(string s, rapidjson::Document* document, bool isFile);
+    ~JsonParser();
 
-    private:
+private:
 };
 
 #endif // JSONHANDLER_H

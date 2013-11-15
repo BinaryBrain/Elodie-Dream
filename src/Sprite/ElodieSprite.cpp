@@ -1,7 +1,6 @@
 #include "ElodieSprite.h"
 
-ElodieSprite::ElodieSprite() : CharacterSprite()
-{
+ElodieSprite::ElodieSprite() : CharacterSprite() {
     this->texture.loadFromFile("assets/img/sprite.png");
 
     // push frames
@@ -21,15 +20,14 @@ ElodieSprite::ElodieSprite() : CharacterSprite()
     this->setAnimation(standingAnimation);
 }
 
-ElodieSprite::~ElodieSprite()
-{
+ElodieSprite::~ElodieSprite() {
     //dtor
 }
 
-void ElodieSprite::walk(){
+void ElodieSprite::walk() {
     AnimatedSprite::setAnimation(this->walkingAnimation);
 }
 
-void ElodieSprite::stand(){
+void ElodieSprite::stand() {
     AnimatedSprite::setAnimation(this->standingAnimation);
 }

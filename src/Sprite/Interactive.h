@@ -4,13 +4,12 @@
 #include "AnimatedSprite.h"
 
 
-class Interactive : public AnimatedSprite
-{
-    public:
-        Interactive();
-        virtual ~Interactive();
-    protected:
-    private:
+class Interactive : public AnimatedSprite {
+public:
+    Interactive();
+    virtual ~Interactive();
+protected:
+private:
 };
 
 #endif // INTERACTIVE_H

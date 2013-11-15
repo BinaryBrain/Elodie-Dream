@@ -1,12 +1,10 @@
 #include "GameView.h"
 
-GameView::GameView()
-{
+GameView::GameView() {
     this->window = new sf::RenderWindow(sf::VideoMode(1280, 720), "Elodie's Dream: Quest for Poros", sf::Style::Default);
 }
 
-GameView::~GameView()
-{
+GameView::~GameView() {
     delete window;
 }
 

@@ -1,12 +1,10 @@
 #include "Entity.h"
 
-Entity::Entity()
-{
+Entity::Entity() {
     this->m_sprite = NULL;
 }
 
-Entity::~Entity()
-{
+Entity::~Entity() {
     if(m_sprite) {
         delete m_sprite;
     }

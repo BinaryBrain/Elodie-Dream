@@ -5,20 +5,19 @@
 
 #include <iostream>
 
-class GameView
-{
-    public:
-        GameView();
-        virtual ~GameView();
+class GameView {
+public:
+    GameView();
+    virtual ~GameView();
 
-        void draw();
-        void addDrawable(sf::Drawable*);
+    void draw();
+    void addDrawable(sf::Drawable*);
 
-        sf::RenderWindow* getWindow();
-    protected:
-    private:
-        sf::RenderWindow* window;
-        std::vector<sf::Drawable*> toDraw;
+    sf::RenderWindow* getWindow();
+protected:
+private:
+    sf::RenderWindow* window;
+    std::vector<sf::Drawable*> toDraw;
 };
 
 #endif // GAMEVIEW_H

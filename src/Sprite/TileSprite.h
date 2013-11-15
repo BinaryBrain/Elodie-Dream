@@ -5,35 +5,36 @@
 
 #include "EnvSprite.h"
 
-enum class TileType { GROUND, GRASS, STONE };
+enum class TileType {
+    GROUND, GRASS, STONE
+};
 enum class TileSide {
-                        TOP = 0x01,
-                        BOTTOM = 0X02,
-                        LEFT = 0X04,
-                        RIGHT = 0X08,
-                        TOP_LEFT = 0X10,
-                        TOP_RIGHT = 0X20,
-                        BOTTOM_LEFT = 0X40,
-                        BOTTOM_RIGHT = 0X80,
-                    };
+    TOP = 0x01,
+    BOTTOM = 0X02,
+    LEFT = 0X04,
+    RIGHT = 0X08,
+    TOP_LEFT = 0X10,
+    TOP_RIGHT = 0X20,
+    BOTTOM_LEFT = 0X40,
+    BOTTOM_RIGHT = 0X80,
+};
 
-class TileSprite : public EnvSprite
-{
-    public:
-        TileSprite(TileType type);
-        virtual ~TileSprite();
+class TileSprite : public EnvSprite {
+public:
+    TileSprite(TileType type);
+    virtual ~TileSprite();
 
-        TileType getType();
-        int getSide();
-        void addSide(TileSide side);
-        void setSide(TileSide side);
-    protected:
-    private:
-        TileType type;
-        int side;
-        sf::Texture texture;
+    TileType getType();
+    int getSide();
+    void addSide(TileSide side);
+    void setSide(TileSide side);
+protected:
+private:
+    TileType type;
+    int side;
+    sf::Texture texture;
 
-        void setSide(int side);
+    void setSide(int side);
 };
 
 #endif // TILESPRITE_H

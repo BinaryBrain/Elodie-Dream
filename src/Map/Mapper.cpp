@@ -13,11 +13,11 @@ void Mapper::parse(std::string asciiLevel, TileMap& tiles, EntitieVector& entiti
     for(unsigned int i = 0; i < asciiLevel.length(); i++) {
         // Entities
         switch(asciiLevel[i]) {
-            case MAP_ELODIE:
-                entities.push_back(new Elodie(x*32, y*32));
-                break;
-            default:
-                break;
+        case MAP_ELODIE:
+            entities.push_back(new Elodie(x*32, y*32));
+            break;
+        default:
+            break;
         }
 
         // Terrain
@@ -26,22 +26,22 @@ void Mapper::parse(std::string asciiLevel, TileMap& tiles, EntitieVector& entiti
         }
 
         switch(asciiLevel[i]) {
-            case MAP_GROUND:
-                tiles[y].push_back(new TileSprite(TileType::GROUND));
-                break;
+        case MAP_GROUND:
+            tiles[y].push_back(new TileSprite(TileType::GROUND));
+            break;
 
-            case MAP_LINE_BREAK:
-                y++;
-                x=0;
-                break;
+        case MAP_LINE_BREAK:
+            y++;
+            x=0;
+            break;
 
-            case MAP_NULL:
-                tiles[y].push_back(NULL);
-                break;
+        case MAP_NULL:
+            tiles[y].push_back(NULL);
+            break;
 
-            default:
-                tiles[y].push_back(NULL);
-                break;
+        default:
+            tiles[y].push_back(NULL);
+            break;
         }
 
         ++x;
@@ -90,8 +90,7 @@ void Mapper::print(TileMap& tiles, EntitieVector& entities) {
 
             if(!tile) {
                 out += MAP_NULL;
-            }
-            else if(tile->getType() == TileType::GROUND) {
+            } else if(tile->getType() == TileType::GROUND) {
                 out += MAP_GROUND;
             }
         }
