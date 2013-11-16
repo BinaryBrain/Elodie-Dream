@@ -11,7 +11,7 @@ var MAP_NULL = ' ';
 
 // Images
 images = []
-images[MAP_GROUND] = "../../assets/img/sprites/tilesets/autotiles/ground1extended.png"
+images[MAP_GROUND] = "../../assets/img/sprites/tilesets/autotiles/rock1extended.png"
 images[MAP_ELODIE] = "../../assets/img/sprites/tilesets/autotiles/ground1extended.png"
 
 function parse(level, tiles, entities) {
@@ -64,21 +64,33 @@ function beautify(tiles) {
         if(y >= 1 && !tiles[y-1][x]) {
             tiles[y][x].addSide(TileSide.TOP)
         }
-
+        
+        if(y < tiles.length-1 && !tiles[y+1][x]) {
+          tiles[y][x].addSide(TileSide.BOTTOM)
+        }
+        
         if(x >= 1 && !tiles[y][x-1]) {
-            tiles[y][x].addSide(TileSide.LEFT)
+          tiles[y][x].addSide(TileSide.LEFT)
         }
-
+        
         if(x < tiles[y].length-1 && !tiles[y][x+1]) {
-            tiles[y][x].addSide(TileSide.RIGHT)
+          tiles[y][x].addSide(TileSide.RIGHT)
         }
-
+        
         if(x >= 1 && y >= 1 && !tiles[y-1][x-1]) {
-            tiles[y][x].addSide(TileSide.TOP_LEFT)
+          tiles[y][x].addSide(TileSide.TOP_LEFT);
         }
-
+        
         if(x < tiles[y].length-1 && y >= 1 && !tiles[y-1][x+1]) {
-            tiles[y][x].addSide(TileSide.TOP_RIGHT)
+          tiles[y][x].addSide(TileSide.TOP_RIGHT);
+        }
+        
+        if(x >= 1 && y < tiles.length-1 && !tiles[y+1][x-1]) {
+          tiles[y][x].addSide(TileSide.BOTTOM_LEFT);
+        }
+        
+        if(x < tiles[y].length-1 && y < tiles.length-1 && !tiles[y+1][x+1]) {
+          tiles[y][x].addSide(TileSide.BOTTOM_RIGHT);
         }
       }
     }
@@ -99,8 +111,130 @@ Tile.prototype.addSide = function (side) {
 Tile.prototype.setSide = function (side) {
   this.side = side
   
-  if(this.side == TileSide.TOP) {
-      this.x = 32
-      this.y = 128
+  this.filterSides();
+
+  this.setCoords(0, 0)
+
+  if(this.side == (TileSide.BOTTOM_RIGHT))
+    this.setCoords(4*32, 0*32)
+  if(this.side == (TileSide.BOTTOM_LEFT))
+    this.setCoords(0*32, 1*32)
+  if(this.side == (TileSide.BOTTOM_LEFT | TileSide.BOTTOM_RIGHT))
+    this.setCoords(4*32, 5*32)
+  if(this.side == (TileSide.TOP_RIGHT))
+    this.setCoords(2*32, 0*32)
+  if(this.side == (TileSide.TOP_RIGHT | TileSide.BOTTOM_RIGHT))
+    this.setCoords(6*32, 0*32)
+  if(this.side == (TileSide.TOP_RIGHT | TileSide.BOTTOM_LEFT))
+    this.setCoords(2*32, 1*32)
+  if(this.side == (TileSide.TOP_RIGHT | TileSide.BOTTOM_LEFT | TileSide.BOTTOM_RIGHT))
+    this.setCoords(6*32, 1*32)
+  if(this.side == (TileSide.TOP_LEFT))
+    this.setCoords(1*32, 0*32)
+  if(this.side == (TileSide.TOP_LEFT | TileSide.BOTTOM_RIGHT))
+    this.setCoords(5*32, 0*32)
+  if(this.side == (TileSide.TOP_LEFT | TileSide.BOTTOM_LEFT))
+    this.setCoords(1*32, 1*32)
+  if(this.side == (TileSide.TOP_LEFT | TileSide.BOTTOM_LEFT | TileSide.BOTTOM_RIGHT))
+    this.setCoords(5*32, 1*32)
+  if(this.side == (TileSide.TOP_LEFT | TileSide.TOP_RIGHT))
+    this.setCoords(3*32, 0*32)
+  if(this.side == (TileSide.TOP_LEFT | TileSide.TOP_RIGHT | TileSide.BOTTOM_RIGHT))
+    this.setCoords(7*32, 0*32)
+  if(this.side == (TileSide.TOP_LEFT | TileSide.TOP_RIGHT | TileSide.BOTTOM_LEFT))
+    this.setCoords(3*32, 1*32)
+  if(this.side == (TileSide.TOP_LEFT | TileSide.TOP_RIGHT | TileSide.BOTTOM_LEFT | TileSide.BOTTOM_RIGHT))
+    this.setCoords(7*32, 1*32)
+  if(this.side == (TileSide.LEFT)) {
+    console.log("OK")
+    this.setCoords(0*32, 2*32)
   }
+  if(this.side == (TileSide.LEFT | TileSide.BOTTOM_RIGHT))
+    this.setCoords(2*32, 2*32)
+  if(this.side == (TileSide.LEFT | TileSide.TOP_RIGHT))
+    this.setCoords(1*32, 2*32)
+  if(this.side == (TileSide.LEFT | TileSide.TOP_RIGHT | TileSide.BOTTOM_RIGHT))
+    this.setCoords(3*32, 2*32)
+  if(this.side == (TileSide.RIGHT))
+    this.setCoords(0*32, 3*32)
+  if(this.side == (TileSide.RIGHT | TileSide.BOTTOM_LEFT))
+    this.setCoords(1*32, 3*32)
+  if(this.side == (TileSide.RIGHT | TileSide.TOP_LEFT))
+    this.setCoords(2*32, 3*32)
+  if(this.side == (TileSide.RIGHT | TileSide.TOP_LEFT | TileSide.BOTTOM_LEFT))
+    this.setCoords(3*32, 3*32)
+  if(this.side == (TileSide.RIGHT | TileSide.LEFT))
+    this.setCoords(0*32, 4*32)
+  if(this.side == (TileSide.BOTTOM))
+    this.setCoords(4*32, 3*32)
+  if(this.side == (TileSide.BOTTOM | TileSide.TOP_RIGHT))
+    this.setCoords(6*32, 3*32)
+  if(this.side == (TileSide.BOTTOM | TileSide.TOP_LEFT))
+    this.setCoords(5*32, 3*32)
+  if(this.side == (TileSide.BOTTOM | TileSide.TOP_LEFT | TileSide.TOP_RIGHT))
+    this.setCoords(7*32, 3*32)
+  if(this.side == (TileSide.BOTTOM | TileSide.LEFT))
+    this.setCoords(0*32, 5*32)
+  if(this.side == (TileSide.BOTTOM | TileSide.LEFT | TileSide.TOP_RIGHT))
+    this.setCoords(1*32, 5*32)
+  if(this.side == (TileSide.BOTTOM | TileSide.RIGHT))
+    this.setCoords(6*32, 4*32)
+  if(this.side == (TileSide.BOTTOM | TileSide.RIGHT | TileSide.TOP_LEFT))
+    this.setCoords(7*32, 4*32)
+  if(this.side == (TileSide.BOTTOM | TileSide.RIGHT | TileSide.LEFT))
+    this.setCoords(4*32, 5*32)
+  if(this.side == (TileSide.TOP))
+    this.setCoords(4*32, 2*32)
+  if(this.side == (TileSide.TOP | TileSide.BOTTOM_RIGHT))
+    this.setCoords(5*32, 2*32)
+  if(this.side == (TileSide.TOP | TileSide.BOTTOM_LEFT))
+    this.setCoords(6*32, 2*32)
+  if(this.side == (TileSide.TOP | TileSide.BOTTOM_LEFT | TileSide.BOTTOM_RIGHT))
+    this.setCoords(7*32, 2*32)
+  if(this.side == (TileSide.TOP | TileSide.LEFT))
+    this.setCoords(2*32, 4*32)
+  if(this.side == (TileSide.TOP | TileSide.LEFT | TileSide.BOTTOM_RIGHT))
+    this.setCoords(3*32, 4*32)
+  if(this.side == (TileSide.TOP | TileSide.RIGHT))
+    this.setCoords(4*32, 4*32)
+  if(this.side == (TileSide.TOP | TileSide.RIGHT | TileSide.BOTTOM_LEFT))
+    this.setCoords(5*32, 4*32)
+  if(this.side == (TileSide.TOP | TileSide.RIGHT | TileSide.LEFT))
+    this.setCoords(2*32, 5*32)
+  if(this.side == (TileSide.TOP | TileSide.BOTTOM))
+    this.setCoords(1*32, 4*32)
+  if(this.side == (TileSide.TOP | TileSide.BOTTOM | TileSide.LEFT))
+    this.setCoords(3*32, 5*32)
+  if(this.side == (TileSide.TOP | TileSide.BOTTOM | TileSide.RIGHT))
+    this.setCoords(5*32, 5*32)
+  if(this.side == (TileSide.TOP | TileSide.BOTTOM | TileSide.RIGHT | TileSide.LEFT))
+    this.setCoords(6*32, 5*32)
+}
+
+Tile.prototype.setCoords = function(x, y) {
+  this.x = 256-x
+  this.y = 192-y
+}
+
+Tile.prototype.filterSides = function() {
+  if(this.side & TileSide.TOP && this.side & TileSide.TOP_LEFT)
+    this.side = ~(~this.side | TileSide.TOP_LEFT);
+  if(this.side & TileSide.TOP && this.side & TileSide.TOP_RIGHT)
+    this.side = ~(~this.side | TileSide.TOP_RIGHT);
+
+
+  if(this.side & TileSide.BOTTOM && this.side & TileSide.BOTTOM_LEFT)
+    this.side = ~(~this.side | TileSide.BOTTOM_LEFT);
+  if(this.side & TileSide.BOTTOM && this.side & TileSide.BOTTOM_RIGHT)
+    this.side = ~(~this.side | TileSide.BOTTOM_RIGHT);
+
+  if(this.side & TileSide.RIGHT && this.side & TileSide.TOP_RIGHT)
+    this.side = ~(~this.side | TileSide.TOP_RIGHT);
+  if(this.side & TileSide.RIGHT && this.side & TileSide.BOTTOM_RIGHT)
+    this.side = ~(~this.side | TileSide.BOTTOM_RIGHT);
+
+  if(this.side & TileSide.LEFT && this.side & TileSide.TOP_LEFT)
+    this.side = ~(~this.side | TileSide.TOP_LEFT);
+  if(this.side & TileSide.LEFT && this.side & TileSide.BOTTOM_LEFT)
+    this.side = ~(~this.side | TileSide.BOTTOM_LEFT);
 }

@@ -86,10 +86,6 @@ void Mapper::beautify(TileMap& tiles) {
                 if(x < tiles[y].size()-1 && y < tiles.size()-1 && !tiles[y+1][x+1]) {
                     tiles[y][x]->addSide(TileSide::BOTTOM_RIGHT);
                 }
-
-                //tiles[y][x]->setSide(TileSide::TOP_LEFT);
-                //tiles[y][x]->addSide(TileSide::TOP_LEFT);
-                //tiles[y][x]->addSide(TileSide::RIGHT);
             }
         }
     }
