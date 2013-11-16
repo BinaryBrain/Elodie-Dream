@@ -68,7 +68,7 @@ void TileSprite::setSide(int side) {
     else if(this->side == ((int) TileSide::BOTTOM_LEFT))
         this->setTextureRect(sf::IntRect(0*32, 1*32, 32, 32));
     else if(this->side == ((int) TileSide::BOTTOM_LEFT | (int) TileSide::BOTTOM_RIGHT))
-        this->setTextureRect(sf::IntRect(4*32, 5*32, 32, 32));
+        this->setTextureRect(sf::IntRect(4*32, 1*32, 32, 32));
     else if(this->side == ((int) TileSide::TOP_RIGHT))
         this->setTextureRect(sf::IntRect(2*32, 0*32, 32, 32));
     else if(this->side == ((int) TileSide::TOP_RIGHT | (int) TileSide::BOTTOM_RIGHT))
