@@ -120,7 +120,7 @@ Tile.prototype.setSide = function (side) {
   if(this.side == (TileSide.BOTTOM_LEFT))
     this.setCoords(0*32, 1*32)
   if(this.side == (TileSide.BOTTOM_LEFT | TileSide.BOTTOM_RIGHT))
-    this.setCoords(4*32, 5*32)
+    this.setCoords(4*32, 1*32)
   if(this.side == (TileSide.TOP_RIGHT))
     this.setCoords(2*32, 0*32)
   if(this.side == (TileSide.TOP_RIGHT | TileSide.BOTTOM_RIGHT))
