@@ -55,35 +55,35 @@ void Mapper::beautify(TileMap& tiles) {
     for(unsigned int y=0; y<tiles.size(); y++) {
         for(unsigned int x=0; x<tiles[y].size(); x++) {
             if(tiles[y][x]) {
-                if(y >= 1 && !tiles[y-1][x]) {
+                if((y >= 1 && !tiles[y-1][x]) || y == 0) {
                     tiles[y][x]->addSide(TileSide::TOP);
                 }
 
-                if(x >= 1 && !tiles[y][x-1]) {
-                    tiles[y][x]->addSide(TileSide::LEFT);
-                }
-
-                if(x < tiles[y].size()-1 && !tiles[y][x+1]) {
-                    tiles[y][x]->addSide(TileSide::RIGHT);
-                }
-
-                if(y < tiles.size()-1 && !tiles[y+1][x]) {
+                if((y < tiles.size()-1 && !tiles[y+1][x]) || y == tiles.size()-1) {
                     tiles[y][x]->addSide(TileSide::BOTTOM);
                 }
 
-                if(x >= 1 && y >= 1 && !tiles[y-1][x-1]) {
+                if((x >= 1 && !tiles[y][x-1]) || x == 0) {
+                    tiles[y][x]->addSide(TileSide::LEFT);
+                }
+
+                if((x < tiles[y].size()-1 && !tiles[y][x+1]) || x == tiles[y].size()-1) {
+                    tiles[y][x]->addSide(TileSide::RIGHT);
+                }
+
+                if((x >= 1 && y >= 1 && !tiles[y-1][x-1]) || (x == 0 && y == 0)) {
                     tiles[y][x]->addSide(TileSide::TOP_LEFT);
                 }
 
-                if(x < tiles[y].size()-1 && y >= 1 && !tiles[y-1][x+1]) {
+                if((x < tiles[y].size()-1 && y >= 1 && !tiles[y-1][x+1]) || (x == tiles[y].size()-1 && y == 0)) {
                     tiles[y][x]->addSide(TileSide::TOP_RIGHT);
                 }
 
-                if(x >= 1 && y < tiles.size()-1 && !tiles[y+1][x-1]) {
+                if((x >= 1 && y < tiles.size()-1 && !tiles[y+1][x-1]) || (x == 0 && y == tiles.size()-1)) {
                     tiles[y][x]->addSide(TileSide::BOTTOM_LEFT);
                 }
 
-                if(x < tiles[y].size()-1 && y < tiles.size()-1 && !tiles[y+1][x+1]) {
+                if((x < tiles[y].size()-1 && y < tiles.size()-1 && !tiles[y+1][x+1]) || (x == tiles[y].size()-1 && y == tiles.size()-1)) {
                     tiles[y][x]->addSide(TileSide::BOTTOM_RIGHT);
                 }
             }
