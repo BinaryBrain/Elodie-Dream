@@ -78,19 +78,19 @@ function beautify(tiles) {
         }
         
         if(x >= 1 && y >= 1 && !tiles[y-1][x-1]) {
-          tiles[y][x].addSide(TileSide.TOP_LEFT);
+          tiles[y][x].addSide(TileSide.TOP_LEFT)
         }
         
         if(x < tiles[y].length-1 && y >= 1 && !tiles[y-1][x+1]) {
-          tiles[y][x].addSide(TileSide.TOP_RIGHT);
+          tiles[y][x].addSide(TileSide.TOP_RIGHT)
         }
         
         if(x >= 1 && y < tiles.length-1 && !tiles[y+1][x-1]) {
-          tiles[y][x].addSide(TileSide.BOTTOM_LEFT);
+          tiles[y][x].addSide(TileSide.BOTTOM_LEFT)
         }
         
         if(x < tiles[y].length-1 && y < tiles.length-1 && !tiles[y+1][x+1]) {
-          tiles[y][x].addSide(TileSide.BOTTOM_RIGHT);
+          tiles[y][x].addSide(TileSide.BOTTOM_RIGHT)
         }
       }
     }
@@ -117,97 +117,95 @@ Tile.prototype.setSide = function (side) {
 
   if(this.side == (TileSide.BOTTOM_RIGHT))
     this.setCoords(4*32, 0*32)
-  if(this.side == (TileSide.BOTTOM_LEFT))
+  else if(this.side == (TileSide.BOTTOM_LEFT))
     this.setCoords(0*32, 1*32)
-  if(this.side == (TileSide.BOTTOM_LEFT | TileSide.BOTTOM_RIGHT))
+  else if(this.side == (TileSide.BOTTOM_LEFT | TileSide.BOTTOM_RIGHT))
     this.setCoords(4*32, 1*32)
-  if(this.side == (TileSide.TOP_RIGHT))
+  else if(this.side == (TileSide.TOP_RIGHT))
     this.setCoords(2*32, 0*32)
-  if(this.side == (TileSide.TOP_RIGHT | TileSide.BOTTOM_RIGHT))
+  else if(this.side == (TileSide.TOP_RIGHT | TileSide.BOTTOM_RIGHT))
     this.setCoords(6*32, 0*32)
-  if(this.side == (TileSide.TOP_RIGHT | TileSide.BOTTOM_LEFT))
+  else if(this.side == (TileSide.TOP_RIGHT | TileSide.BOTTOM_LEFT))
     this.setCoords(2*32, 1*32)
-  if(this.side == (TileSide.TOP_RIGHT | TileSide.BOTTOM_LEFT | TileSide.BOTTOM_RIGHT))
+  else if(this.side == (TileSide.TOP_RIGHT | TileSide.BOTTOM_LEFT | TileSide.BOTTOM_RIGHT))
     this.setCoords(6*32, 1*32)
-  if(this.side == (TileSide.TOP_LEFT))
+  else if(this.side == (TileSide.TOP_LEFT))
     this.setCoords(1*32, 0*32)
-  if(this.side == (TileSide.TOP_LEFT | TileSide.BOTTOM_RIGHT))
+  else if(this.side == (TileSide.TOP_LEFT | TileSide.BOTTOM_RIGHT))
     this.setCoords(5*32, 0*32)
-  if(this.side == (TileSide.TOP_LEFT | TileSide.BOTTOM_LEFT))
+  else if(this.side == (TileSide.TOP_LEFT | TileSide.BOTTOM_LEFT))
     this.setCoords(1*32, 1*32)
-  if(this.side == (TileSide.TOP_LEFT | TileSide.BOTTOM_LEFT | TileSide.BOTTOM_RIGHT))
+  else if(this.side == (TileSide.TOP_LEFT | TileSide.BOTTOM_LEFT | TileSide.BOTTOM_RIGHT))
     this.setCoords(5*32, 1*32)
-  if(this.side == (TileSide.TOP_LEFT | TileSide.TOP_RIGHT))
+  else if(this.side == (TileSide.TOP_LEFT | TileSide.TOP_RIGHT))
     this.setCoords(3*32, 0*32)
-  if(this.side == (TileSide.TOP_LEFT | TileSide.TOP_RIGHT | TileSide.BOTTOM_RIGHT))
+  else if(this.side == (TileSide.TOP_LEFT | TileSide.TOP_RIGHT | TileSide.BOTTOM_RIGHT))
     this.setCoords(7*32, 0*32)
-  if(this.side == (TileSide.TOP_LEFT | TileSide.TOP_RIGHT | TileSide.BOTTOM_LEFT))
+  else if(this.side == (TileSide.TOP_LEFT | TileSide.TOP_RIGHT | TileSide.BOTTOM_LEFT))
     this.setCoords(3*32, 1*32)
-  if(this.side == (TileSide.TOP_LEFT | TileSide.TOP_RIGHT | TileSide.BOTTOM_LEFT | TileSide.BOTTOM_RIGHT))
+  else if(this.side == (TileSide.TOP_LEFT | TileSide.TOP_RIGHT | TileSide.BOTTOM_LEFT | TileSide.BOTTOM_RIGHT))
     this.setCoords(7*32, 1*32)
-  if(this.side == (TileSide.LEFT)) {
-    console.log("OK")
+  else if(this.side == (TileSide.LEFT))
     this.setCoords(0*32, 2*32)
-  }
-  if(this.side == (TileSide.LEFT | TileSide.BOTTOM_RIGHT))
+  else if(this.side == (TileSide.LEFT | TileSide.BOTTOM_RIGHT))
     this.setCoords(2*32, 2*32)
-  if(this.side == (TileSide.LEFT | TileSide.TOP_RIGHT))
+  else if(this.side == (TileSide.LEFT | TileSide.TOP_RIGHT))
     this.setCoords(1*32, 2*32)
-  if(this.side == (TileSide.LEFT | TileSide.TOP_RIGHT | TileSide.BOTTOM_RIGHT))
+  else if(this.side == (TileSide.LEFT | TileSide.TOP_RIGHT | TileSide.BOTTOM_RIGHT))
     this.setCoords(3*32, 2*32)
-  if(this.side == (TileSide.RIGHT))
+  else if(this.side == (TileSide.RIGHT))
     this.setCoords(0*32, 3*32)
-  if(this.side == (TileSide.RIGHT | TileSide.BOTTOM_LEFT))
+  else if(this.side == (TileSide.RIGHT | TileSide.BOTTOM_LEFT))
     this.setCoords(1*32, 3*32)
-  if(this.side == (TileSide.RIGHT | TileSide.TOP_LEFT))
+  else if(this.side == (TileSide.RIGHT | TileSide.TOP_LEFT))
     this.setCoords(2*32, 3*32)
-  if(this.side == (TileSide.RIGHT | TileSide.TOP_LEFT | TileSide.BOTTOM_LEFT))
+  else if(this.side == (TileSide.RIGHT | TileSide.TOP_LEFT | TileSide.BOTTOM_LEFT))
     this.setCoords(3*32, 3*32)
-  if(this.side == (TileSide.RIGHT | TileSide.LEFT))
+  else if(this.side == (TileSide.RIGHT | TileSide.LEFT))
     this.setCoords(0*32, 4*32)
-  if(this.side == (TileSide.BOTTOM))
+  else if(this.side == (TileSide.BOTTOM))
     this.setCoords(4*32, 3*32)
-  if(this.side == (TileSide.BOTTOM | TileSide.TOP_RIGHT))
+  else if(this.side == (TileSide.BOTTOM | TileSide.TOP_RIGHT))
     this.setCoords(6*32, 3*32)
-  if(this.side == (TileSide.BOTTOM | TileSide.TOP_LEFT))
+  else if(this.side == (TileSide.BOTTOM | TileSide.TOP_LEFT))
     this.setCoords(5*32, 3*32)
-  if(this.side == (TileSide.BOTTOM | TileSide.TOP_LEFT | TileSide.TOP_RIGHT))
+  else if(this.side == (TileSide.BOTTOM | TileSide.TOP_LEFT | TileSide.TOP_RIGHT))
     this.setCoords(7*32, 3*32)
-  if(this.side == (TileSide.BOTTOM | TileSide.LEFT))
+  else if(this.side == (TileSide.BOTTOM | TileSide.LEFT))
     this.setCoords(0*32, 5*32)
-  if(this.side == (TileSide.BOTTOM | TileSide.LEFT | TileSide.TOP_RIGHT))
+  else if(this.side == (TileSide.BOTTOM | TileSide.LEFT | TileSide.TOP_RIGHT))
     this.setCoords(1*32, 5*32)
-  if(this.side == (TileSide.BOTTOM | TileSide.RIGHT))
+  else if(this.side == (TileSide.BOTTOM | TileSide.RIGHT))
     this.setCoords(6*32, 4*32)
-  if(this.side == (TileSide.BOTTOM | TileSide.RIGHT | TileSide.TOP_LEFT))
+  else if(this.side == (TileSide.BOTTOM | TileSide.RIGHT | TileSide.TOP_LEFT))
     this.setCoords(7*32, 4*32)
-  if(this.side == (TileSide.BOTTOM | TileSide.RIGHT | TileSide.LEFT))
+  else if(this.side == (TileSide.BOTTOM | TileSide.RIGHT | TileSide.LEFT))
     this.setCoords(4*32, 5*32)
-  if(this.side == (TileSide.TOP))
+  else if(this.side == (TileSide.TOP))
     this.setCoords(4*32, 2*32)
-  if(this.side == (TileSide.TOP | TileSide.BOTTOM_RIGHT))
+  else if(this.side == (TileSide.TOP | TileSide.BOTTOM_RIGHT))
     this.setCoords(5*32, 2*32)
-  if(this.side == (TileSide.TOP | TileSide.BOTTOM_LEFT))
+  else if(this.side == (TileSide.TOP | TileSide.BOTTOM_LEFT))
     this.setCoords(6*32, 2*32)
-  if(this.side == (TileSide.TOP | TileSide.BOTTOM_LEFT | TileSide.BOTTOM_RIGHT))
+  else if(this.side == (TileSide.TOP | TileSide.BOTTOM_LEFT | TileSide.BOTTOM_RIGHT))
     this.setCoords(7*32, 2*32)
-  if(this.side == (TileSide.TOP | TileSide.LEFT))
+  else if(this.side == (TileSide.TOP | TileSide.LEFT))
     this.setCoords(2*32, 4*32)
-  if(this.side == (TileSide.TOP | TileSide.LEFT | TileSide.BOTTOM_RIGHT))
+  else if(this.side == (TileSide.TOP | TileSide.LEFT | TileSide.BOTTOM_RIGHT))
     this.setCoords(3*32, 4*32)
-  if(this.side == (TileSide.TOP | TileSide.RIGHT))
+  else if(this.side == (TileSide.TOP | TileSide.RIGHT))
     this.setCoords(4*32, 4*32)
-  if(this.side == (TileSide.TOP | TileSide.RIGHT | TileSide.BOTTOM_LEFT))
+  else if(this.side == (TileSide.TOP | TileSide.RIGHT | TileSide.BOTTOM_LEFT))
     this.setCoords(5*32, 4*32)
-  if(this.side == (TileSide.TOP | TileSide.RIGHT | TileSide.LEFT))
+  else if(this.side == (TileSide.TOP | TileSide.RIGHT | TileSide.LEFT))
     this.setCoords(2*32, 5*32)
-  if(this.side == (TileSide.TOP | TileSide.BOTTOM))
+  else if(this.side == (TileSide.TOP | TileSide.BOTTOM))
     this.setCoords(1*32, 4*32)
-  if(this.side == (TileSide.TOP | TileSide.BOTTOM | TileSide.LEFT))
+  else if(this.side == (TileSide.TOP | TileSide.BOTTOM | TileSide.LEFT))
     this.setCoords(3*32, 5*32)
-  if(this.side == (TileSide.TOP | TileSide.BOTTOM | TileSide.RIGHT))
+  else if(this.side == (TileSide.TOP | TileSide.BOTTOM | TileSide.RIGHT))
     this.setCoords(5*32, 5*32)
-  if(this.side == (TileSide.TOP | TileSide.BOTTOM | TileSide.RIGHT | TileSide.LEFT))
+  else if(this.side == (TileSide.TOP | TileSide.BOTTOM | TileSide.RIGHT | TileSide.LEFT))
     this.setCoords(6*32, 5*32)
 }
 
@@ -217,24 +215,22 @@ Tile.prototype.setCoords = function(x, y) {
 }
 
 Tile.prototype.filterSides = function() {
-  if(this.side & TileSide.TOP && this.side & TileSide.TOP_LEFT)
-    this.side = ~(~this.side | TileSide.TOP_LEFT);
-  if(this.side & TileSide.TOP && this.side & TileSide.TOP_RIGHT)
-    this.side = ~(~this.side | TileSide.TOP_RIGHT);
+  if(this.side & TileSide.TOP) {
+    this.side = ~(~this.side | TileSide.TOP_LEFT)
+    this.side = ~(~this.side | TileSide.TOP_RIGHT)
+  }
 
+  if(this.side & TileSide.BOTTOM) {
+    this.side = ~(~this.side | TileSide.BOTTOM_LEFT)
+    this.side = ~(~this.side | TileSide.BOTTOM_RIGHT)
+  }
 
-  if(this.side & TileSide.BOTTOM && this.side & TileSide.BOTTOM_LEFT)
-    this.side = ~(~this.side | TileSide.BOTTOM_LEFT);
-  if(this.side & TileSide.BOTTOM && this.side & TileSide.BOTTOM_RIGHT)
-    this.side = ~(~this.side | TileSide.BOTTOM_RIGHT);
+  if(this.side & TileSide.RIGHT)
+    this.side = ~(~this.side | TileSide.TOP_RIGHT)
+    this.side = ~(~this.side | TileSide.BOTTOM_RIGHT)
 
-  if(this.side & TileSide.RIGHT && this.side & TileSide.TOP_RIGHT)
-    this.side = ~(~this.side | TileSide.TOP_RIGHT);
-  if(this.side & TileSide.RIGHT && this.side & TileSide.BOTTOM_RIGHT)
-    this.side = ~(~this.side | TileSide.BOTTOM_RIGHT);
-
-  if(this.side & TileSide.LEFT && this.side & TileSide.TOP_LEFT)
-    this.side = ~(~this.side | TileSide.TOP_LEFT);
-  if(this.side & TileSide.LEFT && this.side & TileSide.BOTTOM_LEFT)
-    this.side = ~(~this.side | TileSide.BOTTOM_LEFT);
+  if(this.side & TileSide.LEFT) {
+    this.side = ~(~this.side | TileSide.TOP_LEFT)
+    this.side = ~(~this.side | TileSide.BOTTOM_LEFT)
+  }
 }
