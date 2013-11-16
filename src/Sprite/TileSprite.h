@@ -8,6 +8,7 @@
 enum class TileType {
     GROUND, GRASS, STONE
 };
+
 enum class TileSide {
     TOP = 0x01,
     BOTTOM = 0X02,
@@ -35,6 +36,7 @@ private:
     sf::Texture texture;
 
     void setSide(int side);
+    void filterSides();
 };
 
 #endif // TILESPRITE_H

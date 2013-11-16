@@ -23,7 +23,7 @@ void Game::run() {
     movement.push_back(sf::Keyboard::Up);
     movement.push_back(sf::Keyboard::Down);
 
-    Level level("assets/levels/level1.txt");
+    Level level("assets/levels/alltiles.txt");
 
     sf::RenderWindow* window = m_view.getWindow();
 

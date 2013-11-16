@@ -29,7 +29,7 @@ private:
 
     GameView m_view;
 
-    bool m_inLevel = false;
+    bool m_inLevel = true;
 };
 
 #endif // GAME_H
