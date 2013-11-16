@@ -34,26 +34,25 @@ void TileSprite::addSide(TileSide side) {
 }
 
 void TileSprite::filterSides() {
-    if(this->side & (int) TileSide::TOP && this->side & (int) TileSide::TOP_LEFT)
+    if(this->side & (int) TileSide::TOP) {
         this->side = ~(~this->side | (int) TileSide::TOP_LEFT);
-    if(this->side & (int) TileSide::TOP && this->side & (int) TileSide::TOP_RIGHT)
         this->side = ~(~this->side | (int) TileSide::TOP_RIGHT);
+    }
 
-
-    if(this->side & (int) TileSide::BOTTOM && this->side & (int) TileSide::BOTTOM_LEFT)
+    if(this->side & (int) TileSide::BOTTOM) {
         this->side = ~(~this->side | (int) TileSide::BOTTOM_LEFT);
-    if(this->side & (int) TileSide::BOTTOM && this->side & (int) TileSide::BOTTOM_RIGHT)
         this->side = ~(~this->side | (int) TileSide::BOTTOM_RIGHT);
+    }
 
-    if(this->side & (int) TileSide::RIGHT && this->side & (int) TileSide::TOP_RIGHT)
+    if(this->side & (int) TileSide::RIGHT) {
         this->side = ~(~this->side | (int) TileSide::TOP_RIGHT);
-    if(this->side & (int) TileSide::RIGHT && this->side & (int) TileSide::BOTTOM_RIGHT)
         this->side = ~(~this->side | (int) TileSide::BOTTOM_RIGHT);
+    }
 
-    if(this->side & (int) TileSide::LEFT && this->side & (int) TileSide::TOP_LEFT)
+    if(this->side & (int) TileSide::LEFT) {
         this->side = ~(~this->side | (int) TileSide::TOP_LEFT);
-    if(this->side & (int) TileSide::LEFT && this->side & (int) TileSide::BOTTOM_LEFT)
         this->side = ~(~this->side | (int) TileSide::BOTTOM_LEFT);
+    }
 }
 
 void TileSprite::setSide(int side) {
