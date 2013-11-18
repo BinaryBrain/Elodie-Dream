@@ -10,15 +10,10 @@ public:
     Menu();
     virtual ~Menu();
 
-    void open();
-    void close();
-    void changeState();
-
+    void loadGame();
     void draw(GameView* view);
-    bool isOpened();
 
 private:
-    bool opened = false;
     sf::Font* font;
 };
 
