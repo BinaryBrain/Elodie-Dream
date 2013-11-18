@@ -5,7 +5,7 @@ Level::Level() {
 }
 
 Level::Level(std::string filename) {
-    this->loadLevel(filename);
+    loadLevel(filename);
 }
 
 Level::~Level() {
@@ -16,8 +16,8 @@ Level::~Level() {
 void Level::loadLevel(std::string filename) {
     std::string levelSource = FileHandler::getContent(filename);
 
-    Mapper::parse(levelSource, this->tiles, this->entities);
-    Mapper::beautify(this->tiles);
+    Mapper::parse(levelSource, tiles, entities);
+    Mapper::beautify(tiles);
 }
 
 // Ask the given view to draw a Level frame

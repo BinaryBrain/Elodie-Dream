@@ -34,30 +34,30 @@ Overworld::Overworld() {
         for (size_t j = 0; j < mem->size(); j++) {
             (*path)[j].position = (*(*mem)[j]);
         }
-        this->paths.push_back(path);
+        paths.push_back(path);
     }
 
-    this->elodie = new Elodie(565,643);
-    this->currentState = UNIL;
+    elodie = new Elodie(565,643);
+    currentState = UNIL;
 }
 
 Overworld::~Overworld() {
-    for (std::vector<sf::Sprite*>::iterator sprite = this->overworldSprites.begin(); sprite != this->overworldSprites.end(); ++sprite) {
+    for (std::vector<sf::Sprite*>::iterator sprite = overworldSprites.begin(); sprite != overworldSprites.end(); ++sprite) {
         delete *sprite;
     }
-    for (std::vector<std::vector<int>*>::iterator pos = this->levelPos.begin(); pos != this->levelPos.end(); ++pos) {
+    for (std::vector<std::vector<int>*>::iterator pos = levelPos.begin(); pos != levelPos.end(); ++pos) {
         delete *pos;
     }
-    for (std::vector<sf::VertexArray*>::iterator path = this->paths.begin(); path != this->paths.end(); ++path) {
+    for (std::vector<sf::VertexArray*>::iterator path = paths.begin(); path != paths.end(); ++path) {
         delete *path;
     }
-    delete this->elodie;
+    delete elodie;
 }
 
 int Overworld::moveUp() {
-    sf::Vertex curPos = (* (this->paths[this->currentState]))[curPosInPath];
-    if(curPosInPath < this->paths[this->currentState]->getVertexCount()-1) {
-        sf::Vertex nextPos = (* (this->paths[this->currentState]))[curPosInPath+1];
+    sf::Vertex curPos = (* (paths[currentState]))[curPosInPath];
+    if(curPosInPath < paths[currentState]->getVertexCount()-1) {
+        sf::Vertex nextPos = (* (paths[currentState]))[curPosInPath+1];
         if(curPos.position.y > nextPos.position.y) {
             curPosInPath++;
             return curPos.position.y - nextPos.position.y;
@@ -65,7 +65,7 @@ int Overworld::moveUp() {
     }
 
     if (curPosInPath > 0) {
-        sf::Vertex prevPos = (* (this->paths[this->currentState]))[curPosInPath-1];
+        sf::Vertex prevPos = (* (paths[currentState]))[curPosInPath-1];
         if(curPos.position.y > prevPos.position.y) {
             curPosInPath--;
             return curPos.position.y - prevPos.position.y;
@@ -76,9 +76,9 @@ int Overworld::moveUp() {
 }
 
 int Overworld::moveDown() {
-    sf::Vertex curPos = (* (this->paths[this->currentState]))[curPosInPath];
-    if(curPosInPath < this->paths[this->currentState]->getVertexCount()-1) {
-        sf::Vertex nextPos = (* (this->paths[this->currentState]))[curPosInPath+1];
+    sf::Vertex curPos = (* (paths[currentState]))[curPosInPath];
+    if(curPosInPath < paths[currentState]->getVertexCount()-1) {
+        sf::Vertex nextPos = (* (paths[currentState]))[curPosInPath+1];
         if(curPos.position.y < nextPos.position.y) {
             curPosInPath++;
             return nextPos.position.y - curPos.position.y;
@@ -86,7 +86,7 @@ int Overworld::moveDown() {
     }
 
     if (curPosInPath > 0) {
-        sf::Vertex prevPos = (* (this->paths[this->currentState]))[curPosInPath-1];
+        sf::Vertex prevPos = (* (paths[currentState]))[curPosInPath-1];
         if(curPos.position.y < prevPos.position.y) {
             curPosInPath--;
             return prevPos.position.y - curPos.position.y;
@@ -97,9 +97,9 @@ int Overworld::moveDown() {
 }
 
 int Overworld::moveRight() {
-    sf::Vertex curPos = (* (this->paths[this->currentState]))[curPosInPath];
-    if(curPosInPath < this->paths[this->currentState]->getVertexCount()-1) {
-        sf::Vertex nextPos = (* (this->paths[this->currentState]))[curPosInPath+1];
+    sf::Vertex curPos = (* (paths[currentState]))[curPosInPath];
+    if(curPosInPath < paths[currentState]->getVertexCount()-1) {
+        sf::Vertex nextPos = (* (paths[currentState]))[curPosInPath+1];
         if(curPos.position.x < nextPos.position.x) {
             curPosInPath++;
             return nextPos.position.x - curPos.position.x;
@@ -107,7 +107,7 @@ int Overworld::moveRight() {
     }
 
     if (curPosInPath > 0) {
-        sf::Vertex prevPos = (* (this->paths[this->currentState]))[curPosInPath-1];
+        sf::Vertex prevPos = (* (paths[currentState]))[curPosInPath-1];
         if(curPos.position.x < prevPos.position.x) {
             curPosInPath--;
             return prevPos.position.x - curPos.position.x;
@@ -118,9 +118,9 @@ int Overworld::moveRight() {
 }
 
 int Overworld::moveLeft() {
-    sf::Vertex curPos = (* (this->paths[this->currentState]))[curPosInPath];
-    if(curPosInPath < this->paths[this->currentState]->getVertexCount()-1) {
-        sf::Vertex nextPos = (* (this->paths[this->currentState]))[curPosInPath+1];
+    sf::Vertex curPos = (* (paths[currentState]))[curPosInPath];
+    if(curPosInPath < paths[currentState]->getVertexCount()-1) {
+        sf::Vertex nextPos = (* (paths[currentState]))[curPosInPath+1];
         if(curPos.position.x > nextPos.position.x) {
             curPosInPath++;
             return curPos.position.x - nextPos.position.x;
@@ -128,7 +128,7 @@ int Overworld::moveLeft() {
     }
 
     if (curPosInPath > 0) {
-        sf::Vertex prevPos = (* (this->paths[this->currentState]))[curPosInPath-1];
+        sf::Vertex prevPos = (* (paths[currentState]))[curPosInPath-1];
         if(curPos.position.x > prevPos.position.x) {
             curPosInPath--;
             return curPos.position.x - prevPos.position.x;
@@ -139,31 +139,31 @@ int Overworld::moveLeft() {
 }
 
 sf::Sprite* Overworld::getCurrentSprite() {
-    return this->overworldSprites[this->currentState];
+    return overworldSprites[currentState];
 }
 
 Elodie* Overworld::getElodie() {
-    return this->elodie;
+    return elodie;
 }
 
 sf::VertexArray* Overworld::getPath() {
-    return this->paths[this->currentState];
+    return paths[currentState];
 }
 
 void Overworld::evolve() {
-    switch(this->currentState) {
+    switch(currentState) {
     case UNIL:
-        this->currentState = CASTLE;
+        currentState = CASTLE;
         break;
     case CASTLE:
-        this->currentState = VOLCANO;
+        currentState = VOLCANO;
         break;
     case VOLCANO:
-        this->currentState = FRELJORD;
+        currentState = FRELJORD;
         break;
         // FIXME Dev stuff
     case FRELJORD:
-        this->currentState = UNIL;
+        currentState = UNIL;
         break;
     default:
         break;
