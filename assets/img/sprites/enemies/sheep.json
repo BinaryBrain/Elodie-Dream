@@ -1,0 +1,7 @@
+{
+	anim: [
+		{name: "stand", hitbox: [{3, 28, 56, 29}]}
+	],
+	width: 64,
+	height: 64
+}
