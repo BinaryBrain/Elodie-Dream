@@ -23,7 +23,7 @@ public:
     */
     virtual ~SaveHandler();
 private:
-    std::string m_path;
+    std::string path;
 };
 
 #endif // SAVEHANDLER_H

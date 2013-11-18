@@ -8,10 +8,12 @@
 
 #include "SaveHandler.h"
 
-SaveHandler::SaveHandler(std::string path): m_path(path) {}
+SaveHandler::SaveHandler(std::string path) {
+    this->path = path;
+}
 
 void SaveHandler::save() {
-    /*ofstream stream(m_path.c_str());
+    /*ofstream stream(path.c_str());
 
     if(stream) stream << "This is a save file." << endl;
     else cout << "An unexpected error occured. Is the file available ?" << endl;*/
