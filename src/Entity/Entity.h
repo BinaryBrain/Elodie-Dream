@@ -19,7 +19,7 @@ public:
     virtual ~Entity();
 
     /**
-    * \brief Used to make the class abstract.
+    * \brief A getter to the main Sprite
     *
     * \return A pointer to the Sprite.
     */
