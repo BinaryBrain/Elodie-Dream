@@ -22,14 +22,14 @@ public:
     Level loadLevel(std::string filename);
 protected:
 private:
-    EventHandler* m_event;
+    EventHandler* event;
 
-    Overworld m_overworld;
-    sf::Clock m_frameClock;
+    Overworld overworld;
+    sf::Clock frameClock;
 
-    GameView m_view;
+    GameView view;
 
-    bool m_inLevel = true;
+    bool inLevel = true;
 };
 
 #endif // GAME_H
