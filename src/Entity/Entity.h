@@ -21,7 +21,7 @@ public:
     /**
     * \brief Used to make the class abstract.
     *
-    * \return 0: there isn't any sprite to get because Entity is abstract.
+    * \return A pointer to the Sprite.
     */
     virtual sf::Sprite* getSprite() = 0;
 protected:
