@@ -3,6 +3,8 @@
 
 Menu::Menu() {
     opened = false;
+    font = new sf::Font();
+    font->loadFromFile("assets/fonts/arial.ttf");
 }
 
 Menu::~Menu() {
@@ -27,10 +29,13 @@ void Menu::changeState() {
 }
 
 void Menu::draw(GameView* view) {
-    sf::Text txt;
-    txt.setString("hello");
-    txt.setPosition(50,50);
-    view->addDrawable(&txt);
+    sf::Text* txt = new sf::Text("hello", *font);
+    txt->setString("hello");
+    txt->setPosition(50,50);
+    txt->setCharacterSize(30);
+    txt->setStyle(sf::Text::Bold);
+    txt->setColor(sf::Color::Magenta);
+    view->addDrawable(txt);
 }
 
 bool Menu::isOpened() {

@@ -19,6 +19,7 @@ public:
 
 private:
     bool opened = false;
+    sf::Font* font;
 };
 
 #endif // MENU_H

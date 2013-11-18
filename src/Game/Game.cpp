@@ -90,7 +90,9 @@ void Game::run() {
             inLevel = !inLevel;
         }
 
-        if (inLevel) {
+        if(menu.isOpened()) {
+            menu.draw(&view);
+        } else if (inLevel) {
             level.draw(&view);
         } else {
             overworld.getElodie()->update(frameClock.restart());
@@ -102,9 +104,6 @@ void Game::run() {
 
         if (event->keyIsPressed(sf::Keyboard::M)) {
             menu.changeState();
-        }
-        if(menu.isOpened()) {
-            menu.draw(&view);
         }
 
         view.draw();
