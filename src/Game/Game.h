@@ -11,6 +11,10 @@
 #include "../Menu/Menu.h"
 #include "GameView.h"
 
+enum class GameState {
+    INLEVEL, INOVERWORLD, INMENU
+};
+
 class Game {
 public:
     Game();
@@ -23,16 +27,24 @@ public:
     Level loadLevel(std::string filename);
 protected:
 private:
+    GameState state = GameState::INMENU;
+
     EventHandler* event;
 
     Overworld overworld;
+    void displayOverworld();
+
     sf::Clock frameClock;
 
     Menu menu;
+    void drawMenu();
 
     GameView view;
 
-    bool inLevel = true;
+    int curLevelNbr = 0;
+    Level* curLevel;
+    void level(int curLevel);
+    void loadLevel(int levelNbr);
 };
 
 #endif // GAME_H
