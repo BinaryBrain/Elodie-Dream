@@ -8,6 +8,7 @@
 #include "../FileHandler/FileHandler.h"
 #include "../Overworld/Overworld.h"
 #include "../EventHandler/EventHandler.h"
+#include "../Menu/Menu.h"
 #include "GameView.h"
 
 class Game {
@@ -26,6 +27,8 @@ private:
 
     Overworld overworld;
     sf::Clock frameClock;
+
+    Menu menu;
 
     GameView view;
 

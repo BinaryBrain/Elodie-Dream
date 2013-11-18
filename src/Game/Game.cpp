@@ -100,6 +100,13 @@ void Game::run() {
             view.addDrawable(overworld.getPath());
         }
 
+        if (event->keyIsPressed(sf::Keyboard::M)) {
+            menu.changeState();
+        }
+        if(menu.isOpened()) {
+            menu.draw(&view);
+        }
+
         view.draw();
     }
 }
