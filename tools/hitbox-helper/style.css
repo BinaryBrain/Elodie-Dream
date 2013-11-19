@@ -1,0 +1,15 @@
+body {
+	font-family: Helvetica;
+}
+
+#dropBox {
+	font-size: 250%;
+	color: gray;
+	padding: 50px;
+	background-color: #CCCCCC;
+	border: solid 2px #AAAAAA;
+}
+
+#resultImage {
+	border: solid 1px black;
+}
