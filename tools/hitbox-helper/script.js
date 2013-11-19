@@ -39,6 +39,16 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
 		fileReader.readAsText(file);
 	}
   }
+  
+  function hexToRgb(hex) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+    } : null;
+}
+
 
   function handleDragOver(evt) {
     evt.stopPropagation();
@@ -49,16 +59,21 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
   function drawFromJson() {
 	try {
 		var obj = JSON.parse($('#jsonInput').val());
+		ctx.clearRect(0, 0, ctx.width, ctx.height);
 	} catch(err) {
 		$("#jsonMessage").html("Your JSON is probably not correct : \n"+err.message);
+		ctx.clearRect(0, 0, ctx.width, ctx.height);
 		return;
 	}
+	$('#hbCan').attr("width", $('#hbCan').attr("width"));
 	$("#jsonMessage").html(" ");
 	var height = obj.height;
 	var width = obj.width;
 	var anim = obj.anim;
 	ctx.clearRect(0, 0, ctx.width, ctx.height);
-	ctx.fillStyle = 'rgba(255, 0, 0, 0.5)';
+	var a = $("#alpha").val()/10.0;
+	var c = hexToRgb($("#hbColor").val());
+	ctx.fillStyle = 'rgba('+c.r+', '+c.g+', '+c.b+', '+a+')';
 	var animNumber = 0;
 	anim.forEach(function(stance) {	
 		console.log(stance);
@@ -79,6 +94,9 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
   dropZone.addEventListener('drop', handleFileSelect, false);
   
   $('#jsonInput').bind('input propertychange', function(){
+	drawFromJson();
+  });
+  $('#alpha').bind('input propertychange', function(){
 	drawFromJson();
   });
   ctx = document.getElementById('hbCan').getContext("2d");
