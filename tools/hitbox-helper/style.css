@@ -12,4 +12,5 @@ body {
 
 #resultImage {
 	margin-top: 4px;
+	border: dotted 1px gray;
 }

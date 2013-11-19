@@ -1,6 +1,6 @@
 {
 	"anim": [
-		{"name": "stand", "hitbox": [3, 28, 56, 29]}
+		{"name": "stand", "hitbox": [[3, 28, 59, 55]]}
 	],
 	"width": 64,
 	"height": 64
