@@ -15,12 +15,20 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
 				imgSymbolic.src = image;
 				var w = imgSymbolic.width;
 				var h = imgSymbolic.height;
-				$('#resultImage').html('<div class="image" style="height: '+h+'px; width: '+w+'px; background: url('+image+'); border: solid 1px"> </div>'); 
+				$('#resultImage').html('<div class="image" style="height: '+h+'px; width: '+w+'px; background: url('+image+'); border: solid 1px"><canvas id="hbCan" width="'+w+'" height="'+h+'"></canvas></div>'); 
 			}
 		})(file);
 			
 		// For data URI purposes
 		fileReader.readAsDataURL(file);
+	} else {
+		var fileReader = new FileReader();
+		fileReader.onload = (function(file) {
+			var content = this.result;
+			alert(this);
+			$('#jsonInput').val(content); 
+		})(file);
+		fileReader.readAsText(file);
 	}
 	
 	
