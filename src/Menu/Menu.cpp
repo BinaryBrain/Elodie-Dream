@@ -11,11 +11,17 @@ Menu::~Menu() {
 }
 
 void Menu::draw(GameView* view) {
-    sf::Text* txt = new sf::Text("Hello", *font);
-    txt->setString("Push M to go to the overworld");
-    txt->setPosition(50,50);
-    txt->setCharacterSize(30);
-    txt->setStyle(sf::Text::Bold);
-    txt->setColor(sf::Color::Magenta);
-    view->addDrawable(txt);
+    std::vector<sf::Text*> options;
+    options.push_back(new sf::Text("New Game", *font));
+    options.push_back(new sf::Text("Load", *font));
+    options.push_back(new sf::Text("Settings", *font));
+    options.push_back(new sf::Text("Quit", *font));
+
+    for(unsigned int i(0); i < options.size(); ++i) {
+        options[i]->setPosition(100,100+50*i);
+        options[i]->setCharacterSize(30);
+        options[i]->setStyle(sf::Text::Bold);
+        options[i]->setColor(sf::Color::Magenta);
+        view->addDrawable(options[i]);
+    }
 }
