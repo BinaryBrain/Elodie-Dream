@@ -40,7 +40,13 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
     evt.preventDefault();
     evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
   }
-
+  
+  function drawFromJson() {
+	var obj = JSON.parse($('#jsonInput').val());
+	var height = obj.height;
+	var width = obj.width;
+	var anim = obj.anim;
+  }
   // Setup the dnd listeners.
   var dropZone = document.getElementById('container');
   dropZone.addEventListener('dragover', handleDragOver, false);
