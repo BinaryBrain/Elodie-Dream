@@ -24,9 +24,10 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
 	} else {
 		var fileReader = new FileReader();
 		fileReader.onload = (function(file) {
-			var content = this.result;
-			alert(this);
-			$('#jsonInput').val(content); 
+			return function(e) { 
+				var content = this.result;
+				$('#jsonInput').val(content); 
+			}
 		})(file);
 		fileReader.readAsText(file);
 	}
