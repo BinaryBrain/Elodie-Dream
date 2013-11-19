@@ -9,6 +9,7 @@
 #include "../Overworld/Overworld.h"
 #include "../EventHandler/EventHandler.h"
 #include "../Menu/Menu.h"
+#include "../Settings/Settings.h"
 #include "GameView.h"
 
 enum class GameState {
@@ -38,6 +39,9 @@ private:
 
     Menu menu;
     void drawMenu();
+
+    Settings settings;
+    void drawSettings();
 
     GameView view;
 

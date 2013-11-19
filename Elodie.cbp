@@ -79,6 +79,8 @@
 		<Unit filename="src/Menu/Menu.h" />
 		<Unit filename="src/Overworld/Overworld.cpp" />
 		<Unit filename="src/Overworld/Overworld.h" />
+		<Unit filename="src/Settings/Settings.cpp" />
+		<Unit filename="src/Settings/Settings.h" />
 		<Unit filename="src/Sprite/AnimatedSprite.cpp" />
 		<Unit filename="src/Sprite/AnimatedSprite.h" />
 		<Unit filename="src/Sprite/Animation.cpp" />

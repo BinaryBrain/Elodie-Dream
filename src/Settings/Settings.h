@@ -16,6 +16,8 @@ public:
     void changeState();
     bool isOpened();
 
+    void draw(GameView* view);
+
 private:
     bool opened = false;
     sf::Font* font;

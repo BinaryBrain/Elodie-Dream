@@ -27,16 +27,21 @@ void Settings::changeState() {
     opened = !opened;
 }
 
-void Settings::draw(GameView* view) {
-    sf::Text* txt = new sf::Text("Volume", *font);
-    txt->setString("hello");
-    txt->setPosition(50,50);
-    txt->setCharacterSize(30);
-    txt->setStyle(sf::Text::Bold);
-    txt->setColor(sf::Color::Magenta);
-    view->addDrawable(txt);
-}
-
 bool Settings::isOpened() {
     return opened;
+}
+
+void Settings::draw(GameView* view) {
+    std::vector<sf::Text*> options;
+    options.push_back(new sf::Text("Volume", *font));
+    options.push_back(new sf::Text("Language", *font));
+
+
+    for(unsigned int i(0); i < options.size(); ++i) {
+        options[i]->setPosition(100,100+50*i);
+        options[i]->setCharacterSize(30);
+        options[i]->setStyle(sf::Text::Bold);
+        options[i]->setColor(sf::Color::Magenta);
+        view->addDrawable(options[i]);
+    }
 }

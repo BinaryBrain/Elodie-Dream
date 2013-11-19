@@ -78,6 +78,14 @@ void Game::drawMenu() {
     }
 }
 
+// Maybe temporary
+void Game::drawSettings() {
+    settings.draw(&view);
+    if (event->keyIsPressed(sf::Keyboard::S)) {
+        state = GameState::INOVERWORLD;
+    }
+}
+
 void Game::run() {
     // TODO Shouldn't be here
     std::vector<int> esc;

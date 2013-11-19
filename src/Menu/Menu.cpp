@@ -11,8 +11,8 @@ Menu::~Menu() {
 }
 
 void Menu::draw(GameView* view) {
-    sf::Text* txt = new sf::Text("hello", *font);
-    txt->setString("hello");
+    sf::Text* txt = new sf::Text("Hello", *font);
+    txt->setString("Push M to go to the overworld");
     txt->setPosition(50,50);
     txt->setCharacterSize(30);
     txt->setStyle(sf::Text::Bold);
