@@ -47,7 +47,7 @@ private:
 
     int curLevelNbr = 0;
     Level* curLevel;
-    void level(int curLevel);
+    void displayLevel(int curLevel);
     void loadLevel(int levelNbr);
 };
 

@@ -12,11 +12,17 @@ void Game::init() {
     // ???
 }
 
-void Game::level(int curLevelNbr) {
+void Game::displayLevel(int curLevelNbr) {
     if(event->keyIsPressed(sf::Keyboard::Return)) {
         state = GameState::INOVERWORLD;
+
+        if(curLevel) {
+            delete curLevel;
+        }
     }
-    curLevel->draw(&view);
+    else {
+        curLevel->draw(&view);
+    }
 }
 
 void Game::loadLevel(int levelNbr) {
@@ -118,7 +124,7 @@ void Game::run() {
 
         switch(state) {
         case GameState::INLEVEL:
-            level(curLevelNbr);
+            displayLevel(curLevelNbr);
             break;
         case GameState::INOVERWORLD:
             displayOverworld();
