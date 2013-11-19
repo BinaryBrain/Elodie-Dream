@@ -4,28 +4,23 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
     evt.stopPropagation();
     evt.preventDefault();
 
-    var files = evt.dataTransfer.files; // FileList object.
+    var file = evt.dataTransfer.files[0]; // FileList object.
 	
-	if (files[0].type.match('image.*')) {
+	if (file.type.match('image.*')) {
 		var fileReader = new FileReader();
 		fileReader.onload = (function(file) {
 			return function(e) { 
-				// Push the data URI into an array
-				//dataArray.push({name : file.name, value : this.result});
-
-				// This is the image
+				var imgSymbolic = new Image();
 				var image = this.result;
-				var w = file.width;
-				var h = file.height;
-				$('#resultImage').append('<div class="image" style="height: '+h+'; width: '+w+'; background: url('+image+'); "> </div>'); 
+				imgSymbolic.src = image;
+				var w = imgSymbolic.width;
+				var h = imgSymbolic.height;
+				$('#resultImage').html('<div class="image" style="height: '+h+'px; width: '+w+'px; background: url('+image+'); border: solid 1px"> </div>'); 
 			}
-
-			
-		})(files[0]);
+		})(file);
 			
 		// For data URI purposes
-		fileReader.readAsDataURL(files[0]);
-		document.getElementById('resultImage').innerHTML = '<ul>' + '1' + '</ul>';
+		fileReader.readAsDataURL(file);
 	}
 	
 	
