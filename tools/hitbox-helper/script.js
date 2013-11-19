@@ -99,6 +99,9 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
   $('#alpha').bind('input propertychange', function(){
 	drawFromJson();
   });
+  $('#hbColor').bind('input propertychange', function(){
+	drawFromJson();
+  });
   ctx = document.getElementById('hbCan').getContext("2d");
   ctx.clearRect(0, 0, ctx.width, ctx.height);
 } else {
