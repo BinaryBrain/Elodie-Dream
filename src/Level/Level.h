@@ -16,13 +16,13 @@ public:
     void loadLevel(std::string filename);
 
     TileMap getTiles();
-    EntitieVector getEntities();
+    EntityMap getEntities();
 
     void draw(GameView* view);
 protected:
 private:
     TileMap tiles;
-    EntitieVector entities;
+    EntityMap entities;
 };
 
 #endif // LEVEL_H

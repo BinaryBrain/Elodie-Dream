@@ -31,8 +31,8 @@ void Level::draw(GameView* view) {
         }
     }
 
-    for(EntitieVector::iterator entity_ptr = entities.begin(); entity_ptr != entities.end(); ++entity_ptr) {
-        Entity* entity = *entity_ptr;
+    for(EntityMap::iterator entity_ptr = entities.begin(); entity_ptr != entities.end(); ++entity_ptr) {
+        Entity* entity = entity_ptr->second;
         sf::Sprite* sprite = entity->getSprite();
 
         if(sprite) {

@@ -28,7 +28,8 @@ void Game::displayLevel(int curLevelNbr) {
 void Game::loadLevel(int levelNbr) {
     state = GameState::INLEVEL;
     curLevelNbr = levelNbr;
-    curLevel = new Level("assets/levels/alltiles.txt");
+    //curLevel = new Level("assets/levels/alltiles.txt");
+    curLevel = new Level("assets/levels/level1.txt");
 }
 
 void Game::displayOverworld() {

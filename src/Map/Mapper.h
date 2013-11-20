@@ -29,9 +29,9 @@ private:
 
 public:
     Mapper();
-    static void parse(std::string str, TileMap& tiles, EntitieVector& entities);
+    static void parse(std::string str, TileMap& tiles, EntityMap& entities);
     static void beautify(TileMap& tiles);
-    static void print(TileMap& tiles, EntitieVector& entities);
+    static void print(TileMap& tiles, EntityMap& entities);
 };
 
 #endif // MAPPARSER_H

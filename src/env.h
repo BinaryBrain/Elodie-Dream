@@ -1,9 +1,10 @@
 #include <string>
 #include <vector>
+#include <map>
 #include <iostream>
 
 #include "Sprite/TileSprite.h"
 #include "Entity/Entity.h"
 
 typedef std::vector< std::vector<TileSprite*> > TileMap;
-typedef std::vector<Entity*> EntitieVector;
+typedef std::map<std::string, Entity*> EntityMap;
