@@ -2,6 +2,8 @@
 
 Game::Game() {
     event = new EventHandler(view.getWindow());
+    std::vector<std::string> titles {"New Game", "Load", "Settings", "Quit"};
+    menu.setTitles(titles);
 }
 
 Game::~Game() {
