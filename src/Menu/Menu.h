@@ -17,6 +17,7 @@ public:
     void incIndex();
     void decIndex();
     int getIndex();
+    std::string getTitleKey();
 
 private:
     sf::Font* font;
@@ -24,6 +25,7 @@ private:
     sf::Sprite selector;
 
     unsigned int index;
+    std::vector<std::string> titlesKeys;
     std::vector<sf::Text*> titles;
 };
 

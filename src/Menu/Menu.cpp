@@ -15,15 +15,22 @@ Menu::~Menu() {
 
 }
 
-// Sets the titles for the menu given a vector of strings
+// Sets the titles (vector of sf::Text) for the menu given a vector of strings
 void Menu::setTitles(std::vector<std::string> const& titles) {
 
+    //in case we want to change the menu at any time
+    titlesKeys.clear();
+    this->titles.clear();
+
     for (unsigned int i(0); i< titles.size(); ++i) {
+        titlesKeys.push_back(titles[i]);
         sf::Text* title = new sf::Text(titles[i], *font);
+
         title->setPosition(200, 100+50*i);
         title->setCharacterSize(30);
         title->setStyle(sf::Text::Bold);
         title->setColor(sf::Color::Magenta);
+
         this->titles.push_back(title);
     }
 }
@@ -50,4 +57,8 @@ void Menu::decIndex() {
 
 int Menu::getIndex() {
     return index;
+}
+
+std::string Menu::getTitleKey() {
+    return titlesKeys[index];
 }

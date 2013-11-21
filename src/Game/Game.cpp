@@ -86,8 +86,9 @@ void Game::drawMenu() {
     if (event->keyIsPressed(sf::Keyboard::Down)) menu.incIndex();
     if (event->keyIsPressed(sf::Keyboard::Up)) menu.decIndex();
     if (event->keyIsPressed(sf::Keyboard::Return)) {
-        std::cout << "Index : " << menu.getIndex() << std::endl;
-        if (menu.getIndex() == 0) state = GameState::INOVERWORLD;
+        std::cout << "Title key : " << menu.getTitleKey() << std::endl;
+        if (menu.getTitleKey() == "New Game") state = GameState::INOVERWORLD;
+        if (menu.getTitleKey() == "Quit") view.getWindow()->close();
     }
 }
 
