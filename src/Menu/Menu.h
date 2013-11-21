@@ -13,8 +13,16 @@ public:
     void loadGame();
     void draw(GameView* view);
 
+    void incIndex();
+    void decIndex();
+
 private:
     sf::Font* font;
+    sf::Texture texture;
+    sf::Sprite selector;
+
+    unsigned int index;
+    std::vector<sf::Text*> options;
 };
 
 #endif // MENU_H

@@ -83,6 +83,13 @@ void Game::drawMenu() {
     if (event->keyIsPressed(sf::Keyboard::M)) {
         state = GameState::INOVERWORLD;
     }
+    if (event->keyIsPressed(sf::Keyboard::Down)) {
+        menu.incIndex();
+    }
+
+    if (event->keyIsPressed(sf::Keyboard::Up)) {
+        menu.decIndex();
+    }
 }
 
 // Maybe temporary
