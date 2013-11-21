@@ -80,15 +80,12 @@ void Game::displayOverworld() {
 
 void Game::drawMenu() {
     menu.draw(&view);
-    if (event->keyIsPressed(sf::Keyboard::M)) {
-        state = GameState::INOVERWORLD;
-    }
-    if (event->keyIsPressed(sf::Keyboard::Down)) {
-        menu.incIndex();
-    }
 
-    if (event->keyIsPressed(sf::Keyboard::Up)) {
-        menu.decIndex();
+    if (event->keyIsPressed(sf::Keyboard::Down)) menu.incIndex();
+    if (event->keyIsPressed(sf::Keyboard::Up)) menu.decIndex();
+    if (event->keyIsPressed(sf::Keyboard::Return)) {
+        std::cout << "Index : " << menu.getIndex() << std::endl;
+        if (menu.getIndex() == 0) state = GameState::INOVERWORLD;
     }
 }
 

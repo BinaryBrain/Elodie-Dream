@@ -6,6 +6,7 @@ Menu::Menu() {
     font->loadFromFile("assets/fonts/arial.ttf");
 
     texture.loadFromFile("assets/img/sprites/menu/selector.png");
+    texture.setSmooth(true);
     selector.setTexture(texture);
 
     index = 0;
@@ -38,12 +39,13 @@ void Menu::draw(GameView* view) {
 void Menu::incIndex() {
     if (index == options.size()-1) index = 0;
     else ++index;
-
-    std::cout << "Index : " << index << std::endl;
 }
 
 void Menu::decIndex() {
    if (index == 0) index = options.size()-1;
     else --index;
-    std::cout << "Index : " << index << std::endl;
+}
+
+int Menu::getIndex() {
+    return index;
 }

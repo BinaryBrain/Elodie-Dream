@@ -15,6 +15,7 @@ public:
 
     void incIndex();
     void decIndex();
+    int getIndex();
 
 private:
     sf::Font* font;
