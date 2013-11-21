@@ -15,7 +15,9 @@ Menu::~Menu() {
 
 }
 
+// Sets the titles for the menu given a vector of strings
 void Menu::setTitles(std::vector<std::string> const& titles) {
+
     for (unsigned int i(0); i< titles.size(); ++i) {
         sf::Text* title = new sf::Text(titles[i], *font);
         title->setPosition(200, 100+50*i);
@@ -26,6 +28,7 @@ void Menu::setTitles(std::vector<std::string> const& titles) {
     }
 }
 
+// Draws the everything on the menu
 void Menu::draw(GameView* view) {
 
     for(unsigned int i(0); i < titles.size(); ++i) view->addDrawable(titles[i]);
