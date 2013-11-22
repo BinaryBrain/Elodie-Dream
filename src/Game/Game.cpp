@@ -2,8 +2,11 @@
 
 Game::Game() {
     event = new EventHandler(view.getWindow());
-    std::vector<std::string> titles {"New Game", "Load", "Settings", "Quit"};
-    menu.setTitles(titles);
+    //temporary there for testing
+    std::vector<std::string> menuTitles {"New Game", "Load", "Settings", "Quit"};
+    titleMenu.setTitles(menuTitles);
+    std::vector<std::string> settingsTitles {"Language"};
+    settingsMenu.setTitles(settingsTitles);
 }
 
 Game::~Game() {
@@ -81,20 +84,20 @@ void Game::displayOverworld() {
 }
 
 void Game::drawMenu() {
-    menu.draw(&view);
+    titleMenu.draw(&view);
 
-    if (event->keyIsPressed(sf::Keyboard::Down)) menu.incIndex();
-    if (event->keyIsPressed(sf::Keyboard::Up)) menu.decIndex();
+    if (event->keyIsPressed(sf::Keyboard::Down)) titleMenu.incIndex();
+    if (event->keyIsPressed(sf::Keyboard::Up)) titleMenu.decIndex();
     if (event->keyIsPressed(sf::Keyboard::Return)) {
-        std::cout << "Title key : " << menu.getTitleKey() << std::endl;
-        if (menu.getTitleKey() == "New Game") state = GameState::INOVERWORLD;
-        if (menu.getTitleKey() == "Quit") view.getWindow()->close();
+        std::cout << "Title key : " << titleMenu.getTitleKey() << std::endl;
+        if (titleMenu.getTitleKey() == "New Game") state = GameState::INOVERWORLD;
+        if (titleMenu.getTitleKey() == "Quit") view.getWindow()->close();
     }
 }
 
 // Maybe temporary
 void Game::drawSettings() {
-    settings.draw(&view);
+    settingsMenu.draw(&view);
     if (event->keyIsPressed(sf::Keyboard::S)) {
         state = GameState::INOVERWORLD;
     }
@@ -139,6 +142,11 @@ void Game::run() {
             break;
         default :
             drawMenu();
+        }
+
+        if (event->mouseIsPressed(sf::Keyboard::O)) {
+            settingsMenu.changeState();
+            if(settingsMenu.isOpened()) drawSettings();
         }
 
         view.draw();

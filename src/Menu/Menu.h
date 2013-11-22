@@ -18,14 +18,13 @@ public:
     void decIndex();
     int getIndex();
     std::string getTitleKey();
-
-private:
+protected:
     sf::Font* font;
     sf::Texture texture;
     sf::Sprite selector;
 
     unsigned int index;
-    std::vector<std::string> titlesKeys;
+    std::vector<std::string> titleKeys;
     std::vector<sf::Text*> titles;
 };
 

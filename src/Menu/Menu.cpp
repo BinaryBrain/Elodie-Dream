@@ -1,5 +1,4 @@
 #include "Menu.h"
-#include <SFML/Graphics.hpp>
 
 Menu::Menu() {
     font = new sf::Font();
@@ -12,18 +11,18 @@ Menu::Menu() {
 }
 
 Menu::~Menu() {
-
+    //dtor
 }
 
-// Sets the titles (vector of sf::Text) for the menu given a vector of strings
+// Sets the titles (vector of sf::Text) for the TitleMenu given a vector of strings
 void Menu::setTitles(std::vector<std::string> const& titles) {
 
-    //in case we want to change the menu at any time
-    titlesKeys.clear();
+    //in case we want to change the TitleMenu at any time
+    titleKeys.clear();
     this->titles.clear();
 
     for (unsigned int i(0); i< titles.size(); ++i) {
-        titlesKeys.push_back(titles[i]);
+        titleKeys.push_back(titles[i]);
         sf::Text* title = new sf::Text(titles[i], *font);
 
         title->setPosition(200, 100+50*i);
@@ -35,7 +34,7 @@ void Menu::setTitles(std::vector<std::string> const& titles) {
     }
 }
 
-// Draws the everything on the menu
+// Draws the everything on the TitleMenu
 void Menu::draw(GameView* view) {
 
     for(unsigned int i(0); i < titles.size(); ++i) view->addDrawable(titles[i]);
@@ -60,5 +59,5 @@ int Menu::getIndex() {
 }
 
 std::string Menu::getTitleKey() {
-    return titlesKeys[index];
+    return titleKeys[index];
 }

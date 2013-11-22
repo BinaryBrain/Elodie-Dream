@@ -3,12 +3,13 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "Menu.h"
 #include "../Game/GameView.h"
 
-class Settings {
+class SettingsMenu : public Menu {
 public:
-    Settings();
-    virtual ~Settings();
+    SettingsMenu();
+    virtual ~SettingsMenu();
 
     void open();
     void close();
@@ -16,11 +17,8 @@ public:
     void changeState();
     bool isOpened();
 
-    void draw(GameView* view);
-
 private:
     bool opened = false;
-    sf::Font* font;
 };
 
 #endif // SETTINGS_H
