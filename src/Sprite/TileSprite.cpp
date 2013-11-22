@@ -5,7 +5,7 @@ TileSprite::TileSprite(TileType type) {
     side = 0;
 
     // TODO Change the path according to the type
-    texture.loadFromFile("assets/img/sprites/tilesets/autotiles/rock1extended.png");
+    texture.loadFromFile("assets/img/sprites/tiles/extended/rock1extended.png");
 
     setTexture(texture);
     // TODO Change the coords according to the type
