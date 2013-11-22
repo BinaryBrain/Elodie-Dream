@@ -79,6 +79,8 @@ void Game::displayOverworld() {
     view.addDrawable(overworld.getCurrentSprite());
     view.addDrawable(overworld.getElodie()->getSprite());
     view.addDrawable(overworld.getPath());
+
+    view.reset();
 }
 
 void Game::displayMenu() {

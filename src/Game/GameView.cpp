@@ -16,12 +16,23 @@ void GameView::addDrawable(sf::Drawable* drawable) {
     toDraw.push_back(drawable);
 }
 
-void GameView::draw() {
-    sf::View view = window->getView();
-    //view.setCenter(0,0);
-    //view.setSize(160, 100);
-    window->setView(view);
+void GameView::reset() {
+    window->setView(window->getDefaultView());
+}
 
+void GameView::setCameraCenter(sf::Vector2f pos) {
+    sf::View view = window->getView();
+    view.setCenter(pos);
+    window->setView(view);
+}
+
+void GameView::setCameraCenter(float x, float y) {
+    sf::View view = window->getView();
+    view.setCenter(x, y);
+    window->setView(view);
+}
+
+void GameView::draw() {
     window->clear(sf::Color(0x00, 0x00, 0xFF));
 
     for(std::vector<sf::Drawable*>::iterator it = toDraw.begin(); it != toDraw.end(); ++it) {

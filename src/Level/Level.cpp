@@ -39,4 +39,7 @@ void Level::draw(GameView* view) {
             view->addDrawable(sprite);
         }
     }
+
+    view->setCameraCenter(0, 0);
+    //view->setSize(160, 100);
 }
