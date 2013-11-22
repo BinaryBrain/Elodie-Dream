@@ -38,10 +38,10 @@ private:
     sf::Clock frameClock;
 
     TitleMenu titleMenu;
-    void drawMenu();
+    void displayMenu();
 
     SettingsMenu settingsMenu;
-    void drawSettings();
+    void displaySettings();
 
     GameView view;
 

@@ -5,7 +5,7 @@ Game::Game() {
     //temporary there for testing
     std::vector<std::string> menuTitles {"New Game", "Load", "Settings", "Quit"};
     titleMenu.setTitles(menuTitles);
-    std::vector<std::string> settingsTitles {"Language"};
+    std::vector<std::string> settingsTitles {"Language", "Back"};
     settingsMenu.setTitles(settingsTitles);
 }
 
@@ -83,24 +83,35 @@ void Game::displayOverworld() {
     view.addDrawable(overworld.getPath());
 }
 
-void Game::drawMenu() {
+void Game::displayMenu() {
     titleMenu.draw(&view);
 
     if (event->keyIsPressed(sf::Keyboard::Down)) titleMenu.incIndex();
     if (event->keyIsPressed(sf::Keyboard::Up)) titleMenu.decIndex();
+
     if (event->keyIsPressed(sf::Keyboard::Return)) {
-        std::cout << "Title key : " << titleMenu.getTitleKey() << std::endl;
-        if (titleMenu.getTitleKey() == "New Game") state = GameState::INOVERWORLD;
-        if (titleMenu.getTitleKey() == "Quit") view.getWindow()->close();
+        std::string option = titleMenu.getTitleKey();
+        std::cout << "Title key : " << option << std::endl;
+        if (option == "New Game") state = GameState::INOVERWORLD;
+        if (option == "Settings") settingsMenu.open();
+        if (option == "Quit") view.getWindow()->close();
     }
 }
 
-// Maybe temporary
-void Game::drawSettings() {
+void Game::displaySettings() {
     settingsMenu.draw(&view);
-    if (event->keyIsPressed(sf::Keyboard::S)) {
-        state = GameState::INOVERWORLD;
+
+    // Make something here so that the iputs are not used by the view behind too
+    // Infinite loop , or nothing special if in a different state
+
+    if (event->keyIsPressed(sf::Keyboard::Down)) settingsMenu.incIndex();
+    if (event->keyIsPressed(sf::Keyboard::Up)) settingsMenu.decIndex();
+    if (event->keyIsPressed(sf::Keyboard::Return)) {
+        std::string option = titleMenu.getTitleKey();
+        std::cout << "Title key : " << option << std::endl;
+        if (option == "Back") settingsMenu.close();
     }
+
 }
 
 void Game::run() {
@@ -141,13 +152,16 @@ void Game::run() {
             displayOverworld();
             break;
         default :
-            drawMenu();
+            displayMenu();
         }
 
-        if (event->mouseIsPressed(sf::Keyboard::O)) {
-            settingsMenu.changeState();
-            if(settingsMenu.isOpened()) drawSettings();
+        /*if (event->mouseIsPressed(sf::Keyboard::O)) {
+            settingsMenu.open();
         }
+
+        if(settingsMenu.isOpened()) {
+            drawSettings();
+        }*/
 
         view.draw();
     }
