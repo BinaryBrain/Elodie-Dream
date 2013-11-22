@@ -1,4 +1,5 @@
 #include "Mapper.h"
+#include "../Entity/Elodie.h"
 
 Mapper::Mapper() {
 

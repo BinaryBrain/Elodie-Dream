@@ -4,6 +4,7 @@
 #include "Entity.h"
 #include "../Sprite/ElodieSprite.h"
 #include "../Item/Item.h"
+#include "../EventHandler/EventHandler.h"
 
 /**
 * The class representing Elodie, an Entity.
@@ -45,6 +46,7 @@ public:
     /**
     * \brief The destructor of Elodie.
     */
+    void doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, sf::Time animate);
     virtual ~Elodie();
 
 
@@ -64,27 +66,27 @@ public:
     /**
     * \brief Handles the direction in which Elodie must go.
     */
-    void move();
+    void overworldMove();
 
     /**
     * \brief Makes Elodie walk down.
     */
-    void walkDown();
+    void setWalkDown();
 
     /**
     * \brief Makes Elodie walk up.
     */
-    void walkUp();
+    void setWalkUp();
 
     /**
     * \brief Makes Elodie walk right.
     */
-    void walkRight();
+    void setWalkRight();
 
     /**
     * \brief Makes Elodie walk left.
     */
-    void walkLeft();
+    void setWalkLeft();
 
     /**
     * \brief Sets the distance Elodie must move.
@@ -152,6 +154,8 @@ private:
     bool goingDown = false;
     bool goingRight = false;
     bool goingLeft = false;
+
+    sf::Vector2f levelSpeed = {0, 0};
 
     int immersionLevel = 100;
     int nightmareLevel = 50; // Max: 100

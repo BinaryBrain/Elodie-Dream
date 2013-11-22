@@ -6,6 +6,7 @@
 #include "../Map/Mapper.h"
 #include "../FileHandler/FileHandler.h"
 #include "../Game/GameView.h"
+#include "../EventHandler/EventHandler.h"
 
 class Level {
 public:
@@ -14,6 +15,7 @@ public:
     virtual ~Level();
 
     void loadLevel(std::string filename);
+    void live(EventHandler* const& event, sf::Time animate);
 
     TileMap getTiles();
     EntityMap getEntities();

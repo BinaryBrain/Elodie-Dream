@@ -43,3 +43,18 @@ void Level::draw(GameView* view) {
     view->setCameraCenter(0, 0);
     //view->setSize(160, 100);
 }
+
+void Level::live(EventHandler* const& event, sf::Time animate) {
+    for (EntityMap::iterator it = entities.begin(); it != entities.end(); ++it) {
+        it->second->doStuff(event, tiles, animate);
+    }
+}
+
+EntityMap Level::getEntities() {
+    EntityMap entitiesCpy;
+
+    for (EntityMap::iterator it = entities.begin(); it != entities.end(); ++it) {
+        entitiesCpy.insert(std::make_pair(it->first, it->second));
+    }
+    return entitiesCpy;
+}

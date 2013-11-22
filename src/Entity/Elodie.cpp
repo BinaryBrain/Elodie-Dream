@@ -31,7 +31,7 @@ void Elodie::stand() {
     sprite->stand();
 }
 
-void Elodie::move() {
+void Elodie::overworldMove() {
     if (goingDown) {
         toMove -= speed;
         sprite->move(0, speed);
@@ -49,19 +49,19 @@ void Elodie::move() {
     }
 }
 
-void Elodie::walkDown() {
+void Elodie::setWalkDown() {
     this->walk();
     goingDown = true;
 }
-void Elodie::walkUp() {
+void Elodie::setWalkUp() {
     this->walk();
     goingUp = true;
 }
-void Elodie::walkRight() {
+void Elodie::setWalkRight() {
     this->walk();
     goingRight = true;
 }
-void Elodie::walkLeft() {
+void Elodie::setWalkLeft() {
     this->walk();
     goingLeft = true;
 }
@@ -99,11 +99,52 @@ int Elodie::getNightmareLevel() {
 }
 
 
-
 void Elodie::init() {
     sprite = new ElodieSprite();
+
+    //levelSpeed and hitboxes are set here for the moment, but it's not the right place to set them
+    sf::Vector2f pnt1 = {82, 37}, pnt2 = {106, 82};
+    std::tuple< sf::Vector2f, sf::Vector2f > hitbox;
+    std::get<0>(hitbox) = pnt1;
+    std::get<1>(hitbox) = pnt2;
+    levelSpeed.x = 0.1;
+    setCurrentHitbox(0);
+    addHitbox(hitbox);
+    this->walk();
 }
 
 void Elodie::walk() {
     sprite->walk();
+}
+
+//What's in doStuff right now is only for testing purpose. Lot of stuff to do here.
+void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, sf::Time animate)
+{
+    std::map<std::string, float> collide;
+    collide = collideWithTiles(tiles);
+
+    if (levelSpeed.y < 0) {
+        levelSpeed.y += 0.0005;
+        if (levelSpeed.y > 0)
+            levelSpeed.y = 0;
+    }
+
+    if (collide["left"] && collide["right"])
+        levelSpeed.x = 0;
+    else if ((collide["right"] && levelSpeed.x > 0) || (collide["left"] && levelSpeed.x < 0))
+        levelSpeed.x = -levelSpeed.x;
+
+    if (!collide["down"] && levelSpeed.y >= 0)
+        levelSpeed.y = 0.18;
+    else if (levelSpeed.y > 0)
+        levelSpeed.y = 0;
+
+    if (event->keyIsPressed(sf::Keyboard::E)) {
+        std::cout << "Collision: Top = " << collide["up"] << ", Left = " << collide["left"] << ", Down = " << collide["down"] << ", Right = " << collide["right"] << std::endl;
+    }
+    if (event->keyIsPressed(sf::Keyboard::Space) && !levelSpeed.y)
+        levelSpeed.y = -0.2;
+    sprite->move(levelSpeed.x, levelSpeed.y);
+    updateHitboxes(levelSpeed);
+    sprite->update(animate);
 }

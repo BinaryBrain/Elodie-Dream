@@ -24,6 +24,7 @@ void Game::displayLevel(int curLevelNbr) {
         }
     }
     else {
+        curLevel->live(event, frameClock.restart());
         curLevel->draw(&view);
     }
 }
@@ -47,26 +48,26 @@ void Game::displayOverworld() {
     }
 
     if(overworld.getElodie()->isMoving()) {
-        overworld.getElodie()->move();
+        overworld.getElodie()->overworldMove();
     } else if (event->keyIsHold(sf::Keyboard::Down)) {
         overworld.getElodie()->setDistanceToMove(overworld.moveDown());
         if(overworld.getElodie()->hasToMove()) {
-            overworld.getElodie()->walkDown();
+            overworld.getElodie()->setWalkDown();
         }
     } else if (event->keyIsHold(sf::Keyboard::Up)) {
         overworld.getElodie()->setDistanceToMove(overworld.moveUp());
         if(overworld.getElodie()->hasToMove()) {
-            overworld.getElodie()->walkUp();
+            overworld.getElodie()->setWalkUp();
         }
     } else if (event->keyIsHold(sf::Keyboard::Left)) {
         overworld.getElodie()->setDistanceToMove(overworld.moveLeft());
         if(overworld.getElodie()->hasToMove()) {
-            overworld.getElodie()->walkLeft();
+            overworld.getElodie()->setWalkLeft();
         }
     } else if (event->keyIsHold(sf::Keyboard::Right)) {
         overworld.getElodie()->setDistanceToMove(overworld.moveRight());
         if(overworld.getElodie()->hasToMove()) {
-            overworld.getElodie()->walkRight();
+            overworld.getElodie()->setWalkRight();
         }
     } else if (event->keyIsPressed(sf::Keyboard::Return)) {
         loadLevel(0);
