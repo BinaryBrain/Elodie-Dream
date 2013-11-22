@@ -8,8 +8,7 @@
 #include "../FileHandler/FileHandler.h"
 #include "../Overworld/Overworld.h"
 #include "../EventHandler/EventHandler.h"
-#include "../Menu/TitleMenu.h"
-#include "../Menu/SettingsMenu.h"
+#include "../Menu/Menu.h"
 #include "GameView.h"
 
 enum class GameState {
@@ -37,11 +36,8 @@ private:
 
     sf::Clock frameClock;
 
-    TitleMenu titleMenu;
+    Menu menu;
     void displayMenu();
-
-    SettingsMenu settingsMenu;
-    void displaySettings();
 
     GameView view;
 

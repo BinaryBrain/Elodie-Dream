@@ -3,10 +3,8 @@
 Game::Game() {
     event = new EventHandler(view.getWindow());
     //temporary there for testing
-    std::vector<std::string> menuTitles {"New Game", "Load", "Settings", "Quit"};
-    titleMenu.setTitles(menuTitles);
-    std::vector<std::string> settingsTitles {"Language", "Back"};
-    settingsMenu.setTitles(settingsTitles);
+    std::vector<std::string> titles {"New Game", "Load", "Settings", "Quit"};
+    menu.setTitles(titles);
 }
 
 Game::~Game() {
@@ -84,34 +82,17 @@ void Game::displayOverworld() {
 }
 
 void Game::displayMenu() {
-    titleMenu.draw(&view);
+    menu.draw(&view);
 
-    if (event->keyIsPressed(sf::Keyboard::Down)) titleMenu.incIndex();
-    if (event->keyIsPressed(sf::Keyboard::Up)) titleMenu.decIndex();
+    if (event->keyIsPressed(sf::Keyboard::Down)) menu.incIndex();
+    if (event->keyIsPressed(sf::Keyboard::Up)) menu.decIndex();
 
     if (event->keyIsPressed(sf::Keyboard::Return)) {
-        std::string option = titleMenu.getTitleKey();
+        std::string option = menu.getTitleKey();
         std::cout << "Title key : " << option << std::endl;
         if (option == "New Game") state = GameState::INOVERWORLD;
-        if (option == "Settings") settingsMenu.open();
         if (option == "Quit") view.getWindow()->close();
     }
-}
-
-void Game::displaySettings() {
-    settingsMenu.draw(&view);
-
-    // Make something here so that the iputs are not used by the view behind too
-    // Infinite loop , or nothing special if in a different state
-
-    if (event->keyIsPressed(sf::Keyboard::Down)) settingsMenu.incIndex();
-    if (event->keyIsPressed(sf::Keyboard::Up)) settingsMenu.decIndex();
-    if (event->keyIsPressed(sf::Keyboard::Return)) {
-        std::string option = titleMenu.getTitleKey();
-        std::cout << "Title key : " << option << std::endl;
-        if (option == "Back") settingsMenu.close();
-    }
-
 }
 
 void Game::run() {
