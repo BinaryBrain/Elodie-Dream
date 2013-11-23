@@ -1,14 +1,30 @@
 #include "Game.h"
 
+// Initialisation of the sinlgeton to NULL
+Game* Game::gameInstance = NULL;
+
 Game::Game() {
     event = new EventHandler(view.getWindow());
     //temporary there for testing
-    std::vector<std::string> titles {"New Game", "Load", "Settings", "Quit"};
-    menu.setTitles(titles);
+    std::vector<std::string> items {"New game", "Load game", "Settings", "Quit"};
+    menu.setItems(items);
 }
 
 Game::~Game() {
     delete event;
+}
+
+// Gets the instance of the game
+Game* Game::getInstance() {
+    if(!gameInstance) gameInstance = new Game;
+    return gameInstance;
+}
+
+void Game::kill() {
+    if(gameInstance) {
+        delete gameInstance;
+        gameInstance = NULL;
+    }
 }
 
 void Game::init() {
@@ -89,12 +105,8 @@ void Game::displayMenu() {
 
     if (event->keyIsPressed(sf::Keyboard::Down)) menu.incIndex();
     if (event->keyIsPressed(sf::Keyboard::Up)) menu.decIndex();
-
     if (event->keyIsPressed(sf::Keyboard::Return)) {
-        std::string option = menu.getTitleKey();
-        std::cout << "Title key : " << option << std::endl;
-        if (option == "New Game") state = GameState::INOVERWORLD;
-        if (option == "Quit") view.getWindow()->close();
+        state = menu.getCurrentItem();
     }
 }
 
@@ -139,14 +151,14 @@ void Game::run() {
             displayMenu();
         }
 
-        /*if (event->mouseIsPressed(sf::Keyboard::O)) {
-            settingsMenu.open();
-        }
-
-        if(settingsMenu.isOpened()) {
-            drawSettings();
-        }*/
-
         view.draw();
     }
+}
+
+void Game::exit() {
+    view.getWindow()->close();
+}
+
+void Game::setState(GameState state){
+    this->state = state;
 }

@@ -16,7 +16,7 @@ using std::endl;
 
 int main() {
     // Map Parsing test
-    Game game;
+    Game* game = Game::getInstance();
 
     // Conf test
     JsonAccessor language = JsonAccessor();
@@ -28,7 +28,8 @@ int main() {
     cout << language.getString("End") << endl;
 
 
-    game.run();
+    game->run();
+    game->kill();
 
     return 0;
 }

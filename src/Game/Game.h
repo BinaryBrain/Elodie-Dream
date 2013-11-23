@@ -1,8 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <string>
-
+#include "../env.h"
 #include "../Level/Level.h"
 #include "../Map/Mapper.h"
 #include "../FileHandler/FileHandler.h"
@@ -11,22 +10,34 @@
 #include "../Menu/Menu.h"
 #include "GameView.h"
 
-enum class GameState {
-    INLEVEL, INOVERWORLD, INMENU
-};
 
+/**
+* The class representing the game.
+* Uses the Singleton Pattern so that Game can be instantiated only one time. Thus, the constructor is private an
+* getInstance can be used to get the only instance of Game.
+*/
 class Game {
 public:
-    Game();
-    virtual ~Game();
+    static Game* getInstance();
+    static void kill();
 
     void init();
     void draw();
     void run();
+    void exit();
 
     Level loadLevel(std::string filename);
-protected:
+
+    void setState(GameState state);
+
 private:
+    Game();
+    ~Game();
+
+    static Game* gameInstance;
+    Game& operator= (Game const&);
+
+
     GameState state = GameState::INMENU;
 
     EventHandler* event;
