@@ -104,7 +104,8 @@ void Game::displayMenu() {
     if (event->keyIsPressed(sf::Keyboard::Down)) menu.incIndex();
     if (event->keyIsPressed(sf::Keyboard::Up)) menu.decIndex();
     if (event->keyIsPressed(sf::Keyboard::Return)) {
-        state = menu.getCurrentItem();
+            state = menu.getCurrentItem();
+            std::cout << (state == GameState::INOVERWORLD) << std::endl;
     }
 }
 
@@ -144,6 +145,9 @@ void Game::run() {
             break;
         case GameState::INOVERWORLD:
             handleOverworld();
+            break;
+        case GameState::EXIT:
+            exit();
             break;
         default :
             displayMenu();
