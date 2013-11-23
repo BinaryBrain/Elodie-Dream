@@ -77,6 +77,10 @@
 		<Unit filename="src/Map/Mapper.h" />
 		<Unit filename="src/Menu/Menu.cpp" />
 		<Unit filename="src/Menu/Menu.h" />
+		<Unit filename="src/Menu/MenuComponent.cpp" />
+		<Unit filename="src/Menu/MenuComponent.h" />
+		<Unit filename="src/Menu/MenuItem.cpp" />
+		<Unit filename="src/Menu/MenuItem.h" />
 		<Unit filename="src/Overworld/Overworld.cpp" />
 		<Unit filename="src/Overworld/Overworld.h" />
 		<Unit filename="src/Sprite/AnimatedSprite.cpp" />

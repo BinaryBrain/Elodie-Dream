@@ -5,9 +5,9 @@
 
 #include "../env.h"
 #include "../Game/GameView.h"
+#include "MenuComponent.h"
 
-
-class Menu {
+class Menu : public MenuComponent {
 
 public:
     Menu();

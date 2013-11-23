@@ -65,7 +65,7 @@ std::string Menu::getItemKey() {
 GameState Menu::getCurrentItem() {
     std::string option = getItemKey();
     std::cout << "Title key : " << option << std::endl;
-    if (option == "New game") return GameState::INOVERWORLD;
-    if (option == "Quit") return GameState::EXIT;
+    if (option == itemKeys[0]) return GameState::INOVERWORLD; // New game
+    if (option == itemKeys[3]) return GameState::EXIT; // Quit
     return GameState::INMENU;
 }
