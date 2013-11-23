@@ -7,19 +7,19 @@
 
 #include "../Entity/Elodie.h"
 #include "../JsonAccessor/JsonAccessor.h"
+#include "../Game/GameView.h"
 
 class Overworld {
 public:
     Overworld();
     virtual ~Overworld();
-    sf::Sprite* getCurrentSprite();
     Elodie* getElodie();
-    sf::VertexArray* getPath();
     int moveUp();
     int moveDown();
     int moveRight();
     int moveLeft();
     void evolve();
+    void drawOnView(GameView* view);
 
 protected:
 private:

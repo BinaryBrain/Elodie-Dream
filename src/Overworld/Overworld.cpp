@@ -54,6 +54,12 @@ Overworld::~Overworld() {
     delete elodie;
 }
 
+void Overworld::drawOnView(GameView* view) {
+    view->addDrawable(overworldSprites[currentState]);
+    view->addDrawable(elodie->getSprite());
+    view->addDrawable(paths[currentState]);
+}
+
 int Overworld::moveUp() {
     sf::Vertex curPos = (* (paths[currentState]))[curPosInPath];
     if(curPosInPath < paths[currentState]->getVertexCount()-1) {
@@ -138,18 +144,6 @@ int Overworld::moveLeft() {
     return 0;
 }
 
-sf::Sprite* Overworld::getCurrentSprite() {
-    return overworldSprites[currentState];
-}
-
-Elodie* Overworld::getElodie() {
-    return elodie;
-}
-
-sf::VertexArray* Overworld::getPath() {
-    return paths[currentState];
-}
-
 void Overworld::evolve() {
     switch(currentState) {
     case UNIL:
@@ -168,4 +162,8 @@ void Overworld::evolve() {
     default:
         break;
     }
+}
+
+Elodie* Overworld::getElodie() {
+    return elodie;
 }

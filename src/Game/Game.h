@@ -41,7 +41,7 @@ private:
     EventHandler* event;
 
     Overworld overworld;
-    void displayOverworld();
+    void handleOverworld();
 
     sf::Clock frameClock;
 

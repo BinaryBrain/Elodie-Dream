@@ -52,7 +52,7 @@ void Game::loadLevel(int levelNbr) {
     curLevel = new Level("assets/levels/level1.txt");
 }
 
-void Game::displayOverworld() {
+void Game::handleOverworld() {
 
     if (event->keyIsPressed(sf::Keyboard::N)) {
         overworld.evolve();
@@ -93,9 +93,7 @@ void Game::displayOverworld() {
 
     overworld.getElodie()->update(frameClock.restart());
 
-    view.addDrawable(overworld.getCurrentSprite());
-    view.addDrawable(overworld.getElodie()->getSprite());
-    view.addDrawable(overworld.getPath());
+    overworld.drawOnView(&view);
 
     view.reset();
 }
@@ -145,7 +143,7 @@ void Game::run() {
             displayLevel(curLevelNbr);
             break;
         case GameState::INOVERWORLD:
-            displayOverworld();
+            handleOverworld();
             break;
         default :
             displayMenu();
