@@ -35,8 +35,6 @@ private:
     ~Game();
 
     static Game* gameInstance;
-    Game& operator= (Game const&);
-
 
     GameState state = GameState::INMENU;
 
