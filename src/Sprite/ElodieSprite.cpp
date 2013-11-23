@@ -18,6 +18,7 @@ ElodieSprite::ElodieSprite() : CharacterSprite() {
     standingAnimation.addFrame(sf::IntRect(0, 0, 43, 64));
 
     setAnimation(standingAnimation);
+    setCurrentStance(SpriteStance::STANDING);
 }
 
 ElodieSprite::~ElodieSprite() {
@@ -26,8 +27,10 @@ ElodieSprite::~ElodieSprite() {
 
 void ElodieSprite::walk() {
     AnimatedSprite::setAnimation(walkingAnimation);
+    setCurrentStance(SpriteStance::WALKING_RIGHT);
 }
 
 void ElodieSprite::stand() {
     AnimatedSprite::setAnimation(standingAnimation);
+    setCurrentStance(SpriteStance::STANDING);
 }

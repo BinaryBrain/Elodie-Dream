@@ -7,3 +7,11 @@ CharacterSprite::CharacterSprite() : AnimatedSprite(sf::seconds(0.1)) {
 CharacterSprite::~CharacterSprite() {
     //dtor
 }
+
+SpriteStance CharacterSprite::getCurrentStance() {
+    return currentStance;
+}
+
+void CharacterSprite::setCurrentStance(SpriteStance newStance) {
+    currentStance = newStance;
+}

@@ -110,7 +110,6 @@ void Elodie::init() {
     levelSpeed.x = 0.1;
     setCurrentHitbox(0);
     addHitbox(hitbox);
-    this->walk();
 }
 
 void Elodie::walk() {
@@ -122,6 +121,9 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
 {
     std::map<std::string, float> collide;
     collide = collideWithTiles(tiles);
+
+    if (sprite->getCurrentStance() == SpriteStance::STANDING)
+        this->walk();
 
     if (levelSpeed.y < 0) {
         levelSpeed.y += 0.0005;
