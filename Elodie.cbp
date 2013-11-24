@@ -77,8 +77,6 @@
 		<Unit filename="src/Map/Mapper.h" />
 		<Unit filename="src/Menu/EnglishItem.cpp" />
 		<Unit filename="src/Menu/EnglishItem.h" />
-		<Unit filename="src/Menu/LanguageMenu.cpp" />
-		<Unit filename="src/Menu/LanguageMenu.h" />
 		<Unit filename="src/Menu/LoadGameItem.cpp" />
 		<Unit filename="src/Menu/LoadGameItem.h" />
 		<Unit filename="src/Menu/Menu.cpp" />
