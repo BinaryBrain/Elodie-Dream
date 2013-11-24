@@ -5,30 +5,7 @@ Game* Game::gameInstance = NULL;
 
 Game::Game() {
     event = new EventHandler(view.getWindow());
-
-    //temporary there for testing
-    NewGameItem* newGame = new NewGameItem("New game");
-    QuitItem* quit = new QuitItem("Quit");
-    EnglishItem* english = new EnglishItem("English");
-    SaveItem* save1 = new SaveItem("Save slot 1");
-    SaveItem* save2 = new SaveItem("Save slot 2");
-    SaveItem* save3 = new SaveItem("Save slot 3");
-
-    title = new Menu("Title menu");
-    Menu* loadGame = new Menu("Load game");
-    Menu* settings = new Menu("Settings");
-
-    title->addItem(newGame);
-    title->addItem(loadGame);
-    title->addItem(settings);
-    title->addItem(quit);
-
-    loadGame->addItem(save1);
-    loadGame->addItem(save2);
-    loadGame->addItem(save3);
-
-    settings->addItem(english);
-
+    menuHandler = new MenuHandler();
 }
 
 Game::~Game() {
@@ -120,11 +97,11 @@ void Game::handleOverworld() {
 }
 
 void Game::displayMenu() {
-    title->draw(&view);
+    menuHandler->display(&view);
 
-    if (event->keyIsPressed(sf::Keyboard::Down)) title->incIndex();
-    if (event->keyIsPressed(sf::Keyboard::Up)) title->decIndex();
-    if (event->keyIsPressed(sf::Keyboard::Return)) state = title->execute();
+    if (event->keyIsPressed(sf::Keyboard::Down)) menuHandler->incIndex();
+    if (event->keyIsPressed(sf::Keyboard::Up)) menuHandler->decIndex();
+    if (event->keyIsPressed(sf::Keyboard::Return)) state = menuHandler->execute();
 }
 
 void Game::run() {
@@ -169,6 +146,7 @@ void Game::run() {
             break;
         default :
             displayMenu();
+            break;
         }
 
         view.draw();

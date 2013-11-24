@@ -7,16 +7,7 @@
 #include "../FileHandler/FileHandler.h"
 #include "../Overworld/Overworld.h"
 #include "../EventHandler/EventHandler.h"
-
-#include "../Menu/MenuComponent.h"
-#include "../Menu/Menu.h"
-#include "../Menu/MenuItem.h"
-
-#include "../Menu/NewGameItem.h"
-#include "../Menu/QuitItem.h"
-#include "../Menu/EnglishItem.h"
-#include "../Menu/SaveItem.h"
-
+#include "../Menu/MenuHandler.h"
 #include "GameView.h"
 
 
@@ -55,7 +46,8 @@ private:
 
     sf::Clock frameClock;
 
-    Menu* title;
+    MenuHandler* menuHandler;
+
     void displayMenu();
 
     GameView view;

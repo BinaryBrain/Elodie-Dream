@@ -1,5 +1,6 @@
 #ifndef ENV_H
 #define ENV_H
+
 #include <string>
 #include <vector>
 #include <map>
@@ -14,6 +15,10 @@ typedef std::map<std::string, Entity*> EntityMap;
 
 enum class GameState {
     INLEVEL, INOVERWORLD, INMENU, EXIT
+};
+
+enum class MenuState {
+    TITLE, SAVES, SETTINGS, LANGUAGES
 };
 
 #endif // ENV_H

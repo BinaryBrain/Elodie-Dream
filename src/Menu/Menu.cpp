@@ -29,7 +29,7 @@ void Menu::addItem(MenuComponent* item) {
     items.push_back(item);
 }
 
-// Draws the everything on the menu
+// Draws the everything in the menu
 void Menu::draw(GameView* view) {
 
     for(unsigned int i(0); i < items.size(); ++i) view->addDrawable((items[i]->getText()));
@@ -58,7 +58,6 @@ std::string Menu::getItemKey() {
 }
 
 GameState Menu::execute() {
-
     std::string option = getItemKey();
     std::cout << "Title key : " << option << std::endl;
     return items[index]->execute();

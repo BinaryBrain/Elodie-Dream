@@ -81,6 +81,8 @@
 		<Unit filename="src/Menu/Menu.h" />
 		<Unit filename="src/Menu/MenuComponent.cpp" />
 		<Unit filename="src/Menu/MenuComponent.h" />
+		<Unit filename="src/Menu/MenuHandler.cpp" />
+		<Unit filename="src/Menu/MenuHandler.h" />
 		<Unit filename="src/Menu/MenuItem.cpp" />
 		<Unit filename="src/Menu/MenuItem.h" />
 		<Unit filename="src/Menu/NewGameItem.cpp" />
