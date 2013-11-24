@@ -17,10 +17,12 @@ public:
     string getString(string key);
     int getInt(string key);
     std::vector<int>* getIntVector(string key);
+    std::vector< std::vector<int>* >* getInt2DVector(string key);
     bool load(string file);
 protected:
 private:
     rapidjson::Document values;
+    rapidjson::Value& getAskedObject(string key);
     bool loaded = false;
 };
 
