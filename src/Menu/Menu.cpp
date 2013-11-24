@@ -1,8 +1,6 @@
 #include "Menu.h"
 
 Menu::Menu() {
-    font = new sf::Font();
-    font->loadFromFile("assets/fonts/arial.ttf");
 
     texture.loadFromFile("assets/img/sprites/menu/selector.png");
     selector.setTexture(texture);
@@ -15,13 +13,32 @@ Menu::~Menu() {
 }
 
 // Sets the items (vector of sf::Text) for the itemMenu given a vector of strings
-void Menu::setItems(std::vector<std::string> const& items) {
+void Menu::setItems(std::vector< std::pair<std::string, char> > const& items) {
 
     //in case we want to change the itemMenu at any time
     itemKeys.clear();
     this->items.clear();
 
     for (unsigned int i(0); i< items.size(); ++i) {
+
+        MenuComponent* item;
+        switch (items[i].second) {
+            case 'n' :
+                item = new Menu;
+                break;
+            case 'l' :
+                item = new MenuItem;
+                break;
+            default :
+                item = new MenuItem;
+                break;
+        }
+
+        sf::Text* text = new sf::Text(items[i].first, *font);
+        item->setText(*text);
+        this->items.push_back(item);
+
+        /*
         itemKeys.push_back(items[i]);
         sf::Text* item = new sf::Text(items[i], *font);
 
@@ -31,13 +48,14 @@ void Menu::setItems(std::vector<std::string> const& items) {
         item->setColor(sf::Color::Magenta);
 
         this->items.push_back(item);
+        */
     }
 }
 
 // Draws the everything on the menu
 void Menu::draw(GameView* view) {
 
-    for(unsigned int i(0); i < items.size(); ++i) view->addDrawable(items[i]);
+    for(unsigned int i(0); i < items.size(); ++i) view->addDrawable(&(items[i]->getText()));
 
     selector.setPosition(150, 5+100+50*index);
     selector.setScale(0.25, 0.25);

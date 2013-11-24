@@ -6,7 +6,7 @@ Game* Game::gameInstance = NULL;
 Game::Game() {
     event = new EventHandler(view.getWindow());
     //temporary there for testing
-    std::vector<std::string> items {"New game", "Load game", "Settings", "Quit"};
+    std::vector< std::pair< std::string, char > > items {std::make_pair("New game", 'l'), std::make_pair("Load game",'l'), std::make_pair("Settings",'n'), std::make_pair("Quit", 'l')};
     menu.setItems(items);
 }
 
@@ -124,6 +124,10 @@ void Game::run() {
 
         if (event->keyIsHold(esc)) {
             window->close();
+        }
+
+        if (event->keyIsPressed(sf::Keyboard::M)) {
+            state = GameState::INOVERWORLD;
         }
 
         if (event->keyIsPressed(sf::Keyboard::F1)) {
