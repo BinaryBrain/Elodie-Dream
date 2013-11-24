@@ -13,9 +13,9 @@
 #include "../Menu/MenuItem.h"
 
 #include "../Menu/NewGameItem.h"
-#include "../Menu/LoadGameItem.h"
 #include "../Menu/QuitItem.h"
 #include "../Menu/EnglishItem.h"
+#include "../Menu/SaveItem.h"
 
 #include "GameView.h"
 

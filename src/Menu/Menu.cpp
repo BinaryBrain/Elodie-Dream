@@ -57,10 +57,9 @@ std::string Menu::getItemKey() {
     return items[index]->getText()->getString();
 }
 
-GameState Menu::getCurrentItem() {
+GameState Menu::execute() {
+
     std::string option = getItemKey();
     std::cout << "Title key : " << option << std::endl;
-    if (option == items[0]->getText()->getString()) return GameState::INOVERWORLD; // New game
-    if (option == items[3]->getText()->getString()) return GameState::EXIT; // Quit
-    return GameState::INMENU;
+    return items[index]->execute();
 }

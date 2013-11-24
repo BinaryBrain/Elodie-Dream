@@ -8,7 +8,8 @@ class QuitItem : public MenuItem {
 public:
     QuitItem(std::string label);
     virtual ~QuitItem();
-protected:
+
+    GameState execute();
 private:
 };
 

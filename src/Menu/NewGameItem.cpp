@@ -7,3 +7,7 @@ NewGameItem::NewGameItem(std::string label): MenuItem(label) {
 NewGameItem::~NewGameItem() {
     //dtor
 }
+
+GameState NewGameItem::execute() {
+    return GameState::INOVERWORLD;
+}

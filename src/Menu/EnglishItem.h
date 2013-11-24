@@ -8,7 +8,8 @@ class EnglishItem : public MenuItem {
 public:
     EnglishItem(std::string label);
     virtual ~EnglishItem();
-protected:
+
+    GameState execute();
 private:
 };
 

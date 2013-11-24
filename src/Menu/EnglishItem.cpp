@@ -7,3 +7,7 @@ EnglishItem::EnglishItem(std::string label): MenuItem(label) {
 EnglishItem::~EnglishItem() {
     //dtor
 }
+
+GameState EnglishItem::execute() {
+    return GameState::INMENU;
+}

@@ -7,3 +7,7 @@ QuitItem::QuitItem(std::string label): MenuItem(label) {
 QuitItem::~QuitItem() {
     //dtor
 }
+
+GameState QuitItem::execute() {
+    return GameState::EXIT;
+}
