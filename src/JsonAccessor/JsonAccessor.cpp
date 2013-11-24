@@ -15,8 +15,6 @@ rapidjson::Value& JsonAccessor::getAskedObject(string key) {
     using namespace std;
     string delimiter = " ";
     replace(key.begin(), key.end(), '.', ' ');
-    if (key.find(delimiter) == string::npos)
-        return values[key.c_str()];
     istringstream iss(key);
     vector<std::string> tokens;
     copy(istream_iterator<string>(iss),
