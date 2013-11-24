@@ -23,7 +23,7 @@ public:
     int getIndex();
     std::string getItemKey();
 
-    GameState getCurrentItem();
+    GameState execute();
 
 private:
     sf::Texture texture;

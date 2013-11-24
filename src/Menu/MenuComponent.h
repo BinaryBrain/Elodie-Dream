@@ -7,10 +7,12 @@
 class MenuComponent {
 public:
     MenuComponent(std::string label);
-    ~MenuComponent();
+    virtual ~MenuComponent();
 
     sf::Text* getText();
     void setText(sf::Text* text);
+
+    virtual GameState execute() = 0;
 
 protected:
     std::vector<MenuComponent*> items;

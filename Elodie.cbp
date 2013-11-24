@@ -77,8 +77,6 @@
 		<Unit filename="src/Map/Mapper.h" />
 		<Unit filename="src/Menu/EnglishItem.cpp" />
 		<Unit filename="src/Menu/EnglishItem.h" />
-		<Unit filename="src/Menu/LoadGameItem.cpp" />
-		<Unit filename="src/Menu/LoadGameItem.h" />
 		<Unit filename="src/Menu/Menu.cpp" />
 		<Unit filename="src/Menu/Menu.h" />
 		<Unit filename="src/Menu/MenuComponent.cpp" />
@@ -89,6 +87,8 @@
 		<Unit filename="src/Menu/NewGameItem.h" />
 		<Unit filename="src/Menu/QuitItem.cpp" />
 		<Unit filename="src/Menu/QuitItem.h" />
+		<Unit filename="src/Menu/SaveItem.cpp" />
+		<Unit filename="src/Menu/SaveItem.h" />
 		<Unit filename="src/Overworld/Overworld.cpp" />
 		<Unit filename="src/Overworld/Overworld.h" />
 		<Unit filename="src/Sprite/AnimatedSprite.cpp" />

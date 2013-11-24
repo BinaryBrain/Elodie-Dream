@@ -7,8 +7,6 @@ class MenuItem : public MenuComponent {
 public:
     MenuItem(std::string label);
     virtual ~MenuItem();
-
-protected:
 private:
 };
 

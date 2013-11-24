@@ -8,7 +8,8 @@ class NewGameItem : public MenuItem {
 public:
     NewGameItem(std::string label);
     virtual ~NewGameItem();
-protected:
+
+    GameState execute();
 private:
 };
 

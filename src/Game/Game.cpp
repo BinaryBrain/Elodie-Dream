@@ -10,8 +10,11 @@ Game::Game() {
     NewGameItem* newGame = new NewGameItem("New game");
     QuitItem* quit = new QuitItem("Quit");
     EnglishItem* english = new EnglishItem("English");
+    SaveItem* save1 = new SaveItem("Save slot 1");
+    SaveItem* save2 = new SaveItem("Save slot 2");
+    SaveItem* save3 = new SaveItem("Save slot 3");
 
-    title = new Menu("Back");
+    title = new Menu("Title menu");
     Menu* loadGame = new Menu("Load game");
     Menu* settings = new Menu("Settings");
 
@@ -19,6 +22,10 @@ Game::Game() {
     title->addItem(loadGame);
     title->addItem(settings);
     title->addItem(quit);
+
+    loadGame->addItem(save1);
+    loadGame->addItem(save2);
+    loadGame->addItem(save3);
 
     settings->addItem(english);
 
@@ -117,7 +124,7 @@ void Game::displayMenu() {
 
     if (event->keyIsPressed(sf::Keyboard::Down)) title->incIndex();
     if (event->keyIsPressed(sf::Keyboard::Up)) title->decIndex();
-    if (event->keyIsPressed(sf::Keyboard::Return)) state = title->getCurrentItem();
+    if (event->keyIsPressed(sf::Keyboard::Return)) state = title->execute();
 }
 
 void Game::run() {
