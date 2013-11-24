@@ -27,7 +27,7 @@ MenuHandler::MenuHandler() {
     settings->addItem(title);
 
     language->addItem(english);
-    language->addItem(title);
+    language->addItem(settings);
 }
 
 MenuHandler::~MenuHandler() {
