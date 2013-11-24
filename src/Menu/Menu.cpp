@@ -13,7 +13,7 @@ Menu::~Menu() {
 }
 
 // Sets the items (vector of sf::Text) for the itemMenu given a vector of strings
-void Menu::setItems(std::vector< std::pair<std::string, char> > const& items) {
+void Menu::setItems(std::vector< std::pair<std::string, char> > const items) {
 
     //in case we want to change the itemMenu at any time
     itemKeys.clear();
@@ -35,7 +35,7 @@ void Menu::setItems(std::vector< std::pair<std::string, char> > const& items) {
         }
 
         sf::Text* text = new sf::Text(items[i].first, *font);
-        item->setText(*text);
+        item->setText(text);
         this->items.push_back(item);
 
         /*
@@ -55,7 +55,7 @@ void Menu::setItems(std::vector< std::pair<std::string, char> > const& items) {
 // Draws the everything on the menu
 void Menu::draw(GameView* view) {
 
-    for(unsigned int i(0); i < items.size(); ++i) view->addDrawable(&(items[i]->getText()));
+    for(unsigned int i(0); i < items.size(); ++i) view->addDrawable((items[i]->getText()));
 
     selector.setPosition(150, 5+100+50*index);
     selector.setScale(0.25, 0.25);

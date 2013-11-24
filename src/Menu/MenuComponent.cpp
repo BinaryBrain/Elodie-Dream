@@ -13,6 +13,6 @@ sf::Text* MenuComponent::getText() {
     return text;
 }
 
-void MenuComponent::setText(sf::Text& text) {
+void MenuComponent::setText(sf::Text* text) {
     this->text = text;
 }

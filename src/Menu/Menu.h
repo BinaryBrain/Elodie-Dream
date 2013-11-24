@@ -14,7 +14,7 @@ public:
     Menu();
     virtual ~Menu();
 
-    void setItems(std::vector< std::pair<std::string, char> > const& items);
+    void setItems(std::vector< std::pair<std::string, char> > const items);
     void draw(GameView* view);
 
     void incIndex();

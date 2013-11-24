@@ -9,9 +9,9 @@ public:
     MenuComponent();
     virtual ~MenuComponent();
 
-    virtual void setItems(std::vector< std::pair<std::string, char> > const& items);
-    sf::Text getText();
-    void setText(sf::Text& text);
+    virtual void setItems(std::vector< std::pair<std::string, char> > const items);
+    sf::Text* getText();
+    void setText(sf::Text* text);
 
 protected:
     std::vector<MenuComponent*> items;
