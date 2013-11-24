@@ -1,6 +1,6 @@
 #include "Menu.h"
 
-Menu::Menu() {
+Menu::Menu(std::string label): MenuComponent(label) {
 
     texture.loadFromFile("assets/img/sprites/menu/selector.png");
     selector.setTexture(texture);
@@ -12,39 +12,21 @@ Menu::~Menu() {
     //dtor
 }
 
-// Sets the items (vector of sf::Text) for the itemMenu given a vector of strings
-void Menu::setItems(std::vector< std::pair<std::string, char> > const items) {
+void Menu::addItem(MenuComponent* item) {
 
-    //in case we want to change the itemMenu at any time
-    itemKeys.clear();
-    this->items.clear();
+    float posX(200);
+    float posY(100);
 
-    for (unsigned int i(0); i< items.size(); ++i) {
+    sf::Text* text = item->getText();
 
-        MenuComponent* item;
-        switch (items[i].second) {
-            case 'n' :
-                item = new Menu;
-                break;
-            case 'l' :
-                item = new MenuItem;
-                break;
-            default :
-                item = new MenuItem;
-                break;
-        }
+    if(items.size() > 0) posY+= 50*items.size();
 
-        std::string name = items[i].first;
-        sf::Text* text = new sf::Text(name , *font);
-        text->setPosition(200, 100+50*i);
-        text->setCharacterSize(30);
-        text->setStyle(sf::Text::Bold);
-        text->setColor(sf::Color::Magenta);
-
-        item->setText(text);
-        this->items.push_back(item);
-        itemKeys.push_back(name);
-    }
+    text->setPosition(posX, posY);
+    text->setCharacterSize(30);
+    text->setStyle(sf::Text::Bold);
+    text->setColor(sf::Color::Magenta);
+    item->setText(text);
+    items.push_back(item);
 }
 
 // Draws the everything on the menu
@@ -72,13 +54,13 @@ int Menu::getIndex() {
 }
 
 std::string Menu::getItemKey() {
-    return itemKeys[index];
+    return items[index]->getText()->getString();
 }
 
 GameState Menu::getCurrentItem() {
     std::string option = getItemKey();
     std::cout << "Title key : " << option << std::endl;
-    if (option == itemKeys[0]) return GameState::INOVERWORLD; // New game
-    if (option == itemKeys[3]) return GameState::EXIT; // Quit
+    if (option == items[0]->getText()->getString()) return GameState::INOVERWORLD; // New game
+    if (option == items[3]->getText()->getString()) return GameState::EXIT; // Quit
     return GameState::INMENU;
 }

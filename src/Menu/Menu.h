@@ -11,10 +11,11 @@
 class Menu : public MenuComponent {
 
 public:
-    Menu();
+    Menu(std::string label);
     virtual ~Menu();
 
-    void setItems(std::vector< std::pair<std::string, char> > const items);
+    void addItem(MenuComponent* item);
+
     void draw(GameView* view);
 
     void incIndex();
@@ -28,9 +29,9 @@ private:
     sf::Texture texture;
     sf::Sprite selector;
 
+    std::vector<MenuComponent*> items;
+
     unsigned int index;
-    std::vector<std::string> itemKeys;
-    //std::vector<sf::Text*> items;
 };
 
 #endif // MENU_H

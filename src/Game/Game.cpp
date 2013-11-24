@@ -5,9 +5,23 @@ Game* Game::gameInstance = NULL;
 
 Game::Game() {
     event = new EventHandler(view.getWindow());
+
     //temporary there for testing
-    std::vector< std::pair< std::string, char > > items {std::make_pair("New game", 'l'), std::make_pair("Load game",'l'), std::make_pair("Settings",'n'), std::make_pair("Quit", 'l')};
-    menu.setItems(items);
+    NewGameItem* newGame = new NewGameItem("New game");
+    QuitItem* quit = new QuitItem("Quit");
+    EnglishItem* english = new EnglishItem("English");
+
+    title = new Menu("Back");
+    Menu* loadGame = new Menu("Load game");
+    Menu* settings = new Menu("Settings");
+
+    title->addItem(newGame);
+    title->addItem(loadGame);
+    title->addItem(settings);
+    title->addItem(quit);
+
+    settings->addItem(english);
+
 }
 
 Game::~Game() {
@@ -99,11 +113,11 @@ void Game::handleOverworld() {
 }
 
 void Game::displayMenu() {
-    menu.draw(&view);
+    title->draw(&view);
 
-    if (event->keyIsPressed(sf::Keyboard::Down)) menu.incIndex();
-    if (event->keyIsPressed(sf::Keyboard::Up)) menu.decIndex();
-    if (event->keyIsPressed(sf::Keyboard::Return)) state = menu.getCurrentItem();
+    if (event->keyIsPressed(sf::Keyboard::Down)) title->incIndex();
+    if (event->keyIsPressed(sf::Keyboard::Up)) title->decIndex();
+    if (event->keyIsPressed(sf::Keyboard::Return)) state = title->getCurrentItem();
 }
 
 void Game::run() {

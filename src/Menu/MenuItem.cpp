@@ -1,13 +1,9 @@
 #include "MenuItem.h"
 
-MenuItem::MenuItem() {
+MenuItem::MenuItem(std::string label): MenuComponent(label) {
     //ctor
 }
 
 MenuItem::~MenuItem() {
     //dtor
-}
-
-void MenuItem::setItems(std::vector< std::pair<std::string, char> > const items) {
-    // Nothing
 }

@@ -1,8 +1,10 @@
 #include "MenuComponent.h"
 
-MenuComponent::MenuComponent() {
+MenuComponent::MenuComponent(std::string label) {
     font = new sf::Font();
     font->loadFromFile("assets/fonts/arial.ttf");
+
+    this->text = new sf::Text(label, *font);
 }
 
 MenuComponent::~MenuComponent() {
