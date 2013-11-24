@@ -36,8 +36,10 @@ int main() {
             cout << (*(*tab)[i])[j] << endl;
         }
     }
-    cout << sheep.getString("anim.name") << endl;
-    cout << sheep.getString("anim.name") << endl;
+    cout << sheep.getString("anim name") << endl;
+    cout << sheep.getString("anim name") << endl;
+    cout << sheep.getString("anim name") << endl;
+    cout << sheep.getString("anim name") << endl;
 
     game->run();
     game->kill();

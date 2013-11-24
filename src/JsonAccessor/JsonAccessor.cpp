@@ -12,32 +12,21 @@ JsonAccessor::~JsonAccessor() {
 }
 
 rapidjson::Value& JsonAccessor::getAskedObject(string key) {
-    string delimiter = ".";
-    size_t pos = 0;
-    std::string subKey;
-    rapidjson::Value obj;
-    bool init = false;
+    using namespace std;
+    string delimiter = " ";
+    replace(key.begin(), key.end(), '.', ' ');
     if (key.find(delimiter) == string::npos)
         return values[key.c_str()];
-
-    while ((pos = key.find(delimiter)) != string::npos) {
-        subKey = key.substr(0, pos);
-        key.erase(0, pos + delimiter.length());
-        if (!init) {
-            assert(values[subKey.c_str()].IsObject());
-            obj = values[subKey.c_str()];
-            init = true;
-        } else {
-            assert(obj[subKey.c_str()].IsObject());
-            obj = obj[subKey.c_str()];
-        }
+    istringstream iss(key);
+    vector<std::string> tokens;
+    copy(istream_iterator<string>(iss),
+         istream_iterator<string>(),
+         back_inserter<vector<string> >(tokens));
+    rapidjson::Value* obj = &values;
+    for (size_t i = 0; i < tokens.size(); ++i) {
+        obj = &(*obj)[tokens[i].c_str()];
     }
-
-    //Very bad in terms of performance
-    loaded = false;
-    load(pathToFile);
-
-    return obj[key.c_str()];
+    return *obj;
 }
 
 string JsonAccessor::getString(string key) {

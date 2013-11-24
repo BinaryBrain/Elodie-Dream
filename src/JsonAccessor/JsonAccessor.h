@@ -4,6 +4,9 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <sstream>
+#include <algorithm>
+#include <iterator>
 
 #include "../JsonParser/JsonParser.h"
 #include "../Utils/Utils.h"
