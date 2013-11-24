@@ -8,7 +8,7 @@ JsonAccessor::JsonAccessor() {
 }
 
 JsonAccessor::~JsonAccessor() {
-    //dtor
+    delete pFile;
 }
 
 rapidjson::Value& JsonAccessor::getAskedObject(string key) {
@@ -17,7 +17,6 @@ rapidjson::Value& JsonAccessor::getAskedObject(string key) {
     std::string subKey;
     rapidjson::Value obj;
     bool init = false;
-
     if (key.find(delimiter) == string::npos)
         return values[key.c_str()];
 
@@ -33,6 +32,11 @@ rapidjson::Value& JsonAccessor::getAskedObject(string key) {
             obj = obj[subKey.c_str()];
         }
     }
+
+    //Very bad in terms of performance
+    loaded = false;
+    load(pathToFile);
+
     return obj[key.c_str()];
 }
 
@@ -95,7 +99,8 @@ std::vector< std::vector<int>* >* JsonAccessor::getInt2DVector(string key) {
 
 bool JsonAccessor::load(string file) {
     if(!this->loaded) {
-        FILE * pFile = fopen (file.c_str() , "r");
+        pathToFile = file;
+        pFile = fopen (file.c_str() , "r");
         rapidjson::FileStream is(pFile);
         if(values.ParseStream<0>(is).HasParseError()) {
             cerr << "Parse Error" << endl;

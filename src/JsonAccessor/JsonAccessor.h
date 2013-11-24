@@ -23,6 +23,8 @@ protected:
 private:
     rapidjson::Document values;
     rapidjson::Value& getAskedObject(string key);
+    FILE * pFile;
+    std::string pathToFile;
     bool loaded = false;
 };
 

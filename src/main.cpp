@@ -27,7 +27,7 @@ int main() {
     cout << language.getString("Dev") << endl;
     cout << language.getString("End") << endl;
 
-    /*JsonAccessor sheep = JsonAccessor();
+    JsonAccessor sheep = JsonAccessor();
     sheep.load("assets/img/sprites/enemies/sheep.json");
 
     std::vector< std::vector<int>* >* tab = sheep.getInt2DVector("anim.hitbox");
@@ -36,7 +36,8 @@ int main() {
             cout << (*(*tab)[i])[j] << endl;
         }
     }
-    cout << sheep.getString("anim.name") << endl;*/
+    cout << sheep.getString("anim.name") << endl;
+    cout << sheep.getString("anim.name") << endl;
 
     game->run();
     game->kill();
