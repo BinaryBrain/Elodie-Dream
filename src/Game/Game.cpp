@@ -126,10 +126,6 @@ void Game::run() {
             window->close();
         }
 
-        if (event->keyIsPressed(sf::Keyboard::M)) {
-            state = GameState::INOVERWORLD;
-        }
-
         if (event->keyIsPressed(sf::Keyboard::F1)) {
             sf::Image screen = window->capture();
             screen.saveToFile("screenshot.jpg");

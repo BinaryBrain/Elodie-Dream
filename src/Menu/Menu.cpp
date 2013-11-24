@@ -34,21 +34,16 @@ void Menu::setItems(std::vector< std::pair<std::string, char> > const items) {
                 break;
         }
 
-        sf::Text* text = new sf::Text(items[i].first, *font);
+        std::string name = items[i].first;
+        sf::Text* text = new sf::Text(name , *font);
+        text->setPosition(200, 100+50*i);
+        text->setCharacterSize(30);
+        text->setStyle(sf::Text::Bold);
+        text->setColor(sf::Color::Magenta);
+
         item->setText(text);
         this->items.push_back(item);
-
-        /*
-        itemKeys.push_back(items[i]);
-        sf::Text* item = new sf::Text(items[i], *font);
-
-        item->setPosition(200, 100+50*i);
-        item->setCharacterSize(30);
-        item->setStyle(sf::Text::Bold);
-        item->setColor(sf::Color::Magenta);
-
-        this->items.push_back(item);
-        */
+        itemKeys.push_back(name);
     }
 }
 
