@@ -23,13 +23,11 @@ public:
     virtual ~MenuHandler();
 
     void display(GameView* view);
-
     void incIndex();
     void decIndex();
     GameState execute();
 
 private:
-    MenuState state = MenuState::TITLE;
     Menu* title;
     Menu* loadGame;
     Menu* settings;

@@ -15,14 +15,11 @@ public:
     virtual ~Menu();
 
     void addItem(MenuComponent* item);
-
     void draw(GameView* view);
-
     void incIndex();
     void decIndex();
     int getIndex();
 
-    std::string getItemKey();
     MenuComponent* getSelectedItem();
 
     GameState execute();

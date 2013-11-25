@@ -17,8 +17,4 @@ enum class GameState {
     INLEVEL, INOVERWORLD, INMENU, EXIT
 };
 
-enum class MenuState {
-    TITLE, SAVES, SETTINGS, LANGUAGES
-};
-
 #endif // ENV_H
