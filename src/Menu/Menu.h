@@ -21,7 +21,9 @@ public:
     void incIndex();
     void decIndex();
     int getIndex();
+
     std::string getItemKey();
+    MenuComponent* getSelectedItem();
 
     GameState execute();
 

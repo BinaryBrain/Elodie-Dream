@@ -35,7 +35,7 @@ private:
     Menu* settings;
     Menu* language;
 
-    Menu* selected;
+    Menu* selectedMenu;
 };
 
 #endif // MENUHANDLER_H

@@ -29,7 +29,7 @@ MenuHandler::MenuHandler() {
     language->addItem(english);
     language->addItem(settings);
 
-    selected = title;
+    selectedMenu = title;
 }
 
 MenuHandler::~MenuHandler() {
@@ -37,61 +37,33 @@ MenuHandler::~MenuHandler() {
 }
 
 void MenuHandler::display(GameView* view) {
-    selected->draw(view);
+    selectedMenu->draw(view);
 }
 
 void MenuHandler::incIndex() {
-    selected->incIndex();
+    selectedMenu->incIndex();
 }
 
 void MenuHandler::decIndex() {
-    selected->decIndex();
+    selectedMenu->decIndex();
 }
 
 GameState MenuHandler::execute() {
-    switch(state) {
-        case MenuState::TITLE:
-            if (title->getIndex() == 1) {
-                state = MenuState::SAVES;
-                selected = loadGame;
-            }
-            else if (title->getIndex() == 2) {
-                state = MenuState::SETTINGS;
-                selected = settings;
-            }
-            else return title->execute();
-            break;
 
-        case MenuState::SAVES:
-            if (loadGame->getIndex() == 3) {
-                state = MenuState::TITLE;
-                selected = title;
-            }
-            else return loadGame->execute();
-            break;
+    if (!selectedMenu->getSelectedItem()->isAMenu()) {
+        return selectedMenu->execute();
+    } else {
+        std::string label = selectedMenu->getSelectedItem()->getText()->getString();
+        if (label == "Title menu") {
+            selectedMenu = title;
+        } else if (label == "Load game") {
+            selectedMenu = loadGame;
+        } else if (label == "Settings") {
+            selectedMenu = settings;
+        } else if (label == "Language") {
+            selectedMenu = language;
+        }
 
-        case MenuState::SETTINGS:
-            if (settings->getIndex() == 0) {
-                state = MenuState::LANGUAGES;
-                selected = language;
-            }
-            else if (settings->getIndex() == 1) {
-                state = MenuState::TITLE;
-                selected = title;
-            }
-            else return settings->execute();
-            break;
-
-        case MenuState::LANGUAGES:
-            if (language->getIndex() == 1) {
-                state = MenuState::SETTINGS;
-                selected = settings;
-            }
-            else return language->execute();
-            break;
-
-        default:
-            break;
     }
 
     return GameState::INMENU;

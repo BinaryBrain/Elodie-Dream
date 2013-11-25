@@ -18,3 +18,7 @@ sf::Text* MenuComponent::getText() {
 void MenuComponent::setText(sf::Text* text) {
     this->text = text;
 }
+
+bool MenuComponent::isAMenu() {
+    return isMenu;
+}

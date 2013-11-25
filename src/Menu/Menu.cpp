@@ -6,6 +6,7 @@ Menu::Menu(std::string label): MenuComponent(label) {
     selector.setTexture(texture);
 
     index = 0;
+    isMenu = true;
 }
 
 Menu::~Menu() {
@@ -54,6 +55,11 @@ int Menu::getIndex() {
 std::string Menu::getItemKey() {
     return items[index]->getText()->getString();
 }
+
+MenuComponent* Menu::getSelectedItem() {
+    return items[index];
+}
+
 
 GameState Menu::execute() {
     std::string option = getItemKey();

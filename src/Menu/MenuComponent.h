@@ -13,11 +13,13 @@ public:
     void setText(sf::Text* text);
 
     virtual GameState execute() = 0;
+    bool isAMenu();
 
 protected:
     std::vector<MenuComponent*> items;
     sf::Font* font;
     sf::Text* text;
+    bool isMenu = false;
 };
 
 #endif // MENUCOMPONENT_H
