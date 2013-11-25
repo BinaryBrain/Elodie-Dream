@@ -28,6 +28,8 @@ MenuHandler::MenuHandler() {
 
     language->addItem(english);
     language->addItem(settings);
+
+    selected = title;
 }
 
 MenuHandler::~MenuHandler() {
@@ -35,96 +37,56 @@ MenuHandler::~MenuHandler() {
 }
 
 void MenuHandler::display(GameView* view) {
-    switch(state) {
-        case MenuState::TITLE:
-            title->draw(view);
-            break;
-
-        case MenuState::SAVES:
-            loadGame->draw(view);
-            break;
-
-        case MenuState::SETTINGS:
-            settings->draw(view);
-            break;
-
-        case MenuState::LANGUAGES:
-            language->draw(view);
-            break;
-
-        default:
-            break;
-    }
-
+    selected->draw(view);
 }
 
 void MenuHandler::incIndex() {
-    switch(state) {
-        case MenuState::TITLE:
-            title->incIndex();
-            break;
-
-        case MenuState::SAVES:
-            loadGame->incIndex();
-            break;
-
-        case MenuState::SETTINGS:
-            settings->incIndex();
-            break;
-
-        case MenuState::LANGUAGES:
-            language->incIndex();
-            break;
-
-        default:
-            break;
-    }
+    selected->incIndex();
 }
 
 void MenuHandler::decIndex() {
-    switch(state) {
-        case MenuState::TITLE:
-            title->decIndex();
-            break;
-
-        case MenuState::SAVES:
-            loadGame->decIndex();
-            break;
-
-        case MenuState::SETTINGS:
-            settings->decIndex();
-            break;
-
-        case MenuState::LANGUAGES:
-            language->decIndex();
-            break;
-
-        default:
-            break;
-    }
+    selected->decIndex();
 }
 
 GameState MenuHandler::execute() {
     switch(state) {
         case MenuState::TITLE:
-            if (title->getIndex() == 1) state = MenuState::SAVES;
-            else if (title->getIndex() == 2) state = MenuState::SETTINGS;
+            if (title->getIndex() == 1) {
+                state = MenuState::SAVES;
+                selected = loadGame;
+            }
+            else if (title->getIndex() == 2) {
+                state = MenuState::SETTINGS;
+                selected = settings;
+            }
             else return title->execute();
             break;
 
         case MenuState::SAVES:
-            if (loadGame->getIndex() == 3) state = MenuState::TITLE;
+            if (loadGame->getIndex() == 3) {
+                state = MenuState::TITLE;
+                selected = title;
+            }
             else return loadGame->execute();
             break;
 
         case MenuState::SETTINGS:
-            if (settings->getIndex() == 0) state = MenuState::LANGUAGES;
-            else if (settings->getIndex() == 1) state = MenuState::TITLE;
+            if (settings->getIndex() == 0) {
+                state = MenuState::LANGUAGES;
+                selected = language;
+            }
+            else if (settings->getIndex() == 1) {
+                state = MenuState::TITLE;
+                selected = title;
+            }
             else return settings->execute();
             break;
 
         case MenuState::LANGUAGES:
-            if (language->getIndex() == 1) state = MenuState::SETTINGS;
+            if (language->getIndex() == 1) {
+                state = MenuState::SETTINGS;
+                selected = settings;
+            }
             else return language->execute();
             break;
 

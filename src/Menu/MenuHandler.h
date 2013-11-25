@@ -34,6 +34,8 @@ private:
     Menu* loadGame;
     Menu* settings;
     Menu* language;
+
+    Menu* selected;
 };
 
 #endif // MENUHANDLER_H
