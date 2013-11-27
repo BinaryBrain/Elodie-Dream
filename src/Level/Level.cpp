@@ -41,7 +41,7 @@ void Level::draw(GameView* view) {
     }
 
     Elodie* elodie = dynamic_cast<Elodie*>(entities["elodie"]);
-    view->setCameraCenter(elodie->getPosition());
+    view->setFollowedPoint(elodie->getPosition());
     //view->setSize(160, 100);
 }
 
