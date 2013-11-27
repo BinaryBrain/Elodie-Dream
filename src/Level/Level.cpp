@@ -40,7 +40,8 @@ void Level::draw(GameView* view) {
         }
     }
 
-    view->setCameraCenter(0, 0);
+    Elodie* elodie = dynamic_cast<Elodie*>(entities["elodie"]);
+    view->setCameraCenter(elodie->getPosition());
     //view->setSize(160, 100);
 }
 

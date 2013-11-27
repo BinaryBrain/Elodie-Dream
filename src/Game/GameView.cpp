@@ -20,9 +20,9 @@ void GameView::reset() {
     window->setView(window->getDefaultView());
 }
 
-void GameView::setCameraCenter(sf::Vector2f pos) {
+void GameView::setCameraCenter(const sf::Vector2f* pos) {
     sf::View view = window->getView();
-    view.setCenter(pos);
+    view.setCenter(*pos);
     window->setView(view);
 }
 

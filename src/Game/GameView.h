@@ -16,7 +16,7 @@ public:
     sf::RenderWindow* getWindow();
 
     void reset();
-    void setCameraCenter(sf::Vector2f pos);
+    void setCameraCenter(const sf::Vector2f* pos);
     void setCameraCenter(float x, float y);
 protected:
 private:
