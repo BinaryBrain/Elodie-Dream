@@ -18,7 +18,7 @@ void GameView::addDrawable(sf::Drawable* drawable) {
 }
 
 void GameView::reset() {
-    center = window->getView().getCenter();
+    center = window->getDefaultView().getCenter();
 }
 
 void GameView::setCameraCenter(const sf::Vector2f* pos) {

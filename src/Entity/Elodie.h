@@ -149,13 +149,14 @@ private:
     int centerY = 32;
 
     float toMove = 0;
-    float speed = 0.3;
     bool goingUp = false;
     bool goingDown = false;
     bool goingRight = false;
     bool goingLeft = false;
 
-    sf::Vector2f levelSpeed = {0, 0};
+    sf::Vector2f overworldSpeed = { 0.3, 0.3 }; // TODO Put in a const.h file
+
+    sf::Vector2f levelSpeed = {0.3, 0};
 
     int immersionLevel = 100;
     int nightmareLevel = 50; // Max: 100

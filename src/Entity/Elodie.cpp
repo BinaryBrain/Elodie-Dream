@@ -14,6 +14,18 @@ Elodie::Elodie(float x, float y) {
     sprite->setPosition(x - centerX, y - centerY);
 }
 
+void Elodie::init() {
+    sprite = new ElodieSprite();
+    setEntitySprite(sprite);
+
+    //levelSpeed and hitboxes are set here for the moment, but it's not the right place to set them
+    sf::Vector2f pnt1 = {82, 37}, pnt2 = {106, 82};
+    Hitbox hitbox(pnt1, pnt2);
+    levelSpeed.x = 0.1;
+    setCurrentHitbox(0);
+    addHitbox(hitbox);
+}
+
 ElodieSprite* Elodie::getSprite() {
     return sprite;
 }
@@ -33,17 +45,17 @@ void Elodie::stand() {
 
 void Elodie::overworldMove() {
     if (goingDown) {
-        toMove -= speed;
-        sprite->move(0, speed);
+        toMove -= overworldSpeed.x;
+        sprite->move(0, overworldSpeed.x);
     } else if (goingLeft) {
-        toMove -= speed;
-        sprite->move(-speed, 0);
+        toMove -= overworldSpeed.x;
+        sprite->move(-overworldSpeed.x, 0);
     } else if (goingRight) {
-        toMove -= speed;
-        sprite->move(+speed, 0);
+        toMove -= overworldSpeed.x;
+        sprite->move(+overworldSpeed.x, 0);
     } else if (goingUp) {
-        toMove -= speed;
-        sprite->move(0, -speed);
+        toMove -= overworldSpeed.x;
+        sprite->move(0, -overworldSpeed.x);
     } else {
         noMoves();
     }
@@ -99,18 +111,6 @@ int Elodie::getNightmareLevel() {
 }
 
 
-void Elodie::init() {
-    sprite = new ElodieSprite();
-
-    //levelSpeed and hitboxes are set here for the moment, but it's not the right place to set them
-    sf::Vector2f pnt1 = {82, 37}, pnt2 = {106, 82};
-    std::tuple< sf::Vector2f, sf::Vector2f > hitbox;
-    std::get<0>(hitbox) = pnt1;
-    std::get<1>(hitbox) = pnt2;
-    levelSpeed.x = 0.1;
-    setCurrentHitbox(0);
-    addHitbox(hitbox);
-}
 
 void Elodie::walk() {
     sprite->walk();
@@ -127,8 +127,6 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
 
     if (levelSpeed.y < 0) {
         levelSpeed.y += 0.0005;
-        if (levelSpeed.y > 0)
-            levelSpeed.y = 0;
     }
 
     if (collide["left"] && collide["right"])
@@ -146,7 +144,8 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
     }
     if (event->keyIsPressed(sf::Keyboard::Space) && !levelSpeed.y)
         levelSpeed.y = -0.2;
-    sprite->move(levelSpeed.x, levelSpeed.y);
-    updateHitboxes(levelSpeed);
+
+    move(levelSpeed);
+
     sprite->update(animate);
 }

@@ -33,6 +33,8 @@ void Game::displayLevel(int curLevelNbr) {
     if(event->keyIsPressed(sf::Keyboard::Return)) {
         state = GameState::INOVERWORLD;
 
+        view.reset();
+
         if(curLevel) {
             delete curLevel;
         }
@@ -92,8 +94,6 @@ void Game::handleOverworld() {
     overworld.getElodie()->update(frameClock.restart());
 
     overworld.drawOnView(&view);
-
-    view.reset();
 }
 
 void Game::displayMenu() {
@@ -141,11 +141,14 @@ void Game::run() {
         case GameState::INOVERWORLD:
             handleOverworld();
             break;
+        case GameState::INMENU:
+            displayMenu();
+            break;
         case GameState::EXIT:
             exit();
             break;
         default :
-            displayMenu();
+            std::cout << "Error: unknown state" << std::endl;
             break;
         }
 

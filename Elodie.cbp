@@ -55,6 +55,8 @@
 		<Unit filename="src/Entity/Elodie.h" />
 		<Unit filename="src/Entity/Entity.cpp" />
 		<Unit filename="src/Entity/Entity.h" />
+		<Unit filename="src/Entity/Hitbox.cpp" />
+		<Unit filename="src/Entity/Hitbox.h" />
 		<Unit filename="src/EventHandler/EventHandler.cpp" />
 		<Unit filename="src/EventHandler/EventHandler.h" />
 		<Unit filename="src/FileHandler/FileHandler.cpp" />

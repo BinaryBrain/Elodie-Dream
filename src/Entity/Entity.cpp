@@ -5,29 +5,30 @@ Entity::Entity() {
     sprite = NULL;
 }
 
+Entity::Entity(sf::Sprite* sprite) {
+    this->sprite = sprite;
+}
+
 Entity::~Entity() {
     if(sprite) {
         delete sprite;
     }
 }
 
+void Entity::setEntitySprite(sf::Sprite* sprite) {
+    this->sprite = sprite;
+}
+
 void Entity::setCurrentHitbox(int current) {
     currentHitbox = current;
 }
 
-void Entity::addHitbox(std::tuple< sf::Vector2f, sf::Vector2f > hitbox) {
+void Entity::addHitbox(Hitbox hitbox) {
     hitboxes.push_back(hitbox);
 }
 
-std::tuple< sf::Vector2f, sf::Vector2f > Entity::getCurrentHitbox() {
-    return hitboxes[currentHitbox];
-}
-
-void Entity::updateHitboxes(sf::Vector2f speed) {
-    for (unsigned int i(0); i < hitboxes.size(); ++i) {
-        std::get<0>(hitboxes[i]) = std::get<0>(hitboxes[i]) + speed;
-        std::get<1>(hitboxes[i]) = std::get<1>(hitboxes[i]) + speed;
-    }
+Hitbox Entity::getCurrentHitbox() {
+    return Hitbox(hitboxes[currentHitbox]);
 }
 
 //to update with new tiles
@@ -38,6 +39,7 @@ int Entity::checkTiles(std::vector< std::vector<TileSprite*> > const& world, int
         return 0;
 
     tile = world[y][x] ? world[y][x]->getType() : TileType::VOID;
+
     if (tile == TileType::GROUND ||
         tile == TileType::GRASS ||
         tile == TileType::STONE)
@@ -48,11 +50,14 @@ int Entity::checkTiles(std::vector< std::vector<TileSprite*> > const& world, int
 std::map< std::string, float > Entity::collideWithTiles(std::vector< std::vector<TileSprite*> > const& world) {
     std::map< std::string, float > collideWith = {{"up", 0}, {"right", 0}, {"down", 0}, {"left", 0}};
 
-    std::tuple< sf::Vector2f, sf::Vector2f > hitbox = getCurrentHitbox();
+    Hitbox hitbox = getCurrentHitbox();
 
-    float minX(std::get<0>(hitbox).x), maxX(std::get<1>(hitbox).x), minY(std::get<0>(hitbox).y), maxY(std::get<1>(hitbox).y);
+    float minX(std::get<0>(hitbox.getPoints()).x);
+    float maxX(std::get<1>(hitbox.getPoints()).x);
+    float minY(std::get<0>(hitbox.getPoints()).y);
+    float maxY(std::get<1>(hitbox.getPoints()).y);
+
     int mapPnt;
-
     int totMin(0), totMax(0);
 
     for(float y = minY; y <= maxY; ++y)
@@ -77,5 +82,24 @@ std::map< std::string, float > Entity::collideWithTiles(std::vector< std::vector
         collideWith["up"] = totMin / (maxX - minX + 1);
         collideWith["down"] = totMax / (maxX - minX + 1);
     }
+
     return collideWith;
+}
+
+void Entity::computeGravity() {
+
+}
+
+void Entity::move(sf::Vector2f& diff) {
+    move(diff.x, diff.y);
+}
+
+void Entity::move(float dx, float dy) {
+    if(sprite) {
+        sprite->move(dx, dy);
+    }
+
+    for(std::vector<Hitbox>::iterator hitbox = hitboxes.begin(); hitbox != hitboxes.end(); hitbox++) {
+        hitbox->move(dx, dy);
+    }
 }

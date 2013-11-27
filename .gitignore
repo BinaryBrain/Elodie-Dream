@@ -20,3 +20,4 @@
 *.depend
 *.layout
 *.db
+*.cscope_file_list
