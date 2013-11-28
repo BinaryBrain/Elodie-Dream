@@ -52,6 +52,9 @@ void Game::displayLevel(int curLevelNbr) {
 
         view.reset(ViewLayer::LEVEL);
         view.hide(ViewLayer::LEVEL);
+        // for testing purposes
+        view.hide(ViewLayer::CONSOLE);
+
         view.show(ViewLayer::OVERWORLD);
 
     } else if (event->keyIsPressed(sf::Keyboard::M)) {
@@ -62,9 +65,6 @@ void Game::displayLevel(int curLevelNbr) {
     } else {
         curLevel->live(event, frameClock.restart());
     }
-
-    // for testing purposes
-    view.show(ViewLayer::CONSOLE);
 }
 
 void Game::loadLevel(int levelNbr) {
@@ -116,6 +116,8 @@ void Game::handleOverworld() {
         loadLevel(0);
         view.hide(ViewLayer::OVERWORLD);
         view.show(ViewLayer::LEVEL);
+        // for testing purposes
+        view.show(ViewLayer::CONSOLE);
     } else if (event->keyIsPressed(sf::Keyboard::M)) {
         state = GameState::INMENU;
         menuHandler->setNextState(GameState::INOVERWORLD);
