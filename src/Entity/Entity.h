@@ -44,6 +44,9 @@ public:
     void computeGravity();
     void move(sf::Vector2f& diff);
     void move(float dx, float dy);
+
+    virtual void pause() = 0;
+    virtual void play() = 0;
 protected:
     sf::Sprite* sprite;
     sf::Vector2f speed;

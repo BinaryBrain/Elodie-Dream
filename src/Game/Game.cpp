@@ -5,11 +5,14 @@ Game* Game::gameInstance = NULL;
 
 Game::Game() {
     event = new EventHandler(view.getWindow());
-    menuHandler = new MenuHandler();
+    menuHandler = new MenuHandler(&view);
+    overworld = new Overworld(&view);
 }
 
 Game::~Game() {
     delete event;
+    delete menuHandler;
+    delete overworld;
 }
 
 // Gets the instance of the game
@@ -33,15 +36,21 @@ void Game::displayLevel(int curLevelNbr) {
     if(event->keyIsPressed(sf::Keyboard::Return)) {
         state = GameState::INOVERWORLD;
 
-        view.reset();
+        view.reset(ViewLayer::LEVEL);
+        view.hide(ViewLayer::LEVEL);
+        view.show(ViewLayer::OVERWORLD);
 
         if(curLevel) {
             delete curLevel;
+            curLevel = NULL;
         }
-    }
-    else {
+    } else if (event->keyIsPressed(sf::Keyboard::M)) {
+        state = GameState::INMENU;
+        curLevel->pause();
+        menuHandler->setNextState(GameState::INLEVEL);
+        view.show(ViewLayer::MENU);
+    } else {
         curLevel->live(event, frameClock.restart());
-        curLevel->draw(&view);
     }
 }
 
@@ -49,59 +58,83 @@ void Game::loadLevel(int levelNbr) {
     state = GameState::INLEVEL;
     curLevelNbr = levelNbr;
     //curLevel = new Level("assets/levels/alltiles.txt");
-    curLevel = new Level("assets/levels/level2.txt");
+    curLevel = new Level("assets/levels/level2.txt", &view);
 }
 
 void Game::handleOverworld() {
 
     if (event->keyIsPressed(sf::Keyboard::N)) {
-        overworld.evolve();
+        overworld->evolve();
     }
 
-    if(!overworld.getElodie()->hasToMove()) {
-        overworld.getElodie()->noMoves();
-        overworld.getElodie()->stand();
+    if(!overworld->getElodie()->hasToMove()) {
+        overworld->getElodie()->noMoves();
+        overworld->getElodie()->stand();
     }
 
-    if(overworld.getElodie()->isMoving()) {
-        overworld.getElodie()->overworldMove();
+    if(overworld->getElodie()->isMoving()) {
+        overworld->getElodie()->overworldMove();
     } else if (event->keyIsHold(sf::Keyboard::Down)) {
-        overworld.getElodie()->setDistanceToMove(overworld.moveDown());
-        if(overworld.getElodie()->hasToMove()) {
-            overworld.getElodie()->setWalkDown();
+        overworld->getElodie()->setDistanceToMove(overworld->moveDown());
+        if(overworld->getElodie()->hasToMove()) {
+            overworld->getElodie()->setWalkDown();
         }
     } else if (event->keyIsHold(sf::Keyboard::Up)) {
-        overworld.getElodie()->setDistanceToMove(overworld.moveUp());
-        if(overworld.getElodie()->hasToMove()) {
-            overworld.getElodie()->setWalkUp();
+        overworld->getElodie()->setDistanceToMove(overworld->moveUp());
+        if(overworld->getElodie()->hasToMove()) {
+            overworld->getElodie()->setWalkUp();
         }
     } else if (event->keyIsHold(sf::Keyboard::Left)) {
-        overworld.getElodie()->setDistanceToMove(overworld.moveLeft());
-        if(overworld.getElodie()->hasToMove()) {
-            overworld.getElodie()->setWalkLeft();
+        overworld->getElodie()->setDistanceToMove(overworld->moveLeft());
+        if(overworld->getElodie()->hasToMove()) {
+            overworld->getElodie()->setWalkLeft();
         }
     } else if (event->keyIsHold(sf::Keyboard::Right)) {
-        overworld.getElodie()->setDistanceToMove(overworld.moveRight());
-        if(overworld.getElodie()->hasToMove()) {
-            overworld.getElodie()->setWalkRight();
+        overworld->getElodie()->setDistanceToMove(overworld->moveRight());
+        if(overworld->getElodie()->hasToMove()) {
+            overworld->getElodie()->setWalkRight();
         }
     } else if (event->keyIsPressed(sf::Keyboard::Return)) {
         loadLevel(0);
+        view.hide(ViewLayer::OVERWORLD);
+        view.show(ViewLayer::LEVEL);
     } else if (event->keyIsPressed(sf::Keyboard::M)) {
         state = GameState::INMENU;
+        menuHandler->setNextState(GameState::INOVERWORLD);
+        view.show(ViewLayer::MENU);
     }
 
-    overworld.getElodie()->update(frameClock.restart());
-
-    overworld.drawOnView(&view);
+    overworld->getElodie()->update(frameClock.restart());
 }
 
 void Game::displayMenu() {
-    menuHandler->display(&view);
 
     if (event->keyIsPressed(sf::Keyboard::Down)) menuHandler->incIndex();
     if (event->keyIsPressed(sf::Keyboard::Up)) menuHandler->decIndex();
-    if (event->keyIsPressed(sf::Keyboard::Return)) state = menuHandler->execute();
+    if (event->keyIsPressed(sf::Keyboard::Return)) {
+        state = menuHandler->execute();
+        if (state == GameState::INOVERWORLD) {
+            view.hide(ViewLayer::MENU);
+            view.show(ViewLayer::OVERWORLD);
+        }
+    }
+    if(event->keyIsPressed(sf::Keyboard::M)) {
+        state = menuHandler->getNextState();
+        if (state == GameState::INOVERWORLD) {
+            view.hide(ViewLayer::MENU);
+            view.show(ViewLayer::OVERWORLD);
+        } else if (state == GameState::INLEVEL) {
+            if(curLevel) {
+                state = GameState::INLEVEL;
+                view.hide(ViewLayer::MENU);
+                view.show(ViewLayer::LEVEL);
+                curLevel->play();
+            } else {
+                std::cerr << "Must display level but not initialized." << std::endl;
+            }
+        }
+    }
+
 }
 
 void Game::run() {
@@ -117,6 +150,7 @@ void Game::run() {
 
     sf::RenderWindow* window = view.getWindow();
 
+    view.show(ViewLayer::MENU);
     while (window->isOpen()) {
         event->listening();
 
@@ -160,6 +194,6 @@ void Game::exit() {
     view.getWindow()->close();
 }
 
-void Game::setState(GameState state){
+void Game::setState(GameState state) {
     this->state = state;
 }

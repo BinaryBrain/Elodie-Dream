@@ -28,6 +28,8 @@ private:
     sf::Texture texture;
     sf::Sprite selector;
 
+    sf::RectangleShape background;
+
     std::vector<MenuComponent*> items;
 
     unsigned int index;

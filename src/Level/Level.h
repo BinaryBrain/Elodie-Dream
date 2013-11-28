@@ -7,11 +7,12 @@
 #include "../FileHandler/FileHandler.h"
 #include "../Game/GameView.h"
 #include "../EventHandler/EventHandler.h"
+#include "../Displayable/Displayable.h"
 
-class Level {
+class Level : public Displayable{
 public:
     Level();
-    Level(std::string filename);
+    Level(std::string filename, GameView* gameView);
     virtual ~Level();
 
     void loadLevel(std::string filename);
@@ -20,7 +21,10 @@ public:
     TileMap getTiles();
     EntityMap getEntities();
 
-    void draw(GameView* view);
+    void display(GameView* view);
+
+    void pause();
+    void play();
 protected:
 private:
     TileMap tiles;

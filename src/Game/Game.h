@@ -37,11 +37,13 @@ private:
     static Game* gameInstance;
     Game& operator= (Game const&); // Makes operator= private
 
+    GameView view;
+
     GameState state = GameState::INMENU;
 
     EventHandler* event;
 
-    Overworld overworld;
+    Overworld* overworld;
     void handleOverworld();
 
     sf::Clock frameClock;
@@ -50,10 +52,8 @@ private:
 
     void displayMenu();
 
-    GameView view;
-
     int curLevelNbr = 0;
-    Level* curLevel;
+    Level* curLevel = NULL;
     void displayLevel(int curLevel);
     void loadLevel(int levelNbr);
 };

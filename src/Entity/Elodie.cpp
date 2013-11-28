@@ -161,3 +161,11 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
 
     sprite->update(animate);
 }
+
+void Elodie::pause(){
+    sprite->pause();
+}
+
+void Elodie::play(){
+    sprite->play();
+}

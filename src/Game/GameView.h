@@ -6,6 +6,8 @@
 #include <iostream>
 #include <map>
 
+#include "../Displayable/Displayable.h"
+
 enum class ViewLayer {
     MENU, OVERWORLD, LEVEL, HUD
 };
@@ -20,17 +22,19 @@ public:
 
     sf::RenderWindow* getWindow();
 
-    void addView(ViewLayer viewKey, sf::View* view);
-    void removeView(ViewLayer viewKey);
+    void addView(ViewLayer viewKey, Displayable* disp);
 
-    void reset();
+    void hide(ViewLayer viewKey);
+    void show(ViewLayer viewKey);
+
+    void reset(ViewLayer viewKey);
     void setCameraCenter(ViewLayer viewKey, const sf::Vector2f* pos);
     void setCameraCenter(ViewLayer viewKey, float x, float y);
     void setFollowedPoint(ViewLayer viewKey, const sf::Vector2f* pos);
     void setFollowedPoint(ViewLayer viewKey, float x, float y);
 protected:
 private:
-    std::map<ViewLayer, sf::View*> viewMap;
+    std::map<ViewLayer, Displayable*> viewMap;
     std::map<ViewLayer, std::vector<sf::Drawable*>> drawableMap;
     std::vector<ViewLayer> toDraw;
 

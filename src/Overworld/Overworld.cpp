@@ -1,6 +1,6 @@
 #include "Overworld.h"
 
-Overworld::Overworld() {
+Overworld::Overworld(GameView* gameView) {
     std::string filenames[4] = { "overworld1.png", "overworld2.png", "overworld3.png", "overworld4.png" };
 
     for(int i=0; i<4; i++) {
@@ -39,7 +39,9 @@ Overworld::Overworld() {
 
     elodie = new Elodie(565,643);
     currentState = UNIL;
+    gameView->addView(ViewLayer::OVERWORLD, this);
 }
+
 
 Overworld::~Overworld() {
     for (std::vector<sf::Sprite*>::iterator sprite = overworldSprites.begin(); sprite != overworldSprites.end(); ++sprite) {
@@ -54,10 +56,10 @@ Overworld::~Overworld() {
     delete elodie;
 }
 
-void Overworld::drawOnView(GameView* view) {
-    view->addDrawable(overworldSprites[currentState]);
-    view->addDrawable(elodie->getSprite());
-    view->addDrawable(paths[currentState]);
+void Overworld::display(GameView* view) {
+    view->addDrawable(ViewLayer::OVERWORLD, overworldSprites[currentState]);
+    view->addDrawable(ViewLayer::OVERWORLD, elodie->getSprite());
+    view->addDrawable(ViewLayer::OVERWORLD, paths[currentState]);
 }
 
 int Overworld::moveUp() {

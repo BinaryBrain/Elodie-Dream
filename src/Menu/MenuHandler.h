@@ -15,17 +15,22 @@
 #include "QuitItem.h"
 #include "EnglishItem.h"
 #include "SaveItem.h"
+#include "../Displayable/Displayable.h"
 
 
-class MenuHandler {
+class MenuHandler : public Displayable{
 public:
     MenuHandler();
+    MenuHandler(GameView* gameView);
     virtual ~MenuHandler();
 
     void display(GameView* view);
     void incIndex();
     void decIndex();
     GameState execute();
+
+    void setNextState(GameState state);
+    GameState getNextState();
 
 private:
     Menu* title;
@@ -34,6 +39,8 @@ private:
     Menu* language;
 
     Menu* selectedMenu;
+
+    GameState nextState = GameState::INOVERWORLD;
 };
 
 #endif // MENUHANDLER_H

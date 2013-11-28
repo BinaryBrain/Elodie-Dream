@@ -14,31 +14,40 @@ sf::RenderWindow* GameView::getWindow() {
 }
 
 void GameView::addDrawable(ViewLayer viewKey, sf::Drawable* drawable) {
-    toDrawMap[viewKey].push_back(drawable);
+    drawableMap[viewKey].push_back(drawable);
 }
 
-void GameView::addView(ViewLayer viewKey, sf::View* view){
-    viewMap[viewKey] = view;
+void GameView::addView(ViewLayer viewKey, Displayable* disp) {
+    viewMap[viewKey] = disp;
+    drawableMap[viewKey] = std::vector<sf::Drawable*>();
+    reset(viewKey);
 }
 
-void GameView::removeView(ViewLayer viewKey){
-    for(std::vector<ViewLayer>::iterator it = toDraw.begin(); it != toDraw.end(); ++it) {
-        if (*it == viewKey){
-            toDraw.erase(it);
+void GameView::show(ViewLayer viewKey) {
+    if(std::find(toDraw.begin(), toDraw.end(), viewKey) == toDraw.end()) {
+        toDraw.push_back(viewKey);
+    }
+    viewMap[viewKey]->getView()->setSize(window->getDefaultView().getSize());
+}
+
+void GameView::hide(ViewLayer viewKey) {
+    for(size_t i = 0; i < toDraw.size(); ++i) {
+        if (toDraw[i] == viewKey) {
+            toDraw.erase(toDraw.begin()+i);
         }
     }
 }
 
-void GameView::reset() {
-    center = window->getDefaultView().getCenter();
+void GameView::reset(ViewLayer viewKey) {
+    viewMap[viewKey]->getView()->setCenter(window->getDefaultView().getCenter());
 }
 
 void GameView::setCameraCenter(ViewLayer viewKey, const sf::Vector2f* pos) {
-    viewMap[viewKey]->setCenter(pos);
+    setCameraCenter(viewKey, pos->x, pos->y);
 }
 
 void GameView::setCameraCenter(ViewLayer viewKey, float x, float y) {
-    setCameraCenter(viewKey, &sf::Vector2f(x,y))
+    viewMap[viewKey]->getView()->setCenter(x,y);
 }
 
 void GameView::setFollowedPoint(ViewLayer viewKey, const sf::Vector2f* pos) {
@@ -46,7 +55,7 @@ void GameView::setFollowedPoint(ViewLayer viewKey, const sf::Vector2f* pos) {
 }
 
 void GameView::setFollowedPoint(ViewLayer viewKey, float x, float y) {
-    sf::Vector2f viewSize = viewMap[viewKey]->getSize();
+    sf::Vector2f viewSize = viewMap[viewKey]->getView()->getSize();
 
     float margin = viewSize.y/4;
 
@@ -55,8 +64,7 @@ void GameView::setFollowedPoint(ViewLayer viewKey, float x, float y) {
 
     if(center.y-y > viewSize.y/2-margin) {
         camY = y+margin;
-    }
-    else if(y-center.y > viewSize.y/2-margin) {
+    } else if(y-center.y > viewSize.y/2-margin) {
         camY = y-margin;
     }
 
@@ -64,17 +72,25 @@ void GameView::setFollowedPoint(ViewLayer viewKey, float x, float y) {
 }
 
 void GameView::draw() {
-    sf::View view = window->getView();
-    window->setView(view);
 
-    window->clear(sf::Color(0x00, 0x00, 0xFF));
+    window->clear(sf::Color(0x00, 0x00, 0xFF, 0x00));
 
-    for(std::vector<sf::Drawable*>::iterator it = toDrawOnMain.begin(); it != toDrawOnMain.end(); ++it) {
-        sf::Drawable* drawable = *it;
-        window->draw(*drawable);
+    sf::View view;
+
+    for(size_t i = 0; i < toDraw.size(); ++i) {
+        ViewLayer viewKey = toDraw[i];
+        Displayable* disp = viewMap[viewKey];
+        disp->display(this);
+        window->setView(*(disp->getView()));
+        for(std::vector<sf::Drawable*>::iterator drawableIt = drawableMap[viewKey].begin(); drawableIt != drawableMap[viewKey].end(); ++drawableIt) {
+            sf::Drawable* drawable = *drawableIt;
+            window->draw(*drawable);
+        }
     }
 
     window->display();
 
-    toDrawOnMain.clear();
+    for(std::vector<ViewLayer>::iterator keyIt = toDraw.begin(); keyIt != toDraw.end(); ++keyIt) {
+        drawableMap[*keyIt].clear();
+    }
 }

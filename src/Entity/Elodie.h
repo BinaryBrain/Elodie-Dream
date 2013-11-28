@@ -133,6 +133,9 @@ public:
     */
     int getNightmareLevel();
 
+    void pause();
+    void play();
+
 protected:
 
 private:

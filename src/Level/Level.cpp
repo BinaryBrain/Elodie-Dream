@@ -4,12 +4,13 @@ Level::Level() {
 
 }
 
-Level::Level(std::string filename) {
+Level::Level(std::string filename, GameView* gameView) {
     loadLevel(filename);
+    gameView->addView(ViewLayer::LEVEL, this);
 }
 
 Level::~Level() {
-    //dtor
+
 }
 
 // Load a level from the file system
@@ -22,12 +23,12 @@ void Level::loadLevel(std::string filename) {
 }
 
 // Ask the given view to draw a Level frame
-void Level::draw(GameView* view) {
+void Level::display(GameView* view) {
     for(unsigned int y=0; y<tiles.size(); y++) {
         for(unsigned int x=0; x<tiles[y].size(); x++) {
             if(tiles[y][x]) {
                 tiles[y][x]->setPosition(x*32, y*32);
-                view->addDrawable(tiles[y][x]);
+                view->addDrawable(ViewLayer::LEVEL, tiles[y][x]);
             }
         }
     }
@@ -37,12 +38,12 @@ void Level::draw(GameView* view) {
         sf::Sprite* sprite = entity->getSprite();
 
         if(sprite) {
-            view->addDrawable(sprite);
+            view->addDrawable(ViewLayer::LEVEL, sprite);
         }
     }
 
     Elodie* elodie = dynamic_cast<Elodie*>(entities["elodie"]);
-    view->setFollowedPoint(elodie->getPosition());
+    view->setFollowedPoint(ViewLayer::LEVEL, elodie->getPosition());
     //view->setSize(160, 100);
 }
 
@@ -59,4 +60,12 @@ EntityMap Level::getEntities() {
         entitiesCpy.insert(std::make_pair(it->first, it->second));
     }
     return entitiesCpy;
+}
+
+void Level::pause() {
+    entities["elodie"]->pause();
+}
+
+void Level::play() {
+    entities["elodie"]->play();
 }

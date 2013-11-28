@@ -1,6 +1,6 @@
 #include "MenuHandler.h"
 
-MenuHandler::MenuHandler() {
+MenuHandler::MenuHandler(GameView* gameView) {
     NewGameItem* newGame = new NewGameItem("New game");
     QuitItem* quit = new QuitItem("Quit");
     EnglishItem* english = new EnglishItem("English");
@@ -30,10 +30,12 @@ MenuHandler::MenuHandler() {
     language->addItem(settings);
 
     selectedMenu = title;
+
+    gameView->addView(ViewLayer::MENU, this);
 }
 
 MenuHandler::~MenuHandler() {
-    //dtor
+
 }
 
 void MenuHandler::display(GameView* view) {
@@ -67,4 +69,12 @@ GameState MenuHandler::execute() {
     }
 
     return GameState::INMENU;
+}
+
+void MenuHandler::setNextState(GameState state){
+    this->nextState = state;
+}
+
+GameState MenuHandler::getNextState() {
+    return this->nextState;
 }

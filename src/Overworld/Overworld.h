@@ -8,10 +8,12 @@
 #include "../Entity/Elodie.h"
 #include "../JsonAccessor/JsonAccessor.h"
 #include "../Game/GameView.h"
+#include "../Displayable/Displayable.h"
 
-class Overworld {
+class Overworld : public Displayable{
 public:
     Overworld();
+    Overworld(GameView* view);
     virtual ~Overworld();
     Elodie* getElodie();
     int moveUp();
@@ -19,7 +21,7 @@ public:
     int moveRight();
     int moveLeft();
     void evolve();
-    void drawOnView(GameView* view);
+    void display(GameView* view);
 
 protected:
 private:
