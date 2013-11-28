@@ -37,8 +37,8 @@ int Entity::checkTiles(std::vector< std::vector<TileSprite*> > const& world, int
     tile = world[y][x] ? world[y][x]->getType() : TileType::VOID;
 
     if (tile == TileType::GROUND ||
-        tile == TileType::GRASS ||
-        tile == TileType::STONE)
+            tile == TileType::GRASS ||
+            tile == TileType::STONE)
         return 1;
     return 0;
 }
@@ -57,8 +57,7 @@ std::map< std::string, float > Entity::collideWithTiles(std::vector< std::vector
     int totMin = 0;
     int totMax = 0;
 
-    for(float y = minY; y <= maxY; ++y)
-    {
+    for(float y = minY; y <= maxY; ++y) {
         mapPnt = (int)std::floor(y / 32);
         totMin += checkTiles(world, (int)std::floor((minX - 1) / 32), mapPnt);
         totMax += checkTiles(world, (int)std::floor((maxX + 1) / 32), mapPnt);
@@ -69,8 +68,7 @@ std::map< std::string, float > Entity::collideWithTiles(std::vector< std::vector
     }
 
     totMin = totMax = 0;
-    for(float x = minX; x <= maxX; ++x)
-    {
+    for(float x = minX; x <= maxX; ++x) {
         mapPnt = (int)std::floor(x / 32);
         totMin += checkTiles(world, mapPnt, (int)std::floor((minY - 1) / 32));
         totMax += checkTiles(world, mapPnt, (int)std::floor((maxY + 1) / 32));
