@@ -1,16 +1,17 @@
 #include "Level.h"
 
-Level::Level() {
-
-}
-
 Level::Level(std::string filename, GameView* gameView) {
     loadLevel(filename);
     gameView->addView(ViewLayer::LEVEL, this);
+    this->environement = LevelEnv::FIELD;
 }
 
 Level::~Level() {
 
+}
+
+void Level::setEnvironement(LevelEnv env) {
+    this->environement = env;
 }
 
 // Load a level from the file system

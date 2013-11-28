@@ -11,7 +11,6 @@
 
 class Level : public Displayable{
 public:
-    Level();
     Level(std::string filename, GameView* gameView);
     virtual ~Level();
 
@@ -22,6 +21,7 @@ public:
     EntityMap getEntities();
 
     void display(GameView* view);
+    void setEnvironement(LevelEnv env);
 
     void pause();
     void play();
@@ -29,6 +29,7 @@ protected:
 private:
     TileMap tiles;
     EntityMap entities;
+    LevelEnv environement;
 };
 
 #endif // LEVEL_H

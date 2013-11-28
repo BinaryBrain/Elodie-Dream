@@ -147,7 +147,7 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
     }
 
     if (event->keyIsPressed(sf::Keyboard::Space) && state == ElodieState::WALKING) {
-        speed.y = -0.2; // TODO Put in const file
+        speed.y = -0.4; // TODO Put in const file
         state = ElodieState::FALLING;
         std::cout << "JUMP" << std::endl;
     }

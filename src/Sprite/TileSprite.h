@@ -5,6 +5,8 @@
 
 #include "EnvSprite.h"
 
+enum class LevelEnv { FIELD, UNIL, CASTLE, VOLCANO, FREJLORD };
+
 enum class TileType {
     VOID = 0, GROUND, GRASS, STONE
 };
@@ -23,7 +25,10 @@ enum class TileSide {
 class TileSprite : public EnvSprite {
 public:
     TileSprite(TileType type);
+    TileSprite(TileType type, LevelEnv env);
     virtual ~TileSprite();
+
+    void init(TileType type, LevelEnv env);
 
     TileType getType();
     int getSide();

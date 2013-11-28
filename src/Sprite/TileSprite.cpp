@@ -1,6 +1,18 @@
 #include "TileSprite.h"
 
 TileSprite::TileSprite(TileType type) {
+    init(type, LevelEnv::FIELD);
+}
+
+TileSprite::TileSprite(TileType type, LevelEnv env) {
+    init(type, env);
+}
+
+TileSprite::~TileSprite() {
+
+}
+
+void TileSprite::init(TileType type, LevelEnv env) {
     this->type = type;
     side = 0;
 
@@ -10,10 +22,6 @@ TileSprite::TileSprite(TileType type) {
     setTexture(texture);
     // TODO Change the coords according to the type
     setTextureRect(sf::IntRect(0, 0, 32, 32));
-}
-
-TileSprite::~TileSprite() {
-
 }
 
 TileType TileSprite::getType() {
