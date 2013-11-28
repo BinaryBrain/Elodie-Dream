@@ -9,6 +9,7 @@
 #include "../Overworld/Overworld.h"
 #include "../EventHandler/EventHandler.h"
 #include "../Menu/MenuHandler.h"
+#include "../Fnu/Girly.h"
 #include "GameView.h"
 
 
@@ -41,17 +42,17 @@ private:
     GameView view;
     GameState state = GameState::INMENU;
 
-    EventHandler* event;
+    EventHandler* event = new EventHandler(view.getWindow());
 
-    Overworld* overworld;
+    Overworld* overworld = new Overworld();
     void handleOverworld();
 
     sf::Clock frameClock;
 
-    MenuHandler* menuHandler;
+    MenuHandler* menuHandler = new MenuHandler();
     void displayMenu();
 
-    Console* console;
+    Console* console = new Console();
 
     // don't know which one to choose : Game.writeInConsole() of Game.getConsole.setContent()
     Console* getConsole();
@@ -62,6 +63,9 @@ private:
     Level* curLevel = NULL;
     void displayLevel(int curLevel);
     void loadLevel(int levelNbr);
+
+    Girly* girly = new Girly();
+    bool girlyMode = false;
 };
 
 #endif // GAME_H

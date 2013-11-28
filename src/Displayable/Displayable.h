@@ -11,7 +11,7 @@ public:
     virtual ~Displayable();
     virtual void display(GameView* view) = 0;
     sf::View* getView();
-protected:
+
 private:
     sf::View* view = new sf::View();
 

@@ -9,7 +9,7 @@
 #include "../Displayable/Displayable.h"
 
 enum class ViewLayer {
-    MENU, OVERWORLD, LEVEL, HUD, CONSOLE
+    MENU, OVERWORLD, LEVEL, HUD, CONSOLE, GIRLY
 };
 
 class GameView {

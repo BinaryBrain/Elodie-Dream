@@ -67,6 +67,8 @@
 		<Unit filename="src/FileHandler/FileHandler.h" />
 		<Unit filename="src/FileHandler/SaveHandler.cpp" />
 		<Unit filename="src/FileHandler/SaveHandler.h" />
+		<Unit filename="src/Fnu/Girly.cpp" />
+		<Unit filename="src/Fnu/Girly.h" />
 		<Unit filename="src/Game/Game.cpp" />
 		<Unit filename="src/Game/Game.h" />
 		<Unit filename="src/Game/GameView.cpp" />

@@ -23,7 +23,7 @@ public:
     void display(GameView* view);
 
 private:
-    sf::Font* font;
+    sf::Font* font = new sf::Font();
 
     sf::RectangleShape background;
     std::vector<std::string> sentences;

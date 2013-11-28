@@ -32,7 +32,7 @@ private:
 
     std::vector<MenuComponent*> items;
 
-    unsigned int index;
+    unsigned int index = 0;
 };
 
 #endif // MENU_H

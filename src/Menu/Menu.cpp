@@ -5,7 +5,6 @@ Menu::Menu(std::string label): MenuComponent(label) {
     texture.loadFromFile("assets/img/sprites/menu/selector.png");
     selector.setTexture(texture);
 
-    index = 0;
     isMenu = true;
 }
 

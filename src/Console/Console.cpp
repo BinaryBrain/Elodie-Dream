@@ -1,7 +1,6 @@
 #include "Console.h"
 
 Console::Console() {
-    font = new sf::Font();
     font->loadFromFile("assets/fonts/arial.ttf");
 }
 

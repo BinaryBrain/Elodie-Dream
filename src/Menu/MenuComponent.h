@@ -17,7 +17,7 @@ public:
 
 protected:
     std::vector<MenuComponent*> items;
-    sf::Font* font;
+    sf::Font* font = new sf::Font();
     sf::Text* text;
     bool isMenu = false;
 };

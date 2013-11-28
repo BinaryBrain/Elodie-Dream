@@ -4,21 +4,16 @@
 Game* Game::gameInstance = NULL;
 
 Game::Game() {
-    event = new EventHandler(view.getWindow());
-
-    menuHandler = new MenuHandler();
     view.addView(ViewLayer::MENU, menuHandler);
-
-    overworld = new Overworld();
     view.addView(ViewLayer::OVERWORLD, overworld);
-
-    console = new Console();
     view.addView(ViewLayer::CONSOLE, console);
 
     // testing purposes
     console->addSentence("Fnu la vie !");
     std::vector<std::string> toWriteInConsole {"Fnu", "On", "Multiple", "Lines"};
     console->setContent(toWriteInConsole);
+
+    view.addView(ViewLayer::GIRLY, girly);
 
 }
 
@@ -27,6 +22,7 @@ Game::~Game() {
     delete menuHandler;
     delete overworld;
     delete console;
+    delete girly;
 }
 
 // Gets the instance of the game
@@ -192,6 +188,10 @@ void Game::run() {
             std::cout << "Mouse pos : (" << leftClick.x << "; " << leftClick.y << ")" << std::endl;
         }
 
+        if (event->keyIsPressed(sf::Keyboard::G)) {
+            girlyMode = !girlyMode;
+        }
+
         switch(state) {
         case GameState::INLEVEL:
             displayLevel(curLevelNbr);
@@ -208,6 +208,13 @@ void Game::run() {
         default :
             std::cout << "Error: unknown state" << std::endl;
             break;
+        }
+
+
+        view.hide(ViewLayer::GIRLY);
+
+        if (girlyMode) {
+            view.show(ViewLayer::GIRLY);
         }
 
         view.draw();
