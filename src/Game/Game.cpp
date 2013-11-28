@@ -5,8 +5,10 @@ Game* Game::gameInstance = NULL;
 
 Game::Game() {
     event = new EventHandler(view.getWindow());
-    menuHandler = new MenuHandler(&view);
-    overworld = new Overworld(&view);
+    menuHandler = new MenuHandler();
+    view.addView(ViewLayer::MENU, menuHandler);
+    overworld = new Overworld();
+    view.addView(ViewLayer::OVERWORLD, overworld);
 }
 
 Game::~Game() {
@@ -40,10 +42,6 @@ void Game::displayLevel(int curLevelNbr) {
         view.hide(ViewLayer::LEVEL);
         view.show(ViewLayer::OVERWORLD);
 
-        if(curLevel) {
-            delete curLevel;
-            curLevel = NULL;
-        }
     } else if (event->keyIsPressed(sf::Keyboard::M)) {
         state = GameState::INMENU;
         curLevel->pause();
@@ -55,10 +53,15 @@ void Game::displayLevel(int curLevelNbr) {
 }
 
 void Game::loadLevel(int levelNbr) {
+    if(curLevel) {
+        delete curLevel;
+        curLevel = NULL;
+    }
     state = GameState::INLEVEL;
     curLevelNbr = levelNbr;
     //curLevel = new Level("assets/levels/alltiles.txt");
-    curLevel = new Level("assets/levels/level2.txt", &view);
+    curLevel = new Level("assets/levels/level2.txt");
+    view.addView(ViewLayer::LEVEL, curLevel);
 }
 
 void Game::handleOverworld() {

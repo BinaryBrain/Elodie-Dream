@@ -1,6 +1,6 @@
 #include "MenuHandler.h"
 
-MenuHandler::MenuHandler(GameView* gameView) {
+MenuHandler::MenuHandler() {
     NewGameItem* newGame = new NewGameItem("New game");
     QuitItem* quit = new QuitItem("Quit");
     EnglishItem* english = new EnglishItem("English");
@@ -30,8 +30,6 @@ MenuHandler::MenuHandler(GameView* gameView) {
     language->addItem(settings);
 
     selectedMenu = title;
-
-    gameView->addView(ViewLayer::MENU, this);
 }
 
 MenuHandler::~MenuHandler() {

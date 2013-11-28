@@ -21,7 +21,6 @@
 class MenuHandler : public Displayable{
 public:
     MenuHandler();
-    MenuHandler(GameView* gameView);
     virtual ~MenuHandler();
 
     void display(GameView* view);

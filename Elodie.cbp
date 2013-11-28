@@ -51,10 +51,10 @@
 			<Add directory="rapidjson/include" />
 			<Add directory="sfml/include" />
 		</Compiler>
-		<Unit filename="src/Displayable/Displayable.cpp" />
-		<Unit filename="src/Displayable/Displayable.h" />
 		<Unit filename="src/Console/Console.cpp" />
 		<Unit filename="src/Console/Console.h" />
+		<Unit filename="src/Displayable/Displayable.cpp" />
+		<Unit filename="src/Displayable/Displayable.h" />
 		<Unit filename="src/Entity/Elodie.cpp" />
 		<Unit filename="src/Entity/Elodie.h" />
 		<Unit filename="src/Entity/Entity.cpp" />

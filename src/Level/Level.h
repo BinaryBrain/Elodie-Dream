@@ -11,7 +11,8 @@
 
 class Level : public Displayable{
 public:
-    Level(std::string filename, GameView* gameView);
+    Level();
+    Level(std::string filename);
     virtual ~Level();
 
     void loadLevel(std::string filename);

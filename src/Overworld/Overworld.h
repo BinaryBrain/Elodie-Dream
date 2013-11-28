@@ -13,7 +13,6 @@
 class Overworld : public Displayable{
 public:
     Overworld();
-    Overworld(GameView* view);
     virtual ~Overworld();
     Elodie* getElodie();
     int moveUp();

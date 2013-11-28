@@ -9,7 +9,7 @@
 #include "../Displayable/Displayable.h"
 
 enum class ViewLayer {
-    MENU, OVERWORLD, LEVEL, HUD
+    MENU, OVERWORLD, LEVEL, HUD, CONSOLE
 };
 
 class GameView {
@@ -37,9 +37,9 @@ private:
     std::map<ViewLayer, Displayable*> viewMap;
     std::map<ViewLayer, std::vector<sf::Drawable*>> drawableMap;
     std::vector<ViewLayer> toDraw;
+    std::map<ViewLayer, sf::Vector2f> centers;
 
     sf::RenderWindow* window;
-    sf::Vector2f center;
 };
 
 #endif // GAMEVIEW_H

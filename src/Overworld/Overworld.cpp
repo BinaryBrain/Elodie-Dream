@@ -1,6 +1,6 @@
 #include "Overworld.h"
 
-Overworld::Overworld(GameView* gameView) {
+Overworld::Overworld() {
     std::string filenames[4] = { "overworld1.png", "overworld2.png", "overworld3.png", "overworld4.png" };
 
     for(int i=0; i<4; i++) {
@@ -39,7 +39,6 @@ Overworld::Overworld(GameView* gameView) {
 
     elodie = new Elodie(565,643);
     currentState = UNIL;
-    gameView->addView(ViewLayer::OVERWORLD, this);
 }
 
 

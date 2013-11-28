@@ -2,7 +2,6 @@
 
 GameView::GameView() {
     window = new sf::RenderWindow(sf::VideoMode(1280, 720), "Elodie's Dream: Quest for Poros", sf::Style::Default);
-    center = window->getView().getCenter();
 }
 
 GameView::~GameView() {
@@ -39,7 +38,7 @@ void GameView::hide(ViewLayer viewKey) {
 }
 
 void GameView::reset(ViewLayer viewKey) {
-    viewMap[viewKey]->getView()->setCenter(window->getDefaultView().getCenter());
+    centers[viewKey] = window->getDefaultView().getCenter();
 }
 
 void GameView::setCameraCenter(ViewLayer viewKey, const sf::Vector2f* pos) {
@@ -47,7 +46,8 @@ void GameView::setCameraCenter(ViewLayer viewKey, const sf::Vector2f* pos) {
 }
 
 void GameView::setCameraCenter(ViewLayer viewKey, float x, float y) {
-    viewMap[viewKey]->getView()->setCenter(x,y);
+    centers[viewKey].x = x;
+    centers[viewKey].y = y;
 }
 
 void GameView::setFollowedPoint(ViewLayer viewKey, const sf::Vector2f* pos) {
@@ -62,9 +62,9 @@ void GameView::setFollowedPoint(ViewLayer viewKey, float x, float y) {
     float camX = x+viewSize.x/2-viewSize.x/4; // 1/4 of the screen
     float camY;
 
-    if(center.y-y > viewSize.y/2-margin) {
+    if(centers[viewKey].y-y > viewSize.y/2-margin) {
         camY = y+margin;
-    } else if(y-center.y > viewSize.y/2-margin) {
+    } else if(y-centers[viewKey].y > viewSize.y/2-margin) {
         camY = y-margin;
     }
 
@@ -80,6 +80,7 @@ void GameView::draw() {
     for(size_t i = 0; i < toDraw.size(); ++i) {
         ViewLayer viewKey = toDraw[i];
         Displayable* disp = viewMap[viewKey];
+        disp->getView()->setCenter(centers[viewKey]);
         disp->display(this);
         window->setView(*(disp->getView()));
         for(std::vector<sf::Drawable*>::iterator drawableIt = drawableMap[viewKey].begin(); drawableIt != drawableMap[viewKey].end(); ++drawableIt) {
