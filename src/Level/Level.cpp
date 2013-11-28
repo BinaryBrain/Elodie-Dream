@@ -18,7 +18,6 @@ void Level::loadLevel(std::string filename) {
     std::string levelSource = FileHandler::getContent(filename);
 
     Mapper::parse(levelSource, tiles, entities);
-    Mapper::print(tiles, entities);
     Mapper::beautify(tiles);
 }
 
