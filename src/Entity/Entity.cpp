@@ -5,10 +5,6 @@ Entity::Entity() {
     sprite = NULL;
 }
 
-Entity::Entity(sf::Sprite* sprite) {
-    this->sprite = sprite;
-}
-
 Entity::~Entity() {
     if(sprite) {
         delete sprite;
@@ -52,13 +48,14 @@ std::map< std::string, float > Entity::collideWithTiles(std::vector< std::vector
 
     Hitbox hitbox = getCurrentHitbox();
 
-    float minX(std::get<0>(hitbox.getPoints()).x);
-    float maxX(std::get<1>(hitbox.getPoints()).x);
-    float minY(std::get<0>(hitbox.getPoints()).y);
-    float maxY(std::get<1>(hitbox.getPoints()).y);
+    float minX = std::get<0>(hitbox.getPoints()).x;
+    float maxX = std::get<1>(hitbox.getPoints()).x;
+    float minY = std::get<0>(hitbox.getPoints()).y;
+    float maxY = std::get<1>(hitbox.getPoints()).y;
 
     int mapPnt;
-    int totMin(0), totMax(0);
+    int totMin = 0;
+    int totMax = 0;
 
     for(float y = minY; y <= maxY; ++y)
     {
@@ -87,7 +84,7 @@ std::map< std::string, float > Entity::collideWithTiles(std::vector< std::vector
 }
 
 void Entity::computeGravity() {
-
+    speed.y += 0.0005;
 }
 
 void Entity::move(sf::Vector2f& diff) {

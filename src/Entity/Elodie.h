@@ -6,6 +6,8 @@
 #include "../Item/Item.h"
 #include "../EventHandler/EventHandler.h"
 
+enum class ElodieState { STANDING, WALKING, FALLING, PUNCHING };
+
 /**
 * The class representing Elodie, an Entity.
 */
@@ -145,6 +147,8 @@ private:
 
     ElodieSprite* sprite;
 
+    ElodieState state;
+
     int centerX = 21;
     int centerY = 32;
 
@@ -155,8 +159,6 @@ private:
     bool goingLeft = false;
 
     sf::Vector2f overworldSpeed = { 0.3, 0.3 }; // TODO Put in a const.h file
-
-    sf::Vector2f levelSpeed = {0.3, 0};
 
     int immersionLevel = 100;
     int nightmareLevel = 50; // Max: 100

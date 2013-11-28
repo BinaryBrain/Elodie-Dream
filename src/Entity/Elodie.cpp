@@ -15,13 +15,16 @@ Elodie::Elodie(float x, float y) {
 }
 
 void Elodie::init() {
+    state = ElodieState::WALKING;
+    speed.x = 0.3;
+
     sprite = new ElodieSprite();
     setEntitySprite(sprite);
 
     //levelSpeed and hitboxes are set here for the moment, but it's not the right place to set them
     sf::Vector2f pnt1 = {82, 37}, pnt2 = {106, 82};
     Hitbox hitbox(pnt1, pnt2);
-    levelSpeed.x = 0.1;
+    speed.x = 0.1;
     setCurrentHitbox(0);
     addHitbox(hitbox);
 }
@@ -125,27 +128,36 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
     if (sprite->getCurrentStance() == SpriteStance::STANDING)
         this->walk();
 
-    if (levelSpeed.y < 0) {
-        levelSpeed.y += 0.0005;
+    if (collide["left"] && collide["right"]) {
+        speed.x = 0;
+    }
+    else if ((collide["right"] && speed.x > 0) || (collide["left"] && speed.x < 0)) {
+        speed.x = -speed.x;
     }
 
-    if (collide["left"] && collide["right"])
-        levelSpeed.x = 0;
-    else if ((collide["right"] && levelSpeed.x > 0) || (collide["left"] && levelSpeed.x < 0))
-        levelSpeed.x = -levelSpeed.x;
+    if (collide["down"]) {
+        speed.y = 0;
 
-    if (!collide["down"] && levelSpeed.y >= 0)
-        levelSpeed.y = 0.18;
-    else if (levelSpeed.y > 0)
-        levelSpeed.y = 0;
+        if(state == ElodieState::FALLING) {
+            state = ElodieState::WALKING;
+        }
+    }
+    else {
+        computeGravity();
+    }
+
+    if (event->keyIsPressed(sf::Keyboard::Space) && state == ElodieState::WALKING) {
+        speed.y = -0.2; // TODO Put in const file
+        state = ElodieState::FALLING;
+        std::cout << "JUMP" << std::endl;
+    }
+
 
     if (event->keyIsPressed(sf::Keyboard::E)) {
         std::cout << "Collision: Top = " << collide["up"] << ", Left = " << collide["left"] << ", Down = " << collide["down"] << ", Right = " << collide["right"] << std::endl;
     }
-    if (event->keyIsPressed(sf::Keyboard::Space) && !levelSpeed.y)
-        levelSpeed.y = -0.2;
 
-    move(levelSpeed);
+    move(speed);
 
     sprite->update(animate);
 }

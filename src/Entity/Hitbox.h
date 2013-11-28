@@ -2,6 +2,7 @@
 #define HITBOX_H
 
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 class Hitbox {
 public:
