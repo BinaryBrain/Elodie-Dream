@@ -1,20 +1,32 @@
 #include "Game.h"
 
-// Initialisation of the sinlgeton to NULL
+// Initialisation of the singleton to NULL
 Game* Game::gameInstance = NULL;
 
 Game::Game() {
     event = new EventHandler(view.getWindow());
+
     menuHandler = new MenuHandler();
     view.addView(ViewLayer::MENU, menuHandler);
+
     overworld = new Overworld();
     view.addView(ViewLayer::OVERWORLD, overworld);
+
+    console = new Console();
+    view.addView(ViewLayer::CONSOLE, console);
+
+    // testing purposes
+    console->addSentence("Fnu la vie !");
+    std::vector<std::string> toWriteInConsole {"Fnu", "On", "Multiple", "Lines"};
+    console->setContent(toWriteInConsole);
+
 }
 
 Game::~Game() {
     delete event;
     delete menuHandler;
     delete overworld;
+    delete console;
 }
 
 // Gets the instance of the game
@@ -50,6 +62,9 @@ void Game::displayLevel(int curLevelNbr) {
     } else {
         curLevel->live(event, frameClock.restart());
     }
+
+    // for testing purposes
+    view.show(ViewLayer::CONSOLE);
 }
 
 void Game::loadLevel(int levelNbr) {
@@ -138,6 +153,10 @@ void Game::displayMenu() {
         }
     }
 
+}
+
+Console* Game::getConsole() {
+    return console;
 }
 
 void Game::run() {

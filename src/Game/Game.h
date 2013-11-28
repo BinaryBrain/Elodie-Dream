@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include "../env.h"
+#include "../Console/Console.h"
 #include "../Level/Level.h"
 #include "../Map/Mapper.h"
 #include "../FileHandler/FileHandler.h"
@@ -38,7 +39,6 @@ private:
     Game& operator= (Game const&); // Makes operator= private
 
     GameView view;
-
     GameState state = GameState::INMENU;
 
     EventHandler* event;
@@ -49,8 +49,14 @@ private:
     sf::Clock frameClock;
 
     MenuHandler* menuHandler;
-
     void displayMenu();
+
+    Console* console;
+
+    // don't know which one to choose : Game.writeInConsole() of Game.getConsole.setContent()
+    Console* getConsole();
+    void writeInConsole(std::string sentence);
+    void writeInConsole(std::vector<std::string> sentences);
 
     int curLevelNbr = 0;
     Level* curLevel = NULL;

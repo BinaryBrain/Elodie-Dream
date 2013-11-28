@@ -1,16 +1,14 @@
 #include "Displayable.h"
 
 
-Displayable::Displayable()
-{
+Displayable::Displayable() {
     //ctor
 }
 
-Displayable::~Displayable()
-{
+Displayable::~Displayable() {
     delete view;
 }
 
-sf::View* Displayable::getView(){
+sf::View* Displayable::getView() {
     return this->view;
 }
