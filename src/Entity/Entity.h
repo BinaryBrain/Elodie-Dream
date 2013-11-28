@@ -52,7 +52,6 @@ private:
     int checkTiles(std::vector< std::vector<TileSprite*> > const& world, int x, int y);
     std::vector< Hitbox > hitboxes;
     int currentHitbox;
-
 };
 
 #endif // ENTITIES_H
