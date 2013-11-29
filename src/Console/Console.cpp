@@ -30,13 +30,18 @@ std::vector<std::string> Console::makeLines(std::string str) {
         text->setString(buffer);
         std::string textString = text->getString();
 
-        if (text->getLocalBounds().width/1.8 > sizeX) { // don't know why getLocalBounds() doesn't work :/
+        if (text->getLocalBounds().width/1.8 > sizeX) { // don't know why getLocalBounds() doesn't work properly :/
             lines.push_back(buffer);
             buffer = "";
         }
     }
 
     lines.push_back(buffer);
+
+    // removing spaces at the beginning of each line \o/
+    for (unsigned int i(0); i<lines.size(); ++i) {
+        lines[i].erase(0,1);
+    }
 
     delete text;
     return lines;
