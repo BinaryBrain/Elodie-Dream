@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include "../env.h"
+#include "../JsonAccessor/JsonAccessor.h"
 #include "../Console/Console.h"
 #include "../Level/Level.h"
 #include "../Map/Mapper.h"
@@ -51,7 +52,7 @@ private:
     MenuHandler* menuHandler = new MenuHandler();
     void displayMenu();
 
-    Console* console;
+    Console* console = new Console();
 
     // don't know which one to choose : Game.writeInConsole() of Game.getConsole.setContent()
     Console* getConsole();
