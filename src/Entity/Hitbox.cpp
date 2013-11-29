@@ -20,7 +20,8 @@ void Hitbox::move(sf::Vector2f* diff) {
 }
 
 void Hitbox::move(float dx, float dy) {
-    move(new sf::Vector2f(dx, dy));
+    sf::Vector2f dist(dx, dy);
+    move(&dist);
 }
 
 std::tuple< sf::Vector2f, sf::Vector2f > Hitbox::getPoints() const {
