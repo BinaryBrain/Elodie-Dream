@@ -32,7 +32,6 @@ std::vector<std::string> Console::makeLines(std::string str) {
 
         if (text->getLocalBounds().width/3 > sizeX) { // don't know why getLocalBounds() doesn't work :/
             lines.push_back(buffer);
-            str.erase(indexes[i]+length, 1);
             buffer = "";
         }
     }
