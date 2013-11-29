@@ -12,7 +12,6 @@
 #include "../Fnu/Girly.h"
 #include "GameView.h"
 
-
 /**
 * The class representing the game.
 * Uses the Singleton Pattern so that Game can be instantiated only one time. Thus, the constructor is private an

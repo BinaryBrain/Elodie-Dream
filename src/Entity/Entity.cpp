@@ -38,7 +38,8 @@ int Entity::checkTiles(std::vector< std::vector<TileSprite*> > const& world, int
 
     if (tile == TileType::GROUND ||
             tile == TileType::GRASS ||
-            tile == TileType::STONE)
+            tile == TileType::ROCK ||
+            tile == TileType::ICE)
         return 1;
     return 0;
 }

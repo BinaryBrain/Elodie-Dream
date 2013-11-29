@@ -5,10 +5,12 @@
 
 #include "EnvSprite.h"
 
-enum class LevelEnv { FIELD, UNIL, CASTLE, VOLCANO, FREJLORD };
+enum class LevelEnv {
+    FIELD, UNIL, CASTLE, VOLCANO, FREJLORD
+};
 
 enum class TileType {
-    VOID = 0, GROUND, GRASS, STONE
+    VOID = 0, GROUND, GRASS, ROCK, ICE
 };
 
 enum class TileSide {
@@ -25,15 +27,13 @@ enum class TileSide {
 class TileSprite : public EnvSprite {
 public:
     TileSprite(TileType type);
-    TileSprite(TileType type, LevelEnv env);
     virtual ~TileSprite();
-
-    void init(TileType type, LevelEnv env);
 
     TileType getType();
     int getSide();
     void addSide(TileSide side);
     void setSide(TileSide side);
+
 protected:
 private:
     TileType type;
