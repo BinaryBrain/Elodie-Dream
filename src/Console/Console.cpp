@@ -76,6 +76,21 @@ void Console::clear() {
     lines.clear();
 }
 
+void Console::setCurrentPage(int newPage, float viewX, float viewY) {
+    float startX(viewX-sizeX);
+    float startY(viewY-sizeY);
+
+    currentPage = newPage;
+    currentPageText.clear();
+    for(unsigned int i(0); i < pages[currentPage].size(); ++i) {
+        sf::Text newText(pages[currentPage][i], *font);
+        newText.setCharacterSize(15);
+        newText.setColor(sf::Color::White);
+        newText.setPosition(startX+50, startY+20+20*i);
+        currentPageText.push_back(newText);
+     }
+}
+
 void Console::display(GameView* view) {
 
     float viewX(view->getWindow()->getSize().x);
@@ -83,8 +98,6 @@ void Console::display(GameView* view) {
 
     float startX(viewX-sizeX);
     float startY(viewY-sizeY);
-
-    sf::Text* text;
 
     background.setSize(sf::Vector2f(sizeX, sizeX));
     background.setOutlineColor(sf::Color::Black);
@@ -94,12 +107,8 @@ void Console::display(GameView* view) {
 
     view->addDrawable(ViewLayer::CONSOLE, &background);
 
-    for(unsigned int i(0); i < pages[currentPage].size(); ++i) {
-        text = new sf::Text(pages[currentPage][i], *font);
-        text->setCharacterSize(15);
-        text->setColor(sf::Color::White);
-        text->setPosition(startX+50, startY+20+20*i);
-        view->addDrawable(ViewLayer::CONSOLE, text);
+    for(unsigned int i(0); i < currentPageText.size(); ++i) {
+        view->addDrawable(ViewLayer::CONSOLE, &(currentPageText[i]));
     }
 }
 

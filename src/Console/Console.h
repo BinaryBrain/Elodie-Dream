@@ -20,6 +20,7 @@ public:
     void setContent(std::vector<std::string> sentences);
     std::vector<std::string> makeLines(std::string str, std::string substr);
     std::vector<std::vector<std::string> > makePages(std::vector<std::string> lines, int linesPerPage);
+    void setCurrentPage(int newPage, float viewX, float viewY);
     void clear();
 
     void display(GameView* view);
@@ -36,6 +37,7 @@ private:
 
     int linesPerPage = 7;
     int currentPage = 0;
+    std::vector<sf::Text> currentPageText;
 
     std::vector<size_t> getStringIndexes(std::string str, std::string sub);
 };
