@@ -37,8 +37,8 @@ Elodie::~Elodie() {
     //  delete sprite;
 }
 
-sf::Vector2f* Elodie::getPosition() {
-    return new sf::Vector2f(sprite->getPosition().x + centerX, sprite->getPosition().y + centerY);
+sf::Vector2f Elodie::getPosition() {
+    return sf::Vector2f(sprite->getPosition().x + centerX, sprite->getPosition().y + centerY);
 }
 
 void Elodie::stand() {

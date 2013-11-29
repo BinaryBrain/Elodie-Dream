@@ -57,7 +57,7 @@ public:
     *
     * \return A Vector2f, m_position.
     */
-    sf::Vector2f* getPosition();
+    sf::Vector2f getPosition();
 
 
     /**
