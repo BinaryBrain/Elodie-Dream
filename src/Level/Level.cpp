@@ -10,7 +10,15 @@ Level::Level() {
 }
 
 Level::~Level() {
+    for(size_t i(0); i < tiles.size(); ++i){
+        for(size_t j(0); j < tiles[i].size(); ++j){
+            delete tiles[i][j];
+        }
+    }
 
+    for(EntityMap::iterator it = entities.begin(); it != entities.end(); ++it){
+        delete it->second;
+    }
 }
 
 void Level::setEnvironement(LevelEnv env) {

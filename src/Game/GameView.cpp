@@ -18,7 +18,6 @@ void GameView::addDrawable(ViewLayer viewKey, sf::Drawable* drawable) {
 
 void GameView::addView(ViewLayer viewKey, Displayable* disp) {
     viewMap[viewKey] = disp;
-    drawableMap[viewKey] = std::vector<sf::Drawable*>();
     reset(viewKey);
 }
 
