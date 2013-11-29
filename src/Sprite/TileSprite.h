@@ -5,10 +5,6 @@
 
 #include "EnvSprite.h"
 
-enum class LevelEnv {
-    FIELD, UNIL, CASTLE, VOLCANO, FREJLORD
-};
-
 enum class TileType {
     VOID = 0, GROUND, GRASS, ROCK, ICE
 };

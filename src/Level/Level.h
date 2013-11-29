@@ -3,18 +3,17 @@
 
 #include <string>
 
+#include "../env.h"
 #include "../Map/Mapper.h"
 #include "../FileHandler/FileHandler.h"
 #include "../Game/GameView.h"
 #include "../EventHandler/EventHandler.h"
 #include "../Displayable/Displayable.h"
 #include "../TextureManager/TextureManager.h"
-#include "../env.h"
 
 class Level : public Displayable {
 public:
-    Level();
-    Level(std::string filename);
+    Level(std::string filename, LevelEnv env);
     virtual ~Level();
 
     void loadLevel(std::string filename);
@@ -34,6 +33,7 @@ private:
     TileMap tiles;
     EntityMap entities;
     LevelEnv environement;
+    TextureManager* manager;
 };
 
 #endif // LEVEL_H

@@ -23,12 +23,9 @@ public:
     static Game* getInstance();
     static void kill();
 
-    void init();
     void draw();
     void run();
     void exit();
-
-    Level loadLevel(std::string filename);
 
     void setState(GameState state);
 

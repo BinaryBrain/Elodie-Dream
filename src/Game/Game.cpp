@@ -43,10 +43,6 @@ void Game::kill() {
     }
 }
 
-void Game::init() {
-    // ???
-}
-
 void Game::displayLevel(int curLevelNbr) {
     if(event->keyIsPressed(sf::Keyboard::Return)) {
         state = GameState::INOVERWORLD;
@@ -75,8 +71,7 @@ void Game::loadLevel(int levelNbr) {
     }
     state = GameState::INLEVEL;
     curLevelNbr = levelNbr;
-    //curLevel = new Level("assets/levels/alltiles.txt");
-    curLevel = new Level("assets/levels/level2.txt");
+    curLevel = new Level("assets/levels/level2.txt", LevelEnv::VOLCANO);
     view.addView(ViewLayer::LEVEL, curLevel);
 }
 

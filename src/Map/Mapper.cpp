@@ -28,7 +28,7 @@ void Mapper::parse(std::string asciiLevel, TileMap& tiles, EntityMap& entities) 
 
         switch(asciiLevel[i]) {
         case MAP_GROUND:
-            tiles[y].push_back(new TileSprite(TileType::GROUND));
+            tiles[y].push_back(new TileSprite(TileType::ROCK));
             break;
 
         case MAP_LINE_BREAK:

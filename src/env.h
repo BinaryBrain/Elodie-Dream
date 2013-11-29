@@ -18,4 +18,8 @@ enum class GameState {
     INLEVEL, INOVERWORLD, INMENU, EXIT
 };
 
+enum class LevelEnv {
+    FIELD, UNIL, CASTLE, VOLCANO, FREJLORD
+};
+
 #endif // ENV_H

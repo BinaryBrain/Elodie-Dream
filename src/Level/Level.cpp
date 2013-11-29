@@ -1,12 +1,9 @@
 #include "Level.h"
 
-Level::Level(std::string filename) {
+Level::Level(std::string filename, LevelEnv env) {
     loadLevel(filename);
-    this->environement = LevelEnv::FIELD;
-}
-
-Level::Level() {
-
+    this->environement = env;
+    this->manager = new TextureManager();
 }
 
 Level::~Level() {
@@ -76,8 +73,6 @@ EntityMap Level::getEntities() {
 }
 
 void Level::applyEnv(TileMap tiles) {
-    TextureManager* manager = TextureManager::getInstance();
-
     for(unsigned int y=0; y<tiles.size(); y++) {
         for(unsigned int x=0; x<tiles[y].size(); x++) {
             if(tiles[y][x]) {
