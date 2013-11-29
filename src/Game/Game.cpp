@@ -19,6 +19,7 @@ Game::Game() {
     std::cout << language.getString("Intro") << std::endl;
     console->addSentence(language.getString("Intro"));*/
     console->addSentence("Fnu\nla\nvie\non\nmultiple\nlines\n:3.");
+    console->setCurrentPage(0, view.getWindow()->getSize().x, view.getWindow()->getSize().y);
 }
 
 Game::~Game() {
