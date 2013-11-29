@@ -46,17 +46,14 @@ void Elodie::stand() {
 }
 
 void Elodie::overworldMove(float seconds) {
+    toMove -= seconds*overworldSpeed.x;
     if (goingDown) {
-        toMove -= overworldSpeed.x;
         sprite->move(0, seconds*overworldSpeed.x);
     } else if (goingLeft) {
-        toMove -= overworldSpeed.x;
         sprite->move(-seconds*overworldSpeed.x, 0);
     } else if (goingRight) {
-        toMove -= overworldSpeed.x;
         sprite->move(+seconds*overworldSpeed.x, 0);
     } else if (goingUp) {
-        toMove -= overworldSpeed.x;
         sprite->move(0, -seconds*overworldSpeed.x);
     } else {
         noMoves();
@@ -119,8 +116,7 @@ void Elodie::walk() {
 }
 
 //What's in doStuff right now is only for testing purpose. Lot of stuff to do here.
-void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, sf::Time animate)
-{
+void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, sf::Time animate) {
     std::map<std::string, float> collide;
     collide = collideWithTiles(tiles);
 
@@ -129,8 +125,7 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
 
     if (collide["left"] && collide["right"]) {
         speed.x = 0;
-    }
-    else if ((collide["right"] && speed.x > 0) || (collide["left"] && speed.x < 0)) {
+    } else if ((collide["right"] && speed.x > 0) || (collide["left"] && speed.x < 0)) {
         speed.x = -speed.x;
     }
 
@@ -140,8 +135,7 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
         if(state == ElodieState::FALLING) {
             state = ElodieState::WALKING;
         }
-    }
-    else {
+    } else {
         computeGravity(animate);
     }
 
@@ -155,10 +149,10 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
     sprite->update(animate);
 }
 
-void Elodie::pause(){
+void Elodie::pause() {
     sprite->pause();
 }
 
-void Elodie::play(){
+void Elodie::play() {
     sprite->play();
 }

@@ -161,7 +161,7 @@ private:
     bool goingRight = false;
     bool goingLeft = false;
 
-    sf::Vector2f overworldSpeed = { 0.3, 0.3 }; // TODO Put in a const.h file
+    sf::Vector2f overworldSpeed = { 300, 300 }; // TODO Put in a const.h file
 
     int immersionLevel = 100;
     int nightmareLevel = 50; // Max: 100
