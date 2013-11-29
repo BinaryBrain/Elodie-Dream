@@ -41,8 +41,8 @@ void GameView::reset(ViewLayer viewKey) {
     centers[viewKey] = window->getDefaultView().getCenter();
 }
 
-void GameView::setCameraCenter(ViewLayer viewKey, const sf::Vector2f* pos) {
-    setCameraCenter(viewKey, pos->x, pos->y);
+void GameView::setCameraCenter(ViewLayer viewKey, const sf::Vector2f pos) {
+    setCameraCenter(viewKey, pos.x, pos.y);
 }
 
 void GameView::setCameraCenter(ViewLayer viewKey, float x, float y) {
@@ -50,8 +50,8 @@ void GameView::setCameraCenter(ViewLayer viewKey, float x, float y) {
     centers[viewKey].y = y;
 }
 
-void GameView::setFollowedPoint(ViewLayer viewKey, const sf::Vector2f* pos) {
-    setFollowedPoint(viewKey, pos->x, pos->y);
+void GameView::setFollowedPoint(ViewLayer viewKey, const sf::Vector2f pos) {
+    setFollowedPoint(viewKey, pos.x, pos.y);
 }
 
 void GameView::setFollowedPoint(ViewLayer viewKey, float x, float y) {

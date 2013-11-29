@@ -28,9 +28,9 @@ public:
     void show(ViewLayer viewKey);
 
     void reset(ViewLayer viewKey);
-    void setCameraCenter(ViewLayer viewKey, const sf::Vector2f* pos);
+    void setCameraCenter(ViewLayer viewKey, const sf::Vector2f pos);
     void setCameraCenter(ViewLayer viewKey, float x, float y);
-    void setFollowedPoint(ViewLayer viewKey, const sf::Vector2f* pos);
+    void setFollowedPoint(ViewLayer viewKey, const sf::Vector2f pos);
     void setFollowedPoint(ViewLayer viewKey, float x, float y);
 protected:
 private:
