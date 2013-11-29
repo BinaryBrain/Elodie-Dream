@@ -2,6 +2,7 @@
 #define ENV_H
 
 #include <string>
+#include <sstream>
 #include <vector>
 #include <map>
 #include <iostream>

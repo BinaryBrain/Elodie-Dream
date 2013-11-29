@@ -1,9 +1,7 @@
 #include "Console.h"
 
-Console::Console(int sizeX, int sizeY) {
+Console::Console() {
     font->loadFromFile("assets/fonts/pf_tempesta_seven/pf_tempesta_seven.ttf");
-    this->sizeX = sizeX;
-    this->sizeY = sizeY;
 }
 
 Console::~Console() {
@@ -11,27 +9,27 @@ Console::~Console() {
 }
 
 void Console::addSentence(std::string sentence) {
-    pages = makePages(makeLines(sentence, " "), linesPerPage);
+    pages = makePages(cutShort(sentence, " ", sizeX-2*marginX), linesPerPage);
 }
 
 void Console::setContent(std::vector<std::string> lines) {
     this->lines = lines;
 }
 
-std::vector<std::string> Console::makeLines(std::string str, std::string substr) {
-    std::vector<size_t> indexes = getStringIndexes(str, substr);
+std::vector<std::string> Console::cutShort(std::string str, std::string sub, int maxWidth) {
+    std::vector<size_t> indexes = getStringIndexes(str, sub);
     indexes.insert(indexes.begin(), 0);
 
     sf::Text* text = new sf::Text("", *font);
     std::vector<std::string> lines;
-    std::string buffer(substr); // tricky temporary space at the beginning :3
+    std::string buffer(sub); // tricky temporary space at the beginning :3
 
     for (unsigned int i(0); i<indexes.size(); ++i) {
         int length(indexes[i+1] - indexes[i]);
         buffer += str.substr(indexes[i], length);
         text->setString(buffer);
 
-        if (text->getLocalBounds().width/1.8 > sizeX) { // don't know why getLocalBounds() doesn't work properly :/
+        if (text->getLocalBounds().width/1.8 > maxWidth) { // don't know why getLocalBounds() doesn't work properly :/
             lines.push_back(buffer);
             buffer = "";
         }
@@ -41,25 +39,44 @@ std::vector<std::string> Console::makeLines(std::string str, std::string substr)
 
     // removing spaces at the beginning of each line \o/
     for (unsigned int i(0); i<lines.size(); ++i) {
-        lines[i].erase(0,substr.length());
+        lines[i].erase(0,sub.length());
     }
 
     delete text;
     return lines;
 }
 
+std::vector<std::string> Console::rearrange(std::vector<std::string> lines) {
+    std::vector<std::string> splited;
+    std::vector<std::string> cutShorted;
+    std::vector<std::string> toReturn;
+
+    for(unsigned int i(0); i<lines.size(); ++i) {
+        splited = split(lines[i], '\n');
+        for(unsigned int j(0); j<splited.size(); ++j) {
+            cutShorted = cutShort(splited[j], " ", sizeX-marginX);
+            for(unsigned int k(0); k<cutShorted.size(); ++k) {
+                toReturn.push_back(cutShorted[k]);
+            }
+        }
+    }
+    return toReturn;
+}
+
 std::vector<std::vector<std::string> > Console::makePages(std::vector<std::string> lines, int linesPerPage) {
     std::vector<std::vector<std::string> > pages;
-    std::vector<std::string> init;
+    std::vector<std::string> line;
     int counter(0);
     int pageNum(0);
 
+    lines = rearrange(lines);
+
     for (unsigned int i(0); i<lines.size(); ++i) {
         if(counter == 0) {
-            pages.push_back(init);
+            pages.push_back(line);
         }
 
-        if(counter <= linesPerPage) {
+        if(counter < linesPerPage) {
             pages[pageNum].push_back(lines[i]);
             ++counter;
         }
@@ -68,12 +85,14 @@ std::vector<std::vector<std::string> > Console::makePages(std::vector<std::strin
             ++pageNum;
         }
     }
-    std::cout<<pages.size()<<std::endl;
+
+    std::cout<<"Number of pages: " << pages.size() << std::endl;
     return pages;
 }
 
 void Console::clear() {
     lines.clear();
+    pages.clear();
 }
 
 void Console::setCurrentPage(int newPage, float viewX, float viewY) {
@@ -86,7 +105,7 @@ void Console::setCurrentPage(int newPage, float viewX, float viewY) {
         sf::Text newText(pages[currentPage][i], *font);
         newText.setCharacterSize(15);
         newText.setColor(sf::Color::White);
-        newText.setPosition(startX+50, startY+20+20*i);
+        newText.setPosition(startX+marginX, startY+marginY+20*i);
         currentPageText.push_back(newText);
      }
 }
@@ -120,4 +139,14 @@ std::vector<size_t> Console::getStringIndexes(std::string str, std::string sub) 
         index = str.find(sub,index+1);
     }
     return indexes;
+}
+
+std::vector<std::string> Console::split(std::string str, char delim) {
+    std::vector<std::string> strings;
+    std::stringstream ss(str);
+    std::string item;
+    while (std::getline(ss, item, delim)) {
+        strings.push_back(item);
+    }
+    return strings;
 }

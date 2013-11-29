@@ -4,21 +4,21 @@
 Game* Game::gameInstance = NULL;
 
 Game::Game() {
-
-    console = new Console(view.getWindow()->getSize().x, 200);
-
     view.addView(ViewLayer::MENU, menuHandler);
     view.addView(ViewLayer::OVERWORLD, overworld);
     view.addView(ViewLayer::CONSOLE, console);
 
     // testing purposes
-    std::string sfml = "SFML offre une interface simple vers les différents composants de votre PC, afin de faciliter le développement de jeux ou d'applications multimedia. Elle se compose de cinq modules : système, fenêtrage, graphisme, audio et  réseau.";
-    std::string fnu = "Ceci est une phrase très fnu sur plusieurs lignes. En effet, quand l'on met ceci ici, cela produit des résultats fnu!";
-    console->addSentence(sfml + " " + fnu);
-    console->setCurrentPage(0, view.getWindow()->getSize().x, view.getWindow()->getSize().y);
-
     view.addView(ViewLayer::GIRLY, girly);
 
+    // testing purposes
+    /*
+    JsonAccessor language = JsonAccessor();
+    language.load("../../assets/config/languages/FR.lang");
+    language.load("../../assets/config/EN.lang");
+    std::cout << language.getString("Intro") << std::endl;
+    console->addSentence(language.getString("Intro"));*/
+    console->addSentence("Fnu\nla\nvie\non\nmultiple\nlines\n:3.");
 }
 
 Game::~Game() {
