@@ -173,7 +173,6 @@ void Game::run() {
     while (window->isOpen()) {
         event->listening();
         float time = frameClock.getElapsedTime().asSeconds();
-        frameClock.restart();
         float fps = 1.d / time;
         std::cout << fps << std::endl;
         if (event->keyIsHold(esc)) {
