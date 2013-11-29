@@ -41,7 +41,7 @@ public:
 
     virtual void doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, sf::Time animate) = 0;
 
-    void computeGravity();
+    void computeGravity(sf::Time time);
     void move(sf::Vector2f& diff);
     void move(float dx, float dy);
 

@@ -1,7 +1,9 @@
 #include "Console.h"
 
-Console::Console() {
+Console::Console(int sizeX, int sizeY) {
     font->loadFromFile("assets/fonts/pf_tempesta_seven/pf_tempesta_seven.ttf");
+    this->sizeX = sizeX;
+    this->sizeY = sizeY;
 }
 
 Console::~Console() {
@@ -9,26 +11,25 @@ Console::~Console() {
 }
 
 void Console::addSentence(std::string sentence) {
-    lines.push_back(sentence);
+    pages = makePages(makeLines(sentence, " "), linesPerPage);
 }
 
 void Console::setContent(std::vector<std::string> lines) {
     this->lines = lines;
 }
 
-std::vector<std::string> Console::makeLines(std::string str) {
-    std::vector<size_t> indexes = getStringIndexes(str, " ");
+std::vector<std::string> Console::makeLines(std::string str, std::string substr) {
+    std::vector<size_t> indexes = getStringIndexes(str, substr);
     indexes.insert(indexes.begin(), 0);
 
     sf::Text* text = new sf::Text("", *font);
     std::vector<std::string> lines;
-    std::string buffer(" "); // tricky temporary space at the beginning :3
+    std::string buffer(substr); // tricky temporary space at the beginning :3
 
     for (unsigned int i(0); i<indexes.size(); ++i) {
         int length(indexes[i+1] - indexes[i]);
         buffer += str.substr(indexes[i], length);
         text->setString(buffer);
-        std::string textString = text->getString();
 
         if (text->getLocalBounds().width/1.8 > sizeX) { // don't know why getLocalBounds() doesn't work properly :/
             lines.push_back(buffer);
@@ -40,11 +41,35 @@ std::vector<std::string> Console::makeLines(std::string str) {
 
     // removing spaces at the beginning of each line \o/
     for (unsigned int i(0); i<lines.size(); ++i) {
-        lines[i].erase(0,1);
+        lines[i].erase(0,substr.length());
     }
 
     delete text;
     return lines;
+}
+
+std::vector<std::vector<std::string> > Console::makePages(std::vector<std::string> lines, int linesPerPage) {
+    std::vector<std::vector<std::string> > pages;
+    std::vector<std::string> init;
+    int counter(0);
+    int pageNum(0);
+
+    for (unsigned int i(0); i<lines.size(); ++i) {
+        if(counter == 0) {
+            pages.push_back(init);
+        }
+
+        if(counter <= linesPerPage) {
+            pages[pageNum].push_back(lines[i]);
+            ++counter;
+        }
+        else {
+            counter = 0;
+            ++pageNum;
+        }
+    }
+    std::cout<<pages.size()<<std::endl;
+    return pages;
 }
 
 void Console::clear() {
@@ -55,9 +80,6 @@ void Console::display(GameView* view) {
 
     float viewX(view->getWindow()->getSize().x);
     float viewY(view->getWindow()->getSize().y);
-
-    sizeX = viewX;
-    sizeY = 200;
 
     float startX(viewX-sizeX);
     float startY(viewY-sizeY);
@@ -72,8 +94,8 @@ void Console::display(GameView* view) {
 
     view->addDrawable(ViewLayer::CONSOLE, &background);
 
-    for(unsigned int i(0); i < lines.size(); ++i) {
-        text = new sf::Text(lines[i], *font);
+    for(unsigned int i(0); i < pages[currentPage].size(); ++i) {
+        text = new sf::Text(pages[currentPage][i], *font);
         text->setCharacterSize(15);
         text->setColor(sf::Color::White);
         text->setPosition(startX+50, startY+20+20*i);

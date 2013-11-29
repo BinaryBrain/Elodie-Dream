@@ -13,12 +13,13 @@
 */
 class Console: public Displayable {
 public:
-    Console();
+    Console(int sizeX, int sizeY);
     virtual ~Console();
 
     void addSentence(std::string sentence);
     void setContent(std::vector<std::string> sentences);
-    std::vector<std::string> makeLines(std::string str);
+    std::vector<std::string> makeLines(std::string str, std::string substr);
+    std::vector<std::vector<std::string> > makePages(std::vector<std::string> lines, int linesPerPage);
     void clear();
 
     void display(GameView* view);
@@ -28,10 +29,13 @@ private:
 
     sf::RectangleShape background;
     std::vector<std::string> lines;
-    std::string toDisplay;
+    std::vector<std::vector<std::string> > pages;
 
-    float sizeX = 1280;
-    float sizeY = 200;
+    int sizeX;
+    int sizeY;
+
+    int linesPerPage = 7;
+    int currentPage = 0;
 
     std::vector<size_t> getStringIndexes(std::string str, std::string sub);
 };

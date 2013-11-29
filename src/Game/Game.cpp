@@ -4,6 +4,9 @@
 Game* Game::gameInstance = NULL;
 
 Game::Game() {
+
+    console = new Console(view.getWindow()->getSize().x, 200);
+
     view.addView(ViewLayer::MENU, menuHandler);
     view.addView(ViewLayer::OVERWORLD, overworld);
     view.addView(ViewLayer::CONSOLE, console);
@@ -11,7 +14,7 @@ Game::Game() {
     // testing purposes
     std::string sfml = "SFML offre une interface simple vers les différents composants de votre PC, afin de faciliter le développement de jeux ou d'applications multimedia. Elle se compose de cinq modules : système, fenêtrage, graphisme, audio et  réseau.";
     std::string fnu = "Ceci est une phrase très fnu sur plusieurs lignes. En effet, quand l'on met ceci ici, cela produit des résultats fnu!";
-    console->setContent(console->makeLines(sfml +" "+ fnu));
+    console->addSentence(sfml + " " + fnu);
 
     view.addView(ViewLayer::GIRLY, girly);
 
