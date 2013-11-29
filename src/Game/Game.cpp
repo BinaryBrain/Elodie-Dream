@@ -169,11 +169,13 @@ void Game::run() {
     movement.push_back(sf::Keyboard::Down);
 
     sf::RenderWindow* window = view.getWindow();
-
     view.show(ViewLayer::MENU);
     while (window->isOpen()) {
         event->listening();
-
+        float time = frameClock.getElapsedTime().asSeconds();
+        frameClock.restart();
+        float fps = 1.d / time;
+        std::cout << fps << std::endl;
         if (event->keyIsHold(esc)) {
             window->close();
         }
