@@ -30,7 +30,7 @@ private:
     std::vector<std::string> lines;
     std::string toDisplay;
 
-    float sizeX = 720;
+    float sizeX = 1280;
     float sizeY = 200;
 
     std::vector<size_t> getStringIndexes(std::string str, std::string sub);

@@ -22,7 +22,7 @@ std::vector<std::string> Console::makeLines(std::string str) {
 
     sf::Text* text = new sf::Text("", *font);
     std::vector<std::string> lines;
-    std::string buffer("");
+    std::string buffer(" "); // tricky temporary space at the beginning :3
 
     for (unsigned int i(0); i<indexes.size(); ++i) {
         int length(indexes[i+1] - indexes[i]);
@@ -30,7 +30,7 @@ std::vector<std::string> Console::makeLines(std::string str) {
         text->setString(buffer);
         std::string textString = text->getString();
 
-        if (text->getLocalBounds().width/3 > sizeX) { // don't know why getLocalBounds() doesn't work :/
+        if (text->getLocalBounds().width/1.8 > sizeX) { // don't know why getLocalBounds() doesn't work :/
             lines.push_back(buffer);
             buffer = "";
         }
