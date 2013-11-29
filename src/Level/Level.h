@@ -8,8 +8,10 @@
 #include "../Game/GameView.h"
 #include "../EventHandler/EventHandler.h"
 #include "../Displayable/Displayable.h"
+#include "../TextureManager/TextureManager.h"
+#include "../env.h"
 
-class Level : public Displayable{
+class Level : public Displayable {
 public:
     Level();
     Level(std::string filename);
@@ -23,6 +25,7 @@ public:
 
     void display(GameView* view);
     void setEnvironement(LevelEnv env);
+    void applyEnv(TileMap tiles);
 
     void pause();
     void play();

@@ -23,6 +23,8 @@ void Level::loadLevel(std::string filename) {
 
     Mapper::parse(levelSource, tiles, entities);
     Mapper::beautify(tiles);
+
+    applyEnv(tiles);
 }
 
 // Ask the given view to draw a Level frame
@@ -63,6 +65,19 @@ EntityMap Level::getEntities() {
         entitiesCpy.insert(std::make_pair(it->first, it->second));
     }
     return entitiesCpy;
+}
+
+void Level::applyEnv(TileMap tiles) {
+    TextureManager* manager = TextureManager::getInstance();
+
+    for(unsigned int y=0; y<tiles.size(); y++) {
+        for(unsigned int x=0; x<tiles[y].size(); x++) {
+            if(tiles[y][x]) {
+                sf::Texture* texture = manager->getTileTexture(environement, tiles[y][x]->getType());
+                tiles[y][x]->setTexture(*texture);
+            }
+        }
+    }
 }
 
 void Level::pause() {

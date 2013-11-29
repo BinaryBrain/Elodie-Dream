@@ -1,27 +1,15 @@
 #include "TileSprite.h"
 
 TileSprite::TileSprite(TileType type) {
-    init(type, LevelEnv::FIELD);
-}
+    this->type = type;
 
-TileSprite::TileSprite(TileType type, LevelEnv env) {
-    init(type, env);
+    side = 0;
+
+    setTextureRect(sf::IntRect(0, 0, 32, 32));
 }
 
 TileSprite::~TileSprite() {
 
-}
-
-void TileSprite::init(TileType type, LevelEnv env) {
-    this->type = type;
-    side = 0;
-
-    // TODO Change the path according to the type
-    texture.loadFromFile("assets/img/sprites/tiles/extended/rock1extended.png");
-
-    setTexture(texture);
-    // TODO Change the coords according to the type
-    setTextureRect(sf::IntRect(0, 0, 32, 32));
 }
 
 TileType TileSprite::getType() {
