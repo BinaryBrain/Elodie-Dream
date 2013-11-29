@@ -33,8 +33,9 @@ ElodieSprite* Elodie::getSprite() {
 }
 
 Elodie::~Elodie() {
-    //  TODO : maybe source of memory leak
-    //  delete sprite;
+    delete sprite;
+    sprite = NULL;
+    setEntitySprite(NULL);
 }
 
 sf::Vector2f Elodie::getPosition() {
