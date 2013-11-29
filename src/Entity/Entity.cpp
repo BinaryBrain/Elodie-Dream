@@ -83,7 +83,7 @@ std::map< std::string, float > Entity::collideWithTiles(std::vector< std::vector
 }
 
 void Entity::computeGravity() {
-    speed.y += 0.001;
+    speed.y += 1;
 }
 
 void Entity::move(sf::Vector2f& diff) {

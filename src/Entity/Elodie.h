@@ -68,7 +68,7 @@ public:
     /**
     * \brief Handles the direction in which Elodie must go.
     */
-    void overworldMove();
+    void overworldMove(float seconds);
 
     /**
     * \brief Makes Elodie walk down.

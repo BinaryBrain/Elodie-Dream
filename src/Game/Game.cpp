@@ -76,7 +76,7 @@ void Game::loadLevel(int levelNbr) {
 }
 
 void Game::handleOverworld() {
-
+    sf::Time time = frameClock.restart();
     if (event->keyIsPressed(sf::Keyboard::N)) {
         overworld->evolve();
     }
@@ -87,7 +87,7 @@ void Game::handleOverworld() {
     }
 
     if(overworld->getElodie()->isMoving()) {
-        overworld->getElodie()->overworldMove();
+        overworld->getElodie()->overworldMove(time.asSeconds());
     } else if (event->keyIsHold(sf::Keyboard::Down)) {
         overworld->getElodie()->setDistanceToMove(overworld->moveDown());
         if(overworld->getElodie()->hasToMove()) {
@@ -120,7 +120,7 @@ void Game::handleOverworld() {
         view.show(ViewLayer::MENU);
     }
 
-    overworld->getElodie()->update(frameClock.restart());
+    overworld->getElodie()->update(time);
 }
 
 void Game::displayMenu() {
@@ -144,6 +144,7 @@ void Game::displayMenu() {
                 state = GameState::INLEVEL;
                 view.hide(ViewLayer::MENU);
                 view.show(ViewLayer::LEVEL);
+                frameClock.restart();
                 curLevel->play();
             } else {
                 std::cerr << "Must display level but not initialized." << std::endl;
@@ -172,9 +173,7 @@ void Game::run() {
     view.show(ViewLayer::MENU);
     while (window->isOpen()) {
         event->listening();
-        float time = frameClock.getElapsedTime().asSeconds();
-        float fps = 1.d / time;
-        std::cout << fps << std::endl;
+
         if (event->keyIsHold(esc)) {
             window->close();
         }

@@ -16,7 +16,7 @@ Elodie::Elodie(float x, float y) {
 
 void Elodie::init() {
     state = ElodieState::WALKING;
-    speed.x = 0.3;
+    speed.x = 300;
 
     sprite = new ElodieSprite();
     setEntitySprite(sprite);
@@ -24,7 +24,7 @@ void Elodie::init() {
     //levelSpeed and hitboxes are set here for the moment, but it's not the right place to set them
     sf::Vector2f pnt1 = {82, 37}, pnt2 = {106, 82};
     Hitbox hitbox(pnt1, pnt2);
-    speed.x = 0.1;
+    speed.x = 100;
     setCurrentHitbox(0);
     addHitbox(hitbox);
 }
@@ -46,19 +46,19 @@ void Elodie::stand() {
     sprite->stand();
 }
 
-void Elodie::overworldMove() {
+void Elodie::overworldMove(float seconds) {
     if (goingDown) {
         toMove -= overworldSpeed.x;
-        sprite->move(0, overworldSpeed.x);
+        sprite->move(0, seconds*overworldSpeed.x);
     } else if (goingLeft) {
         toMove -= overworldSpeed.x;
-        sprite->move(-overworldSpeed.x, 0);
+        sprite->move(-seconds*overworldSpeed.x, 0);
     } else if (goingRight) {
         toMove -= overworldSpeed.x;
-        sprite->move(+overworldSpeed.x, 0);
+        sprite->move(+seconds*overworldSpeed.x, 0);
     } else if (goingUp) {
         toMove -= overworldSpeed.x;
-        sprite->move(0, -overworldSpeed.x);
+        sprite->move(0, -seconds*overworldSpeed.x);
     } else {
         noMoves();
     }
@@ -147,11 +147,11 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
     }
 
     if (event->keyIsPressed(sf::Keyboard::Space) && state == ElodieState::WALKING) {
-        speed.y = -0.4; // TODO Put in const file
+        speed.y = -400; // TODO Put in const file
         state = ElodieState::FALLING;
     }
 
-    move(speed);
+    move(animate.asSeconds()*speed.x, animate.asSeconds()*speed.y);
 
     sprite->update(animate);
 }
