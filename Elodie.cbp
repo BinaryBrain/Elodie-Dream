@@ -117,8 +117,11 @@
 		<Unit filename="src/Sprite/Interactive.h" />
 		<Unit filename="src/Sprite/TileSprite.cpp" />
 		<Unit filename="src/Sprite/TileSprite.h" />
+		<Unit filename="src/TextureManager/TextureManager.cpp" />
+		<Unit filename="src/TextureManager/TextureManager.h" />
 		<Unit filename="src/Utils/Utils.cpp" />
 		<Unit filename="src/Utils/Utils.h" />
+		<Unit filename="src/const.h" />
 		<Unit filename="src/env.h" />
 		<Unit filename="src/main.cpp" />
 		<Extensions>
