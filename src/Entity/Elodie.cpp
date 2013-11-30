@@ -123,20 +123,20 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
         timer = 0;
         immersionLevel = immersionLevel == 100 ? 100 : immersionLevel + 25;
     }
-    std::map<std::string, float> collide;
-    collide = collideWithTiles(tiles);
+    Collide collideTiles = collideWithTiles(tiles, &speed, animate.asSeconds());
 
+    //std::cout << collideTiles.bottom["distance"] << std::endl;
     if (sprite->getCurrentStance() == SpriteStance::STANDING)
         this->walk();
 
-    if (collide["left"] && collide["right"]) {
+    if (collideTiles.left["surface"] && collideTiles.right["surface"]) {
         speed.x = 0;
-    } else if ((collide["right"] && speed.x > 0) || (collide["left"] && speed.x < 0)) {
+    } else if ((collideTiles.right["surface"] && speed.x > 0) || (collideTiles.left["surface"] && speed.x < 0)) {
         speed.x = -speed.x;
         immersionLevel = immersionLevel == 0 ? 0 : immersionLevel-25;
     }
 
-    if (collide["down"]) {
+    if (collideTiles.bottom["surface"]) {
         speed.y = 0;
 
         if(state == ElodieState::FALLING) {

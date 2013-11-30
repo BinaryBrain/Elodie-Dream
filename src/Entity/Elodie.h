@@ -4,6 +4,7 @@
 #include "Entity.h"
 #include "../Sprite/ElodieSprite.h"
 #include "../Item/Item.h"
+#include "../Include/Collide.h"
 #include "../EventHandler/EventHandler.h"
 
 enum class ElodieState { STANDING, WALKING, FALLING, PUNCHING };

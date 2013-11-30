@@ -6,6 +6,7 @@
 
 #include "../Sprite/TileSprite.h"
 #include "../EventHandler/EventHandler.h"
+#include "../Include/Collide.h"
 #include "Hitbox.h"
 
 /**
@@ -28,7 +29,7 @@ public:
     void setCurrentHitbox(int current);
     Hitbox getCurrentHitbox();
 
-    std::map<std::string, float> collideWithTiles(std::vector< std::vector<TileSprite*> > const& world);
+    Collide collideWithTiles(std::vector< std::vector<TileSprite*> > const& world, sf::Vector2f *vit, float time);
 
     /**
     * \brief A getter to the main Sprite

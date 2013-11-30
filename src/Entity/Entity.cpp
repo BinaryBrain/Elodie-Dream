@@ -1,5 +1,4 @@
 #include "Entity.h"
-#include "../Sprite/TileSprite.h"
 
 Entity::Entity() {
     sprite = NULL;
@@ -44,8 +43,9 @@ int Entity::checkTiles(std::vector< std::vector<TileSprite*> > const& world, int
     return 0;
 }
 
-std::map< std::string, float > Entity::collideWithTiles(std::vector< std::vector<TileSprite*> > const& world) {
-    std::map< std::string, float > collideWith = {{"up", 0}, {"right", 0}, {"down", 0}, {"left", 0}};
+Collide Entity::collideWithTiles(std::vector< std::vector<TileSprite*> > const& world, sf::Vector2f *vit, float time) {
+    Collide collideWith;
+    sf::Vector2f step(std::abs(vit->x), std::abs(vit->y));
 
     Hitbox hitbox = getCurrentHitbox();
 
@@ -64,8 +64,8 @@ std::map< std::string, float > Entity::collideWithTiles(std::vector< std::vector
         totMax += checkTiles(world, (int)std::floor((maxX + 1) / 32), mapPnt);
     }
     if (maxY - minY > 0) {
-        collideWith["left"] = totMin / (maxY - minY + 1);
-        collideWith["right"] = totMax / (maxY - minY + 1);
+        collideWith.left["surface"] = totMin / (maxY - minY + 1);
+        collideWith.right["surface"] = totMax / (maxY - minY + 1);
     }
 
     totMin = totMax = 0;
@@ -75,8 +75,8 @@ std::map< std::string, float > Entity::collideWithTiles(std::vector< std::vector
         totMax += checkTiles(world, mapPnt, (int)std::floor((maxY + 1) / 32));
     }
     if (maxX - minX > 0) {
-        collideWith["up"] = totMin / (maxX - minX + 1);
-        collideWith["down"] = totMax / (maxX - minX + 1);
+        collideWith.top["surface"] = totMin / (maxX - minX + 1);
+        collideWith.bottom["surface"] = totMax / (maxX - minX + 1);
     }
 
     return collideWith;
