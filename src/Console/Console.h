@@ -16,8 +16,7 @@ public:
     Console(float viewX, float viewY);
     virtual ~Console();
 
-    void addSentence(std::string sentence);
-    void setContent(std::vector<std::string> sentences);
+    void addParagraph(std::string paragraph);
 
     // Cuts a string in multiple strings if the string's text is longer than maxWidth
     std::vector<std::string> cutShort(std::string str, std::string sub, int maxWidth);
@@ -29,6 +28,11 @@ public:
 
     void previousPage();
     void nextPage();
+
+    std::vector<std::vector<std::string> > getPages();
+    void setPages(std::vector<std::vector<std::string> > pages);
+    void insertPage(std::vector<std::string> page, int index);
+    void deletePage(int n);
     void clear();
 
     void display(GameView* view);

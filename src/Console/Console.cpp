@@ -11,14 +11,10 @@ Console::~Console() {
     //dtor
 }
 
-void Console::addSentence(std::string sentence) {
-    pushAll(makePages(cutShort(sentence, " ", sizeX-4*marginX), linesPerPage), pages);
+void Console::addParagraph(std::string paragraph) {
+    pushAll(makePages(cutShort(paragraph, " ", sizeX-4*marginX), linesPerPage), pages);
     totalPages = pages.size();
     std::cout << "Number of lines: " << lines.size() << ", number of pages: " << pages.size() << std::endl;
-}
-
-void Console::setContent(std::vector<std::string> lines) {
-    this->lines = lines;
 }
 
 std::vector<std::string> Console::cutShort(std::string str, std::string sub, int maxWidth) {
@@ -27,7 +23,7 @@ std::vector<std::string> Console::cutShort(std::string str, std::string sub, int
 
     sf::Text* text = new sf::Text("", *font);
     std::vector<std::string> lines;
-    std::string buffer(sub); // tricky temporary space at the beginning :3
+    std::string buffer(sub); // tricky temporary sub at the beginning :3
 
     for (unsigned int i(0); i<indexes.size(); ++i) {
         int length(indexes[i+1] - indexes[i]);
@@ -42,7 +38,7 @@ std::vector<std::string> Console::cutShort(std::string str, std::string sub, int
 
     lines.push_back(buffer);
 
-    // removing spaces at the beginning of each line \o/
+    // removing sub at the beginning of each line \o/
     for (unsigned int i(0); i<lines.size(); ++i) {
         lines[i].erase(0,sub.length());
     }
@@ -103,6 +99,22 @@ void Console::nextPage() {
         ++currentPage;
         setCurrentPage(currentPage);
     }
+}
+
+std::vector<std::vector<std::string> > Console::getPages() {
+    return pages;
+}
+
+void Console::setPages(std::vector<std::vector<std::string> > pages) {
+    this->pages = pages;
+}
+
+void Console::insertPage(std::vector<std::string> page, int index) {
+    pages.insert(pages.begin()+index, page);
+}
+
+void Console::deletePage(int index) {
+    pages.erase(pages.begin()+index);
 }
 
 void Console::clear() {

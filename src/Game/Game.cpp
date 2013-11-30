@@ -19,11 +19,12 @@ Game::Game() {
 
     JsonAccessor language = JsonAccessor();
     language.load("assets/config/languages/EN.lang");
-    console->addSentence(language.getString("ConsoleTest"));
+    console->addParagraph(language.getString("ConsoleTest"));
     //*/
-    console->addSentence("Fnu\nla\nvie\non\nmultiple\nlines\n:3.");
+    console->addParagraph("Fnu\nla\nvie\non\nmultiple\nlines\n:3.");
 
     console->setCurrentPage(0);
+    console->deletePage(console->getPages().size()-1);
 }
 
 Game::~Game() {
