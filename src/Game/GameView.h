@@ -32,12 +32,14 @@ public:
     void setCameraCenter(ViewLayer viewKey, float x, float y);
     void setFollowedPoint(ViewLayer viewKey, const sf::Vector2f pos);
     void setFollowedPoint(ViewLayer viewKey, float x, float y);
+    void setZoom(ViewLayer viewKey, float zoom);
 protected:
 private:
     std::map<ViewLayer, Displayable*> viewMap;
     std::map<ViewLayer, std::vector<sf::Drawable*>> drawableMap;
     std::vector<ViewLayer> toDraw;
     std::map<ViewLayer, sf::Vector2f> centers;
+    std::map<ViewLayer, float> zooms;
 
     sf::RenderWindow* window;
 };

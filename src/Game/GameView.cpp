@@ -38,6 +38,7 @@ void GameView::hide(ViewLayer viewKey) {
 
 void GameView::reset(ViewLayer viewKey) {
     centers[viewKey] = window->getDefaultView().getCenter();
+    setZoom(viewKey, 1);
 }
 
 void GameView::setCameraCenter(ViewLayer viewKey, const sf::Vector2f pos) {
@@ -56,7 +57,8 @@ void GameView::setFollowedPoint(ViewLayer viewKey, const sf::Vector2f pos) {
 void GameView::setFollowedPoint(ViewLayer viewKey, float x, float y) {
     sf::Vector2f viewSize = viewMap[viewKey]->getView()->getSize();
 
-    float margin = viewSize.y/4;
+    //float margin = viewSize.y/4;
+    float margin = 0; // FIXME I bug with the zoom
 
     float camX = x+viewSize.x/2-viewSize.x/4; // 1/4 of the screen
     float camY;
@@ -68,6 +70,13 @@ void GameView::setFollowedPoint(ViewLayer viewKey, float x, float y) {
     }
 
     setCameraCenter(viewKey, camX, camY);
+}
+
+void GameView::setZoom(ViewLayer viewKey, float zoom) {
+    zooms[viewKey] = zoom;
+
+    sf::View* view = viewMap[viewKey]->getView();
+    view->setSize(window->getDefaultView().getSize()/zoom);
 }
 
 void GameView::draw() {
