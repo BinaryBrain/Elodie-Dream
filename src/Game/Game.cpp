@@ -159,22 +159,12 @@ Console* Game::getConsole() {
 }
 
 void Game::run() {
-    // TODO Shouldn't be here
-    std::vector<int> esc;
-    esc.push_back(sf::Keyboard::Escape);
-    esc.push_back(sf::Keyboard::LShift);
-    std::vector<int> movement;
-    movement.push_back(sf::Keyboard::Left);
-    movement.push_back(sf::Keyboard::Right);
-    movement.push_back(sf::Keyboard::Up);
-    movement.push_back(sf::Keyboard::Down);
-
     sf::RenderWindow* window = view.getWindow();
     view.show(ViewLayer::MENU);
     while (window->isOpen()) {
         event->listening();
 
-        if (event->keyIsHold(esc)) {
+        if (event->keyIsHold(sf::Keyboard::Escape)) {
             window->close();
         }
 
