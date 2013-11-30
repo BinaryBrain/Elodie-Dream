@@ -7,6 +7,7 @@
 #include <map>
 #include <iostream>
 #include <utility>
+#include <cmath>
 
 #include "Sprite/TileSprite.h"
 #include "Entity/Entity.h"

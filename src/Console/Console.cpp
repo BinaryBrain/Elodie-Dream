@@ -69,26 +69,24 @@ std::vector<std::string> Console::rearrange(std::vector<std::string> lines) {
 }
 
 std::vector<std::vector<std::string> > Console::makePages(std::vector<std::string> lines, int linesPerPage) {
-    std::vector<std::vector<std::string> > pages;
-    std::vector<std::string> line;
+    lines = rearrange(lines);
+
+    int numPages(std::ceil(lines.size()/(double)linesPerPage));
+    std::vector<std::vector<std::string> > pages(numPages);
+
     int counter(0);
     int pageNum(0);
 
-    lines = rearrange(lines);
-
-    for (unsigned int i(0); i<lines.size(); ++i) {
-        if(counter == 0) {
-            pages.push_back(line);
-        }
-
+    for(unsigned int i(0); i<lines.size(); ++i) {
         if(counter < linesPerPage) {
-            pages[pageNum].push_back(lines[i]);
             ++counter;
         }
         else {
             counter = 0;
             ++pageNum;
         }
+
+        pages[pageNum].push_back(lines[i]);
     }
 
     return pages;
@@ -99,7 +97,7 @@ void Console::previousPage() {
         --currentPage;
         setCurrentPage(currentPage);
     }
-    std::cout << "Up pressed "<< currentPage << std::endl;
+    std::cout << "Current page: "<< currentPage << std::endl;
 }
 
 void Console::nextPage() {
@@ -107,7 +105,7 @@ void Console::nextPage() {
         ++currentPage;
         setCurrentPage(currentPage);
     }
-    std::cout << "Down pressed "<< currentPage << std::endl;
+    std::cout << "Current page: "<< currentPage << std::endl;
 }
 
 void Console::clear() {
@@ -128,7 +126,6 @@ void Console::setCurrentPage(int newPage) {
         newText.setPosition(startX+marginX, startY+marginY+20*i);
         currentPageText.push_back(newText);
      }
-     std::cout << "Number of pages: "<< pages.size() << std::endl;
 }
 
 void Console::display(GameView* view) {
