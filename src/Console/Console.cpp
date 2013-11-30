@@ -144,6 +144,14 @@ void Console::display(GameView* view) {
     }
 }
 
+void Console::setNextState(GameState state){
+    nextState = state;
+}
+
+GameState Console::getNextState() {
+    return nextState;
+}
+
 std::vector<size_t> Console::getStringIndexes(std::string str, std::string sub) {
     std::vector<size_t> indexes;
     size_t index = str.find(sub, 0);
