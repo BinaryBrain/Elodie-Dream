@@ -101,6 +101,8 @@
 		<Unit filename="src/Menu/SaveItem.h" />
 		<Unit filename="src/Overworld/Overworld.cpp" />
 		<Unit filename="src/Overworld/Overworld.h" />
+		<Unit filename="src/Sky/Sky.cpp" />
+		<Unit filename="src/Sky/Sky.h" />
 		<Unit filename="src/Sprite/AnimatedSprite.cpp" />
 		<Unit filename="src/Sprite/AnimatedSprite.h" />
 		<Unit filename="src/Sprite/Animation.cpp" />
