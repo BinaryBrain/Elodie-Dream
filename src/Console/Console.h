@@ -23,7 +23,10 @@ public:
     std::vector<std::string> cutShort(std::string str, std::string sub, int maxWidth);
     std::vector<std::string> rearrange(std::vector<std::string> lines);
     std::vector<std::vector<std::string> > makePages(std::vector<std::string> lines, int linesPerPage);
+
     void setCurrentPage(int newPage);
+    void prepareCurrentPage();
+
     void previousPage();
     void nextPage();
     void clear();
@@ -59,6 +62,7 @@ private:
     std::vector<size_t> getStringIndexes(std::string str, std::string sub);
     std::vector<std::string> split(std::string str, char delim);
     std::string toString(int n);
+    void pushAll(std::vector<std::vector<std::string> > const& tabFrom, std::vector<std::vector<std::string> >& tabTo);
 };
 
 #endif // CONSOLE_H

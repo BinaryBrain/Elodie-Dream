@@ -12,8 +12,9 @@ Console::~Console() {
 }
 
 void Console::addSentence(std::string sentence) {
-    pages = makePages(cutShort(sentence, " ", sizeX-4*marginX), linesPerPage);
+    pushAll(makePages(cutShort(sentence, " ", sizeX-4*marginX), linesPerPage), pages);
     totalPages = pages.size();
+    std::cout << "Number of lines: " << lines.size() << ", number of pages: " << pages.size() << std::endl;
 }
 
 void Console::setContent(std::vector<std::string> lines) {
@@ -71,7 +72,6 @@ std::vector<std::string> Console::rearrange(std::vector<std::string> lines) {
 
 std::vector<std::vector<std::string> > Console::makePages(std::vector<std::string> lines, int linesPerPage) {
     lines = rearrange(lines);
-
     int numPages(std::ceil(lines.size()/(double)linesPerPage));
     std::vector<std::vector<std::string> > pages(numPages);
 
@@ -86,10 +86,8 @@ std::vector<std::vector<std::string> > Console::makePages(std::vector<std::strin
             counter = 0;
             ++pageNum;
         }
-
         pages[pageNum].push_back(lines[i]);
     }
-
     return pages;
 }
 
@@ -113,10 +111,14 @@ void Console::clear() {
 }
 
 void Console::setCurrentPage(int newPage) {
+    currentPage = newPage;
+    prepareCurrentPage();
+}
+
+void Console::prepareCurrentPage() {
     float startX(viewX-sizeX);
     float startY(viewY-sizeY);
 
-    currentPage = newPage;
     currentPageText.clear();
 
     sf::Text newText("", *font);
@@ -190,4 +192,10 @@ std::string Console::toString(int n) {
     std::ostringstream convert;
     convert << n;
     return convert.str();
+}
+
+void Console::pushAll(std::vector<std::vector<std::string> > const& tabFrom, std::vector<std::vector<std::string> >& tabTo) {
+    for (unsigned int i(0); i < tabFrom.size(); ++i) {
+        tabTo.push_back(tabFrom[i]);
+    }
 }
