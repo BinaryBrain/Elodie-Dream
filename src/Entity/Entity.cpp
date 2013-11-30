@@ -58,8 +58,8 @@ Collide Entity::collideWithTiles(std::vector< std::vector<TileSprite*> > const& 
     int totMin = 0, totMax = 0, incMin = 0, incMax = 0;
 
     collideWith.left["distance"] = collideWith.right["distance"] = step.x;
-    //The +5 is here because the hitbox will touch a bit the bottom/top/left/right tile, but it should not disturb the adjacent face
-    for(float y = minY + 5; y < maxY; ++y) {
+    //The +-1 is here because the hitbox will touch a bit the bottom/top/left/right tile, but it should not disturb the adjacent face
+    for(float y = minY + 1; y < maxY - 1; ++y) {
         mapPnt = (int)std::floor(y / 32);
         incMin = incMax = 0;
         for (float stepX = 0; stepX <= step.x + 1 / time; stepX += 1) {
@@ -84,7 +84,7 @@ Collide Entity::collideWithTiles(std::vector< std::vector<TileSprite*> > const& 
 
     totMin = totMax = 0;
     collideWith.top["distance"] = collideWith.bottom["distance"] = step.y;
-    for(float x = minX + 5; x < maxX; ++x) {
+    for(float x = minX + 1; x < maxX - 1; ++x) {
         mapPnt = (int)std::floor(x / 32);
         incMin = incMax = 0;
         for (float stepY = 0; stepY <= step.y + 1 / time; stepY += 1) {
