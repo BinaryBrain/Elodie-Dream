@@ -125,18 +125,37 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
     }
     Collide collideTiles = collideWithTiles(tiles, &speed, animate.asSeconds());
 
-    //std::cout << collideTiles.bottom["distance"] << std::endl;
+    if (speed.x < 0)
+        speed.x = -collideTiles.left["distance"];
+    else
+        speed.x = collideTiles.right["distance"];
+
+    if (speed.y < 0)
+        speed.y = -collideTiles.top["distance"];
+    else
+        speed.y = collideTiles.bottom["distance"];
+
+    //move HAS to be made juste after the collision. Because you have to move with the speed you have tested.
+    //If you put move at the end, you'll have to check the collision 2 times
+    move(animate.asSeconds()*speed.x, animate.asSeconds()*speed.y);
+
+    sprite->update(animate);
+
+    std::cout << collideTiles.bottom["distance"] << " " << collideTiles.left["surface"] << " " << collideTiles.right["surface"] << std::endl;
     if (sprite->getCurrentStance() == SpriteStance::STANDING)
         this->walk();
 
     if (collideTiles.left["surface"] && collideTiles.right["surface"]) {
         speed.x = 0;
     } else if ((collideTiles.right["surface"] && speed.x > 0) || (collideTiles.left["surface"] && speed.x < 0)) {
-        speed.x = -speed.x;
+        if (speed.x <= 0)
+            speed.x = 300;
+        else
+            speed.x = -300;
         immersionLevel = immersionLevel == 0 ? 0 : immersionLevel-25;
     }
 
-    if (collideTiles.bottom["surface"]) {
+    if (collideTiles.bottom["surface"] && speed.y >= 0) {
         speed.y = 0;
 
         if(state == ElodieState::FALLING) {
@@ -151,10 +170,6 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
         speed.y = -400; // TODO Put in const file
         state = ElodieState::FALLING;
     }
-
-    move(animate.asSeconds()*speed.x, animate.asSeconds()*speed.y);
-
-    sprite->update(animate);
 }
 
 void Elodie::pause() {

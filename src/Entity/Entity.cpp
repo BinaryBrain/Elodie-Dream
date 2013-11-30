@@ -55,13 +55,27 @@ Collide Entity::collideWithTiles(std::vector< std::vector<TileSprite*> > const& 
     float maxY = std::get<1>(hitbox.getPoints()).y;
 
     int mapPnt;
-    int totMin = 0;
-    int totMax = 0;
+    int totMin = 0, totMax = 0, incMin = 0, incMax = 0;
 
-    for(float y = minY; y <= maxY; ++y) {
+    collideWith.left["distance"] = collideWith.right["distance"] = step.x;
+    //The +5 is here because the hitbox will touch a bit the bottom/top/left/right tile, but it should not disturb the adjacent face
+    for(float y = minY + 5; y < maxY; ++y) {
         mapPnt = (int)std::floor(y / 32);
-        totMin += checkTiles(world, (int)std::floor((minX - 1) / 32), mapPnt);
-        totMax += checkTiles(world, (int)std::floor((maxX + 1) / 32), mapPnt);
+        incMin = incMax = 0;
+        for (float stepX = 0; stepX <= step.x + 1 / time; stepX += 1) {
+            if (checkTiles(world, (int)std::floor((minX - stepX * time) / 32), mapPnt)) {
+                incMin = 1;
+                if (collideWith.left["distance"] > stepX)
+                    collideWith.left["distance"] = stepX;
+            }
+            if (checkTiles(world, (int)std::floor((maxX + stepX * time) / 32), mapPnt)) {
+                incMax = 1;
+                if (collideWith.right["distance"] > stepX)
+                    collideWith.right["distance"] = stepX;
+            }
+        }
+        totMin += incMin;
+        totMax += incMax;
     }
     if (maxY - minY > 0) {
         collideWith.left["surface"] = totMin / (maxY - minY + 1);
@@ -69,10 +83,24 @@ Collide Entity::collideWithTiles(std::vector< std::vector<TileSprite*> > const& 
     }
 
     totMin = totMax = 0;
-    for(float x = minX; x <= maxX; ++x) {
+    collideWith.top["distance"] = collideWith.bottom["distance"] = step.y;
+    for(float x = minX + 5; x < maxX; ++x) {
         mapPnt = (int)std::floor(x / 32);
-        totMin += checkTiles(world, mapPnt, (int)std::floor((minY - 1) / 32));
-        totMax += checkTiles(world, mapPnt, (int)std::floor((maxY + 1) / 32));
+        incMin = incMax = 0;
+        for (float stepY = 0; stepY <= step.y + 1 / time; stepY += 1) {
+            if (checkTiles(world, mapPnt, (int)std::floor((minY - stepY * time) / 32))) {
+                incMin = 1;
+                if (collideWith.top["distance"] > stepY)
+                    collideWith.top["distance"] = stepY;
+            }
+            if (checkTiles(world, mapPnt, (int)std::floor((maxY + stepY * time) / 32))) {
+                incMax = 1;
+                if (collideWith.bottom["distance"] > stepY)
+                    collideWith.bottom["distance"] = stepY;
+            }
+        }
+        totMin += incMin;
+        totMax += incMax;
     }
     if (maxX - minX > 0) {
         collideWith.top["surface"] = totMin / (maxX - minX + 1);
