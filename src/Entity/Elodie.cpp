@@ -141,7 +141,7 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
 
     sprite->update(animate);
 
-    std::cout << collideTiles.bottom["distance"] << " " << collideTiles.left["surface"] << " " << collideTiles.right["surface"] << std::endl;
+    //std::cout << collideTiles.bottom["distance"] << " " << collideTiles.left["surface"] << " " << collideTiles.right["surface"] << std::endl;
     if (sprite->getCurrentStance() == SpriteStance::STANDING)
         this->walk();
 
