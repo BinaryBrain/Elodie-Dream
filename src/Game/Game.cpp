@@ -12,14 +12,14 @@ Game::Game() {
     view.addView(ViewLayer::GIRLY, girly);
 
     // testing purposes
-    /*
     JsonAccessor language = JsonAccessor();
-    language.load("../../assets/config/languages/FR.lang");
-    language.load("../../assets/config/EN.lang");
-    std::cout << language.getString("Intro") << std::endl;
-    console->addSentence(language.getString("Intro"));*/
-    console->addSentence("Fnu\nla\nvie\non\nmultiple\nlines\n:3.");
+    language.load("assets/config/languages/EN.lang");
+    console->addSentence(language.getString("ConsoleTest"));
     console->setCurrentPage(0, view.getWindow()->getSize().x, view.getWindow()->getSize().y);
+
+    /*
+    console->addSentence("Fnu\nla\nvie\non\nmultiple\nlines\n:3.");
+    */
 }
 
 Game::~Game() {

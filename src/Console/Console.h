@@ -24,6 +24,8 @@ public:
     std::vector<std::string> rearrange(std::vector<std::string> lines);
     std::vector<std::vector<std::string> > makePages(std::vector<std::string> lines, int linesPerPage);
     void setCurrentPage(int newPage, float viewX, float viewY);
+    void previousPage();
+    void nextPage();
     void clear();
 
     void display(GameView* view);
@@ -38,11 +40,12 @@ private:
     //default values
     int sizeX = 1280;
     int sizeY = 200;
-    int linesPerPage = 3;
+    int linesPerPage = 7;
 
     int marginX = 50;
     int marginY = 20;
-    int currentPage = 0;
+    unsigned int currentPage = 0;
+
     std::vector<sf::Text> currentPageText;
 
     std::vector<size_t> getStringIndexes(std::string str, std::string sub);
