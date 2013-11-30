@@ -1,8 +1,6 @@
 #include "TextureManager.h"
 
 TextureManager::TextureManager() {
-    std::cout << LEVELENV_FIELD << std::endl;
-
     LEVEL_ENV = {
         {LevelEnv::FIELD, LEVELENV_FIELD},
         {LevelEnv::UNIL, LEVELENV_UNIL},
@@ -10,8 +8,6 @@ TextureManager::TextureManager() {
         {LevelEnv::VOLCANO, LEVELENV_VOLCANO},
         {LevelEnv::FREJLORD, LEVELENV_FREJLORD}
     };
-
-    std::cout << "TexMan: " << LEVEL_ENV[LevelEnv::UNIL] << std::endl;
 
     TILE_TYPE = {
         { TileType::GROUND, TILETYPE_GROUND },
@@ -21,11 +17,19 @@ TextureManager::TextureManager() {
 }
 
 TextureManager::~TextureManager() {
-
+    for(std::map< LevelEnv, std::map< TileType, sf::Texture* > >::iterator it = textures.begin(); it != textures.end(); it++) {
+        for(std::map< TileType, sf::Texture* >::iterator texture = it->second.begin(); texture != it->second.end(); texture++) {
+            sf::Texture* tex = texture->second;
+            if(tex) {
+                delete tex;
+            }
+        }
+    }
 }
 
 sf::Texture* TextureManager::getTileTexture(LevelEnv env, TileType type) {
     if(!textures[env][type]) { // FIXME SEGFAULT
+
         sf::Texture* tex = new sf::Texture();
         if(!tex->loadFromFile(getPath(env, type))) {
             // TODO handle error
@@ -38,5 +42,5 @@ sf::Texture* TextureManager::getTileTexture(LevelEnv env, TileType type) {
 }
 
 std::string TextureManager::getPath(LevelEnv env, TileType type) {
-   return TILES_TEXTURES_PATH+"/"+LEVEL_ENV[env]+"/"+TILE_TYPE[type]+".png";
+    return TILES_TEXTURES_PATH+"/"+LEVEL_ENV[env]+"/"+TILE_TYPE[type]+".png";
 }

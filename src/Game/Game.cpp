@@ -71,7 +71,7 @@ void Game::loadLevel(int levelNbr) {
     }
     state = GameState::INLEVEL;
     curLevelNbr = levelNbr;
-    curLevel = new Level("assets/levels/level2.txt", LevelEnv::VOLCANO);
+    curLevel = new Level("assets/levels/level2.txt", LevelEnv::FIELD);
     view.addView(ViewLayer::LEVEL, curLevel);
 }
 

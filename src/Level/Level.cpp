@@ -1,9 +1,9 @@
 #include "Level.h"
 
 Level::Level(std::string filename, LevelEnv env) {
-    loadLevel(filename);
     this->environement = env;
     this->manager = new TextureManager();
+    loadLevel(filename);
 }
 
 Level::~Level() {
@@ -16,6 +16,8 @@ Level::~Level() {
     for(EntityMap::iterator it = entities.begin(); it != entities.end(); ++it){
         delete it->second;
     }
+
+    delete this->manager;
 }
 
 void Level::setEnvironement(LevelEnv env) {

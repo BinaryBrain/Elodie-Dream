@@ -138,6 +138,7 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
         }
     } else {
         computeGravity(animate);
+        state = ElodieState::FALLING;
     }
 
     if (event->keyIsPressed(sf::Keyboard::Space) && state == ElodieState::WALKING) {
