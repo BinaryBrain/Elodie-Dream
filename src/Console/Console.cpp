@@ -14,7 +14,7 @@ Console::~Console() {
 void Console::addParagraph(std::string paragraph) {
     pushAll(makePages(cutShort(paragraph, " ", sizeX-3*marginX), linesPerPage), pages);
     totalPages = pages.size();
-    std::cout << "Number of lines: " << lines.size() << ", number of pages: " << pages.size() << std::endl;
+    std::cout << "Number of pages: " << pages.size() << std::endl;
 }
 
 std::vector<std::string> Console::cutShort(std::string str, std::string sub, int maxWidth) {

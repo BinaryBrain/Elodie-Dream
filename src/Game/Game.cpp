@@ -16,15 +16,11 @@ Game::Game() {
     view.addView(ViewLayer::IMMERSIONBAR, immBar);
 
     // testing purposes
-
     JsonAccessor language = JsonAccessor();
     language.load("assets/config/languages/FR.lang");
     console->addParagraph(language.getString("ConsoleTest"));
-    //*/
-    console->addParagraph("Fnu\nla\nvie\non\nmultiple\nlines\n:3.");
-
+    console->addParagraph(language.getString("ConsoleTest2"));
     console->setCurrentPage(0);
-    console->deletePage(console->getPages().size()-1);
 }
 
 Game::~Game() {
