@@ -14,14 +14,14 @@ Game::Game() {
     view.addView(ViewLayer::IMMERSIONBAR, immBar);
 
     // testing purposes
-    /*
     JsonAccessor language = JsonAccessor();
-    language.load("../../assets/config/languages/FR.lang");
-    language.load("../../assets/config/EN.lang");
-    std::cout << language.getString("Intro") << std::endl;
-    console->addSentence(language.getString("Intro"));*/
-    console->addSentence("Fnu\nla\nvie\non\nmultiple\nlines\n:3.");
+    language.load("assets/config/languages/EN.lang");
+    console->addSentence(language.getString("ConsoleTest"));
     console->setCurrentPage(0, view.getWindow()->getSize().x, view.getWindow()->getSize().y);
+
+    /*
+    console->addSentence("Fnu\nla\nvie\non\nmultiple\nlines\n:3.");
+    */
 }
 
 Game::~Game() {
@@ -53,9 +53,7 @@ void Game::displayLevel(int curLevelNbr) {
         view.reset(ViewLayer::LEVEL);
         view.hide(ViewLayer::LEVEL);
         view.hide(ViewLayer::IMMERSIONBAR);
-        // for testing purposes
         view.hide(ViewLayer::CONSOLE);
-
         view.show(ViewLayer::OVERWORLD);
 
     } else if (event->keyIsPressed(sf::Keyboard::M)) {
@@ -63,6 +61,13 @@ void Game::displayLevel(int curLevelNbr) {
         curLevel->pause();
         menuHandler->setNextState(GameState::INLEVEL);
         view.show(ViewLayer::MENU);
+    }
+    // testing purposes
+    else if (event->keyIsPressed(sf::Keyboard::C)) {
+        state = GameState::INCONSOLE;
+        curLevel->pause();
+        console->setNextState(GameState::INLEVEL);
+        view.show(ViewLayer::CONSOLE);
     } else {
         curLevel->live(event, frameClock.restart());
         immBar->setLevel(((Elodie*)curLevel->getEntities()["elodie"])->getImmersionLevel());
@@ -76,7 +81,7 @@ void Game::loadLevel(int levelNbr) {
     }
     state = GameState::INLEVEL;
     curLevelNbr = levelNbr;
-    curLevel = new Level("assets/levels/level2.txt", LevelEnv::VOLCANO);
+    curLevel = new Level("assets/levels/level2.txt", LevelEnv::FIELD);
     view.addView(ViewLayer::LEVEL, curLevel);
 }
 
@@ -118,12 +123,15 @@ void Game::handleOverworld() {
         view.hide(ViewLayer::OVERWORLD);
         view.show(ViewLayer::LEVEL);
         view.show(ViewLayer::IMMERSIONBAR);
-        // for testing purposes
-        view.show(ViewLayer::CONSOLE);
     } else if (event->keyIsPressed(sf::Keyboard::M)) {
         state = GameState::INMENU;
         menuHandler->setNextState(GameState::INOVERWORLD);
         view.show(ViewLayer::MENU);
+        // testing purposes
+    } else if (event->keyIsPressed(sf::Keyboard::C)) {
+        state = GameState::INCONSOLE;
+        console->setNextState(GameState::INOVERWORLD);
+        view.show(ViewLayer::CONSOLE);
     }
 
     overworld->getElodie()->update(time);
@@ -163,28 +171,42 @@ void Game::displayMenu() {
 
 }
 
+void Game::displayConsole() {
+
+    if (event->keyIsPressed(sf::Keyboard::Up)) console->previousPage();
+    if (event->keyIsPressed(sf::Keyboard::Down)) console->nextPage();
+    if(event->keyIsPressed(sf::Keyboard::C)) {
+        state = console->getNextState();
+        if (state == GameState::INOVERWORLD) {
+            view.hide(ViewLayer::CONSOLE);
+            view.show(ViewLayer::OVERWORLD);
+        } else if (state == GameState::INLEVEL) {
+            if(curLevel) {
+                state = GameState::INLEVEL;
+                view.hide(ViewLayer::CONSOLE);
+                view.show(ViewLayer::LEVEL);
+                frameClock.restart();
+                curLevel->play();
+            } else {
+                std::cerr << "Must display level but not initialized." << std::endl;
+            }
+        }
+    }
+
+}
+
 Console* Game::getConsole() {
     return console;
 }
 
 void Game::run() {
-    // TODO Shouldn't be here
-    std::vector<int> esc;
-    esc.push_back(sf::Keyboard::Escape);
-    esc.push_back(sf::Keyboard::LShift);
-    std::vector<int> movement;
-    movement.push_back(sf::Keyboard::Left);
-    movement.push_back(sf::Keyboard::Right);
-    movement.push_back(sf::Keyboard::Up);
-    movement.push_back(sf::Keyboard::Down);
-
     sf::RenderWindow* window = view.getWindow();
     view.show(ViewLayer::MENU);
 
     while (window->isOpen()) {
         event->listening();
 
-        if (event->keyIsHold(esc)) {
+        if (event->keyIsHold(sf::Keyboard::Escape)) {
             window->close();
         }
 
@@ -211,6 +233,9 @@ void Game::run() {
             break;
         case GameState::INMENU:
             displayMenu();
+            break;
+        case GameState::INCONSOLE:
+            displayConsole();
             break;
         case GameState::EXIT:
             exit();

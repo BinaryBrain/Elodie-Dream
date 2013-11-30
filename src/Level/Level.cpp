@@ -16,6 +16,8 @@ Level::~Level() {
     for(EntityMap::iterator it = entities.begin(); it != entities.end(); ++it) {
         delete it->second;
     }
+
+    delete this->manager;
 }
 
 void Level::setEnvironement(LevelEnv env) {
@@ -54,7 +56,7 @@ void Level::display(GameView* view) {
 
     Elodie* elodie = dynamic_cast<Elodie*>(entities["elodie"]);
     view->setFollowedPoint(ViewLayer::LEVEL, elodie->getPosition());
-    //view->setSize(160, 100);
+    view->setZoom(ViewLayer::LEVEL, 1.5);
 }
 
 void Level::live(EventHandler* const& event, sf::Time animate) {

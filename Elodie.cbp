@@ -55,6 +55,8 @@
 		<Unit filename="src/Console/Console.h" />
 		<Unit filename="src/Displayable/Displayable.cpp" />
 		<Unit filename="src/Displayable/Displayable.h" />
+		<Unit filename="src/EntityManager/EntityManager.cpp" />
+		<Unit filename="src/EntityManager/EntityManager.h" />
 		<Unit filename="src/Entity/Elodie.cpp" />
 		<Unit filename="src/Entity/Elodie.h" />
 		<Unit filename="src/Entity/Entity.cpp" />
@@ -79,6 +81,8 @@
 		<Unit filename="src/JsonAccessor/JsonAccessor.h" />
 		<Unit filename="src/JsonParser/JsonParser.cpp" />
 		<Unit filename="src/JsonParser/JsonParser.h" />
+		<Unit filename="src/Level/Immersionbar.cpp" />
+		<Unit filename="src/Level/Immersionbar.h" />
 		<Unit filename="src/Level/Level.cpp" />
 		<Unit filename="src/Level/Level.h" />
 		<Unit filename="src/Map/Mapper.cpp" />
@@ -99,6 +103,7 @@
 		<Unit filename="src/Menu/QuitItem.h" />
 		<Unit filename="src/Menu/SaveItem.cpp" />
 		<Unit filename="src/Menu/SaveItem.h" />
+		<Unit filename="src/Menu/TitleMenu.h" />
 		<Unit filename="src/Overworld/Overworld.cpp" />
 		<Unit filename="src/Overworld/Overworld.h" />
 		<Unit filename="src/Sprite/AnimatedSprite.cpp" />

@@ -51,6 +51,7 @@ private:
     void displayMenu();
 
     Console* console = new Console();
+    void displayConsole();
 
     // don't know which one to choose : Game.writeInConsole() of Game.getConsole.setContent()
     Console* getConsole();

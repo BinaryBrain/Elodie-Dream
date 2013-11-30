@@ -9,7 +9,7 @@ Console::~Console() {
 }
 
 void Console::addSentence(std::string sentence) {
-    pages = makePages(cutShort(sentence, " ", sizeX-2*marginX), linesPerPage);
+    pages = makePages(cutShort(sentence, " ", sizeX-4*marginX), linesPerPage);
 }
 
 void Console::setContent(std::vector<std::string> lines) {
@@ -43,6 +43,8 @@ std::vector<std::string> Console::cutShort(std::string str, std::string sub, int
     }
 
     delete text;
+    text = NULL;
+
     return lines;
 }
 
@@ -86,8 +88,19 @@ std::vector<std::vector<std::string> > Console::makePages(std::vector<std::strin
         }
     }
 
-    std::cout<<"Number of pages: " << pages.size() << std::endl;
     return pages;
+}
+
+void Console::previousPage() {
+    if(currentPage > 0) {
+        --currentPage;
+    }
+}
+
+void Console::nextPage() {
+    if(currentPage < pages.size()-1) {
+        ++currentPage;
+    }
 }
 
 void Console::clear() {
@@ -129,6 +142,14 @@ void Console::display(GameView* view) {
     for(unsigned int i(0); i < currentPageText.size(); ++i) {
         view->addDrawable(ViewLayer::CONSOLE, &(currentPageText[i]));
     }
+}
+
+void Console::setNextState(GameState state){
+    nextState = state;
+}
+
+GameState Console::getNextState() {
+    return nextState;
 }
 
 std::vector<size_t> Console::getStringIndexes(std::string str, std::string sub) {
