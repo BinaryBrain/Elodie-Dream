@@ -79,7 +79,7 @@ std::vector<std::vector<std::string> > Console::makePages(std::vector<std::strin
             ++counter;
         }
         else {
-            counter = 0;
+            counter = 1;
             ++pageNum;
         }
         pages[pageNum].push_back(lines[i]);
