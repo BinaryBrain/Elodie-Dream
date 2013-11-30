@@ -18,7 +18,7 @@ Game::Game() {
     // testing purposes
 
     JsonAccessor language = JsonAccessor();
-    language.load("assets/config/languages/EN.lang");
+    language.load("assets/config/languages/FR.lang");
     console->addParagraph(language.getString("ConsoleTest"));
     //*/
     console->addParagraph("Fnu\nla\nvie\non\nmultiple\nlines\n:3.");

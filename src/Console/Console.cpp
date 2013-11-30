@@ -12,7 +12,7 @@ Console::~Console() {
 }
 
 void Console::addParagraph(std::string paragraph) {
-    pushAll(makePages(cutShort(paragraph, " ", sizeX-4*marginX), linesPerPage), pages);
+    pushAll(makePages(cutShort(paragraph, " ", sizeX-3*marginX), linesPerPage), pages);
     totalPages = pages.size();
     std::cout << "Number of lines: " << lines.size() << ", number of pages: " << pages.size() << std::endl;
 }
@@ -111,10 +111,12 @@ void Console::setPages(std::vector<std::vector<std::string> > pages) {
 
 void Console::insertPage(std::vector<std::string> page, int index) {
     pages.insert(pages.begin()+index, page);
+    ++totalPages;
 }
 
 void Console::deletePage(int index) {
     pages.erase(pages.begin()+index);
+    --totalPages;
 }
 
 void Console::clear() {

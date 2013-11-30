@@ -1,1 +1,5 @@
-{	"ConsoleTest" : "SFML offre une interface simple vers les différents composants de votre PC, afin de faciliter le développement de jeux ou d'applications multimedia. Elle se compose de cinq modules : système, fenêtrage, graphisme, audio et réseau. Ceci est une phrase très fnu sur plusieurs lignes. En effet, quand l'on met ceci ici, cela produit des résultats fnu ! On peut aussi écrire tout ça sur plusieurs lignes, puis le mettre dans la console. La console mettra automatiquement le texte sur plusieurs pages si le nombre de lignes est supérieur au nombre de lignes que la console peut supporter sur une page :3."}
+{
+	"Intro" : "Pretty introduction",
+	"Dev" : "Developpement",
+	"End" : "Emotional ending"
+}
