@@ -13,7 +13,7 @@
 */
 class Console: public Displayable {
 public:
-    Console();
+    Console(float viewX, float viewY);
     virtual ~Console();
 
     void addSentence(std::string sentence);
@@ -23,7 +23,7 @@ public:
     std::vector<std::string> cutShort(std::string str, std::string sub, int maxWidth);
     std::vector<std::string> rearrange(std::vector<std::string> lines);
     std::vector<std::vector<std::string> > makePages(std::vector<std::string> lines, int linesPerPage);
-    void setCurrentPage(int newPage, float viewX, float viewY);
+    void setCurrentPage(int newPage);
     void previousPage();
     void nextPage();
     void clear();
@@ -40,13 +40,16 @@ private:
     std::vector<std::string> lines;
     std::vector<std::vector<std::string> > pages;
 
-    //default values
-    int sizeX = 1280;
-    int sizeY = 200;
-    int linesPerPage = 7;
+    float viewX;
+    float viewY;
 
-    int marginX = 50;
-    int marginY = 20;
+    //default values
+    float sizeX = 1280;
+    float sizeY = 200;
+    int linesPerPage = 3;
+
+    float marginX = 50;
+    float marginY = 20;
     unsigned int currentPage = 0;
 
     std::vector<sf::Text> currentPageText;

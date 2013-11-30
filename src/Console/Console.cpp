@@ -1,6 +1,9 @@
 #include "Console.h"
 
-Console::Console() {
+Console::Console(float viewX, float viewY) {
+    this->viewX = viewX;
+    this->viewY = viewY;
+
     font->loadFromFile("assets/fonts/pf_tempesta_seven/pf_tempesta_seven.ttf");
 }
 
@@ -94,13 +97,17 @@ std::vector<std::vector<std::string> > Console::makePages(std::vector<std::strin
 void Console::previousPage() {
     if(currentPage > 0) {
         --currentPage;
+        setCurrentPage(currentPage);
     }
+    std::cout << "Up pressed "<< currentPage << std::endl;
 }
 
 void Console::nextPage() {
     if(currentPage < pages.size()-1) {
         ++currentPage;
+        setCurrentPage(currentPage);
     }
+    std::cout << "Down pressed "<< currentPage << std::endl;
 }
 
 void Console::clear() {
@@ -108,7 +115,7 @@ void Console::clear() {
     pages.clear();
 }
 
-void Console::setCurrentPage(int newPage, float viewX, float viewY) {
+void Console::setCurrentPage(int newPage) {
     float startX(viewX-sizeX);
     float startY(viewY-sizeY);
 
@@ -121,6 +128,7 @@ void Console::setCurrentPage(int newPage, float viewX, float viewY) {
         newText.setPosition(startX+marginX, startY+marginY+20*i);
         currentPageText.push_back(newText);
      }
+     std::cout << "Number of pages: "<< pages.size() << std::endl;
 }
 
 void Console::display(GameView* view) {

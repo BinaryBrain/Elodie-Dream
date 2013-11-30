@@ -4,6 +4,8 @@
 Game* Game::gameInstance = NULL;
 
 Game::Game() {
+    console = new Console(view.getWindow()->getSize().x, view.getWindow()->getSize().y);
+
     view.addView(ViewLayer::MENU, menuHandler);
     view.addView(ViewLayer::OVERWORLD, overworld);
     view.addView(ViewLayer::CONSOLE, console);
@@ -17,7 +19,7 @@ Game::Game() {
     JsonAccessor language = JsonAccessor();
     language.load("assets/config/languages/EN.lang");
     console->addSentence(language.getString("ConsoleTest"));
-    console->setCurrentPage(0, view.getWindow()->getSize().x, view.getWindow()->getSize().y);
+    console->setCurrentPage(0);
 
     /*
     console->addSentence("Fnu\nla\nvie\non\nmultiple\nlines\n:3.");
