@@ -51,12 +51,14 @@ private:
     float marginX = 50;
     float marginY = 20;
     unsigned int currentPage = 0;
+    int totalPages = 0;
 
     std::vector<sf::Text> currentPageText;
     GameState nextState = GameState::INOVERWORLD;
 
     std::vector<size_t> getStringIndexes(std::string str, std::string sub);
     std::vector<std::string> split(std::string str, char delim);
+    std::string toString(int n);
 };
 
 #endif // CONSOLE_H

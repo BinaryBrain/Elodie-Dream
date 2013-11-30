@@ -13,6 +13,7 @@ Console::~Console() {
 
 void Console::addSentence(std::string sentence) {
     pages = makePages(cutShort(sentence, " ", sizeX-4*marginX), linesPerPage);
+    totalPages = pages.size();
 }
 
 void Console::setContent(std::vector<std::string> lines) {
@@ -97,7 +98,6 @@ void Console::previousPage() {
         --currentPage;
         setCurrentPage(currentPage);
     }
-    std::cout << "Current page: "<< currentPage << std::endl;
 }
 
 void Console::nextPage() {
@@ -105,7 +105,6 @@ void Console::nextPage() {
         ++currentPage;
         setCurrentPage(currentPage);
     }
-    std::cout << "Current page: "<< currentPage << std::endl;
 }
 
 void Console::clear() {
@@ -119,13 +118,23 @@ void Console::setCurrentPage(int newPage) {
 
     currentPage = newPage;
     currentPageText.clear();
+
+    sf::Text newText("", *font);
+    newText.setColor(sf::Color::White);
+
+    // console lines
     for(unsigned int i(0); i < pages[currentPage].size(); ++i) {
-        sf::Text newText(pages[currentPage][i], *font);
+        newText.setString(pages[currentPage][i]);
         newText.setCharacterSize(15);
-        newText.setColor(sf::Color::White);
         newText.setPosition(startX+marginX, startY+marginY+20*i);
         currentPageText.push_back(newText);
      }
+
+    // progress number
+    newText.setString(toString(currentPage+1) + "/" + toString(totalPages));
+    newText.setCharacterSize(13);
+    newText.setPosition(startX+sizeX-marginX, startY+sizeY-marginY);
+    currentPageText.push_back(newText);
 }
 
 void Console::display(GameView* view) {
@@ -138,7 +147,7 @@ void Console::display(GameView* view) {
 
     background.setSize(sf::Vector2f(sizeX, sizeX));
     background.setOutlineColor(sf::Color::Black);
-    background.setFillColor(sf::Color(0x00, 0x00, 0x00, 0x7f));
+    background.setFillColor(sf::Color(0x00, 0x00, 0x00, 0xB3));
     background.setOutlineThickness(3);
     background.setPosition(startX, startY);
 
@@ -175,4 +184,10 @@ std::vector<std::string> Console::split(std::string str, char delim) {
         strings.push_back(item);
     }
     return strings;
+}
+
+std::string Console::toString(int n) {
+    std::ostringstream convert;
+    convert << n;
+    return convert.str();
 }
