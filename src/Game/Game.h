@@ -11,6 +11,7 @@
 #include "../EventHandler/EventHandler.h"
 #include "../Menu/MenuHandler.h"
 #include "../Fnu/Girly.h"
+#include "../Level/Immersionbar.h"
 #include "GameView.h"
 
 /**
@@ -63,6 +64,8 @@ private:
 
     Girly* girly = new Girly();
     bool girlyMode = false;
+
+    ImmersionBar* immBar = new ImmersionBar();
 };
 
 #endif // GAME_H

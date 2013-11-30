@@ -166,6 +166,8 @@ private:
     int immersionLevel = 100;
     int nightmareLevel = 50; // Max: 100
 
+    float timer = 0;
+
     std::vector<Item> stuff;
 };
 

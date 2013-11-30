@@ -11,6 +11,8 @@ Game::Game() {
     // testing purposes
     view.addView(ViewLayer::GIRLY, girly);
 
+    view.addView(ViewLayer::IMMERSIONBAR, immBar);
+
     // testing purposes
     /*
     JsonAccessor language = JsonAccessor();
@@ -28,6 +30,7 @@ Game::~Game() {
     delete overworld;
     delete console;
     delete girly;
+    delete immBar;
 }
 
 // Gets the instance of the game
@@ -49,6 +52,7 @@ void Game::displayLevel(int curLevelNbr) {
 
         view.reset(ViewLayer::LEVEL);
         view.hide(ViewLayer::LEVEL);
+        view.hide(ViewLayer::IMMERSIONBAR);
         // for testing purposes
         view.hide(ViewLayer::CONSOLE);
 
@@ -61,6 +65,7 @@ void Game::displayLevel(int curLevelNbr) {
         view.show(ViewLayer::MENU);
     } else {
         curLevel->live(event, frameClock.restart());
+        immBar->setLevel(((Elodie*)curLevel->getEntities()["elodie"])->getImmersionLevel());
     }
 }
 
@@ -112,6 +117,7 @@ void Game::handleOverworld() {
         loadLevel(0);
         view.hide(ViewLayer::OVERWORLD);
         view.show(ViewLayer::LEVEL);
+        view.show(ViewLayer::IMMERSIONBAR);
         // for testing purposes
         view.show(ViewLayer::CONSOLE);
     } else if (event->keyIsPressed(sf::Keyboard::M)) {
@@ -130,6 +136,8 @@ void Game::displayMenu() {
     if (event->keyIsPressed(sf::Keyboard::Return)) {
         state = menuHandler->execute();
         if (state == GameState::INOVERWORLD) {
+            view.hide(ViewLayer::IMMERSIONBAR);
+            view.hide(ViewLayer::LEVEL);
             view.hide(ViewLayer::MENU);
             view.show(ViewLayer::OVERWORLD);
         }
@@ -144,6 +152,7 @@ void Game::displayMenu() {
                 state = GameState::INLEVEL;
                 view.hide(ViewLayer::MENU);
                 view.show(ViewLayer::LEVEL);
+                view.show(ViewLayer::IMMERSIONBAR);
                 frameClock.restart();
                 curLevel->play();
             } else {
@@ -171,6 +180,7 @@ void Game::run() {
 
     sf::RenderWindow* window = view.getWindow();
     view.show(ViewLayer::MENU);
+
     while (window->isOpen()) {
         event->listening();
 

@@ -118,6 +118,11 @@ void Elodie::walk() {
 
 //What's in doStuff right now is only for testing purpose. Lot of stuff to do here.
 void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, sf::Time animate) {
+    timer += animate.asSeconds();
+    if (timer > 3) {
+        timer = 0;
+        immersionLevel = immersionLevel == 100 ? 100 : immersionLevel + 25;
+    }
     std::map<std::string, float> collide;
     collide = collideWithTiles(tiles);
 
@@ -128,6 +133,7 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
         speed.x = 0;
     } else if ((collide["right"] && speed.x > 0) || (collide["left"] && speed.x < 0)) {
         speed.x = -speed.x;
+        immersionLevel = immersionLevel == 0 ? 0 : immersionLevel-25;
     }
 
     if (collide["down"]) {

@@ -1,19 +1,19 @@
 #include "Level.h"
 
 Level::Level(std::string filename, LevelEnv env) {
-    loadLevel(filename);
     this->environement = env;
     this->manager = new TextureManager();
+    loadLevel(filename);
 }
 
 Level::~Level() {
-    for(size_t i(0); i < tiles.size(); ++i){
-        for(size_t j(0); j < tiles[i].size(); ++j){
+    for(size_t i(0); i < tiles.size(); ++i) {
+        for(size_t j(0); j < tiles[i].size(); ++j) {
             delete tiles[i][j];
         }
     }
 
-    for(EntityMap::iterator it = entities.begin(); it != entities.end(); ++it){
+    for(EntityMap::iterator it = entities.begin(); it != entities.end(); ++it) {
         delete it->second;
     }
 }
