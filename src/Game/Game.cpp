@@ -4,7 +4,7 @@
 Game* Game::gameInstance = NULL;
 
 Game::Game() {
-    console = new Console(view.getWindow()->getSize().x, view.getWindow()->getSize().y);
+    console = new Console(&view);
 
     view.addView(ViewLayer::MENU, menuHandler);
     view.addView(ViewLayer::OVERWORLD, overworld);

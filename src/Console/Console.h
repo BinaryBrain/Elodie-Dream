@@ -13,7 +13,7 @@
 */
 class Console: public Displayable {
 public:
-    Console(float viewX, float viewY);
+    Console(GameView* view);
     virtual ~Console();
 
     void addParagraph(std::string paragraph);
@@ -47,20 +47,22 @@ private:
     std::vector<std::string> lines;
     std::vector<std::vector<std::string> > pages;
 
-    float viewX;
-    float viewY;
+    float startX;
+    float startY;
 
-    //default values
     float sizeX = 1280;
     float sizeY = 200;
-    int linesPerPage = 3;
+    int linesPerPage = 5;
 
     float marginX = 50;
     float marginY = 20;
     unsigned int currentPage = 0;
-    int totalPages = 0;
+    unsigned int totalPages = 0;
 
     std::vector<sf::Text> currentPageText;
+    sf::ConvexShape up;
+    sf::ConvexShape down;
+
     GameState nextState = GameState::INOVERWORLD;
 
     std::vector<size_t> getStringIndexes(std::string str, std::string sub);
