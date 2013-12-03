@@ -47,17 +47,22 @@ void Elodie::stand() {
 }
 
 void Elodie::overworldMove(float seconds) {
-    toMove -= seconds*overworldSpeed.x;
-    if (goingDown) {
-        sprite->move(0, seconds*overworldSpeed.x);
-    } else if (goingLeft) {
-        sprite->move(-seconds*overworldSpeed.x, 0);
-    } else if (goingRight) {
-        sprite->move(+seconds*overworldSpeed.x, 0);
-    } else if (goingUp) {
-        sprite->move(0, -seconds*overworldSpeed.x);
-    } else {
+    if(!hasToMove()) {
         noMoves();
+        stand();
+    } else {
+        toMove -= seconds*overworldSpeed.x;
+        if (goingDown) {
+            sprite->move(0, seconds*overworldSpeed.x);
+        } else if (goingLeft) {
+            sprite->move(-seconds*overworldSpeed.x, 0);
+        } else if (goingRight) {
+            sprite->move(+seconds*overworldSpeed.x, 0);
+        } else if (goingUp) {
+            sprite->move(0, -seconds*overworldSpeed.x);
+        } else {
+            noMoves();
+        }
     }
 }
 

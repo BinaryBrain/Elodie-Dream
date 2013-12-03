@@ -6,19 +6,19 @@ ElodieSprite::ElodieSprite() : CharacterSprite() {
     // push frames
     walkingAnimationRight.setSpriteSheet(texture);
 
-    walkingAnimationRight.addFrame(sf::IntRect(85, 0, 48, 64));
-    walkingAnimationRight.addFrame(sf::IntRect(85+50, 0, 46, 64));
-    walkingAnimationRight.addFrame(sf::IntRect(85+100, 0, 46, 64));
-    walkingAnimationRight.addFrame(sf::IntRect(85+157, 0, 46, 64));
-    walkingAnimationRight.addFrame(sf::IntRect(85+202, 0, 46, 64));
-    walkingAnimationRight.addFrame(sf::IntRect(85+246, 0, 46, 64));
-    walkingAnimationRight.addFrame(sf::IntRect(85+290, 0, 46, 64));
+    walkingAnimationRight.addFrame(sf::IntRect(0, 64, 63, 63));
+    walkingAnimationRight.addFrame(sf::IntRect(64, 64, 63, 63));
+    walkingAnimationRight.addFrame(sf::IntRect(128, 64, 63, 63));
+    walkingAnimationRight.addFrame(sf::IntRect(192, 64, 63, 63));
 
     standingAnimation.setSpriteSheet(texture);
-    standingAnimation.addFrame(sf::IntRect(0, 0, 43, 64));
+    standingAnimation.addFrame(sf::IntRect(0, 0, 63, 63));
+    standingAnimation.addFrame(sf::IntRect(64, 0, 63, 63));
+    standingAnimation.addFrame(sf::IntRect(128, 0, 63, 63));
+    standingAnimation.addFrame(sf::IntRect(192, 0, 63, 63));
 
-    setAnimation(standingAnimation);
-    setCurrentStance(SpriteStance::STANDING);
+
+    stand();
 }
 
 ElodieSprite::~ElodieSprite() {
@@ -27,10 +27,12 @@ ElodieSprite::~ElodieSprite() {
 
 void ElodieSprite::walk() {
     AnimatedSprite::setAnimation(walkingAnimationRight);
+    setFrameTime(sf::seconds(0.1));
     setCurrentStance(SpriteStance::WALKING_RIGHT);
 }
 
 void ElodieSprite::stand() {
     AnimatedSprite::setAnimation(standingAnimation);
+    AnimatedSprite::setFrameTime(sf::seconds(0.2));
     setCurrentStance(SpriteStance::STANDING);
 }

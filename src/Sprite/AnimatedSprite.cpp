@@ -23,6 +23,8 @@
 
 #include "AnimatedSprite.h"
 
+#include <iostream>
+
 AnimatedSprite::AnimatedSprite(sf::Time frameTime, bool paused, bool looped) {
     this->frameTime = frameTime;
     this->paused = paused;
@@ -129,16 +131,15 @@ void AnimatedSprite::update(sf::Time deltaTime) {
     if(!paused && animation) {
         // add delta time
         currentTime += deltaTime;
-
         // if current time is bigger then the frame time advance one frame
         if(currentTime >= frameTime) {
             // reset time, but keep the remainder
             currentTime = sf::microseconds(currentTime.asMicroseconds() % frameTime.asMicroseconds());
 
             // get next Frame index
-            if(currentFrame + 1 < animation->getSize())
+            if(currentFrame + 1 < animation->getSize()) {
                 currentFrame++;
-            else {
+            } else {
                 // animation has ended
                 currentFrame = 0; // reset to start
 

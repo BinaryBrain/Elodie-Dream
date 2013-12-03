@@ -54,6 +54,7 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
         view.hide(ViewLayer::IMMERSIONBAR);
         view.hide(ViewLayer::CONSOLE);
         view.show(ViewLayer::OVERWORLD);
+        overworld->getElodie()->stand();
         overworld->getElodie()->getSprite()->setPosition(544, 611);
 
     } else if (event->keyIsPressed(sf::Keyboard::M)) {
@@ -95,10 +96,6 @@ void Game::handleOverworld(sf::Time time) {
         overworld->evolve();
     }
 
-    if(!overworld->getElodie()->hasToMove()) {
-        overworld->getElodie()->noMoves();
-        overworld->getElodie()->stand();
-    }
 
     if(overworld->getElodie()->isMoving()) {
         overworld->getElodie()->overworldMove(time.asSeconds());
@@ -137,7 +134,6 @@ void Game::handleOverworld(sf::Time time) {
         console->setNextState(GameState::INOVERWORLD);
         view.show(ViewLayer::CONSOLE);
     }
-
     overworld->getElodie()->update(time);
 }
 
