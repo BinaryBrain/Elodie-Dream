@@ -13,6 +13,7 @@
 #include "../Fnu/Girly.h"
 #include "../Level/Immersionbar.h"
 #include "GameView.h"
+#include "GameContent.h"
 
 /**
 * The class representing the game.
@@ -39,6 +40,8 @@ private:
 
     GameView view;
     GameState state = GameState::INMENU;
+
+    GameContent* content = new GameContent();
 
     EventHandler* event = new EventHandler(view.getWindow());
 

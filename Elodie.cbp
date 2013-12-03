@@ -73,6 +73,8 @@
 		<Unit filename="src/Fnu/Girly.h" />
 		<Unit filename="src/Game/Game.cpp" />
 		<Unit filename="src/Game/Game.h" />
+		<Unit filename="src/Game/GameContent.cpp" />
+		<Unit filename="src/Game/GameContent.h" />
 		<Unit filename="src/Game/GameView.cpp" />
 		<Unit filename="src/Game/GameView.h" />
 		<Unit filename="src/Include/Collide.h" />
