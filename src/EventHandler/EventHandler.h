@@ -171,6 +171,10 @@ public:
     */
     eventMouse mouseInfoWheeled();
 
+    bool hasFocus();
+    bool gainedFocus();
+    bool lostFocus();
+
 private:
     /**
     * \brief Used to push all the content of one tab to another one.
@@ -272,6 +276,8 @@ private:
     std::vector<eventInput> keyPressedVector, keyHoldVector, keyReleasedVector;
     std::vector<eventMouse> mousePressedVector, mouseHoldVector, mouseReleasedVector;
     eventMouse mouseWheel;
+    bool prevFocus = true;
+    bool focus = true;
     sf::RenderWindow* window;
 };
 

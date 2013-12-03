@@ -28,7 +28,7 @@ public:
     void applyEnv(TileMap tiles);
 
     void pause();
-    void play();
+    void play(sf::Clock *frameClock);
 protected:
 private:
     TileMap tiles;

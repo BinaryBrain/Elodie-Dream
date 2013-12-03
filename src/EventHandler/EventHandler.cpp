@@ -115,6 +115,7 @@ void EventHandler::listening() {
     mousePressedVector.clear();
     mouseReleasedVector.clear();
     mouseWheel.code = 0;
+    prevFocus = focus;
     while (window->pollEvent(event)) {
         eventInput newInput;
         eventMouse newMouse;
@@ -122,6 +123,14 @@ void EventHandler::listening() {
         switch (event.type) {
         case sf::Event::Closed:
             window->close();
+            break;
+
+        case sf::Event::LostFocus:
+            focus = false;
+            break;
+
+        case sf::Event::GainedFocus:
+            focus = true;
             break;
 
         case sf::Event::KeyPressed:
@@ -252,4 +261,16 @@ eventMouse EventHandler::mouseInfoWheeled() {
         return mouseWheel;
     else
         return emptyStruct;
+}
+
+bool EventHandler::hasFocus() {
+    return focus;
+}
+
+bool EventHandler::gainedFocus() {
+    return (prevFocus != focus && focus == true);
+}
+
+bool EventHandler::lostFocus() {
+    return (prevFocus != focus && focus == false);
 }

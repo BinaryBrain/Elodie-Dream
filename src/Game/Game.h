@@ -41,6 +41,7 @@ private:
 
     GameView view;
     GameState state = GameState::INMENU;
+    GameState pausePrevState;
 
     GameContent* content = new GameContent();
 

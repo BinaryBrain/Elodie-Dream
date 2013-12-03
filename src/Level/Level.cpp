@@ -91,6 +91,7 @@ void Level::pause() {
     entities["elodie"]->pause();
 }
 
-void Level::play() {
+void Level::play(sf::Clock *frameClock) {
     entities["elodie"]->play();
+    frameClock->restart();
 }

@@ -161,8 +161,7 @@ void Game::displayMenu() {
                 view.hide(ViewLayer::MENU);
                 view.show(ViewLayer::LEVEL);
                 view.show(ViewLayer::IMMERSIONBAR);
-                frameClock.restart();
-                curLevel->play();
+                curLevel->play(&frameClock);
             } else {
                 std::cerr << "Must display level but not initialized." << std::endl;
             }
@@ -185,8 +184,7 @@ void Game::displayConsole() {
                 state = GameState::INLEVEL;
                 view.hide(ViewLayer::CONSOLE);
                 view.show(ViewLayer::LEVEL);
-                frameClock.restart();
-                curLevel->play();
+                curLevel->play(&frameClock);
             } else {
                 std::cerr << "Must display level but not initialized." << std::endl;
             }
@@ -208,6 +206,21 @@ void Game::run() {
     while (window->isOpen()) {
         sf::Time time = frameClock.restart();
         event->listening();
+
+        if (event->lostFocus()) {
+            if (curLevel) {
+                pausePrevState = state;
+                state = GameState::PAUSE;
+                curLevel->pause();
+            }
+        }
+
+        if (event->gainedFocus()) {
+            if (curLevel) {
+                state = pausePrevState;
+                curLevel->play(&frameClock);
+            }
+        }
 
         if (event->keyIsHold(sf::Keyboard::Escape)) {
             window->close();
@@ -239,6 +252,8 @@ void Game::run() {
             break;
         case GameState::INCONSOLE:
             displayConsole();
+            break;
+        case GameState::PAUSE:
             break;
         case GameState::EXIT:
             exit();
