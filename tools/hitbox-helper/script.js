@@ -75,13 +75,13 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
 	var c = hexToRgb($("#hbColor").val());
 	ctx.fillStyle = 'rgba('+c.r+', '+c.g+', '+c.b+', '+a+')';
 	var animNumber = 0;
-	anim.forEach(function(stance) {	
+	$.each(anim, function(name, stance) {	
 		console.log(stance);
 		for (frame = 0; frame < stance.hitbox.length; frame++) {
-			var x1 = width*frame+stance.hitbox[frame][0];
-			var y1 = height*animNumber+stance.hitbox[frame][1];
-			var w = stance.hitbox[frame][2]-stance.hitbox[frame][0];
-			var h = stance.hitbox[frame][3]-stance.hitbox[frame][1];
+			var x1 = width*frame+stance.hitbox[frame]["x1"];
+			var y1 = height*animNumber+stance.hitbox[frame]["y1"];
+			var w = stance.hitbox[frame]["x2"]-stance.hitbox[frame]["x1"];
+			var h = stance.hitbox[frame]["y2"]-stance.hitbox[frame]["y1"];
 			console.log(x1 + ", " + y1 + ", " + w + ", " + h);
 			ctx.fillRect(x1, y1, w, h);
 		}
