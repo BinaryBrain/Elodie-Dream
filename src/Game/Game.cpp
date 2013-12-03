@@ -45,7 +45,7 @@ void Game::kill() {
     }
 }
 
-void Game::displayLevel(int curLevelNbr) {
+void Game::displayLevel(int curLevelNbr, sf::Time time) {
     if(event->keyIsPressed(sf::Keyboard::Return)) {
         state = GameState::INOVERWORLD;
 
@@ -69,7 +69,7 @@ void Game::displayLevel(int curLevelNbr) {
         console->setNextState(GameState::INLEVEL);
         view.show(ViewLayer::CONSOLE);
     } else {
-        curLevel->live(event, frameClock.restart());
+        curLevel->live(event, time);
         immBar->setLevel(((Elodie*)curLevel->getEntities()["elodie"])->getImmersionLevel());
     }
 }
@@ -85,8 +85,7 @@ void Game::loadLevel(int levelNbr) {
     view.addView(ViewLayer::LEVEL, curLevel);
 }
 
-void Game::handleOverworld() {
-    sf::Time time = frameClock.restart();
+void Game::handleOverworld(sf::Time time) {
     if (event->keyIsPressed(sf::Keyboard::N)) {
         overworld->evolve();
     }
@@ -203,7 +202,10 @@ void Game::run() {
     sf::RenderWindow* window = view.getWindow();
     view.show(ViewLayer::MENU);
 
+    window->setFramerateLimit(60);
+
     while (window->isOpen()) {
+        sf::Time time = frameClock.restart();
         event->listening();
 
         if (event->keyIsHold(sf::Keyboard::Escape)) {
@@ -226,10 +228,10 @@ void Game::run() {
 
         switch(state) {
         case GameState::INLEVEL:
-            displayLevel(curLevelNbr);
+            displayLevel(curLevelNbr, time);
             break;
         case GameState::INOVERWORLD:
-            handleOverworld();
+            handleOverworld(time);
             break;
         case GameState::INMENU:
             displayMenu();

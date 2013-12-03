@@ -46,7 +46,7 @@ private:
     EventHandler* event = new EventHandler(view.getWindow());
 
     Overworld* overworld = new Overworld();
-    void handleOverworld();
+    void handleOverworld(sf::Time time);
 
     sf::Clock frameClock;
 
@@ -63,7 +63,7 @@ private:
 
     int curLevelNbr = 0;
     Level* curLevel = NULL;
-    void displayLevel(int curLevel);
+    void displayLevel(int curLevel, sf::Time time);
     void loadLevel(int levelNbr);
 
     Girly* girly = new Girly();
