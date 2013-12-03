@@ -13,7 +13,7 @@ public:
 protected:
 private:
     Animation standingAnimation;
-    Animation walkingAnimation;
+    Animation walkingAnimationRight;
     sf::Texture texture;
 };
 

@@ -153,7 +153,7 @@ private:
 
     ElodieState state;
 
-    int centerX = 21;
+    int centerX = 32;
     int centerY = 32;
 
     float toMove = 0;
