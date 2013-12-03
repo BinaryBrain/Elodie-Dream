@@ -58,7 +58,7 @@ void Level::display(GameView* view) {
 
     Elodie* elodie = dynamic_cast<Elodie*>(entities["elodie"]);
     view->setFollowedPoint(ViewLayer::LEVEL, elodie->getPosition());
-    view->setZoom(ViewLayer::LEVEL, 1.5);
+    view->setZoom(ViewLayer::LEVEL, 2);
 }
 
 void Level::live(EventHandler* const& event, sf::Time animate) {
