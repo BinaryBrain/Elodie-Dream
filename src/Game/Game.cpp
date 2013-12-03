@@ -202,7 +202,7 @@ void Game::run() {
     sf::RenderWindow* window = view.getWindow();
     view.show(ViewLayer::MENU);
 
-    window->setFramerateLimit(60);
+    window->setFramerateLimit(FPS);
 
     while (window->isOpen()) {
         sf::Time time = frameClock.restart();
