@@ -55,7 +55,7 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
         view.hide(ViewLayer::CONSOLE);
         view.show(ViewLayer::OVERWORLD);
         overworld->getElodie()->stand();
-        overworld->getElodie()->getSprite()->setPosition(544, 611);
+        overworld->resetPos();
 
     } else if (event->keyIsPressed(sf::Keyboard::M)) {
         state = GameState::INMENU;

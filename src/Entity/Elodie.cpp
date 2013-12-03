@@ -200,3 +200,11 @@ void Elodie::reset() {
     setCurrentHitbox(0);
     addHitbox(hitbox);
 }
+
+void Elodie::setPosition(sf::Vector2f pos){
+    sprite->setPosition(pos);
+}
+
+void Elodie::setPosition(float x, float y){
+    setPosition(sf::Vector2f(x,y));
+}

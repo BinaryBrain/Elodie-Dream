@@ -37,8 +37,9 @@ Overworld::Overworld() {
         paths.push_back(path);
     }
 
-    elodie = new Elodie(565,643);
     currentState = UNIL;
+    elodie = new Elodie(0,0);
+    resetPos();
 }
 
 
@@ -53,6 +54,10 @@ Overworld::~Overworld() {
         delete *path;
     }
     delete elodie;
+}
+
+void Overworld::resetPos() {
+    elodie->setPosition((* (paths[currentState]))[curPosInPath].position.x - 40,(* (paths[currentState]))[curPosInPath].position.y - 40);
 }
 
 void Overworld::display(GameView* view) {

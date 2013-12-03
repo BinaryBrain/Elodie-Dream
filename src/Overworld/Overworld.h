@@ -21,6 +21,7 @@ public:
     int moveLeft();
     void evolve();
     void display(GameView* view);
+    void resetPos();
 
 protected:
 private:
