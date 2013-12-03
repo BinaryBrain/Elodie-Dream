@@ -54,6 +54,7 @@ void Game::displayLevel(int curLevelNbr) {
         view.hide(ViewLayer::IMMERSIONBAR);
         view.hide(ViewLayer::CONSOLE);
         view.show(ViewLayer::OVERWORLD);
+        overworld->getElodie()->getSprite()->setPosition(544, 611);
 
     } else if (event->keyIsPressed(sf::Keyboard::M)) {
         state = GameState::INMENU;
@@ -80,7 +81,7 @@ void Game::loadLevel(int levelNbr) {
     }
     state = GameState::INLEVEL;
     curLevelNbr = levelNbr;
-    curLevel = new Level("assets/levels/level2.txt", LevelEnv::FIELD);
+    curLevel = new Level("assets/levels/level2.txt", LevelEnv::FIELD, overworld->getElodie());
     view.addView(ViewLayer::LEVEL, curLevel);
 }
 

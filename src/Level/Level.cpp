@@ -1,9 +1,9 @@
 #include "Level.h"
 
-Level::Level(std::string filename, LevelEnv env) {
+Level::Level(std::string filename, LevelEnv env, Elodie* elodie) {
     this->environement = env;
     this->manager = new TextureManager();
-    loadLevel(filename);
+    loadLevel(filename, elodie);
 }
 
 Level::~Level() {
@@ -14,7 +14,9 @@ Level::~Level() {
     }
 
     for(EntityMap::iterator it = entities.begin(); it != entities.end(); ++it) {
-        delete it->second;
+        if(it->first.compare("elodie")) {
+            delete it->second;
+        }
     }
 
     delete this->manager;
@@ -25,10 +27,10 @@ void Level::setEnvironement(LevelEnv env) {
 }
 
 // Load a level from the file system
-void Level::loadLevel(std::string filename) {
+void Level::loadLevel(std::string filename, Elodie* elodie) {
     std::string levelSource = FileHandler::getContent(filename);
 
-    Mapper::parse(levelSource, tiles, entities);
+    Mapper::parse(levelSource, tiles, entities, elodie);
     Mapper::beautify(tiles);
 
     applyEnv(tiles);

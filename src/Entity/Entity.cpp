@@ -18,6 +18,11 @@ void Entity::setCurrentHitbox(int current) {
     currentHitbox = current;
 }
 
+void Entity::removeCurrentHitBox() {
+    hitboxes.erase(hitboxes.begin()+currentHitbox);
+    currentHitbox = 0;
+}
+
 void Entity::addHitbox(Hitbox hitbox) {
     hitboxes.push_back(hitbox);
 }

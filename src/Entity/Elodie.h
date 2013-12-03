@@ -133,7 +133,7 @@ public:
     * \return An int, the value of the nightmare level.
     */
     int getNightmareLevel();
-
+    void reset();
     void pause();
     void play();
 

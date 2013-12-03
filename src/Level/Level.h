@@ -13,10 +13,10 @@
 
 class Level : public Displayable {
 public:
-    Level(std::string filename, LevelEnv env);
+    Level(std::string filename, LevelEnv env, Elodie* elodie);
     virtual ~Level();
 
-    void loadLevel(std::string filename);
+    void loadLevel(std::string filename, Elodie* elodie);
     void live(EventHandler* const& event, sf::Time animate);
 
     TileMap getTiles();

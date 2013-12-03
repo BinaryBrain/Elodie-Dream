@@ -26,6 +26,7 @@ public:
     virtual ~Entity();
 
     void addHitbox(Hitbox hitbox);
+    void removeCurrentHitBox();
     void setCurrentHitbox(int current);
     Hitbox getCurrentHitbox();
 
