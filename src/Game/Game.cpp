@@ -63,6 +63,11 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
         view.show(ViewLayer::MENU);
     }
     // testing purposes
+    else if (event->keyIsPressed(sf::Keyboard::A)) {
+        SoundManager* soundBuffers = new SoundManager();
+        soundBuffers->play(SoundType::PUNCH);
+        std::cout << "SON" << std::endl;
+    }
     else if (event->keyIsPressed(sf::Keyboard::C)) {
         state = GameState::INCONSOLE;
         curLevel->pause();

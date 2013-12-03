@@ -3,6 +3,7 @@
 
 #include <string>
 
+#include "../const.h"
 #include "../env.h"
 #include "../Map/Mapper.h"
 #include "../FileHandler/FileHandler.h"

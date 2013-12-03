@@ -6,6 +6,12 @@
 
 using std::string;
 
+// -- GAME --//
+const int FPS = 100;
+
+// -- LEVEL -- //
+const float ZOOM_LEVEL = 2;
+
 // -- PATHS -- //
 // Tiles
 const string TILES_TEXTURES_PATH = "assets/img/sprites/tiles/extended";
@@ -20,6 +26,9 @@ const string TILETYPE_GROUND = "ground";
 const string TILETYPE_ROCK = "rock";
 const string TILETYPE_ICE = "ice";
 
-const int FPS = 100;
+// Sounds
+const string SOUNDS_PATH = "assets/sounds";
+
+const string SOUND_TYPE_PUNCH = "punch.wav";
 
 #endif // CONST_H_INCLUDED

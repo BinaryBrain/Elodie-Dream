@@ -12,6 +12,7 @@
 #include "../Menu/MenuHandler.h"
 #include "../Fnu/Girly.h"
 #include "../Level/Immersionbar.h"
+#include "../Sound/SoundManager.h"
 #include "GameView.h"
 #include "GameContent.h"
 

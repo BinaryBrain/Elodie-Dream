@@ -28,7 +28,7 @@ TextureManager::~TextureManager() {
 }
 
 sf::Texture* TextureManager::getTileTexture(LevelEnv env, TileType type) {
-    if(!textures[env][type]) { // FIXME SEGFAULT
+    if(!textures[env][type]) {
 
         sf::Texture* tex = new sf::Texture();
         if(!tex->loadFromFile(getPath(env, type))) {

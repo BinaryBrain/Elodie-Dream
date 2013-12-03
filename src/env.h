@@ -23,4 +23,8 @@ enum class LevelEnv {
     FIELD, UNIL, CASTLE, VOLCANO, FREJLORD
 };
 
+enum class SoundType {
+    PUNCH
+};
+
 #endif // ENV_H
