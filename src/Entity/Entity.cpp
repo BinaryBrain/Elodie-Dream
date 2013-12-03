@@ -112,6 +112,26 @@ Collide Entity::collideWithTiles(std::vector< std::vector<TileSprite*> > const& 
         collideWith.bottom["surface"] = totMax / (maxX - minX + 1);
     }
 
+    if (!collideWith.bottom["surface"] && !collideWith.right["surface"] && checkTiles(world, (int)std::floor((maxX + collideWith.right["distance"]*time) / 32), (int)std::floor((maxY + collideWith.bottom["distance"]*time) / 32))) {
+        collideWith.right["surface"] = 0.1;
+        while (checkTiles(world, (int)std::floor((maxX + collideWith.right["distance"]*time) / 32), (int)std::floor((maxY + collideWith.bottom["distance"]*time) / 32)))
+            collideWith.right["distance"] -= 1;
+    }
+    if (!collideWith.bottom["surface"] && !collideWith.left["surface"] && checkTiles(world, (int)std::floor((minX - collideWith.left["distance"]*time) / 32), (int)std::floor((maxY + collideWith.bottom["distance"]*time) / 32))) {
+        collideWith.left["surface"] = 0.1;
+        while (checkTiles(world, (int)std::floor((minX - collideWith.left["distance"]*time) / 32), (int)std::floor((maxY + collideWith.bottom["distance"]*time) / 32)))
+            collideWith.left["distance"] -= 1;
+    }
+    if (!collideWith.top["surface"] && !collideWith.right["surface"] && checkTiles(world, (int)std::floor((maxX + collideWith.right["distance"]*time) / 32), (int)std::floor((minY - collideWith.top["distance"]*time) / 32))) {
+        collideWith.right["surface"] = 0.1;
+        while (checkTiles(world, (int)std::floor((maxX + collideWith.right["distance"]*time) / 32), (int)std::floor((minY - collideWith.top["distance"]*time) / 32)))
+            collideWith.right["distance"] -= 1;
+    }
+    if (!collideWith.top["surface"] && !collideWith.left["surface"] && checkTiles(world, (int)std::floor((minX - collideWith.left["distance"]*time) / 32), (int)std::floor((minY - collideWith.top["distance"]*time) / 32))) {
+        collideWith.left["surface"] = 0.1;
+        while (checkTiles(world, (int)std::floor((minX - collideWith.left["distance"]*time) / 32), (int)std::floor((minY - collideWith.top["distance"]*time) / 32)))
+            collideWith.left["distance"] -= 1;
+    }
     return collideWith;
 }
 
