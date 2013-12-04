@@ -11,19 +11,21 @@ EntityManager::EntityManager() {
 }
 
 EntityManager::~EntityManager() {
-    for(std::map< EntityName, EntityInfo* >::iterator it = enemies.begin(); it != enemies.end(); it++) {
-        if(it->second) {
-            delete it->second;
+    for(EntityBox::iterator it = enemies.begin(); it != enemies.end(); ++it) {
+        for(std::map< EntityName, EntityInfo* >::iterator enemy = it->second.begin(); enemy != it->second.end(); ++enemy) {
+            if(enemy->second) {
+                delete enemy->second;
+            }
         }
     }
 }
 
 EntityInfo* EntityManager::getEnemyInfo(EntityName name, EntityType type) {
-    if(!enemies[name]) {
+    if(!enemies[type][name]) {
 
     }
 
-    return enemies[name];
+    return enemies[type][name];
 }
 
 std::string EntityManager::getPath(EntityName name, EntityType type) {

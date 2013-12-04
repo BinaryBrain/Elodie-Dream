@@ -15,6 +15,8 @@ enum class EntityType {
     ENEMY
 };
 
+typedef std::map< EntityType, std::map< EntityName, EntityInfo* > > EntityBox;
+
 class EntityManager {
 public:
     EntityManager();
@@ -25,7 +27,7 @@ protected:
 private:
     std::string getPath(EntityName name, EntityType type);
 
-    std::map< EntityName, EntityInfo* > enemies;
+     EntityBox enemies;
 
     std::map< EntityName, std::string > ENTITY_NAME;
     std::map< EntityType, std::string > ENTITY_TYPE;
