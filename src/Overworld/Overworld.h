@@ -6,7 +6,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "../Entity/Elodie.h"
-#include "../JsonAccessor/JsonAccessor.h"
+#include "../Json/JsonAccessor.h"
 #include "../Game/GameView.h"
 #include "../Displayable/Displayable.h"
 

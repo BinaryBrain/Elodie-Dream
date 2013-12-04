@@ -8,7 +8,7 @@
 #include <algorithm>
 #include <iterator>
 
-#include "../JsonParser/JsonParser.h"
+#include "../Json/JsonParser.h"
 #include "../Utils/Utils.h"
 
 using std::string;

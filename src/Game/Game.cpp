@@ -274,6 +274,10 @@ void Game::exit() {
     view.getWindow()->close();
 }
 
+GameState Game::getState() {
+    return state;
+}
+
 void Game::setState(GameState state) {
     this->state = state;
 }

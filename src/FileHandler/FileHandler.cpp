@@ -20,3 +20,7 @@ std::string FileHandler::getContent(std::string filename) {
                     std::istreambuf_iterator<char>());
     return str;
 }
+
+void FileHandler::writeContent(std::string filename, std::string toWrite) {
+    //todo
+}

@@ -2,7 +2,7 @@
 #define GAME_H
 
 #include "../env.h"
-#include "../JsonAccessor/JsonAccessor.h"
+#include "../Json/JsonAccessor.h"
 #include "../Console/Console.h"
 #include "../Level/Level.h"
 #include "../Map/Mapper.h"
@@ -29,6 +29,7 @@ public:
     void run();
     void exit();
 
+    GameState getState();
     void setState(GameState state);
     Overworld* getOverworld();
     Console* getConsole();

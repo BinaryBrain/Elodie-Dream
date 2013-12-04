@@ -25,6 +25,7 @@ public:
     * \return A string, the content of the file.
     */
     static std::string getContent(std::string filename);
+    static void writeContent(std::string filename, std::string toWrite);
 protected:
 private:
 

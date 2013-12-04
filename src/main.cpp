@@ -6,8 +6,8 @@
 
 #include "Sprite/AnimatedSprite.h"
 #include "EventHandler/EventHandler.h"
-#include "JsonParser/JsonParser.h"
-#include "JsonAccessor/JsonAccessor.h"
+#include "Json/JsonParser.h"
+#include "Json/JsonAccessor.h"
 #include "Game/Game.h"
 #include "Overworld/Overworld.h"
 

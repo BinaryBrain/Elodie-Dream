@@ -78,10 +78,10 @@
 		<Unit filename="src/Include/Collide.h" />
 		<Unit filename="src/Item/Item.cpp" />
 		<Unit filename="src/Item/Item.h" />
-		<Unit filename="src/JsonAccessor/JsonAccessor.cpp" />
-		<Unit filename="src/JsonAccessor/JsonAccessor.h" />
-		<Unit filename="src/JsonParser/JsonParser.cpp" />
-		<Unit filename="src/JsonParser/JsonParser.h" />
+		<Unit filename="src/Json/JsonAccessor.cpp" />
+		<Unit filename="src/Json/JsonAccessor.h" />
+		<Unit filename="src/Json/JsonParser.cpp" />
+		<Unit filename="src/Json/JsonParser.h" />
 		<Unit filename="src/Level/Immersionbar.cpp" />
 		<Unit filename="src/Level/Immersionbar.h" />
 		<Unit filename="src/Level/Level.cpp" />
