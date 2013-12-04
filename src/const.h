@@ -26,6 +26,13 @@ const string TILETYPE_GROUND = "ground";
 const string TILETYPE_ROCK = "rock";
 const string TILETYPE_ICE = "ice";
 
+// Enemies
+const string ENTITIES_JSON_PATH = "assets/img/sprites";
+
+const string ENTITYNAME_SHEEP = "sheep";
+
+const string ENTITYTYPE_ENEMY = "enemies";
+
 // Sounds
 const string SOUNDS_PATH = "assets/sounds";
 
