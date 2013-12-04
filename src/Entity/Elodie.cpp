@@ -130,10 +130,17 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
     }
     Collide collideTiles = collideWithTiles(tiles, &speed, animate.asSeconds());
 
-    if (speed.x < 0)
-        speed.x = -collideTiles.left["distance"];
-    else
-        speed.x = collideTiles.right["distance"];
+    if (speed.x < 0) {
+        if (collideTiles.left["distance"])
+            speed.x = -collideTiles.left["distance"];
+        else
+            speed.x = 300;
+    } else {
+        if (collideTiles.right["distance"])
+            speed.x = collideTiles.right["distance"];
+        else
+            speed.x = -300;
+    }
 
     if (speed.y < 0)
         speed.y = -collideTiles.top["distance"];
