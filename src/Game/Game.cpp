@@ -193,10 +193,6 @@ void Game::displayConsole() {
 
 }
 
-Console* Game::getConsole() {
-    return console;
-}
-
 void Game::run() {
     sf::RenderWindow* window = view.getWindow();
     view.show(ViewLayer::MENU);
@@ -280,4 +276,12 @@ void Game::exit() {
 
 void Game::setState(GameState state) {
     this->state = state;
+}
+
+Overworld* Game::getOverworld() {
+    return overworld;
+}
+
+Console* Game::getConsole() {
+    return console;
 }

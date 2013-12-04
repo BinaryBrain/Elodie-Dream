@@ -14,7 +14,6 @@
 #include "../Level/Immersionbar.h"
 #include "../Sound/SoundManager.h"
 #include "GameView.h"
-#include "GameContent.h"
 
 /**
 * The class representing the game.
@@ -31,6 +30,8 @@ public:
     void exit();
 
     void setState(GameState state);
+    Overworld* getOverworld();
+    Console* getConsole();
 
 private:
     Game();
@@ -42,8 +43,6 @@ private:
     GameView view;
     GameState state = GameState::INMENU;
     GameState pausePrevState;
-
-    GameContent* content = new GameContent();
 
     EventHandler* event = new EventHandler(view.getWindow());
 
@@ -58,8 +57,6 @@ private:
     Console* console;
     void displayConsole();
 
-    // don't know which one to choose : Game.writeInConsole() of Game.getConsole.setContent()
-    Console* getConsole();
     void writeInConsole(std::string sentence);
     void writeInConsole(std::vector<std::string> sentences);
 
