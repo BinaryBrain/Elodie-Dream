@@ -18,6 +18,7 @@ void SaveHandler::save() {
     // todo fin why there should be another string each time, not the same one which switches values
     std::string keyState = "gamestate";
     GameState state = Game::getInstance()->getState();
+    std::cout << "Original gamestate: " << (int)state << std::endl;
     stringifier.setInt(keyState, (int)state);
 
     std::string test = "test";
@@ -28,9 +29,10 @@ void SaveHandler::save() {
     FileHandler fh;
     std::cout << "Saved string: " << toWrite << std::endl;
 
+    // save the encrypted json to path
     std::vector<int> tmp = encrypt(toWrite, "key");
     std::ofstream myfile;
-    myfile.open (path);
+    myfile.open(path);
     for (size_t i = 0; i < tmp.size(); ++i){
         myfile << tmp[i] << std::endl;
     }
@@ -47,6 +49,24 @@ void SaveHandler::load() {
     }
     std::string test = decrypt(tmp, "key");
     std::cout << test << std::endl;
+
+    std::ofstream tempFile;
+    std::string tempFilePath = "save/temp.json";
+    tempFile.open(tempFilePath);
+
+    JsonAccessor accessor;
+    int state = accessor.getInt("gamestate");
+    std::cout << "Retrieved gamestate: " << state << std::endl;
+
+    tempFile.close();
+
+    if(remove(tempFilePath.c_str()) != 0 ) {
+        std::cerr << "Error deleting temporary json" << std::endl;
+    }
+    else {
+        std::cout << "Temporary json successfully deleted." << std::endl;
+    }
+
 }
 
 std::vector<int> SaveHandler::encrypt(std::string p, std::string key) {
