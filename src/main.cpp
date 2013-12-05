@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <iostream>
+#include <fstream>
 
 #include "env.h"
 
@@ -16,6 +17,31 @@ using std::endl;
 
 int main() {
     // Map Parsing test
+    std::ofstream myfile;
+    myfile.open ("example.txt");
+    std::string test = "Writing this to a file.\n";
+    std::string key = "key";
+    std::vector<int> tmp;
+    for(size_t i = 0; i < test.length(); ++i){
+        //test[i] = test[i]^key[i%key.length()];
+        tmp.push_back((int)test[i]^key[i%key.length()]);
+    }
+    for (size_t i = 0; i < tmp.size(); ++i){
+        myfile << tmp[i] << std::endl;
+    }
+    myfile.close();
+    tmp.clear();
+    std::ifstream infile;
+    infile.open("example.txt");
+    int acc;
+    while(infile>>acc){
+        tmp.push_back(acc);
+    }
+    test = "";
+    for(size_t i = 0; i < tmp.size(); ++i){
+        test += ((char)tmp[i])^key[i%key.length()];
+    }
+    std::cout << test <<std::endl;
     Game* game = Game::getInstance();
 
     if (false) {
