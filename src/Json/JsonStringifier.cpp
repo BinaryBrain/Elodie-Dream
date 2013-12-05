@@ -2,7 +2,11 @@
 
 
 JsonStringifier::JsonStringifier() {
-
+    // initialize document
+    const char json[] = "{}";
+    if (values.Parse<0>(json).HasParseError()) {
+		std::cerr << "Eror initializing document in JsonStringifier" << std::endl;
+    }
 }
 
 JsonStringifier::~JsonStringifier() {

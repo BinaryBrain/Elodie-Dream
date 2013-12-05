@@ -15,9 +15,11 @@ void SaveHandler::setPath(std::string path) {
 void SaveHandler::save() {
     JsonStringifier stringifier;
     GameState state = Game::getInstance()->getState();
+    std::cout << (int)state << std::endl;
 
     stringifier.setInt((int)state, "gamestate");
     std::string s = stringifier.getStringifiedDoc();
+    std::cout << "stringified: " << s << std::endl;
 
     FileHandler fh;
     fh.writeContent(path, s);

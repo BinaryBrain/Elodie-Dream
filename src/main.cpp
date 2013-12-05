@@ -22,8 +22,8 @@ int main() {
     // Map Parsing test
     Game* game = Game::getInstance();
     SaveHandler sh;
-    /*sh.setPath("save/save.json");
-    sh.save();*/
+    sh.setPath("save/save.json");
+    sh.save();
 
     if (false) {
         // Conf test
