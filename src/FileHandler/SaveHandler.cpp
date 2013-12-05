@@ -13,21 +13,20 @@ void SaveHandler::setPath(std::string path) {
 }
 
 void SaveHandler::save() {
-    std::string key("");
-    std::string value("");
     JsonStringifier stringifier;
 
-    key = "gamestate";
+    // todo fin why there should be another string each time, not the same one which switches values
+    std::string keyState = "gamestate";
     GameState state = Game::getInstance()->getState();
-    stringifier.setInt(key, (int)state);
+    stringifier.setInt(keyState, (int)state);
 
-    key = "test";
-    value = "la vie!";
-    stringifier.setString(key, value);
+    std::string test = "test";
+    std::string vie = "la vie!";
+    stringifier.setString(test, vie);
 
     std::string toWrite(stringifier.getStringifiedDoc());
     FileHandler fh;
-    std::cout << toWrite << std::endl;
+    std::cout << "Saved string: " << toWrite << std::endl;
     fh.writeContent(path, toWrite);
 }
 
