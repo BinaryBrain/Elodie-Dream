@@ -88,6 +88,8 @@
 		<Unit filename="src/Json/JsonAccessor.h" />
 		<Unit filename="src/Json/JsonParser.cpp" />
 		<Unit filename="src/Json/JsonParser.h" />
+		<Unit filename="src/Json/JsonStringifier.cpp" />
+		<Unit filename="src/Json/JsonStringifier.h" />
 		<Unit filename="src/Level/Immersionbar.cpp" />
 		<Unit filename="src/Level/Immersionbar.h" />
 		<Unit filename="src/Level/Level.cpp" />

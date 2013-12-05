@@ -8,6 +8,7 @@ JsonParser::JsonParser() {
 
 }
 
+// may not work for now
 std::string JsonParser::encode(rapidjson::Document &doc) {
     rapidjson::GenericStringBuffer< rapidjson::UTF8<> > buffer;
     rapidjson::Writer< rapidjson::GenericStringBuffer< rapidjson::UTF8<> > > writer(buffer);
