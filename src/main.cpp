@@ -21,9 +21,12 @@ using std::endl;
 int main() {
     // Map Parsing test
     Game* game = Game::getInstance();
+
+    // SaveHandler test
     SaveHandler sh;
     sh.setPath("save/save.json");
     sh.save();
+
 
     if (false) {
         // Conf test

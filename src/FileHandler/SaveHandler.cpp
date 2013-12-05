@@ -13,16 +13,22 @@ void SaveHandler::setPath(std::string path) {
 }
 
 void SaveHandler::save() {
+    std::string key("");
+    std::string value("");
     JsonStringifier stringifier;
+
+    key = "gamestate";
     GameState state = Game::getInstance()->getState();
-    std::cout << (int)state << std::endl;
+    stringifier.setInt(key, (int)state);
 
-    stringifier.setInt((int)state, "gamestate");
-    std::string s = stringifier.getStringifiedDoc();
-    std::cout << "stringified: " << s << std::endl;
+    key = "test";
+    value = "la vie!";
+    stringifier.setString(key, value);
 
+    std::string toWrite(stringifier.getStringifiedDoc());
     FileHandler fh;
-    fh.writeContent(path, s);
+    std::cout << toWrite << std::endl;
+    fh.writeContent(path, toWrite);
 }
 
 void SaveHandler::encrypt(std::string p) {

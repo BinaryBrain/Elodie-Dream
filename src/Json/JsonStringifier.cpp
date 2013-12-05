@@ -2,10 +2,9 @@
 
 
 JsonStringifier::JsonStringifier() {
-    // initialize document
-    const char json[] = "{}";
-    if (values.Parse<0>(json).HasParseError()) {
-		std::cerr << "Eror initializing document in JsonStringifier" << std::endl;
+    const char buff[] = "{}";
+    if(values.Parse<0>(buff).HasParseError() == true){
+        std::cerr << "Parse error when initializing document in JsonStringifier" << std::endl;
     }
 }
 
@@ -13,27 +12,27 @@ JsonStringifier::~JsonStringifier() {
 
 }
 
-void JsonStringifier::setInt(int i, std::string key) {
+void JsonStringifier::setInt(std::string key, int i) {
     values.AddMember(key.c_str(), i, values.GetAllocator());
 }
 
-void JsonStringifier::setString(std::string s, std::string key) {
+void JsonStringifier::setString(std::string key, std::string s) {
     values.AddMember(key.c_str(), s.c_str(), values.GetAllocator());
 }
 
-void JsonStringifier::setIntVector(std::vector<int> v, std::string key) {
+void JsonStringifier::setIntVector(std::string key, std::vector<int> v) {
 
 }
 
-void JsonStringifier::setInt2DVector(std::vector<std::vector<int> > v, std::string key) {
+void JsonStringifier::setInt2DVector(std::string key, std::vector<std::vector<int> > v) {
 
 }
 
 std::string JsonStringifier::getStringifiedDoc() {
-    rapidjson::GenericStringBuffer< rapidjson::UTF8<> > buffer;
-    rapidjson::Writer< rapidjson::GenericStringBuffer< rapidjson::UTF8<> > > writer(buffer);
+    rapidjson::StringBuffer strbuf;
+    rapidjson::Writer<rapidjson::StringBuffer> writer(strbuf);
     values.Accept(writer);
 
-    return buffer.GetString();
+    return strbuf.GetString();
 }
 
