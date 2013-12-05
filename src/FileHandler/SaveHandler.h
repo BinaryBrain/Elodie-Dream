@@ -10,18 +10,23 @@
 
 #include "../Json/JsonParser.h"
 #include "../Game/Game.h"
+#include "FileHandler.h"
 
 class SaveHandler {
 public:
 
-    SaveHandler(std::string path);
+    SaveHandler();
     virtual ~SaveHandler();
 
+    void setPath(std::string path);
+
     void save();
+    void load();
 
 private:
     std::string path;
 
+    rapidjson::Document createDocument();
     void encrypt(std::string p);
     void decrpyt(std::string c);
 };

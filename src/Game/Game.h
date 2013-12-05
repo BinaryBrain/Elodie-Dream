@@ -6,7 +6,6 @@
 #include "../Console/Console.h"
 #include "../Level/Level.h"
 #include "../Map/Mapper.h"
-#include "../FileHandler/FileHandler.h"
 #include "../Overworld/Overworld.h"
 #include "../EventHandler/EventHandler.h"
 #include "../Menu/MenuHandler.h"
@@ -57,9 +56,6 @@ private:
 
     Console* console;
     void displayConsole();
-
-    void writeInConsole(std::string sentence);
-    void writeInConsole(std::vector<std::string> sentences);
 
     int curLevelNbr = 0;
     Level* curLevel = NULL;

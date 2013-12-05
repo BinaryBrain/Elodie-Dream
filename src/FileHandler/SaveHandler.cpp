@@ -1,18 +1,35 @@
 #include "SaveHandler.h"
 
-SaveHandler::SaveHandler(std::string path) {
-    this->path = path;
+SaveHandler::SaveHandler() {
+
 }
 
 SaveHandler::~SaveHandler() {
 
 }
 
+void SaveHandler::setPath(std::string path) {
+    this->path = path;
+}
 
 void SaveHandler::save() {
+
+    rapidjson::Document doc = createDocument();
+    std::string s = JsonParser::encode(doc);
+
+    FileHandler fh;
+    fh.writeContent(path, s);
+}
+
+rapidjson::Document SaveHandler::createDocument() {
     GameState state = Game::getInstance()->getState();
-    std::string s = "result of JsonpParser.encode()";
-    std::cout << "Actually used so no error >:3" << (int)state <<s << std::endl;
+
+    rapidjson::Document doc;
+    doc.SetObject();
+    rapidjson::Value v;
+    v.AddMember("int", (int)state, doc.GetAllocator());
+
+    return doc;
 }
 
 void SaveHandler::encrypt(std::string p) {

@@ -24,8 +24,8 @@ public:
     * \param[in] file name The name of the file.
     * \return A string, the content of the file.
     */
-    static std::string getContent(std::string filename);
-    static void writeContent(std::string filename, std::string toWrite);
+    static std::string getContent(std::string path);
+    static void writeContent(std::string path, std::string toWrite);
 protected:
 private:
 

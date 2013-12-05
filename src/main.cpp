@@ -10,6 +10,7 @@
 #include "Json/JsonAccessor.h"
 #include "Game/Game.h"
 #include "Overworld/Overworld.h"
+#include "FileHandler/SaveHandler.h"
 
 //Here for testing purpose. To remove later on
 #include "EntityManager/EntityManager.h"
@@ -20,6 +21,9 @@ using std::endl;
 int main() {
     // Map Parsing test
     Game* game = Game::getInstance();
+    SaveHandler sh;
+    /*sh.setPath("save/save.json");
+    sh.save();*/
 
     if (false) {
         // Conf test
