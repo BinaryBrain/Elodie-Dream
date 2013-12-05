@@ -16,7 +16,7 @@ public:
     void setString(std::string s, std::string key);
     void setIntVector(std::vector<int> v, std::string key);
     void setInt2DVector(std::vector<std::vector<int> > v, std::string key);
-    rapidjson::Document* getDocument();
+    std::string getStringifiedDoc();
 
 private:
     rapidjson::Document values;

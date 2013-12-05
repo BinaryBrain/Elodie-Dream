@@ -13,7 +13,7 @@
 class JsonParser {
 public:
     JsonParser();
-    static std::string encode(rapidjson::Document &doc);
+    static std::string encode(rapidjson::Document* doc);
     static rapidjson::Document* decode(std::string s, rapidjson::Document* document, bool isFile);
     ~JsonParser();
 

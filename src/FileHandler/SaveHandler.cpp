@@ -13,23 +13,14 @@ void SaveHandler::setPath(std::string path) {
 }
 
 void SaveHandler::save() {
+    JsonStringifier stringifier;
+    GameState state = Game::getInstance()->getState();
 
-    rapidjson::Document doc = createDocument();
-    std::string s = JsonParser::encode(doc);
+    stringifier.setInt((int)state, "gamestate");
+    std::string s = stringifier.getStringifiedDoc();
 
     FileHandler fh;
     fh.writeContent(path, s);
-}
-
-rapidjson::Document SaveHandler::createDocument() {
-    GameState state = Game::getInstance()->getState();
-
-    rapidjson::Document doc;
-    doc.SetObject();
-    rapidjson::Value v;
-    v.AddMember("int", (int)state, doc.GetAllocator());
-
-    return doc;
 }
 
 void SaveHandler::encrypt(std::string p) {

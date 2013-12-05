@@ -9,6 +9,7 @@
 #include "../env.h"
 
 #include "../Json/JsonParser.h"
+#include "../Json/JsonStringifier.h"
 #include "../Game/Game.h"
 #include "FileHandler.h"
 
@@ -26,7 +27,6 @@ public:
 private:
     std::string path;
 
-    rapidjson::Document createDocument();
     void encrypt(std::string p);
     void decrpyt(std::string c);
 };
