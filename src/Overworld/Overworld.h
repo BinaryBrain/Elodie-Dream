@@ -15,6 +15,7 @@ public:
     Overworld();
     virtual ~Overworld();
     Elodie* getElodie();
+    int getCurrentEnv();
     int moveUp();
     int moveDown();
     int moveRight();

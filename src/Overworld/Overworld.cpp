@@ -173,3 +173,7 @@ void Overworld::evolve() {
 Elodie* Overworld::getElodie() {
     return elodie;
 }
+
+int Overworld::getCurrentEnv() {
+    return (int)currentState;
+}

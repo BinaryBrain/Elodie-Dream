@@ -21,8 +21,7 @@ public:
 
     void setPath(std::string path);
 
-    void addSave();
-    void applySaves();
+    void save();
     void load();
 
 private:

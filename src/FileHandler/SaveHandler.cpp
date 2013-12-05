@@ -12,21 +12,19 @@ void SaveHandler::setPath(std::string path) {
     this->path = path;
 }
 
-void SaveHandler::addSave() {
+void SaveHandler::save() {
     JsonStringifier stringifier;
 
     // todo fin why there should be another string each time, not the same one which switches values
-    std::string keyState = "gamestate";
-    GameState state = Game::getInstance()->getState();
-    std::cout << "Original gamestate: " << (int)state << std::endl;
-    stringifier.add(keyState, (int)state);
+    std::string keyGameState = "gamestate";
+    GameState gameState = Game::getInstance()->getState();
+    stringifier.add(keyGameState, (int)gameState);
 
-    std::string test = "test";
-    std::string vie = "la vie!";
-    stringifier.add(test, vie);
+    std::string keyCurrentEnv = "currentenv";
+    int currentEnv = Game::getInstance()->getOverworld()->getCurrentEnv();
+    stringifier.add(keyCurrentEnv, currentEnv);
 
     std::string stringified(stringifier.getStringifiedDoc());
-    FileHandler fh;
     std::cout << "Stringified json: " << stringified << std::endl;
 
     // save the encrypted stringified json to path
@@ -37,10 +35,6 @@ void SaveHandler::addSave() {
         myfile << tmp[i] << std::endl;
     }
     myfile.close();
-}
-
-void SaveHandler::applySaves() {
-
 }
 
 void SaveHandler::load() {
@@ -63,8 +57,10 @@ void SaveHandler::load() {
 
     JsonAccessor accessor;
     accessor.load(tempJsonFilePath);
-    int state = accessor.getInt("gamestate");
-    std::cout << "Retrieved gamestate: " << state << std::endl;
+    int gameState = accessor.getInt("gamestate");
+    int currentEnv = accessor.getInt("currentenv");
+    std::cout << "Retrieved gamestate: " << gameState << std::endl;
+    std::cout << "Retrieved currentenv: " << currentEnv << std::endl;
 
 
     if(remove(tempJsonFilePath.c_str()) != 0 ) {
