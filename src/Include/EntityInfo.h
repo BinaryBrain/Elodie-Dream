@@ -1,6 +1,8 @@
 #ifndef ENTITYINFO_H_INCLUDED
 #define ENTITYINFO_H_INCLUDED
 
+#include <map>
+#include <string>
 #include "HitboxInfo.h"
 
 class EntityInfo {

@@ -11,6 +11,9 @@
 #include "Game/Game.h"
 #include "Overworld/Overworld.h"
 
+//Here for testing purpose. To remove later on
+#include "EntityManager/EntityManager.h"
+
 using std::cout;
 using std::endl;
 
@@ -41,6 +44,22 @@ int main() {
         cout << sheep.getString("anim name") << endl;
         cout << sheep.getString("anim name") << endl;
         cout << sheep.getString("anim name") << endl;
+    }
+
+    if (true) {
+        EntityManager ToyBox;
+        EntityInfo* sheep = ToyBox.getEnemyInfo(EntityType::ENEMY, EntityName::SHEEP);
+        std::cout << std::endl << "sheep" << std::endl;
+        std::cout << "height: " << sheep->height << std::endl;
+        std::cout << "width: " << sheep->width << std::endl;
+        for(std::map< std::string, HitboxInfo >::iterator it = sheep->anim.begin(); it != sheep->anim.end(); ++it) {
+            std::cout << it->first << std::endl;
+            std::cout << it->second.row << std::endl;
+            for (unsigned int i = 0; i < it->second.hitboxes.size(); ++i) {
+                std::cout << std::get<0>(it->second.hitboxes[i]).x << " " << std::get<0>(it->second.hitboxes[i]).y << " " << std::get<1>(it->second.hitboxes[i]).x << " " << std::get<1>(it->second.hitboxes[i]).y << std::endl;
+            }
+        }
+        delete sheep;
     }
 
     game->run();

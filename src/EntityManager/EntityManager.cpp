@@ -1,4 +1,6 @@
 #include "EntityManager.h"
+#include "../Json/JsonParser.h"
+#include "../Json/JsonAccessor.h"
 
 EntityManager::EntityManager() {
     ENTITY_NAME = {
@@ -20,14 +22,16 @@ EntityManager::~EntityManager() {
     }
 }
 
-EntityInfo* EntityManager::getEnemyInfo(EntityName name, EntityType type) {
+EntityInfo* EntityManager::getEnemyInfo(EntityType type, EntityName name) {
     if(!enemies[type][name]) {
-
+        JsonAccessor newEntity = JsonAccessor();
+        newEntity.load(getPath(type, name));
+        enemies[type][name] = newEntity.getEntityInfo();
     }
 
     return enemies[type][name];
 }
 
-std::string EntityManager::getPath(EntityName name, EntityType type) {
+std::string EntityManager::getPath(EntityType type, EntityName name) {
     return ENTITIES_JSON_PATH+"/"+ENTITY_TYPE[type]+"/"+ENTITY_NAME[name]+".json";
 }

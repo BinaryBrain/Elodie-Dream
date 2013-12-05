@@ -22,10 +22,10 @@ public:
     EntityManager();
     virtual ~EntityManager();
 
-    EntityInfo* getEnemyInfo(EntityName name, EntityType type);
+    EntityInfo* getEnemyInfo(EntityType type, EntityName name);
 protected:
 private:
-    std::string getPath(EntityName name, EntityType type);
+    std::string getPath(EntityType type, EntityName name);
 
      EntityBox enemies;
 
