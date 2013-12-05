@@ -2,11 +2,10 @@
 #define GAME_H
 
 #include "../env.h"
-#include "../JsonAccessor/JsonAccessor.h"
+#include "../Json/JsonAccessor.h"
 #include "../Console/Console.h"
 #include "../Level/Level.h"
 #include "../Map/Mapper.h"
-#include "../FileHandler/FileHandler.h"
 #include "../Overworld/Overworld.h"
 #include "../EventHandler/EventHandler.h"
 #include "../Menu/MenuHandler.h"
@@ -14,7 +13,6 @@
 #include "../Level/Immersionbar.h"
 #include "../Sound/SoundManager.h"
 #include "GameView.h"
-#include "GameContent.h"
 
 /**
 * The class representing the game.
@@ -30,7 +28,10 @@ public:
     void run();
     void exit();
 
+    GameState getState();
     void setState(GameState state);
+    Overworld* getOverworld();
+    Console* getConsole();
 
 private:
     Game();
@@ -42,8 +43,6 @@ private:
     GameView view;
     GameState state = GameState::INMENU;
     GameState pausePrevState;
-
-    GameContent* content = new GameContent();
 
     EventHandler* event = new EventHandler(view.getWindow());
 
@@ -57,11 +56,6 @@ private:
 
     Console* console;
     void displayConsole();
-
-    // don't know which one to choose : Game.writeInConsole() of Game.getConsole.setContent()
-    Console* getConsole();
-    void writeInConsole(std::string sentence);
-    void writeInConsole(std::vector<std::string> sentences);
 
     int curLevelNbr = 0;
     Level* curLevel = NULL;

@@ -4,32 +4,33 @@
 #include <map>
 #include <string>
 #include "../const.h"
-#include "../Level/Level.h"
-#include "../Sprite/TileSprite.h"
+#include "../Include/EntityInfo.h"
 #include "SFML/Graphics.hpp"
 
-typedef std::map< LevelEnv, std::map< TileType, sf::Texture* > > TileTextures;
+enum class EntityName {
+    ELODIE, SHEEP
+};
+
+enum class EntityType {
+    ELODIE, ENEMY
+};
+
+typedef std::map< EntityType, std::map< EntityName, EntityInfo* > > EntityBox;
 
 class EntityManager {
 public:
-    static EntityManager* getInstance();
+    EntityManager();
+    virtual ~EntityManager();
 
-    sf::Texture* getTileTexture(LevelEnv env, TileType type);
+    EntityInfo* getEnemyInfo(EntityType type, EntityName name);
 protected:
 private:
-    EntityManager();
-    ~EntityManager();
+    std::string getPath(EntityType type, EntityName name);
 
-    static EntityManager* entityManagerInstance;
-    EntityManager& operator= (EntityManager const&); // Makes operator= private
+     EntityBox enemies;
 
-    std::string getPath(LevelEnv env, TileType type);
-
-    TileTextures textures;
-
-    std::map<LevelEnv, string> LEVEL_ENV;
-
-    std::map<TileType, std::string> TILE_TYPE;
+    std::map< EntityName, std::string > ENTITY_NAME;
+    std::map< EntityType, std::string > ENTITY_TYPE;
 };
 
 

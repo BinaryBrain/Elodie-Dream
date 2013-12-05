@@ -22,8 +22,7 @@ void Elodie::init() {
     setEntitySprite(sprite);
 
     //levelSpeed and hitboxes are set here for the moment, but it's not the right place to set them
-    sf::Vector2f pnt1 = {82, 37}, pnt2 = {106, 82};
-    Hitbox hitbox(pnt1, pnt2);
+    Hitbox hitbox({82, 37, 24, 45});
     setCurrentHitbox(0);
     addHitbox(hitbox);
 }
@@ -130,10 +129,17 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
     }
     Collide collideTiles = collideWithTiles(tiles, &speed, animate.asSeconds());
 
-    if (speed.x < 0)
-        speed.x = -collideTiles.left["distance"];
-    else
-        speed.x = collideTiles.right["distance"];
+    if (speed.x < 0) {
+        if (collideTiles.left["distance"])
+            speed.x = -collideTiles.left["distance"];
+        else
+            speed.x = 300;
+    } else {
+        if (collideTiles.right["distance"])
+            speed.x = collideTiles.right["distance"];
+        else
+            speed.x = -300;
+    }
 
     if (speed.y < 0)
         speed.y = -collideTiles.top["distance"];
@@ -194,8 +200,7 @@ void Elodie::reset() {
     setEntitySprite(sprite);
 
     //levelSpeed and hitboxes are set here for the moment, but it's not the right place to set them
-    sf::Vector2f pnt1 = {82, 37}, pnt2 = {106, 82};
-    Hitbox hitbox(pnt1, pnt2);
+    Hitbox hitbox({82, 37, 24, 45});
     removeCurrentHitBox();
     setCurrentHitbox(0);
     addHitbox(hitbox);

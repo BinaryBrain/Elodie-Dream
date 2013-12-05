@@ -1,29 +1,34 @@
 #ifndef SAVEHANDLER_H
 #define SAVEHANDLER_H
 
-#include <string>
-/**
-* Not implemented yet.
-* Can save json in a file.
-*/
+#include <fstream>
+#include <cstdio>
+#include "rapidjson/document.h"		// rapidjson's DOM-style API
+#include "rapidjson/prettywriter.h"	// for stringify JSON
+#include "rapidjson/filestream.h"	// wrapper of C stream for prettywriter as output
+#include "../env.h"
+
+#include "../Json/JsonParser.h"
+#include "../Json/JsonStringifier.h"
+#include "../Game/Game.h"
+#include "FileHandler.h"
+
 class SaveHandler {
 public:
-    /**
-    * \brief The constructor of SaveHandler. Sets the path of the file.
-    *
-    * \param[in] path The path to the file.
-    */
-    SaveHandler(std::string path);
-    /**
-    * \brief Can save something in a file (not yet implemented).
-    */
-    void save();
-    /**
-    * \brief The destructor of SaveHandler.
-    */
+
+    SaveHandler();
     virtual ~SaveHandler();
+
+    void setPath(std::string path);
+
+    void save();
+    void load();
+
 private:
     std::string path;
+
+    void encrypt(std::string p);
+    void decrpyt(std::string c);
 };
 
 #endif // SAVEHANDLER_H

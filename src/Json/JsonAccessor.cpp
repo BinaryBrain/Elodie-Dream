@@ -84,6 +84,40 @@ std::vector< std::vector<int>* >* JsonAccessor::getInt2DVector(string key) {
     }
 }
 
+EntityInfo* JsonAccessor::getEntityInfo() {
+    if(!this->loaded) {
+        cerr << "Not loaded yet" << endl;
+        return 0;
+    } else {
+        EntityInfo* entity = new EntityInfo();
+        entity->height = this->getInt("height");
+        entity->width = this->getInt("width");
+
+        const rapidjson::Value& anim = getAskedObject("anim");
+        assert(anim.IsObject());
+
+        for (rapidjson::Value::ConstMemberIterator itr = anim.MemberBegin(); itr != anim.MemberEnd(); ++itr) {
+            HitboxInfo hitboxes;
+            hitboxes.row = itr->value["row"].GetInt();
+            assert(itr->value["hitbox"].IsArray());
+            for (rapidjson::SizeType j = 0; j < itr->value["hitbox"].Size(); ++j) {
+                sf::FloatRect newHitbox;
+
+                assert(itr->value["hitbox"][j].IsObject());
+                newHitbox.left = itr->value["hitbox"][j]["x"].GetInt();
+                newHitbox.top = itr->value["hitbox"][j]["y"].GetInt();
+                newHitbox.width = itr->value["hitbox"][j]["w"].GetInt();
+                newHitbox.height = itr->value["hitbox"][j]["h"].GetInt();
+
+                hitboxes.hitboxes.push_back(newHitbox);
+            }
+
+            entity->anim[itr->name.GetString()] = hitboxes;
+        }
+        return entity;
+    }
+}
+
 bool JsonAccessor::load(string file) {
     if(!this->loaded) {
         pathToFile = file;

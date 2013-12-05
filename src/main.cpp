@@ -7,10 +7,14 @@
 
 #include "Sprite/AnimatedSprite.h"
 #include "EventHandler/EventHandler.h"
-#include "JsonParser/JsonParser.h"
-#include "JsonAccessor/JsonAccessor.h"
+#include "Json/JsonParser.h"
+#include "Json/JsonAccessor.h"
 #include "Game/Game.h"
 #include "Overworld/Overworld.h"
+#include "FileHandler/SaveHandler.h"
+
+//Here for testing purpose. To remove later on
+#include "EntityManager/EntityManager.h"
 
 using std::cout;
 using std::endl;
@@ -44,6 +48,12 @@ int main() {
     std::cout << test <<std::endl;
     Game* game = Game::getInstance();
 
+    // SaveHandler test
+    SaveHandler sh;
+    sh.setPath("save/save.json");
+    sh.save();
+
+
     if (false) {
         // Conf test
         JsonAccessor language = JsonAccessor();
@@ -67,6 +77,22 @@ int main() {
         cout << sheep.getString("anim name") << endl;
         cout << sheep.getString("anim name") << endl;
         cout << sheep.getString("anim name") << endl;
+    }
+
+    if (false) {
+        EntityManager ToyBox;
+        EntityInfo* sheep = ToyBox.getEnemyInfo(EntityType::ENEMY, EntityName::SHEEP);
+        std::cout << std::endl << "sheep" << std::endl;
+        std::cout << "height: " << sheep->height << std::endl;
+        std::cout << "width: " << sheep->width << std::endl;
+        for(std::map< std::string, HitboxInfo >::iterator it = sheep->anim.begin(); it != sheep->anim.end(); ++it) {
+            std::cout << it->first << std::endl;
+            std::cout << it->second.row << std::endl;
+            for (unsigned int i = 0; i < it->second.hitboxes.size(); ++i) {
+                std::cout << it->second.hitboxes[i].left << " " << it->second.hitboxes[i].top << " " << it->second.hitboxes[i].width << " " << it->second.hitboxes[i].height << std::endl;
+            }
+        }
+        delete sheep;
     }
 
     game->run();

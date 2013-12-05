@@ -4,15 +4,21 @@ using std::string;
 using std::cerr;
 using std::endl;
 
-JsonParser::JsonParser() {}
+JsonParser::JsonParser() {
 
-string JsonParser::encode(rapidjson::Document &doc) {
-    //todo
-    return "tout doux";
+}
+
+// may not work for now
+std::string JsonParser::encode(rapidjson::Document* doc) {
+    rapidjson::GenericStringBuffer< rapidjson::UTF8<> > buffer;
+    rapidjson::Writer< rapidjson::GenericStringBuffer< rapidjson::UTF8<> > > writer(buffer);
+    doc->Accept(writer);
+
+    return buffer.GetString();
 }
 
 // FIXME address of local variable 'document' returned
-rapidjson::Document* JsonParser::decode(string s, rapidjson::Document* document, bool isFile) {
+rapidjson::Document* JsonParser::decode(std::string s, rapidjson::Document* document, bool isFile) {
     // Default template parameter uses UTF8 and MemoryPoolAllocator.
     if(isFile) {
         FILE* pFile = fopen (s.c_str(), "r");
