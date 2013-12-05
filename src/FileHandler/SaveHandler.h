@@ -27,8 +27,8 @@ public:
 private:
     std::string path;
 
-    void encrypt(std::string p);
-    void decrpyt(std::string c);
+    std::vector<int> encrypt(std::string p, std::string key);
+    std::string decrypt(std::vector<int> tmp, std::string key);
 };
 
 #endif // SAVEHANDLER_H

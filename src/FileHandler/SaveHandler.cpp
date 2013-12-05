@@ -27,15 +27,41 @@ void SaveHandler::save() {
     std::string toWrite(stringifier.getStringifiedDoc());
     FileHandler fh;
     std::cout << "Saved string: " << toWrite << std::endl;
-    fh.writeContent(path, toWrite);
+
+    std::vector<int> tmp = encrypt(toWrite, "key");
+    std::ofstream myfile;
+    myfile.open (path);
+    for (size_t i = 0; i < tmp.size(); ++i){
+        myfile << tmp[i] << std::endl;
+    }
+    myfile.close();
 }
 
-void SaveHandler::encrypt(std::string p) {
-
+void SaveHandler::load() {
+    std::vector<int> tmp;
+    std::ifstream infile;
+    infile.open(path);
+    int acc;
+    while(infile>>acc){
+        tmp.push_back(acc);
+    }
+    std::string test = decrypt(tmp, "key");
+    std::cout << test << std::endl;
 }
 
-void SaveHandler::decrpyt(std::string c) {
-
+std::vector<int> SaveHandler::encrypt(std::string p, std::string key) {
+    std::vector<int> tmp;
+    for(size_t i = 0; i < p.length(); ++i){
+        tmp.push_back((int)p[i]^key[i%key.length()]);
+    }
+    return tmp;
 }
 
-
+std::string SaveHandler::decrypt(std::vector<int> tmp, std::string key) {
+    std::string p = "";
+    for(size_t i = 0; i < tmp.size(); ++i){
+        p += ((char)tmp[i])^key[i%key.length()];
+    }
+    std::cout << p <<std::endl;
+    return p;
+}
