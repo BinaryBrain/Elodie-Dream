@@ -22,8 +22,7 @@ void Elodie::init() {
     setEntitySprite(sprite);
 
     //levelSpeed and hitboxes are set here for the moment, but it's not the right place to set them
-    sf::Vector2f pnt1 = {82, 37}, pnt2 = {106, 82};
-    Hitbox hitbox(pnt1, pnt2);
+    Hitbox hitbox({82, 37, 24, 45});
     setCurrentHitbox(0);
     addHitbox(hitbox);
 }
@@ -201,8 +200,7 @@ void Elodie::reset() {
     setEntitySprite(sprite);
 
     //levelSpeed and hitboxes are set here for the moment, but it's not the right place to set them
-    sf::Vector2f pnt1 = {82, 37}, pnt2 = {106, 82};
-    Hitbox hitbox(pnt1, pnt2);
+    Hitbox hitbox({82, 37, 24, 45});
     removeCurrentHitBox();
     setCurrentHitbox(0);
     addHitbox(hitbox);

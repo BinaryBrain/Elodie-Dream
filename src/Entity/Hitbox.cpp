@@ -1,13 +1,11 @@
 #include "Hitbox.h"
 
-Hitbox::Hitbox(sf::Vector2f topLeft, sf::Vector2f bottomRight) {
-    this->topLeft = sf::Vector2f(topLeft);
-    this->bottomRight = sf::Vector2f(bottomRight);
+Hitbox::Hitbox(sf::FloatRect area) {
+    this->area = sf::FloatRect(area);
 }
 
 Hitbox::Hitbox(const Hitbox& original) {
-    this->topLeft = std::get<0>(original.getPoints());
-    this->bottomRight = std::get<1>(original.getPoints());
+    this->area = original.getArea();
 }
 
 Hitbox::~Hitbox() {
@@ -15,8 +13,8 @@ Hitbox::~Hitbox() {
 }
 
 void Hitbox::move(sf::Vector2f* diff) {
-    this->topLeft += *diff;
-    this->bottomRight += *diff;
+    this->area.left += diff->x;
+    this->area.top += diff->y;
 }
 
 void Hitbox::move(float dx, float dy) {
@@ -25,5 +23,9 @@ void Hitbox::move(float dx, float dy) {
 }
 
 std::tuple< sf::Vector2f, sf::Vector2f > Hitbox::getPoints() const {
-    return std::tuple< sf::Vector2f, sf::Vector2f >(topLeft, bottomRight);
+    return std::tuple< sf::Vector2f, sf::Vector2f >({area.left, area.top}, {area.left + area.width, area.top + area.height});
+}
+
+sf::FloatRect Hitbox::getArea() const {
+    return area;
 }
