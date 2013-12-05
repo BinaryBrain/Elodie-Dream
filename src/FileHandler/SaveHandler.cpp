@@ -15,7 +15,7 @@ void SaveHandler::setPath(std::string path) {
 void SaveHandler::save() {
     JsonStringifier stringifier;
 
-    // todo fin why there should be another string each time, not the same one which switches values
+    // todo find why there should be another string each time, not the same one which switches values
     std::string keyGameState = "gamestate";
     GameState gameState = Game::getInstance()->getState();
     stringifier.add(keyGameState, (int)gameState);
@@ -27,27 +27,29 @@ void SaveHandler::save() {
     std::string stringified(stringifier.getStringifiedDoc());
     std::cout << "Stringified json: " << stringified << std::endl;
 
-    // save the encrypted stringified json to path
+    // saves the encrypted stringified json to the file
     std::vector<int> tmp = encrypt(stringified, "key");
     std::ofstream myfile;
     myfile.open(path);
-    for (size_t i = 0; i < tmp.size(); ++i){
+    for (size_t i = 0; i < tmp.size(); ++i) {
         myfile << tmp[i] << std::endl;
     }
     myfile.close();
 }
 
 void SaveHandler::load() {
+    // loads the file, decrypts the json inside
     std::vector<int> tmp;
     std::ifstream infile;
     infile.open(path);
     int acc;
-    while(infile>>acc){
+    while(infile>>acc) {
         tmp.push_back(acc);
     }
     infile.close();
     std::string json = decrypt(tmp, "key");
 
+    // creates a temporary json file for the JsonAccessor
     std::ofstream tempJsonFile;
     std::string tempJsonFilePath = "save/temp.json";
 
@@ -61,12 +63,12 @@ void SaveHandler::load() {
     int currentEnv = accessor.getInt("currentenv");
     std::cout << "Retrieved gamestate: " << gameState << std::endl;
     std::cout << "Retrieved currentenv: " << currentEnv << std::endl;
+    accessor.close();
 
-
+    // remove the temporary json
     if(remove(tempJsonFilePath.c_str()) != 0 ) {
         std::cerr << "Error deleting temporary json" << std::endl;
-    }
-    else {
+    } else {
         std::cout << "Temporary json successfully deleted." << std::endl;
     }
 
@@ -74,7 +76,7 @@ void SaveHandler::load() {
 
 std::vector<int> SaveHandler::encrypt(std::string p, std::string key) {
     std::vector<int> tmp;
-    for(size_t i = 0; i < p.length(); ++i){
+    for(size_t i = 0; i < p.length(); ++i) {
         tmp.push_back((int)p[i]^key[i%key.length()]);
     }
     return tmp;
@@ -82,7 +84,7 @@ std::vector<int> SaveHandler::encrypt(std::string p, std::string key) {
 
 std::string SaveHandler::decrypt(std::vector<int> tmp, std::string key) {
     std::string p = "";
-    for(size_t i = 0; i < tmp.size(); ++i){
+    for(size_t i = 0; i < tmp.size(); ++i) {
         p += ((char)tmp[i])^key[i%key.length()];
     }
     return p;

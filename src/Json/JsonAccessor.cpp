@@ -133,3 +133,13 @@ bool JsonAccessor::load(string file) {
         return false;
     }
 }
+
+bool JsonAccessor::close() {
+    if(loaded) {
+        fclose(pFile);
+        return true;
+    } else {
+        cerr << "Nothing to close" << endl;
+        return false;
+    }
+}

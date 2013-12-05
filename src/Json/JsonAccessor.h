@@ -24,6 +24,7 @@ public:
     std::vector< std::vector<int>* >* getInt2DVector(string key);
     EntityInfo* getEntityInfo();
     bool load(string file);
+    bool close();
 protected:
 private:
     rapidjson::Document values;
