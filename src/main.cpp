@@ -60,7 +60,7 @@ int main() {
             std::cout << it->first << std::endl;
             std::cout << it->second.row << std::endl;
             for (unsigned int i = 0; i < it->second.hitboxes.size(); ++i) {
-                std::cout << std::get<0>(it->second.hitboxes[i]).x << " " << std::get<0>(it->second.hitboxes[i]).y << " " << std::get<1>(it->second.hitboxes[i]).x << " " << std::get<1>(it->second.hitboxes[i]).y << std::endl;
+                std::cout << it->second.hitboxes[i].left << " " << it->second.hitboxes[i].top << " " << it->second.hitboxes[i].width << " " << it->second.hitboxes[i].height << std::endl;
             }
         }
         delete sheep;

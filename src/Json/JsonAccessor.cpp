@@ -101,13 +101,13 @@ EntityInfo* JsonAccessor::getEntityInfo() {
             hitboxes.row = itr->value["row"].GetInt();
             assert(itr->value["hitbox"].IsArray());
             for (rapidjson::SizeType j = 0; j < itr->value["hitbox"].Size(); ++j) {
-                std::tuple< sf::Vector2f, sf::Vector2f > newHitbox;
+                sf::FloatRect newHitbox;
 
                 assert(itr->value["hitbox"][j].IsObject());
-                std::get<0>(newHitbox).x = itr->value["hitbox"][j]["x1"].GetInt();
-                std::get<0>(newHitbox).y = itr->value["hitbox"][j]["y1"].GetInt();
-                std::get<1>(newHitbox).x = itr->value["hitbox"][j]["x2"].GetInt();
-                std::get<1>(newHitbox).y = itr->value["hitbox"][j]["y2"].GetInt();
+                newHitbox.left = itr->value["hitbox"][j]["x"].GetInt();
+                newHitbox.top = itr->value["hitbox"][j]["y"].GetInt();
+                newHitbox.width = itr->value["hitbox"][j]["w"].GetInt();
+                newHitbox.height = itr->value["hitbox"][j]["h"].GetInt();
 
                 hitboxes.hitboxes.push_back(newHitbox);
             }
