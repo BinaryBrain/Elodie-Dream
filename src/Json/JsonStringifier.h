@@ -12,10 +12,10 @@ public:
     JsonStringifier();
     virtual ~JsonStringifier();
 
-    void setInt(std::string key, int i);
-    void setString(std::string key, std::string s);
-    void setIntVector(std::string key, std::vector<int> v);
-    void setInt2DVector(std::string key, std::vector<std::vector<int> > v);
+    void add(std::string key, int i);
+    void add(std::string key, std::string s);
+    void add(std::string key, std::vector<int> v);
+    void add(std::string key, std::vector<std::vector<int> > v);
     std::string getStringifiedDoc();
 
 private:

@@ -12,19 +12,19 @@ JsonStringifier::~JsonStringifier() {
 
 }
 
-void JsonStringifier::setInt(std::string key, int i) {
+void JsonStringifier::add(std::string key, int i) {
     values.AddMember(key.c_str(), i, values.GetAllocator());
 }
 
-void JsonStringifier::setString(std::string key, std::string s) {
+void JsonStringifier::add(std::string key, std::string s) {
     values.AddMember(key.c_str(), s.c_str(), values.GetAllocator());
 }
 
-void JsonStringifier::setIntVector(std::string key, std::vector<int> v) {
+void JsonStringifier::add(std::string key, std::vector<int> v) {
 
 }
 
-void JsonStringifier::setInt2DVector(std::string key, std::vector<std::vector<int> > v) {
+void JsonStringifier::add(std::string key, std::vector<std::vector<int> > v) {
 
 }
 

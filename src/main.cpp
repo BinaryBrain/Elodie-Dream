@@ -26,7 +26,7 @@ int main() {
     // SaveHandler test
     SaveHandler sh;
     sh.setPath("save/save.txt");
-    sh.save();
+    sh.addSave();
     sh.load();
 
 
