@@ -8,11 +8,11 @@
 #include "SFML/Graphics.hpp"
 
 enum class EntityName {
-    SHEEP
+    ELODIE, SHEEP
 };
 
 enum class EntityType {
-    ENEMY
+    ELODIE, ENEMY
 };
 
 typedef std::map< EntityType, std::map< EntityName, EntityInfo* > > EntityBox;

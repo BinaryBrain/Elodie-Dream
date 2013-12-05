@@ -4,10 +4,12 @@
 
 EntityManager::EntityManager() {
     ENTITY_NAME = {
+        {EntityName::ELODIE, ENTITYNAME_ELODIE},
         {EntityName::SHEEP, ENTITYNAME_SHEEP}
     };
 
     ENTITY_TYPE = {
+        {EntityType::ELODIE, ENTITYTYPE_ELODIE},
         {EntityType::ENEMY, ENTITYTYPE_ENEMY}
     };
 }

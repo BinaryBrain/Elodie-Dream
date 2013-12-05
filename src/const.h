@@ -29,8 +29,10 @@ const string TILETYPE_ICE = "ice";
 // Enemies
 const string ENTITIES_JSON_PATH = "assets/img/sprites";
 
+const string ENTITYNAME_ELODIE = "elodie";
 const string ENTITYNAME_SHEEP = "sheep";
 
+const string ENTITYTYPE_ELODIE = "";
 const string ENTITYTYPE_ENEMY = "enemies";
 
 // Sounds

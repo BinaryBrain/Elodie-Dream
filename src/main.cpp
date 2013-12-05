@@ -50,7 +50,7 @@ int main() {
         cout << sheep.getString("anim name") << endl;
     }
 
-    if (true) {
+    if (false) {
         EntityManager ToyBox;
         EntityInfo* sheep = ToyBox.getEnemyInfo(EntityType::ENEMY, EntityName::SHEEP);
         std::cout << std::endl << "sheep" << std::endl;
