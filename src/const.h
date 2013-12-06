@@ -4,6 +4,8 @@
 #include <string>
 #include <map>
 
+#include <SFML/Graphics.hpp>
+
 using std::string;
 
 // -- GAME --//
@@ -11,6 +13,17 @@ const int FPS = 100;
 
 // -- LEVEL -- //
 const float ZOOM_LEVEL = 3;
+
+// Immersion Bar
+const float IMMERSION_BAR_X = 540;
+const float IMMERSION_BAR_Y = 50;
+const float IMMERSION_BAR_W = 200;
+const float IMMERSION_BAR_H = 15;
+
+const float IMMERSION_BAR_OUTLINE_THICKNESS = 2;
+
+const sf::Color IMMERSION_BAR_FILL = sf::Color(0x73, 0xC8, 0xA9, 0xFF);
+const sf::Color IMMERSION_BAR_OUTLINE = sf::Color(0x31, 0x55, 0x48, 0xFF);
 
 // -- PATHS -- //
 // Tiles

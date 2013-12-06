@@ -1,9 +1,10 @@
 #ifndef IMMERSIONBAR_H
 #define IMMERSIONBAR_H
 
+#include "../const.h"
+#include "../env.h"
 #include "../Displayable/Displayable.h"
 #include "../Game/GameView.h"
-
 
 class ImmersionBar : public Displayable {
 public:
