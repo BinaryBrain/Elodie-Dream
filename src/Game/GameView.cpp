@@ -1,7 +1,7 @@
 #include "GameView.h"
 
 GameView::GameView() {
-    window = new sf::RenderWindow(sf::VideoMode(1280, 720), "Elodie's Dream: Quest for Poros", sf::Style::Default);
+    window = new sf::RenderWindow(sf::VideoMode(1280, 720), "Elodie's Dream: Quest for Poros", sf::Style::Fullscreen);
 }
 
 GameView::~GameView() {
@@ -57,17 +57,19 @@ void GameView::setFollowedPoint(ViewLayer viewKey, const sf::Vector2f pos) {
 void GameView::setFollowedPoint(ViewLayer viewKey, float x, float y) {
     sf::Vector2f viewSize = viewMap[viewKey]->getView()->getSize();
 
-    //float margin = viewSize.y/4;
-    float margin = 0; // FIXME I bug with the zoom
+    float margin = viewSize.y/3;
+    // margin = 0; // FIXME I bug with the zoom
 
-    float camX = x+viewSize.x/2-viewSize.x/4; // 1/4 of the screen
-    float camY;
+    float camX = x+viewSize.x/2-viewSize.x/5; // 1/5 of the screen
+    float camY = viewMap[viewKey]->getView()->getCenter().y;
 
     if(centers[viewKey].y-y > viewSize.y/2-margin) {
-        camY = y+margin;
-    } else if(y-centers[viewKey].y > viewSize.y/2-margin) {
-        camY = y-margin;
+        camY = y+(viewSize.y/2-margin);
+    } else if(-centers[viewKey].y+y > viewSize.y/2-margin) {
+        camY = y-(viewSize.y/2-margin);
     }
+
+    //std::cout << "camY: " << camY << " | y: " << y << std::endl;
 
     setCameraCenter(viewKey, camX, camY);
 }

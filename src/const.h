@@ -10,7 +10,7 @@ using std::string;
 const int FPS = 100;
 
 // -- LEVEL -- //
-const float ZOOM_LEVEL = 2;
+const float ZOOM_LEVEL = 3;
 
 // -- PATHS -- //
 // Tiles
