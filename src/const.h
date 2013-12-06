@@ -38,6 +38,6 @@ const string ENTITYTYPE_ENEMY = "enemies";
 // Sounds
 const string SOUNDS_PATH = "assets/sounds";
 
-const string SOUND_TYPE_PUNCH = "punch.wav";
+const string SOUND_TYPE_PUNCH = "punch";
 
 #endif // CONST_H_INCLUDED

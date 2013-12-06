@@ -65,9 +65,7 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
     }
     // testing purposes
     else if (event->keyIsPressed(sf::Keyboard::A)) {
-        SoundManager* soundBuffers = new SoundManager();
-        soundBuffers->play(SoundType::PUNCH);
-        std::cout << "SON" << std::endl;
+        sounds.play(SoundType::PUNCH);
     }
     else if (event->keyIsPressed(sf::Keyboard::C)) {
         state = GameState::INCONSOLE;
@@ -138,7 +136,6 @@ void Game::handleOverworld(sf::Time time) {
 }
 
 void Game::displayMenu() {
-
     if (event->keyIsPressed(sf::Keyboard::Down)) menuHandler->incIndex();
     if (event->keyIsPressed(sf::Keyboard::Up)) menuHandler->decIndex();
     if (event->keyIsPressed(sf::Keyboard::Return)) {

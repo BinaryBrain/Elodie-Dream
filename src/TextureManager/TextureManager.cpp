@@ -17,8 +17,8 @@ TextureManager::TextureManager() {
 }
 
 TextureManager::~TextureManager() {
-    for(std::map< LevelEnv, std::map< TileType, sf::Texture* > >::iterator it = textures.begin(); it != textures.end(); it++) {
-        for(std::map< TileType, sf::Texture* >::iterator texture = it->second.begin(); texture != it->second.end(); texture++) {
+    for(std::map< LevelEnv, std::map< TileType, sf::Texture* > >::iterator it = textures.begin(); it != textures.end(); ++it) {
+        for(std::map< TileType, sf::Texture* >::iterator texture = it->second.begin(); texture != it->second.end(); ++texture) {
             sf::Texture* tex = texture->second;
             if(tex) {
                 delete tex;

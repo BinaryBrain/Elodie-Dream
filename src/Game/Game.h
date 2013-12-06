@@ -42,7 +42,10 @@ private:
 
     GameView view;
     GameState state = GameState::INMENU;
+
     GameState pausePrevState;
+
+    SoundManager sounds;
 
     EventHandler* event = new EventHandler(view.getWindow());
 
