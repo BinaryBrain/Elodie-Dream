@@ -1,8 +1,11 @@
 #include "SoundManager.h"
 
+SoundManager* SoundManager::soundManagerInstance = NULL;
+
 SoundManager::SoundManager() {
     SOUND_TYPE = {
-        { SoundType::PUNCH, { SOUND_TYPE_PUNCH, 2 } } // The int is the number after the max file (2 => punch2.wav)
+        { SoundType::PUNCH, { SOUND_TYPE_PUNCH, SOUND_TYPE_PUNCH_MAX } }, // The int is the number after the max file (2 => punch2.wav)
+        { SoundType::FOOTSTEP_GRASS, { SOUND_TYPE_FOOTSTEP_GRASS, SOUND_TYPE_FOOTSTEP_GRASS_MAX } }
     };
 }
 
@@ -14,6 +17,19 @@ SoundManager::~SoundManager() {
                 delete buffer->second;
             }
         }
+    }
+}
+
+// Gets the instance of the game
+SoundManager* SoundManager::getInstance() {
+    if(!soundManagerInstance) soundManagerInstance = new SoundManager();
+    return soundManagerInstance;
+}
+
+void SoundManager::kill() {
+    if(soundManagerInstance) {
+        delete soundManagerInstance;
+        soundManagerInstance = NULL;
     }
 }
 

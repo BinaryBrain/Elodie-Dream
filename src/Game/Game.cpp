@@ -10,6 +10,7 @@ Game::Game() {
     menuHandler = new MenuHandler(&view);
     girly = new Girly(&view);
     immBar = new ImmersionBar(&view);
+    soundManager = SoundManager::getInstance();
 
     view.addView(ViewLayer::MENU, menuHandler);
     view.addView(ViewLayer::OVERWORLD, overworld);
@@ -70,7 +71,7 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
     }
     // testing purposes
     else if (event->keyIsPressed(sf::Keyboard::A)) {
-        sounds.play(SoundType::PUNCH);
+        soundManager->play(SoundType::PUNCH);
     } else if (event->keyIsPressed(sf::Keyboard::C)) {
         state = GameState::INCONSOLE;
         curLevel->pause();

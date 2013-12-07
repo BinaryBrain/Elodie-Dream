@@ -42,7 +42,7 @@ private:
     ~Game();
 
     static Game* gameInstance;
-    Game& operator= (Game const&); // Makes operator= private
+    Game& operator= (Game const&);
 
     GameView view;
     GameState state = GameState::INMENU;
@@ -50,7 +50,7 @@ private:
 
     GameState pausePrevState;
 
-    SoundManager sounds;
+    SoundManager* soundManager;
 
     EventHandler* event = NULL;
     Overworld* overworld = NULL;

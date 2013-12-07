@@ -32,6 +32,8 @@ void Elodie::init() {
 
     sprite = new ElodieSprite(infos);
     setEntitySprite(sprite);
+
+    soundManager = SoundManager::getInstance();
 }
 
 ElodieSprite* Elodie::getSprite() {
@@ -125,8 +127,6 @@ int Elodie::getNightmareLevel() {
     return nightmareLevel;
 }
 
-
-
 void Elodie::walk() {
     sprite->walk();
 }
@@ -182,6 +182,19 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
         speed.y = 0;
 
         state = ElodieState::WALKING;
+
+        if(state == ElodieState::FALLING) {
+            state = ElodieState::WALKING;
+            stateChanged(ElodieState::FALLING, ElodieState::WALKING);
+        }
+        else if(state == ElodieState::JUMPING) {
+            state = ElodieState::WALKING;
+        }
+
+        unsigned int curFrame = sprite->getCurrentFrame();
+        if((curFrame == 2 || curFrame == 4) && sprite->getPreviousFrame() != curFrame) {
+            soundManager->play(SoundType::FOOTSTEP_GRASS);
+        }
     } else {
         computeGravity(animate);
         if (speed.y > 0) {
@@ -194,6 +207,7 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
     if (event->keyIsPressed(sf::Keyboard::Space) && state == ElodieState::WALKING) {
         speed.y = -400; // TODO Put in const file
         state = ElodieState::JUMPING;
+        stateChanged(ElodieState::WALKING, ElodieState::JUMPING);
     }
     if (state != memState) {
         sprite->changeStance(ANIMATIONS[state], sf::seconds(0.1f));
@@ -203,6 +217,15 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
     } else {
         flipToRight();
     }
+
+}
+
+void Elodie::stateChanged(ElodieState from, ElodieState to) {
+    if(from == ElodieState::FALLING && to == ElodieState::WALKING) {
+        soundManager->play(SoundType::FOOTSTEP_GRASS);
+    }
+
+
 }
 
 void Elodie::pause() {

@@ -70,5 +70,12 @@ const string ENTITYTYPE_ENEMY = "enemies";
 const string SOUNDS_PATH = "assets/sounds";
 
 const string SOUND_TYPE_PUNCH = "punch";
+const int SOUND_TYPE_PUNCH_MAX = 2;
+
+const string SOUND_TYPE_FOOTSTEP_GRASS = "footstep_grass";
+const int SOUND_TYPE_FOOTSTEP_GRASS_MAX = 3;
+
+// const string SOUND_TYPE_FOOTSTEP_GROUND = "footstep/ground";
+// const string SOUND_TYPE_FOOTSTEP_ROCK = "footstep/rock";
 
 #endif // CONST_H_INCLUDED

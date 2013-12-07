@@ -45,6 +45,7 @@ public:
     void setColor(const sf::Color& color);
     const Animation* getAnimation() const;
     std::size_t getCurrentFrame();
+    std::size_t getPreviousFrame();
     sf::FloatRect getLocalBounds() const;
     sf::FloatRect getGlobalBounds() const;
     bool isLooped() const;
@@ -57,6 +58,7 @@ private:
     sf::Time frameTime;
     sf::Time currentTime;
     std::size_t currentFrame;
+    std::size_t previousFrame;
     bool paused;
     bool looped;
     const sf::Texture* texture;

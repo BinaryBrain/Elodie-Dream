@@ -24,7 +24,7 @@ enum class LevelEnv {
 };
 
 enum class SoundType {
-    PUNCH
+    PUNCH, FOOTSTEP_GRASS
 };
 
 #endif // ENV_H

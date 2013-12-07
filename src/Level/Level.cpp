@@ -7,7 +7,6 @@ Level::Level(GameView* gameView, std::string filename, LevelEnv env, Elodie* elo
     loadLevel(filename, elodie);
     gameView->addView(ViewLayer::LEVEL, this);
 
-    std::cout << "ZOOM" << std::endl;
     gameView->setZoom(ViewLayer::LEVEL, ZOOM_LEVEL);
 }
 

@@ -8,8 +8,11 @@
 #include "../Include/Collide.h"
 #include "../EventHandler/EventHandler.h"
 #include "../Include/EntityInfo.h"
+#include "../Sound/SoundManager.h"
 
-enum class ElodieState { STANDING, WALKING, FALLING, PUNCHING, JUMPING};
+enum class ElodieState {
+    STANDING, WALKING, FALLING, PUNCHING, JUMPING
+};
 
 /**
 * The class representing Elodie, an Entity.
@@ -139,6 +142,7 @@ public:
     * \return An int, the value of the nightmare level.
     */
     int getNightmareLevel();
+    void stateChanged(ElodieState from, ElodieState to);
     void reset();
     void pause();
     void play();
@@ -181,6 +185,8 @@ private:
 
     std::vector<Item> stuff;
     std::map< ElodieState, std::string > ANIMATIONS;
+
+    SoundManager* soundManager;
 };
 
 #endif // ELODIE_H

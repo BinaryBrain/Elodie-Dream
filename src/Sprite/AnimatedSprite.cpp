@@ -31,6 +31,8 @@ AnimatedSprite::AnimatedSprite(sf::Time frameTime, bool paused, bool looped) {
     this->looped = looped;
 
     animation = NULL;
+
+    previousFrame = -1;
     currentFrame = 0;
     texture = NULL;
 }
@@ -38,6 +40,8 @@ AnimatedSprite::AnimatedSprite(sf::Time frameTime, bool paused, bool looped) {
 void AnimatedSprite::setAnimation(const Animation& animation) {
     this->animation = &animation;
     texture = this->animation->getSpriteSheet();
+
+    previousFrame = -1;
     currentFrame = 0;
     setFrame(currentFrame);
 }
@@ -56,6 +60,8 @@ void AnimatedSprite::pause() {
 
 void AnimatedSprite::stop() {
     paused = true;
+
+    previousFrame = -1;
     currentFrame = 0;
     setFrame(currentFrame);
 }
@@ -78,6 +84,10 @@ const Animation* AnimatedSprite::getAnimation() const {
 
 std::size_t AnimatedSprite::getCurrentFrame() {
     return currentFrame;
+}
+
+std::size_t AnimatedSprite::getPreviousFrame() {
+    return previousFrame;
 }
 
 sf::FloatRect AnimatedSprite::getLocalBounds() const {
@@ -133,13 +143,14 @@ void AnimatedSprite::setFrame(std::size_t newFrame, bool resetTime) {
 void AnimatedSprite::update(sf::Time deltaTime) {
     // if not paused and we have a valid animation
     if(!paused && animation) {
+        previousFrame = currentFrame;
+
         // add delta time
         currentTime += deltaTime;
         // if current time is bigger then the frame time advance one frame
         if(currentTime >= frameTime) {
             // reset time, but keep the remainder
             currentTime = sf::microseconds(currentTime.asMicroseconds() % frameTime.asMicroseconds());
-
             // get next Frame index
             if(currentFrame + 1 < animation->getSize()) {
                 currentFrame++;
