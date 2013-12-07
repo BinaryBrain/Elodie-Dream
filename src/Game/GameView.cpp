@@ -74,9 +74,6 @@ void GameView::followPoint(ViewLayer viewKey, float x, float y) {
 
 void GameView::setZoom(ViewLayer viewKey, float zoom) {
     zooms[viewKey] = zoom;
-
-    sf::View* view = viewMap[viewKey]->getView();
-    view->setSize(window->getDefaultView().getSize()/zoom);
 }
 
 void GameView::draw() {
@@ -89,6 +86,7 @@ void GameView::draw() {
         Displayable* disp = viewMap[viewKey];
         disp->getView()->setCenter(centers[viewKey]);
         disp->display();
+        disp->getView()->setSize(window->getDefaultView().getSize()/zooms[viewKey]);
         window->setView(*(disp->getView()));
         for(std::vector<sf::Drawable*>::iterator drawableIt = drawableMap[viewKey].begin(); drawableIt != drawableMap[viewKey].end(); ++drawableIt) {
             sf::Drawable* drawable = *drawableIt;

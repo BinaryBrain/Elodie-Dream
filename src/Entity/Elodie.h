@@ -142,8 +142,8 @@ public:
     void reset();
     void pause();
     void play();
-    void toLeft();
-    void toRight();
+    void flipToLeft();
+    void flipToRight();
 
 protected:
 

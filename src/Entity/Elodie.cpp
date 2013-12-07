@@ -75,22 +75,22 @@ void Elodie::overworldMove(float seconds) {
 }
 
 void Elodie::setWalkDown() {
-    this->walk();
+    sprite->changeStance(ANIMATIONS[ElodieState::FALLING], sf::seconds(0.1f));
     goingDown = true;
 }
 void Elodie::setWalkUp() {
-    this->walk();
+    sprite->changeStance(ANIMATIONS[ElodieState::JUMPING], sf::seconds(0.1f));
     goingUp = true;
 }
 void Elodie::setWalkRight() {
     this->walk();
     goingRight = true;
-    toRight();
+    flipToRight();
 }
 void Elodie::setWalkLeft() {
     this->walk();
     goingLeft = true;
-    toLeft();
+    flipToLeft();
 }
 
 void Elodie::setDistanceToMove(float dist) {
@@ -187,9 +187,9 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
     } else {
         computeGravity(animate);
         if (speed.y > 0) {
-            state = ElodieState::JUMPING;
-        } else {
             state = ElodieState::FALLING;
+        } else {
+            state = ElodieState::JUMPING;
         }
     }
 
@@ -201,9 +201,9 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
         sprite->changeStance(ANIMATIONS[state], sf::seconds(0.1f));
     }
     if(speed.x < 0) {
-        toLeft();
+        flipToLeft();
     } else {
-        toRight();
+        flipToRight();
     }
 }
 
@@ -236,11 +236,11 @@ void Elodie::setPosition(float x, float y) {
     setHitboxes(infos, sprite->getPosition());
 }
 
-void Elodie::toLeft() {
+void Elodie::flipToLeft() {
     sprite->setOrigin(sf::Vector2f(64,0));
     sprite->setScale(-1, 1);
 }
-void Elodie::toRight() {
+void Elodie::flipToRight() {
     sprite->setOrigin(sf::Vector2f(0,0));
     sprite->setScale(1, 1);
 }
