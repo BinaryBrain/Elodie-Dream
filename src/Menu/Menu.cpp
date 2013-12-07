@@ -9,7 +9,9 @@ Menu::Menu(std::string label): MenuComponent(label) {
 }
 
 Menu::~Menu() {
-    //dtor
+    for(unsigned int i(0); i<items.size(); ++i) {
+        delete items[i];
+    }
 }
 
 void Menu::addItem(MenuComponent* item) {

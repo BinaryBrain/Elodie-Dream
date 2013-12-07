@@ -45,7 +45,17 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
 }
 
 MenuHandler::~MenuHandler() {
+    delete title;
+    delete saveGame;
+    delete loadGame;
+    delete settings;
+    delete language;
 
+    title = NULL;
+    saveGame = NULL;
+    loadGame = NULL;
+    settings = NULL;
+    language = NULL;
 }
 
 void MenuHandler::display() {
