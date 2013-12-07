@@ -273,9 +273,19 @@ void Game::run() {
 }
 
 void Game::save() {
+    std::string path = "save/" + currentMenuItem + ".save";
     SaveHandler* sh = SaveHandler::getInstance();
-    sh->setPath(currentMenuItem);
+    sh->setPath(path);
+    JsonStringifier* stringifier = sh->getStringifier();
+
+    std::string keyGameState = "gamestate";
+    stringifier->add(keyGameState, (int)state);
     sh->save();
+
+    std::cout << "Successfully saved on " << currentMenuItem << std::endl;
+
+    keyGameState.clear();
+    state = GameState::INMENU;
 }
 
 void Game::exit() {

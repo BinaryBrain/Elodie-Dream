@@ -17,6 +17,7 @@ public:
     static SaveHandler* getInstance();
 
     void setPath(std::string path);
+    JsonStringifier* getStringifier();
 
     void save();
     void load();
@@ -29,6 +30,7 @@ private:
     SaveHandler& operator= (SaveHandler const&); // Makes operator= private
 
     std::string path;
+    JsonStringifier* stringifier;
 
     std::vector<int> encrypt(std::string p, std::string key);
     std::string decrypt(std::vector<int> tmp, std::string key);

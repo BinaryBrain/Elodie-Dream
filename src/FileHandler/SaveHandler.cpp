@@ -4,11 +4,12 @@
 SaveHandler* SaveHandler::shInstance = NULL;
 
 SaveHandler::SaveHandler() {
-
+    stringifier = new JsonStringifier;
 }
 
 SaveHandler::~SaveHandler() {
-
+    delete stringifier;
+    stringifier = NULL;
 }
 
 // Gets the instance of the game
@@ -21,19 +22,12 @@ void SaveHandler::setPath(std::string path) {
     this->path = path;
 }
 
+JsonStringifier* SaveHandler::getStringifier() {
+    return stringifier;
+}
+
 void SaveHandler::save() {
-    JsonStringifier stringifier;
-
-    // todo find why there should be another string each time, not the same one which switches values
-    /*std::string keyGameState = "gamestate";
-    GameState gameState = Game::getInstance()->getState();
-    stringifier.add(keyGameState, (int)gameState);
-
-    std::string keyCurrentEnv = "currentenv";
-    int currentEnv = Game::getInstance()->getOverworld()->getCurrentEnv();
-    stringifier.add(keyCurrentEnv, currentEnv);
-
-    std::string stringified(stringifier.getStringifiedDoc());
+    std::string stringified(stringifier->getStringifiedDoc());
     std::cout << "Stringified json: " << stringified << std::endl;
 
     // saves the encrypted stringified json to the file
@@ -43,12 +37,12 @@ void SaveHandler::save() {
     for (size_t i = 0; i < tmp.size(); ++i) {
         myfile << tmp[i] << std::endl;
     }
-    myfile.close();*/
+    myfile.close();
 }
 
 void SaveHandler::load() {
     // loads the file, decrypts the json inside
-    /*std::vector<int> tmp;
+    std::vector<int> tmp;
     std::ifstream infile;
     infile.open(path);
     int acc;
@@ -79,7 +73,7 @@ void SaveHandler::load() {
         std::cerr << "Error deleting temporary json" << std::endl;
     } else {
         std::cout << "Temporary json successfully deleted." << std::endl;
-    }*/
+    }
 
 }
 
