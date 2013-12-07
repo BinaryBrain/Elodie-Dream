@@ -14,20 +14,32 @@ void Entity::setEntitySprite(sf::Sprite* sprite) {
     this->sprite = sprite;
 }
 
-void Entity::setCurrentHitbox(std::string current) {
-    currentHitbox = current;
+void Entity::setHitboxes(EntityInfo *informations, const sf::Vector2f position) {
+    for(std::map< std::string, std::vector< Hitbox > >::iterator it = hitboxes.begin(); it != hitboxes.end(); ++it) {
+        hitboxes.erase(it->first);
+    }
+
+    for(std::map< std::string, HitboxInfo >::iterator it = informations->anim.begin(); it != informations->anim.end(); ++it) {
+        for(std::vector< sf::FloatRect >::iterator hitboxIt = it->second.hitboxes.begin(); hitboxIt != it->second.hitboxes.end(); ++hitboxIt) {
+            sf::FloatRect rec(*hitboxIt);
+            rec.top += position.y;
+            rec.left += position.x;
+            Hitbox newHitbox(rec);
+            hitboxes[it->first].push_back(newHitbox);
+        }
+    }
 }
 
-void Entity::removeCurrentHitBox(int frame) {
-    hitboxes[currentHitbox].erase(hitboxes[currentHitbox].begin()+frame);
+void Entity::removeCurrentHitBox(std::string animation, int frame) {
+    hitboxes[animation].erase(hitboxes[animation].begin()+frame);
 }
 
 void Entity::addHitbox(std::string animation, Hitbox hitbox) {
     hitboxes[animation].push_back(hitbox);
 }
 
-Hitbox Entity::getCurrentHitbox(int frame) {
-    return Hitbox(hitboxes[currentHitbox][frame]);
+Hitbox Entity::getCurrentHitbox(std::string animation, int frame) {
+    return Hitbox(hitboxes[animation][frame]);
 }
 
 //to update with new tiles
@@ -47,12 +59,9 @@ int Entity::checkTiles(std::vector< std::vector<TileSprite*> > const& world, int
     return 0;
 }
 
-Collide Entity::collideWithTiles(std::vector< std::vector<TileSprite*> > const& world, sf::Vector2f *vit, float time) {
+Collide Entity::collideWithTiles(std::vector< std::vector<TileSprite*> > const& world, sf::Vector2f *vit, float time, Hitbox hitbox) {
     Collide collideWith;
     sf::Vector2f step(std::abs(vit->x), std::abs(vit->y));
-
-    //AnimatedSprite* anime = dynamic_cast<AnimatedSprite*>(sprite);
-    Hitbox hitbox = getCurrentHitbox(0);
 
     float minX = std::get<0>(hitbox.getPoints()).x;
     float maxX = std::get<1>(hitbox.getPoints()).x;

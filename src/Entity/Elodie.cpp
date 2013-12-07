@@ -6,15 +6,22 @@ Elodie::Elodie() {
 
 Elodie::Elodie(sf::Vector2f position) {
     init();
-    sprite->setPosition(position.x - centerX, position.y - centerY);
+    setPosition(position.x - centerX, position.y - centerY);
 }
 
 Elodie::Elodie(float x, float y) {
     init();
-    sprite->setPosition(x - centerX, y - centerY);
+    setPosition(x - centerX, y - centerY);
 }
 
 void Elodie::init() {
+    ANIMATIONS = {
+        {ElodieState::STANDING, "standing"},
+        {ElodieState::WALKING, "running"},
+        {ElodieState::PUNCHING, "attacking"},
+        {ElodieState::FALLING, "falling"}
+    };
+
     JsonAccessor json = JsonAccessor();
     json.load(ENTITIES_JSON_PATH+"/"+ENTITYNAME_ELODIE+".json");
     infos = json.getEntityInfo();
@@ -24,11 +31,6 @@ void Elodie::init() {
 
     sprite = new ElodieSprite();
     setEntitySprite(sprite);
-
-    //levelSpeed and hitboxes are set here for the moment, but it's not the right place to set them
-    Hitbox hitbox({82, 37, 24, 45});
-    addHitbox("running", hitbox);
-    setCurrentHitbox("running");
 }
 
 ElodieSprite* Elodie::getSprite() {
@@ -39,6 +41,7 @@ Elodie::~Elodie() {
     delete sprite;
     delete infos;
     sprite = NULL;
+    infos = NULL;
     setEntitySprite(NULL);
 }
 
@@ -132,7 +135,7 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
         timer = 0;
         immersionLevel = immersionLevel == 100 ? 100 : immersionLevel + 25;
     }
-    Collide collideTiles = collideWithTiles(tiles, &speed, animate.asSeconds());
+    Collide collideTiles = collideWithTiles(tiles, &speed, animate.asSeconds(), getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()));
 
     if (speed.x < 0) {
         if (collideTiles.left["distance"])
@@ -157,7 +160,6 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
 
     sprite->update(animate);
 
-    //std::cout << collideTiles.bottom["distance"] << " " << collideTiles.left["surface"] << " " << collideTiles.right["surface"] << std::endl;
     if (sprite->getCurrentStance() == SpriteStance::STANDING)
         this->walk();
 
@@ -204,17 +206,15 @@ void Elodie::reset() {
 
     setEntitySprite(sprite);
 
-    //levelSpeed and hitboxes are set here for the moment, but it's not the right place to set them
-    Hitbox hitbox({82, 37, 24, 45});
-    addHitbox("running", hitbox);
-    setCurrentHitbox("running");
-    removeCurrentHitBox(0);
+    setHitboxes(infos, sprite->getPosition());
 }
 
 void Elodie::setPosition(sf::Vector2f pos){
     sprite->setPosition(pos);
+    setHitboxes(infos, sprite->getPosition());
 }
 
 void Elodie::setPosition(float x, float y){
     setPosition(sf::Vector2f(x,y));
+    setHitboxes(infos, sprite->getPosition());
 }

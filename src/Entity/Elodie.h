@@ -178,6 +178,7 @@ private:
     float timer = 0;
 
     std::vector<Item> stuff;
+    std::map< ElodieState, std::string > ANIMATIONS;
 };
 
 #endif // ELODIE_H

@@ -20,7 +20,7 @@ void Mapper::parse(std::string asciiLevel, TileMap& tiles, EntityMap& entities, 
         switch(asciiLevel[i]) {
         case MAP_ELODIE:
             elodie->reset();
-            elodie->getSprite()->setPosition(x*32 - 21, y*32 - 32);
+            elodie->setPosition(x*32 - 21, y*32 - 32);
             entities.insert(std::make_pair("elodie", elodie));
             break;
 

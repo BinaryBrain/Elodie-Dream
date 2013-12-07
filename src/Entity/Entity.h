@@ -29,12 +29,12 @@ public:
     */
     virtual ~Entity();
 
+    void setHitboxes(EntityInfo *informations, const sf::Vector2f position);
     void addHitbox(std::string animation, Hitbox hitbox);
-    void removeCurrentHitBox(int frame);
-    void setCurrentHitbox(std::string current);
-    Hitbox getCurrentHitbox(int frame);
+    void removeCurrentHitBox(std::string animation, int frame);
+    Hitbox getCurrentHitbox(std::string animation, int frame);
 
-    Collide collideWithTiles(std::vector< std::vector<TileSprite*> > const& world, sf::Vector2f *vit, float time);
+    Collide collideWithTiles(std::vector< std::vector<TileSprite*> > const& world, sf::Vector2f *vit, float time, Hitbox hitbox);
 
     /**
     * \brief A getter to the main Sprite
@@ -60,7 +60,6 @@ protected:
 private:
     int checkTiles(std::vector< std::vector<TileSprite*> > const& world, int x, int y);
     std::map< std::string, std::vector< Hitbox > > hitboxes;
-    std::string currentHitbox;
 };
 
 #endif // ENTITIES_H
