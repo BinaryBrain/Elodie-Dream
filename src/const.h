@@ -54,7 +54,7 @@ const string TILETYPE_GROUND = "ground";
 const string TILETYPE_ROCK = "rock";
 const string TILETYPE_ICE = "ice";
 
-// Enemies
+// Entities
 const string ENTITIES_JSON_PATH = "assets/img/sprites";
 
 const string ENTITYNAME_ELODIE = "elodie";

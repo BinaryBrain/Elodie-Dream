@@ -1,8 +1,12 @@
 #ifndef ELODIESPRITE_H
 #define ELODIESPRITE_H
+
 #include <iostream>
 #include <string>
 #include <map>
+
+#include "../const.h"
+#include "../env.h"
 #include "CharacterSprite.h"
 #include "../Include/EntityInfo.h"
 
