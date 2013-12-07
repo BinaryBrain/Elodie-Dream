@@ -22,6 +22,8 @@ public:
     void save();
     void load();
 
+    void clearStringifier();
+
 private:
     SaveHandler();
     virtual ~SaveHandler();

@@ -34,7 +34,7 @@ Game::~Game() {
 
 // Gets the instance of the game
 Game* Game::getInstance() {
-    if(!gameInstance) gameInstance = new Game;
+    if(!gameInstance) gameInstance = new Game();
     return gameInstance;
 }
 
@@ -276,6 +276,10 @@ void Game::run() {
     }
 }
 
+void Game::load() {
+
+}
+
 void Game::save() {
     std::string path = "save/" + currentMenuItem + ".save";
     SaveHandler* sh = SaveHandler::getInstance();
@@ -288,7 +292,7 @@ void Game::save() {
 
     std::cout << "Successfully saved on " << currentMenuItem << std::endl;
 
-    keyGameState.clear();
+    sh->clearStringifier();
     state = GameState::INMENU;
 }
 
