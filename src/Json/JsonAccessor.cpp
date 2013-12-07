@@ -8,6 +8,8 @@ JsonAccessor::JsonAccessor() {
 }
 
 JsonAccessor::~JsonAccessor() {
+    if(loaded)
+        fclose(pFile);
     delete pFile;
 }
 
@@ -121,7 +123,7 @@ EntityInfo* JsonAccessor::getEntityInfo() {
 bool JsonAccessor::load(string file) {
     if(!this->loaded) {
         pathToFile = file;
-        pFile = fopen (file.c_str() , "r");
+        pFile = fopen(file.c_str() , "r");
         rapidjson::FileStream is(pFile);
         if(values.ParseStream<0>(is).HasParseError()) {
             cerr << "Parse Error" << endl;
