@@ -4,7 +4,7 @@
 SaveHandler* SaveHandler::shInstance = NULL;
 
 SaveHandler::SaveHandler() {
-    stringifier = new JsonStringifier;
+    stringifier = new JsonStringifier();
 }
 
 SaveHandler::~SaveHandler() {
@@ -14,7 +14,7 @@ SaveHandler::~SaveHandler() {
 
 // Gets the instance of the game
 SaveHandler* SaveHandler::getInstance() {
-    if(!shInstance) shInstance = new SaveHandler;
+    if(!shInstance) shInstance = new SaveHandler();
     return shInstance;
 }
 
@@ -75,6 +75,11 @@ void SaveHandler::load() {
         std::cout << "Temporary json successfully deleted." << std::endl;
     }
 
+}
+
+void SaveHandler::clearStringifier() {
+    delete stringifier;
+    stringifier = new JsonStringifier();
 }
 
 std::vector<int> SaveHandler::encrypt(std::string p, std::string key) {
