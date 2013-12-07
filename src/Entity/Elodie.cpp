@@ -15,6 +15,10 @@ Elodie::Elodie(float x, float y) {
 }
 
 void Elodie::init() {
+    JsonAccessor json = JsonAccessor();
+    json.load(ENTITIES_JSON_PATH+"/"+ENTITYNAME_ELODIE+".json");
+    infos = json.getEntityInfo();
+
     state = ElodieState::WALKING;
     speed.x = 300;
 
@@ -23,8 +27,8 @@ void Elodie::init() {
 
     //levelSpeed and hitboxes are set here for the moment, but it's not the right place to set them
     Hitbox hitbox({82, 37, 24, 45});
-    setCurrentHitbox(0);
-    addHitbox(hitbox);
+    addHitbox("running", hitbox);
+    setCurrentHitbox("running");
 }
 
 ElodieSprite* Elodie::getSprite() {
@@ -33,6 +37,7 @@ ElodieSprite* Elodie::getSprite() {
 
 Elodie::~Elodie() {
     delete sprite;
+    delete infos;
     sprite = NULL;
     setEntitySprite(NULL);
 }
@@ -201,9 +206,9 @@ void Elodie::reset() {
 
     //levelSpeed and hitboxes are set here for the moment, but it's not the right place to set them
     Hitbox hitbox({82, 37, 24, 45});
-    removeCurrentHitBox();
-    setCurrentHitbox(0);
-    addHitbox(hitbox);
+    addHitbox("running", hitbox);
+    setCurrentHitbox("running");
+    removeCurrentHitBox(0);
 }
 
 void Elodie::setPosition(sf::Vector2f pos){

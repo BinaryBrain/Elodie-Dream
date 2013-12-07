@@ -1,11 +1,13 @@
 #ifndef ELODIE_H
 #define ELODIE_H
 
+#include "../const.h"
 #include "Entity.h"
 #include "../Sprite/ElodieSprite.h"
 #include "../Item/Item.h"
 #include "../Include/Collide.h"
 #include "../EventHandler/EventHandler.h"
+#include "../Include/EntityInfo.h"
 
 enum class ElodieState { STANDING, WALKING, FALLING, PUNCHING };
 
@@ -152,6 +154,8 @@ private:
     * Makes Elodie's sprite walk.
     */
     void walk();
+
+    EntityInfo* infos = NULL;
 
     ElodieSprite* sprite;
 

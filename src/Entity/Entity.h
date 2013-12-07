@@ -2,11 +2,15 @@
 #define ENTITIE_H
 
 #include <iostream>
+#include <map>
 #include <SFML/Graphics.hpp>
 
 #include "../Sprite/TileSprite.h"
+#include "../Sprite/AnimatedSprite.h"
 #include "../EventHandler/EventHandler.h"
+#include "../Json/JsonAccessor.h"
 #include "../Include/Collide.h"
+#include "../Include/EntityInfo.h"
 #include "Hitbox.h"
 
 /**
@@ -25,10 +29,10 @@ public:
     */
     virtual ~Entity();
 
-    void addHitbox(Hitbox hitbox);
-    void removeCurrentHitBox();
-    void setCurrentHitbox(int current);
-    Hitbox getCurrentHitbox();
+    void addHitbox(std::string animation, Hitbox hitbox);
+    void removeCurrentHitBox(int frame);
+    void setCurrentHitbox(std::string current);
+    Hitbox getCurrentHitbox(int frame);
 
     Collide collideWithTiles(std::vector< std::vector<TileSprite*> > const& world, sf::Vector2f *vit, float time);
 
@@ -55,8 +59,8 @@ protected:
 
 private:
     int checkTiles(std::vector< std::vector<TileSprite*> > const& world, int x, int y);
-    std::vector< Hitbox > hitboxes;
-    int currentHitbox;
+    std::map< std::string, std::vector< Hitbox > > hitboxes;
+    std::string currentHitbox;
 };
 
 #endif // ENTITIES_H

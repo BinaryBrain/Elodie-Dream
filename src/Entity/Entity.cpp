@@ -14,21 +14,20 @@ void Entity::setEntitySprite(sf::Sprite* sprite) {
     this->sprite = sprite;
 }
 
-void Entity::setCurrentHitbox(int current) {
+void Entity::setCurrentHitbox(std::string current) {
     currentHitbox = current;
 }
 
-void Entity::removeCurrentHitBox() {
-    hitboxes.erase(hitboxes.begin()+currentHitbox);
-    currentHitbox = 0;
+void Entity::removeCurrentHitBox(int frame) {
+    hitboxes[currentHitbox].erase(hitboxes[currentHitbox].begin()+frame);
 }
 
-void Entity::addHitbox(Hitbox hitbox) {
-    hitboxes.push_back(hitbox);
+void Entity::addHitbox(std::string animation, Hitbox hitbox) {
+    hitboxes[animation].push_back(hitbox);
 }
 
-Hitbox Entity::getCurrentHitbox() {
-    return Hitbox(hitboxes[currentHitbox]);
+Hitbox Entity::getCurrentHitbox(int frame) {
+    return Hitbox(hitboxes[currentHitbox][frame]);
 }
 
 //to update with new tiles
@@ -52,7 +51,8 @@ Collide Entity::collideWithTiles(std::vector< std::vector<TileSprite*> > const& 
     Collide collideWith;
     sf::Vector2f step(std::abs(vit->x), std::abs(vit->y));
 
-    Hitbox hitbox = getCurrentHitbox();
+    //AnimatedSprite* anime = dynamic_cast<AnimatedSprite*>(sprite);
+    Hitbox hitbox = getCurrentHitbox(0);
 
     float minX = std::get<0>(hitbox.getPoints()).x;
     float maxX = std::get<1>(hitbox.getPoints()).x;
@@ -149,7 +149,10 @@ void Entity::move(float dx, float dy) {
         sprite->move(dx, dy);
     }
 
-    for(std::vector<Hitbox>::iterator hitbox = hitboxes.begin(); hitbox != hitboxes.end(); hitbox++) {
-        hitbox->move(dx, dy);
+    for (std::map< std::string, std::vector< Hitbox > >::iterator it = hitboxes.begin(); it != hitboxes.end(); ++it) {
+        for(std::vector< Hitbox >::iterator hitbox = it->second.begin(); hitbox != it->second.end(); ++hitbox) {
+            hitbox->move(dx, dy);
+        }
     }
 }
+

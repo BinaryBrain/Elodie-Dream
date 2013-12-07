@@ -76,6 +76,10 @@ const Animation* AnimatedSprite::getAnimation() const {
     return animation;
 }
 
+std::size_t AnimatedSprite::getCurrentFrame() {
+    return currentFrame;
+}
+
 sf::FloatRect AnimatedSprite::getLocalBounds() const {
     sf::IntRect rect = animation->getFrame(currentFrame);
 

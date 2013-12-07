@@ -44,6 +44,7 @@ public:
     void setLooped(bool looped);
     void setColor(const sf::Color& color);
     const Animation* getAnimation() const;
+    std::size_t getCurrentFrame();
     sf::FloatRect getLocalBounds() const;
     sf::FloatRect getGlobalBounds() const;
     bool isLooped() const;
