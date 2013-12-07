@@ -15,8 +15,13 @@ void Entity::setEntitySprite(sf::Sprite* sprite) {
 }
 
 void Entity::setHitboxes(EntityInfo *informations, const sf::Vector2f position) {
+    std::vector< std::string > keys;
+
     for(std::map< std::string, std::vector< Hitbox > >::iterator it = hitboxes.begin(); it != hitboxes.end(); ++it) {
-        hitboxes.erase(it->first);
+        keys.push_back(it->first);
+    }
+    for(std::vector< std::string >::iterator it = keys.begin(); it != keys.end(); ++it) {
+        hitboxes.erase(*it);
     }
 
     for(std::map< std::string, HitboxInfo >::iterator it = informations->anim.begin(); it != informations->anim.end(); ++it) {
