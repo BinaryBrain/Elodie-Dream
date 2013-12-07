@@ -25,6 +25,19 @@ const float IMMERSION_BAR_OUTLINE_THICKNESS = 2;
 const sf::Color IMMERSION_BAR_FILL = sf::Color(0x73, 0xC8, 0xA9, 0xFF);
 const sf::Color IMMERSION_BAR_OUTLINE = sf::Color(0x31, 0x55, 0x48, 0xFF);
 
+// -- MAPS --
+// ASCII Map
+// Terrain
+static const char MAP_GROUND = '#';
+
+// Characters
+static const char MAP_ELODIE = 'E';
+
+// Misc
+static const char MAP_LINE_BREAK = '\n';
+static const char MAP_NULL = ' ';
+static const char MAP_NULL2 = '.';
+
 // -- PATHS -- //
 // Tiles
 const string TILES_TEXTURES_PATH = "assets/img/sprites/tiles/extended";

@@ -12,6 +12,10 @@ void Mapper::parse(std::string asciiLevel, TileMap& tiles, EntityMap& entities, 
     unsigned int x = 0;
 
     for(unsigned int i = 0; i < asciiLevel.length(); i++) {
+        if(y >= tiles.size()) {
+            tiles.push_back(std::vector<TileSprite*>());
+        }
+
         // Entities
         switch(asciiLevel[i]) {
         case MAP_ELODIE:
@@ -19,16 +23,8 @@ void Mapper::parse(std::string asciiLevel, TileMap& tiles, EntityMap& entities, 
             elodie->getSprite()->setPosition(x*32 - 21, y*32 - 32);
             entities.insert(std::make_pair("elodie", elodie));
             break;
-        default:
-            break;
-        }
 
         // Terrain
-        if(y >= tiles.size()) {
-            tiles.push_back(std::vector<TileSprite*>());
-        }
-
-        switch(asciiLevel[i]) {
         case MAP_GROUND:
             tiles[y].push_back(new TileSprite(TileType::ROCK));
             break;
@@ -39,11 +35,13 @@ void Mapper::parse(std::string asciiLevel, TileMap& tiles, EntityMap& entities, 
             break;
 
         case MAP_NULL:
+        case MAP_NULL2:
             tiles[y].push_back(NULL);
             break;
 
         default:
             tiles[y].push_back(NULL);
+            std::cout << "[Warning] Mapper: tile type not found: '" << asciiLevel[i] << "'" << std::endl;
             break;
         }
 

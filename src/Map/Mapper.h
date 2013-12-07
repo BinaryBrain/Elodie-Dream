@@ -7,6 +7,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "../env.h"
+#include "../const.h"
 
 #include "../Sprite/ElodieSprite.h"
 #include "../Sprite/EnvSprite.h"
@@ -16,16 +17,6 @@
 
 class Mapper {
 private:
-    // ASCII Map
-    // Terrain
-    static const char MAP_GROUND = '#';
-
-    // Characters
-    static const char MAP_ELODIE = 'E';
-
-    // Misc
-    static const char MAP_LINE_BREAK = '\n';
-    static const char MAP_NULL = ' ';
 
 public:
     Mapper();
