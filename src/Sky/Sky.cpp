@@ -1,11 +1,9 @@
 #include "Sky.h"
 
-Sky::Sky()
-{
+Sky::Sky(GameView* gameView) : Displayable(gameView) {
     //ctor
 }
 
-Sky::~Sky()
-{
+Sky::~Sky() {
     //dtor
 }

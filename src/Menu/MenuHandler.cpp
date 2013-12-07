@@ -1,6 +1,6 @@
 #include "MenuHandler.h"
 
-MenuHandler::MenuHandler() {
+MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
     NewGameItem* newGame = new NewGameItem("New game");
     QuitItem* quit = new QuitItem("Quit");
     EnglishItem* english = new EnglishItem("English");
@@ -36,8 +36,8 @@ MenuHandler::~MenuHandler() {
 
 }
 
-void MenuHandler::display(GameView* view) {
-    selectedMenu->draw(view);
+void MenuHandler::display() {
+    selectedMenu->draw(gameView);
 }
 
 void MenuHandler::incIndex() {

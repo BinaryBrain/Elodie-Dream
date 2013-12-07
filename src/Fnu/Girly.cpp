@@ -1,6 +1,6 @@
 #include "Girly.h"
 
-Girly::Girly() {
+Girly::Girly(GameView* gameView) : Displayable(gameView) {
     //ctor
 }
 
@@ -8,9 +8,9 @@ Girly::~Girly() {
     //dtor
 }
 
-void Girly::display(GameView* view) {
-    float viewX(view->getWindow()->getSize().x);
-    float viewY(view->getWindow()->getSize().y);
+void Girly::display() {
+    float viewX(gameView->getWindow()->getSize().x);
+    float viewY(gameView->getWindow()->getSize().y);
 
     float dimX(viewX);
     float dimY(viewY);
@@ -19,5 +19,5 @@ void Girly::display(GameView* view) {
     filter.setFillColor(sf::Color(0xFF, 0x14, 0x93, 0x7f));
     filter.setPosition(0, 0);
 
-    view->addDrawable(ViewLayer::GIRLY, &filter);
+    gameView->addDrawable(ViewLayer::GIRLY, &filter);
 }

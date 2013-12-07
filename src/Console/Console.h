@@ -35,7 +35,7 @@ public:
     void deletePage(int n);
     void clear();
 
-    void display(GameView* view);
+    void display();
 
     void setNextState(GameState state);
     GameState getNextState();

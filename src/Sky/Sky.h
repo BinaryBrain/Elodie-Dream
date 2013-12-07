@@ -5,7 +5,7 @@
 
 class Sky : public Displayable {
 public:
-    Sky();
+    Sky(GameView* gameView);
     virtual ~Sky();
 protected:
 private:

@@ -5,6 +5,11 @@ Game* Game::gameInstance = NULL;
 
 Game::Game() {
     console = new Console(&view);
+    event = new EventHandler(view.getWindow());
+    overworld = new Overworld(&view);
+    menuHandler = new MenuHandler(&view);
+    girly = new Girly(&view);
+    immBar = new ImmersionBar(&view);
 
     view.addView(ViewLayer::MENU, menuHandler);
     view.addView(ViewLayer::OVERWORLD, overworld);
@@ -82,9 +87,10 @@ void Game::loadLevel(int levelNbr) {
         delete curLevel;
         curLevel = NULL;
     }
+
     state = GameState::INLEVEL;
     curLevelNbr = levelNbr;
-    curLevel = new Level("assets/levels/level1.txt", LevelEnv::FIELD, overworld->getElodie());
+    curLevel = new Level(&view, "assets/levels/level1.txt", LevelEnv::FIELD, overworld->getElodie());
     view.addView(ViewLayer::LEVEL, curLevel);
 }
 
@@ -92,7 +98,6 @@ void Game::handleOverworld(sf::Time time) {
     if (event->keyIsPressed(sf::Keyboard::N)) {
         overworld->evolve();
     }
-
 
     if(overworld->getElodie()->isMoving()) {
         overworld->getElodie()->overworldMove(time.asSeconds());

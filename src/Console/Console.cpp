@@ -1,8 +1,8 @@
 #include "Console.h"
 
-Console::Console(GameView* view) {
-    startX = view->getWindow()->getSize().x-sizeX;
-    startY = view->getWindow()->getSize().y-sizeY;
+Console::Console(GameView* gameView) : Displayable(gameView) {
+    startX = gameView->getWindow()->getSize().x-sizeX;
+    startY = gameView->getWindow()->getSize().y-sizeY;
 
     font->loadFromFile("assets/fonts/pf_tempesta_seven/pf_tempesta_seven.ttf");
 
@@ -162,25 +162,24 @@ void Console::prepareCurrentPage() {
 
 }
 
-void Console::display(GameView* view) {
-
+void Console::display() {
     background.setSize(sf::Vector2f(sizeX, sizeX));
     background.setOutlineColor(sf::Color::Black);
     background.setFillColor(sf::Color(0x00, 0x00, 0x00, 0xB3));
     background.setOutlineThickness(3);
     background.setPosition(startX, startY);
 
-    view->addDrawable(ViewLayer::CONSOLE, &background);
+    gameView->addDrawable(ViewLayer::CONSOLE, &background);
 
     for(unsigned int i(0); i < currentPageText.size(); ++i) {
-        view->addDrawable(ViewLayer::CONSOLE, &(currentPageText[i]));
+        gameView->addDrawable(ViewLayer::CONSOLE, &(currentPageText[i]));
     }
 
     if(currentPage > 0) {
-        view->addDrawable(ViewLayer::CONSOLE, &up);
+        gameView->addDrawable(ViewLayer::CONSOLE, &up);
     }
     if(currentPage < totalPages-1) {
-        view->addDrawable(ViewLayer::CONSOLE, &down);
+        gameView->addDrawable(ViewLayer::CONSOLE, &down);
     }
 }
 

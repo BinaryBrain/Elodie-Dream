@@ -32,8 +32,8 @@ public:
     void reset(ViewLayer viewKey);
     void setCameraCenter(ViewLayer viewKey, const sf::Vector2f pos);
     void setCameraCenter(ViewLayer viewKey, float x, float y);
-    void setFollowedPoint(ViewLayer viewKey, const sf::Vector2f pos);
-    void setFollowedPoint(ViewLayer viewKey, float x, float y);
+    void followPoint(ViewLayer viewKey, const sf::Vector2f pos);
+    void followPoint(ViewLayer viewKey, float x, float y);
     void setZoom(ViewLayer viewKey, float zoom);
 protected:
 private:

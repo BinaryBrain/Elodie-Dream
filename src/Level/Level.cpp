@@ -1,8 +1,9 @@
 #include "Level.h"
 
-Level::Level(std::string filename, LevelEnv env, Elodie* elodie) {
+Level::Level(GameView* gameView, std::string filename, LevelEnv env, Elodie* elodie) : Displayable(gameView)  {
     this->environement = env;
     this->manager = new TextureManager();
+
     loadLevel(filename, elodie);
 }
 
@@ -37,12 +38,12 @@ void Level::loadLevel(std::string filename, Elodie* elodie) {
 }
 
 // Ask the given view to draw a Level frame
-void Level::display(GameView* view) {
+void Level::display() {
     for(unsigned int y=0; y<tiles.size(); y++) {
         for(unsigned int x=0; x<tiles[y].size(); x++) {
             if(tiles[y][x]) {
                 tiles[y][x]->setPosition(x*32, y*32);
-                view->addDrawable(ViewLayer::LEVEL, tiles[y][x]);
+                gameView->addDrawable(ViewLayer::LEVEL, tiles[y][x]);
             }
         }
     }
@@ -52,13 +53,13 @@ void Level::display(GameView* view) {
         sf::Sprite* sprite = entity->getSprite();
 
         if(sprite) {
-            view->addDrawable(ViewLayer::LEVEL, sprite);
+            gameView->addDrawable(ViewLayer::LEVEL, sprite);
         }
     }
 
     Elodie* elodie = dynamic_cast<Elodie*>(entities["elodie"]);
-    view->setFollowedPoint(ViewLayer::LEVEL, elodie->getPosition());
-    view->setZoom(ViewLayer::LEVEL, ZOOM_LEVEL);
+    gameView->followPoint(ViewLayer::LEVEL, elodie->getPosition());
+    gameView->setZoom(ViewLayer::LEVEL, ZOOM_LEVEL);
 }
 
 void Level::live(EventHandler* const& event, sf::Time animate) {

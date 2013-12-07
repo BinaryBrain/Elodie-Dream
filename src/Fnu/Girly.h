@@ -9,10 +9,10 @@
 
 class Girly: public Displayable {
 public:
-    Girly();
+    Girly(GameView* view);
     virtual ~Girly();
 
-    void display(GameView* view);
+    void display();
 
 private:
     sf::RectangleShape filter;

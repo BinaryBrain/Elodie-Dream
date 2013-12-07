@@ -52,17 +52,17 @@ private:
 
     SoundManager sounds;
 
-    EventHandler* event = new EventHandler(view.getWindow());
+    EventHandler* event = NULL;
+    Overworld* overworld = NULL;
 
-    Overworld* overworld = new Overworld();
     void handleOverworld(sf::Time time);
 
     sf::Clock frameClock;
 
-    MenuHandler* menuHandler = new MenuHandler();
+    MenuHandler* menuHandler;
     void displayMenu();
 
-    Console* console;
+    Console* console = NULL;
     void displayConsole();
 
     int curLevelNbr = 0;
@@ -70,10 +70,10 @@ private:
     void displayLevel(int curLevel, sf::Time time);
     void loadLevel(int levelNbr);
 
-    Girly* girly = new Girly();
+    Girly* girly = NULL;
     bool girlyMode = false;
 
-    ImmersionBar* immBar = new ImmersionBar();
+    ImmersionBar* immBar;
 };
 
 #endif // GAME_H

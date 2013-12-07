@@ -1,6 +1,6 @@
 #include "Overworld.h"
 
-Overworld::Overworld() {
+Overworld::Overworld(GameView* gameView) : Displayable(gameView) {
     std::string filenames[4] = { "overworld1.png", "overworld2.png", "overworld3.png", "overworld4.png" };
 
     for(int i=0; i<4; i++) {
@@ -60,10 +60,10 @@ void Overworld::resetPos() {
     elodie->setPosition((* (paths[currentState]))[curPosInPath].position.x - 40,(* (paths[currentState]))[curPosInPath].position.y - 40);
 }
 
-void Overworld::display(GameView* view) {
-    view->addDrawable(ViewLayer::OVERWORLD, overworldSprites[currentState]);
-    view->addDrawable(ViewLayer::OVERWORLD, elodie->getSprite());
-    view->addDrawable(ViewLayer::OVERWORLD, paths[currentState]);
+void Overworld::display() {
+    gameView->addDrawable(ViewLayer::OVERWORLD, overworldSprites[currentState]);
+    gameView->addDrawable(ViewLayer::OVERWORLD, elodie->getSprite());
+    gameView->addDrawable(ViewLayer::OVERWORLD, paths[currentState]);
 }
 
 int Overworld::moveUp() {

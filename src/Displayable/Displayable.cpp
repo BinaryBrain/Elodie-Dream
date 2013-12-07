@@ -1,8 +1,9 @@
 #include "Displayable.h"
 
 
-Displayable::Displayable() {
-    //ctor
+Displayable::Displayable(GameView* gameView) {
+    this->view = new sf::View();
+    this->gameView = gameView;
 }
 
 Displayable::~Displayable() {

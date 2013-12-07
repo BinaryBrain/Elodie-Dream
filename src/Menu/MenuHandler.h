@@ -20,10 +20,10 @@
 
 class MenuHandler : public Displayable{
 public:
-    MenuHandler();
+    MenuHandler(GameView* view);
     virtual ~MenuHandler();
 
-    void display(GameView* view);
+    void display();
     void incIndex();
     void decIndex();
     std::pair<GameState, std::string> execute();

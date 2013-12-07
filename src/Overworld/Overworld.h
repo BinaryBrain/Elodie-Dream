@@ -12,8 +12,9 @@
 
 class Overworld : public Displayable{
 public:
-    Overworld();
+    Overworld(GameView* gameView);
     virtual ~Overworld();
+
     Elodie* getElodie();
     int getCurrentEnv();
     int moveUp();
@@ -21,7 +22,7 @@ public:
     int moveRight();
     int moveLeft();
     void evolve();
-    void display(GameView* view);
+    void display();
     void resetPos();
 
 protected:

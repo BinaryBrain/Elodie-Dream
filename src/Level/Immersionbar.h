@@ -8,9 +8,9 @@
 
 class ImmersionBar : public Displayable {
 public:
-    ImmersionBar();
+    ImmersionBar(GameView* view);
     virtual ~ImmersionBar();
-    void display(GameView* view);
+    void display();
     void setLevel(int level);
 protected:
 private:

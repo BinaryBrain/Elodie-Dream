@@ -14,7 +14,7 @@
 
 class Level : public Displayable {
 public:
-    Level(std::string filename, LevelEnv env, Elodie* elodie);
+    Level(GameView* gameView, std::string filename, LevelEnv env, Elodie* elodie);
     virtual ~Level();
 
     void loadLevel(std::string filename, Elodie* elodie);
@@ -23,7 +23,7 @@ public:
     TileMap getTiles();
     EntityMap getEntities();
 
-    void display(GameView* view);
+    void display();
     void setEnvironement(LevelEnv env);
     void applyEnv(TileMap tiles);
 
