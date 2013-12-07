@@ -94,6 +94,8 @@
 		<Unit filename="src/Map/Mapper.h" />
 		<Unit filename="src/Menu/EnglishItem.cpp" />
 		<Unit filename="src/Menu/EnglishItem.h" />
+		<Unit filename="src/Menu/LoadItem.cpp" />
+		<Unit filename="src/Menu/LoadItem.h" />
 		<Unit filename="src/Menu/Menu.cpp" />
 		<Unit filename="src/Menu/Menu.h" />
 		<Unit filename="src/Menu/MenuComponent.cpp" />
