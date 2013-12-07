@@ -15,6 +15,7 @@
 #include "QuitItem.h"
 #include "EnglishItem.h"
 #include "SaveItem.h"
+#include "LoadItem.h"
 #include "../Displayable/Displayable.h"
 
 
@@ -33,6 +34,7 @@ public:
 
 private:
     Menu* title;
+    Menu* saveGame;
     Menu* loadGame;
     Menu* settings;
     Menu* language;

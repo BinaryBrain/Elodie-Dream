@@ -10,6 +10,7 @@ public:
     virtual ~SaveItem();
 
     std::pair<GameState, std::string> execute();
+
 private:
 };
 

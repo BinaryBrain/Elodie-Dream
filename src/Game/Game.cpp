@@ -258,6 +258,9 @@ void Game::run() {
             break;
         case GameState::PAUSE:
             break;
+        case GameState::LOAD:
+            load();
+            break;
         case GameState::SAVE:
             save();
             break;
@@ -281,7 +284,8 @@ void Game::run() {
 }
 
 void Game::load() {
-
+    std::cout << "Load: " << currentMenuItem << std::endl;
+    state = GameState::INMENU;
 }
 
 void Game::save() {
