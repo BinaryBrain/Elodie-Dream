@@ -1,6 +1,7 @@
 #include "EntityManager.h"
-#include "../Json/JsonParser.h"
-#include "../Json/JsonAccessor.h"
+
+// Initialisation of the singleton to NULL
+EntityManager* EntityManager::managerInstance = NULL;
 
 EntityManager::EntityManager() {
     ENTITY_NAME = {
@@ -21,6 +22,19 @@ EntityManager::~EntityManager() {
                 delete enemy->second;
             }
         }
+    }
+}
+
+// Gets the instance of the entityManger
+EntityManager* EntityManager::getInstance() {
+    if(!managerInstance) managerInstance = new EntityManager();
+    return managerInstance;
+}
+
+void EntityManager::kill() {
+    if(managerInstance) {
+        delete managerInstance;
+        managerInstance = NULL;
     }
 }
 

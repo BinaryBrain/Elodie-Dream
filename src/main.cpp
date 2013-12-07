@@ -47,8 +47,8 @@ int main() {
     }
 
     if (false) {
-        EntityManager ToyBox;
-        EntityInfo* sheep = ToyBox.getEnemyInfo(EntityType::ENEMY, EntityName::SHEEP);
+        EntityManager* ToyBox = EntityManager::getInstance();
+        EntityInfo* sheep = ToyBox->getEnemyInfo(EntityType::ENEMY, EntityName::SHEEP);
         std::cout << std::endl << "sheep" << std::endl;
         std::cout << "height: " << sheep->height << std::endl;
         std::cout << "width: " << sheep->width << std::endl;
@@ -60,6 +60,7 @@ int main() {
             }
         }
         delete sheep;
+        ToyBox->kill();
     }
 
     game->run();
