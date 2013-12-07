@@ -26,6 +26,7 @@ public:
 
     void draw();
     void run();
+    void save();
     void exit();
 
     GameState getState();

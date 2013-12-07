@@ -248,6 +248,9 @@ void Game::run() {
             break;
         case GameState::PAUSE:
             break;
+        case GameState::SAVE:
+            save();
+            break;
         case GameState::EXIT:
             exit();
             break;
@@ -265,6 +268,10 @@ void Game::run() {
 
         view.draw();
     }
+}
+
+void Game::save() {
+
 }
 
 void Game::exit() {

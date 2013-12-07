@@ -24,10 +24,10 @@ int main() {
     Game* game = Game::getInstance();
 
     // SaveHandler test
-    SaveHandler sh;
+    /*SaveHandler sh;
     sh.setPath("save/save.txt");
     sh.save();
-    sh.load();
+    sh.load();*/
 
 
     if (false) {

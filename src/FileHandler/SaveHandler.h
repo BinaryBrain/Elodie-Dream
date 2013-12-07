@@ -10,14 +10,11 @@
 
 #include "../Json/JsonParser.h"
 #include "../Json/JsonStringifier.h"
-#include "../Game/Game.h"
 #include "FileHandler.h"
 
 class SaveHandler {
 public:
-
-    SaveHandler();
-    virtual ~SaveHandler();
+    static SaveHandler* getInstance();
 
     void setPath(std::string path);
 
@@ -25,6 +22,12 @@ public:
     void load();
 
 private:
+    SaveHandler();
+    virtual ~SaveHandler();
+
+    static SaveHandler* shInstance;
+    SaveHandler& operator= (SaveHandler const&); // Makes operator= private
+
     std::string path;
 
     std::vector<int> encrypt(std::string p, std::string key);
