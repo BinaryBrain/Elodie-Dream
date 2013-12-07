@@ -8,6 +8,7 @@ EnglishItem::~EnglishItem() {
     //dtor
 }
 
-GameState EnglishItem::execute() {
-    return GameState::INMENU;
+std::pair<GameState, std::string> EnglishItem::execute() {
+    std::pair<GameState, std::string> p = std::make_pair(GameState::INMENU, text->getString());
+    return p;
 }

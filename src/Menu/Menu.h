@@ -22,7 +22,7 @@ public:
 
     MenuComponent* getSelectedItem();
 
-    GameState execute();
+    std::pair<GameState, std::string> execute();
 
 private:
     sf::Texture texture;

@@ -139,7 +139,7 @@ void Game::displayMenu() {
     if (event->keyIsPressed(sf::Keyboard::Down)) menuHandler->incIndex();
     if (event->keyIsPressed(sf::Keyboard::Up)) menuHandler->decIndex();
     if (event->keyIsPressed(sf::Keyboard::Return)) {
-        state = menuHandler->execute();
+        state = menuHandler->execute().first;
         if (state == GameState::INOVERWORLD) {
             view.hide(ViewLayer::IMMERSIONBAR);
             view.hide(ViewLayer::LEVEL);

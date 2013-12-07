@@ -12,13 +12,13 @@ public:
     sf::Text* getText();
     void setText(sf::Text* text);
 
-    virtual GameState execute() = 0;
+    virtual std::pair<GameState, std::string> execute() = 0;
     bool isAMenu();
 
 protected:
     std::vector<MenuComponent*> items;
-    sf::Text* text;
     sf::Font* font;
+    sf::Text* text;
     bool isMenu = false;
 };
 

@@ -26,7 +26,7 @@ public:
     void display(GameView* view);
     void incIndex();
     void decIndex();
-    GameState execute();
+    std::pair<GameState, std::string> execute();
 
     void setNextState(GameState state);
     GameState getNextState();

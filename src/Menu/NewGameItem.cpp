@@ -8,6 +8,7 @@ NewGameItem::~NewGameItem() {
     //dtor
 }
 
-GameState NewGameItem::execute() {
-    return GameState::INOVERWORLD;
+std::pair<GameState, std::string> NewGameItem::execute() {
+    std::pair<GameState, std::string> p = std::make_pair(GameState::INOVERWORLD, text->getString());
+    return p;
 }

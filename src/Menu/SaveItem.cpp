@@ -1,13 +1,14 @@
 #include "SaveItem.h"
 
 SaveItem::SaveItem(std::string label): MenuItem(label) {
-    //ctor
+
 }
 
 SaveItem::~SaveItem() {
     //dtor
 }
 
-GameState SaveItem::execute() {
-    return GameState::INMENU;
+std::pair<GameState, std::string> SaveItem::execute() {
+    std::pair<GameState, std::string> p = std::make_pair(GameState::SAVE, text->getString());
+    return p;
 }

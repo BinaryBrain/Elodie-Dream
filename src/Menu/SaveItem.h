@@ -9,7 +9,7 @@ public:
     SaveItem(std::string label);
     virtual ~SaveItem();
 
-    GameState execute();
+    std::pair<GameState, std::string> execute();
 private:
 };
 

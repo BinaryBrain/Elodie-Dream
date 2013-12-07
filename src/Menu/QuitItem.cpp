@@ -8,6 +8,7 @@ QuitItem::~QuitItem() {
     //dtor
 }
 
-GameState QuitItem::execute() {
-    return GameState::EXIT;
+std::pair<GameState, std::string> QuitItem::execute() {
+    std::pair<GameState, std::string> p = std::make_pair(GameState::EXIT, text->getString());
+    return p;
 }

@@ -9,7 +9,7 @@ public:
     QuitItem(std::string label);
     virtual ~QuitItem();
 
-    GameState execute();
+    std::pair<GameState, std::string> execute();
 private:
 };
 

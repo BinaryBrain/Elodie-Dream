@@ -4,9 +4,9 @@ MenuHandler::MenuHandler() {
     NewGameItem* newGame = new NewGameItem("New game");
     QuitItem* quit = new QuitItem("Quit");
     EnglishItem* english = new EnglishItem("English");
-    SaveItem* save1 = new SaveItem("Save slot 1");
-    SaveItem* save2 = new SaveItem("Save slot 2");
-    SaveItem* save3 = new SaveItem("Save slot 3");
+    SaveItem* save1 = new SaveItem("Slot 1");
+    SaveItem* save2 = new SaveItem("Slot 2");
+    SaveItem* save3 = new SaveItem("Slot 3");
 
     title = new Menu("Title menu");
     loadGame = new Menu("Load game");
@@ -48,7 +48,7 @@ void MenuHandler::decIndex() {
     selectedMenu->decIndex();
 }
 
-GameState MenuHandler::execute() {
+std::pair<GameState, std::string> MenuHandler::execute() {
 
     if (!selectedMenu->getSelectedItem()->isAMenu()) {
         return selectedMenu->execute();
@@ -64,9 +64,12 @@ GameState MenuHandler::execute() {
             selectedMenu = language;
         }
 
+        std::pair<GameState, std::string> p = std::make_pair(GameState::INMENU, label);
+        return p;
     }
 
-    return GameState::INMENU;
+    std::pair<GameState, std::string> p = std::make_pair(GameState::INMENU, "None");
+    return p;
 }
 
 void MenuHandler::setNextState(GameState state){
