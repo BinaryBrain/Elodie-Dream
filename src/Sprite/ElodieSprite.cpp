@@ -1,22 +1,15 @@
 #include "ElodieSprite.h"
 
-ElodieSprite::ElodieSprite() : CharacterSprite() {
+ElodieSprite::ElodieSprite(EntityInfo *informations) : CharacterSprite() {
     texture.loadFromFile("assets/img/sprites/elodie_d.png");
 
     // push frames
-    walkingAnimationRight.setSpriteSheet(texture);
-
-    walkingAnimationRight.addFrame(sf::IntRect(0, 64, 63, 63));
-    walkingAnimationRight.addFrame(sf::IntRect(64, 64, 63, 63));
-    walkingAnimationRight.addFrame(sf::IntRect(128, 64, 63, 63));
-    walkingAnimationRight.addFrame(sf::IntRect(192, 64, 63, 63));
-
-    standingAnimation.setSpriteSheet(texture);
-    standingAnimation.addFrame(sf::IntRect(0, 0, 63, 63));
-    standingAnimation.addFrame(sf::IntRect(64, 0, 63, 63));
-    standingAnimation.addFrame(sf::IntRect(128, 0, 63, 63));
-    standingAnimation.addFrame(sf::IntRect(192, 0, 63, 63));
-
+    for(std::map< std::string, HitboxInfo >::iterator it = informations->anim.begin(); it != informations->anim.end(); ++it) {
+        animations[it->first].setSpriteSheet(texture);
+        for(int i(0); i < 4; ++i) {
+            animations[it->first].addFrame(sf::IntRect(i * informations->width, it->second.row * informations->height, informations->width, informations->height));
+        }
+    }
 
     stand();
 }
@@ -25,14 +18,20 @@ ElodieSprite::~ElodieSprite() {
     //dtor
 }
 
+void ElodieSprite::changeStance(std::string stance, sf::Time speed) {
+    AnimatedSprite::setAnimation(animations[stance]);
+    setFrameTime(speed);
+    setCurrentStance(stance);
+}
+
 void ElodieSprite::walk() {
-    AnimatedSprite::setAnimation(walkingAnimationRight);
+    AnimatedSprite::setAnimation(animations["running"]);
     setFrameTime(sf::seconds(0.1));
-    setCurrentStance(SpriteStance::WALKING_RIGHT);
+    setCurrentStance("running");
 }
 
 void ElodieSprite::stand() {
-    AnimatedSprite::setAnimation(standingAnimation);
+    AnimatedSprite::setAnimation(animations["standing"]);
     AnimatedSprite::setFrameTime(sf::seconds(0.2));
-    setCurrentStance(SpriteStance::STANDING);
+    setCurrentStance("standing");
 }

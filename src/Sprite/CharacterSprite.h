@@ -1,22 +1,19 @@
 #ifndef CHARACTERSPRITE_H
 #define CHARACTERSPRITE_H
 
+#include <string>
 #include "AnimatedSprite.h"
-
-enum class SpriteStance {
-    STANDING, WALKING_LEFT, WALKING_RIGHT, JUMPING, ATTACKING
-};
 
 class CharacterSprite : public AnimatedSprite {
 public:
     CharacterSprite();
     virtual ~CharacterSprite();
 
-    SpriteStance getCurrentStance();
-    void setCurrentStance(SpriteStance newStance);
+    std::string getCurrentStance();
+    void setCurrentStance(std::string newStance);
 protected:
 private:
-    SpriteStance currentStance = SpriteStance::STANDING;
+    std::string currentStance = "";
 };
 
 #endif // CHARACTERSPRITE_H

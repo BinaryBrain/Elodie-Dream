@@ -8,10 +8,10 @@ CharacterSprite::~CharacterSprite() {
     //dtor
 }
 
-SpriteStance CharacterSprite::getCurrentStance() {
+std::string CharacterSprite::getCurrentStance() {
     return currentStance;
 }
 
-void CharacterSprite::setCurrentStance(SpriteStance newStance) {
+void CharacterSprite::setCurrentStance(std::string newStance) {
     currentStance = newStance;
 }

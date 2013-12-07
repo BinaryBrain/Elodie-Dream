@@ -1,19 +1,22 @@
 #ifndef ELODIESPRITE_H
 #define ELODIESPRITE_H
 #include <iostream>
+#include <string>
+#include <map>
 #include "CharacterSprite.h"
+#include "../Include/EntityInfo.h"
 
 
 class ElodieSprite : public CharacterSprite {
 public:
-    ElodieSprite();
+    ElodieSprite(EntityInfo *informations);
     virtual ~ElodieSprite();
+    void changeStance(std::string stance, sf::Time speed);
     void walk();
     void stand();
 protected:
 private:
-    Animation standingAnimation;
-    Animation walkingAnimationRight;
+    std::map< std::string, Animation > animations;
     sf::Texture texture;
 };
 

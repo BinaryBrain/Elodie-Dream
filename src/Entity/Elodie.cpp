@@ -29,7 +29,7 @@ void Elodie::init() {
     state = ElodieState::WALKING;
     speed.x = 300;
 
-    sprite = new ElodieSprite();
+    sprite = new ElodieSprite(infos);
     setEntitySprite(sprite);
 }
 
@@ -160,7 +160,7 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
 
     sprite->update(animate);
 
-    if (sprite->getCurrentStance() == SpriteStance::STANDING)
+    if (sprite->getCurrentStance() == ANIMATIONS[ElodieState::STANDING])
         this->walk();
 
     if (collideTiles.left["surface"] && collideTiles.right["surface"]) {
