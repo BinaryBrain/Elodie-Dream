@@ -1,12 +1,13 @@
 #ifndef TEXTUREMANAGER_H
 #define TEXTUREMANAGER_H
 
+#include "SFML/Graphics.hpp"
+
 #include <map>
 #include <string>
 #include "../const.h"
 #include "../env.h"
 #include "../Sprite/TileSprite.h"
-#include "SFML/Graphics.hpp"
 
 typedef std::map< LevelEnv, std::map< TileType, sf::Texture* > > TileTextures;
 

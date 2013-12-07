@@ -238,9 +238,9 @@ void Elodie::setPosition(float x, float y) {
 
 void Elodie::flipToLeft() {
     sprite->setOrigin(sf::Vector2f(64,0));
-    sprite->setScale(-1, 1);
+    sprite->setScale(1, 1);
 }
 void Elodie::flipToRight() {
     sprite->setOrigin(sf::Vector2f(0,0));
-    sprite->setScale(1, 1);
+    sprite->setScale(-1, 1);
 }

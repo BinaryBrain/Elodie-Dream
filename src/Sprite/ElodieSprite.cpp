@@ -1,7 +1,7 @@
 #include "ElodieSprite.h"
 
 ElodieSprite::ElodieSprite(EntityInfo *informations) : CharacterSprite() {
-    texture.loadFromFile("assets/img/sprites/elodie_d.png");
+    texture.loadFromFile("assets/img/sprites/elodie.png");
 
     // push frames
     for(std::map< std::string, HitboxInfo >::iterator it = informations->anim.begin(); it != informations->anim.end(); ++it) {
