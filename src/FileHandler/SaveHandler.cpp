@@ -11,6 +11,12 @@ SaveHandler::~SaveHandler() {
 
 }
 
+// Gets the instance of the game
+SaveHandler* SaveHandler::getInstance() {
+    if(!shInstance) shInstance = new SaveHandler;
+    return shInstance;
+}
+
 void SaveHandler::setPath(std::string path) {
     this->path = path;
 }

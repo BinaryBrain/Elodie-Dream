@@ -4,7 +4,6 @@
 #include <fstream>
 
 #include "env.h"
-
 #include "Sprite/AnimatedSprite.h"
 #include "EventHandler/EventHandler.h"
 #include "Json/JsonParser.h"
@@ -23,12 +22,8 @@ int main() {
     // Map Parsing test
     Game* game = Game::getInstance();
 
-    // SaveHandler test
-    /*SaveHandler sh;
-    sh.setPath("save/save.txt");
-    sh.save();
-    sh.load();*/
-
+    SaveHandler* sh = SaveHandler::getInstance();
+    sh->save();
 
     if (false) {
         // Conf test
