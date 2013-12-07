@@ -5,6 +5,10 @@ Level::Level(GameView* gameView, std::string filename, LevelEnv env, Elodie* elo
     this->manager = new TextureManager();
 
     loadLevel(filename, elodie);
+    gameView->addView(ViewLayer::LEVEL, this);
+
+    std::cout << "ZOOM" << std::endl;
+    gameView->setZoom(ViewLayer::LEVEL, ZOOM_LEVEL);
 }
 
 Level::~Level() {
@@ -59,7 +63,6 @@ void Level::display() {
 
     Elodie* elodie = dynamic_cast<Elodie*>(entities["elodie"]);
     gameView->followPoint(ViewLayer::LEVEL, elodie->getPosition());
-    gameView->setZoom(ViewLayer::LEVEL, ZOOM_LEVEL);
 }
 
 void Level::live(EventHandler* const& event, sf::Time animate) {

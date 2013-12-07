@@ -69,8 +69,6 @@ void GameView::followPoint(ViewLayer viewKey, float x, float y) {
         camY = y-(viewSize.y/2-margin);
     }
 
-    //std::cout << "camY: " << camY << " | y: " << y << std::endl;
-
     setCameraCenter(viewKey, camX, camY);
 }
 

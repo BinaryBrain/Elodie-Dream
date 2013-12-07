@@ -91,7 +91,6 @@ void Game::loadLevel(int levelNbr) {
     state = GameState::INLEVEL;
     curLevelNbr = levelNbr;
     curLevel = new Level(&view, "assets/levels/level1.txt", LevelEnv::FIELD, overworld->getElodie());
-    view.addView(ViewLayer::LEVEL, curLevel);
 }
 
 void Game::handleOverworld(sf::Time time) {

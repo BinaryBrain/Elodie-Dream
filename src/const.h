@@ -14,7 +14,7 @@ const int WINDOW_HEIGHT = 720;
 const int FPS = 100;
 
 // -- LEVEL -- //
-const float ZOOM_LEVEL = 3;
+const float ZOOM_LEVEL = 2;
 
 // Immersion Bar
 const float IMMERSION_BAR_X = 540;
