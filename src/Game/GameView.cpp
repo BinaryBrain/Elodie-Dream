@@ -1,7 +1,7 @@
 #include "GameView.h"
 
 GameView::GameView() {
-    window = new sf::RenderWindow(sf::VideoMode(1280, 720), "Elodie's Dream: Quest for Poros", sf::Style::Default);
+    window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Elodie's Dream: Quest for Poros", sf::Style::Default);
 }
 
 GameView::~GameView() {

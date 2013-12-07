@@ -6,6 +6,8 @@
 #include <iostream>
 #include <map>
 
+#include "../const.h"
+#include "../env.h"
 #include "../Displayable/Displayable.h"
 
 enum class ViewLayer {
