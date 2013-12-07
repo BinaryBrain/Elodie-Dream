@@ -181,9 +181,7 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
     if (collideTiles.bottom["surface"] && speed.y >= 0) {
         speed.y = 0;
 
-        if(state == ElodieState::FALLING || state == ElodieState::JUMPING) {
-            state = ElodieState::WALKING;
-        }
+        state = ElodieState::WALKING;
     } else {
         computeGravity(animate);
         if (speed.y > 0) {
