@@ -59,6 +59,8 @@
 		<Unit filename="src/EntityManager/EntityManager.h" />
 		<Unit filename="src/Entity/Elodie.cpp" />
 		<Unit filename="src/Entity/Elodie.h" />
+		<Unit filename="src/Entity/Enemy/Sheep.cpp" />
+		<Unit filename="src/Entity/Enemy/Sheep.h" />
 		<Unit filename="src/Entity/Entity.cpp" />
 		<Unit filename="src/Entity/Entity.h" />
 		<Unit filename="src/Entity/Hitbox.cpp" />
@@ -126,6 +128,10 @@
 		<Unit filename="src/Sprite/ElodieSprite.h" />
 		<Unit filename="src/Sprite/EnemySprite.cpp" />
 		<Unit filename="src/Sprite/EnemySprite.h" />
+		<Unit filename="src/Sprite/EnemySprite/SheepSprite.cpp" />
+		<Unit filename="src/Sprite/EnemySprite/SheepSprite.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="src/Sprite/EnvSprite.cpp" />
 		<Unit filename="src/Sprite/EnvSprite.h" />
 		<Unit filename="src/Sprite/Interactive.cpp" />

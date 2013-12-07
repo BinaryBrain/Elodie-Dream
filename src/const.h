@@ -35,6 +35,9 @@ static const char MAP_GROUND = '#';
 // Characters
 static const char MAP_ELODIE = 'E';
 
+// Enemies
+static const char MAP_SHEEP = 'S';
+
 // Misc
 static const char MAP_LINE_BREAK = '\n';
 static const char MAP_NULL = ' ';

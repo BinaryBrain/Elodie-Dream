@@ -1,5 +1,6 @@
 #include "Mapper.h"
 #include "../Entity/Elodie.h"
+#include "../Entity/Enemy/Sheep.h"
 
 Mapper::Mapper() {
 
@@ -22,6 +23,10 @@ void Mapper::parse(std::string asciiLevel, TileMap& tiles, EntityMap& entities, 
             elodie->reset();
             elodie->setPosition(x*32 - 21, y*32 - 32);
             entities.insert(std::make_pair("elodie", elodie));
+            break;
+
+        case MAP_SHEEP:
+            entities.insert(std::make_pair("sheep", new Sheep(x*32, y*32)));
             break;
 
         // Terrain
