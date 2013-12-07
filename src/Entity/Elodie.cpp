@@ -19,7 +19,8 @@ void Elodie::init() {
         {ElodieState::STANDING, "standing"},
         {ElodieState::WALKING, "running"},
         {ElodieState::PUNCHING, "attacking"},
-        {ElodieState::FALLING, "falling"}
+        {ElodieState::FALLING, "falling"},
+        {ElodieState::JUMPING, "jumping"}
     };
 
     JsonAccessor json = JsonAccessor();
@@ -84,10 +85,12 @@ void Elodie::setWalkUp() {
 void Elodie::setWalkRight() {
     this->walk();
     goingRight = true;
+    toRight();
 }
 void Elodie::setWalkLeft() {
     this->walk();
     goingLeft = true;
+    toLeft();
 }
 
 void Elodie::setDistanceToMove(float dist) {
@@ -160,8 +163,10 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
 
     sprite->update(animate);
 
-    if (sprite->getCurrentStance() == ANIMATIONS[ElodieState::STANDING])
+    if (sprite->getCurrentStance() == ANIMATIONS[ElodieState::STANDING]) {
         this->walk();
+    }
+    ElodieState memState = state;
 
     if (collideTiles.left["surface"] && collideTiles.right["surface"]) {
         speed.x = 0;
@@ -176,17 +181,29 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
     if (collideTiles.bottom["surface"] && speed.y >= 0) {
         speed.y = 0;
 
-        if(state == ElodieState::FALLING) {
+        if(state == ElodieState::FALLING || state == ElodieState::JUMPING) {
             state = ElodieState::WALKING;
         }
     } else {
         computeGravity(animate);
-        state = ElodieState::FALLING;
+        if (speed.y > 0) {
+            state = ElodieState::JUMPING;
+        } else {
+            state = ElodieState::FALLING;
+        }
     }
 
     if (event->keyIsPressed(sf::Keyboard::Space) && state == ElodieState::WALKING) {
         speed.y = -400; // TODO Put in const file
-        state = ElodieState::FALLING;
+        state = ElodieState::JUMPING;
+    }
+    if (state != memState) {
+        sprite->changeStance(ANIMATIONS[state], sf::seconds(0.1f));
+    }
+    if(speed.x < 0) {
+        toLeft();
+    } else {
+        toRight();
     }
 }
 
@@ -209,12 +226,21 @@ void Elodie::reset() {
     setHitboxes(infos, sprite->getPosition());
 }
 
-void Elodie::setPosition(sf::Vector2f pos){
+void Elodie::setPosition(sf::Vector2f pos) {
     sprite->setPosition(pos);
     setHitboxes(infos, sprite->getPosition());
 }
 
-void Elodie::setPosition(float x, float y){
+void Elodie::setPosition(float x, float y) {
     setPosition(sf::Vector2f(x,y));
     setHitboxes(infos, sprite->getPosition());
+}
+
+void Elodie::toLeft() {
+    sprite->setOrigin(sf::Vector2f(64,0));
+    sprite->setScale(-1, 1);
+}
+void Elodie::toRight() {
+    sprite->setOrigin(sf::Vector2f(0,0));
+    sprite->setScale(1, 1);
 }

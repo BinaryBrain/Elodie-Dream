@@ -9,7 +9,7 @@
 #include "../EventHandler/EventHandler.h"
 #include "../Include/EntityInfo.h"
 
-enum class ElodieState { STANDING, WALKING, FALLING, PUNCHING };
+enum class ElodieState { STANDING, WALKING, FALLING, PUNCHING, JUMPING};
 
 /**
 * The class representing Elodie, an Entity.
@@ -142,6 +142,8 @@ public:
     void reset();
     void pause();
     void play();
+    void toLeft();
+    void toRight();
 
 protected:
 
