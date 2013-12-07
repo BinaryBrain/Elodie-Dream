@@ -20,7 +20,7 @@ void Sheep::init(float x, float y) {
     EntityManager* ToyBox = EntityManager::getInstance();
     EntityInfo* sheepInfo = ToyBox->getEnemyInfo(EntityType::ENEMY, EntityName::SHEEP);
 
-    x -= sheepInfo->width;
+    x -= sheepInfo->width / 2;
     y -= sheepInfo->height / 2 - 1;
     state = SheepState::STANDING;
     speed.x = 0;
