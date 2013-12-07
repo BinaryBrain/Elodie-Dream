@@ -66,8 +66,7 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
     // testing purposes
     else if (event->keyIsPressed(sf::Keyboard::A)) {
         sounds.play(SoundType::PUNCH);
-    }
-    else if (event->keyIsPressed(sf::Keyboard::C)) {
+    } else if (event->keyIsPressed(sf::Keyboard::C)) {
         state = GameState::INCONSOLE;
         curLevel->pause();
         console->setNextState(GameState::INLEVEL);
@@ -147,6 +146,9 @@ void Game::displayMenu() {
             view.hide(ViewLayer::LEVEL);
             view.hide(ViewLayer::MENU);
             view.show(ViewLayer::OVERWORLD);
+            overworld->getElodie()->stand();
+            overworld->resetPos();
+            overworld->getElodie()->play();
         }
     }
     if(event->keyIsPressed(sf::Keyboard::M)) {
@@ -154,6 +156,8 @@ void Game::displayMenu() {
         if (state == GameState::INOVERWORLD) {
             view.hide(ViewLayer::MENU);
             view.show(ViewLayer::OVERWORLD);
+            overworld->getElodie()->stand();
+            overworld->resetPos();
         } else if (state == GameState::INLEVEL) {
             if(curLevel) {
                 state = GameState::INLEVEL;
