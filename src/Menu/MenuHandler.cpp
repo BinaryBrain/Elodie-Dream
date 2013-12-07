@@ -5,23 +5,23 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
     QuitItem* quit = new QuitItem("Quit");
     EnglishItem* english = new EnglishItem("English");
 
-    SaveItem* save1 = new SaveItem("SaveSlot 1");
-    SaveItem* save2 = new SaveItem("SaveSlot 2");
-    SaveItem* save3 = new SaveItem("SaveSlot 3");
+    SaveItem* save1 = new SaveItem("Slot 1");
+    SaveItem* save2 = new SaveItem("Slot 2");
+    SaveItem* save3 = new SaveItem("Slot 3");
 
-    /*LoadItem* load1 = new LoadItem("LoadSlot 1");
-    LoadItem* load2 = new LoadItem("LoadSlot 2");
-    LoadItem* load3 = new LoadItem("LoadSlot 3");*/
+    LoadItem* load1 = new LoadItem("Slot 1");
+    LoadItem* load2 = new LoadItem("Slot 2");
+    LoadItem* load3 = new LoadItem("Slot 3");
 
     title = new Menu("Title menu");
     saveGame = new Menu("Save game");
-    //loadGame = new Menu("Load game");
+    loadGame = new Menu("Load game");
     settings = new Menu("Settings");
     language = new Menu("Language");
 
     title->addItem(newGame);
     title->addItem(saveGame);
-    //title->addItem(loadGame);
+    title->addItem(loadGame);
     title->addItem(settings);
     title->addItem(quit);
 
@@ -30,10 +30,10 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
     saveGame->addItem(save3);
     saveGame->addItem(title);
 
-    /*loadGame->addItem(load1);
+    loadGame->addItem(load1);
     loadGame->addItem(load2);
     loadGame->addItem(load3);
-    loadGame->addItem(title);*/
+    loadGame->addItem(title);
 
     settings->addItem(language);
     settings->addItem(title);
