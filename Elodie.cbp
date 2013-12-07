@@ -76,12 +76,8 @@
 		<Unit filename="src/Game/GameView.cpp" />
 		<Unit filename="src/Game/GameView.h" />
 		<Unit filename="src/Include/Collide.h" />
-		<Unit filename="src/Include/EntityInfo.h">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
-		<Unit filename="src/Include/HitboxInfo.h">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
+		<Unit filename="src/Include/EntityInfo.h" />
+		<Unit filename="src/Include/HitboxInfo.h" />
 		<Unit filename="src/Item/Item.cpp" />
 		<Unit filename="src/Item/Item.h" />
 		<Unit filename="src/Json/JsonAccessor.cpp" />
@@ -112,7 +108,6 @@
 		<Unit filename="src/Menu/QuitItem.h" />
 		<Unit filename="src/Menu/SaveItem.cpp" />
 		<Unit filename="src/Menu/SaveItem.h" />
-		<Unit filename="src/Menu/TitleMenu.h" />
 		<Unit filename="src/Overworld/Overworld.cpp" />
 		<Unit filename="src/Overworld/Overworld.h" />
 		<Unit filename="src/Sky/Sky.cpp" />

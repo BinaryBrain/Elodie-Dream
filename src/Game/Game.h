@@ -3,6 +3,7 @@
 
 #include "../env.h"
 #include "../Json/JsonAccessor.h"
+#include "../FileHandler/SaveHandler.h"
 #include "../Console/Console.h"
 #include "../Level/Level.h"
 #include "../Map/Mapper.h"
@@ -43,6 +44,7 @@ private:
 
     GameView view;
     GameState state = GameState::INMENU;
+    std::string currentMenuItem;
 
     GameState pausePrevState;
 

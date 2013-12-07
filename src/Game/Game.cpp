@@ -139,7 +139,9 @@ void Game::displayMenu() {
     if (event->keyIsPressed(sf::Keyboard::Down)) menuHandler->incIndex();
     if (event->keyIsPressed(sf::Keyboard::Up)) menuHandler->decIndex();
     if (event->keyIsPressed(sf::Keyboard::Return)) {
-        state = menuHandler->execute().first;
+        std::pair<GameState, std::string> p = menuHandler->execute();
+        state = p.first;
+        currentMenuItem = p.second;
         if (state == GameState::INOVERWORLD) {
             view.hide(ViewLayer::IMMERSIONBAR);
             view.hide(ViewLayer::LEVEL);
@@ -271,7 +273,9 @@ void Game::run() {
 }
 
 void Game::save() {
-
+    SaveHandler* sh = SaveHandler::getInstance();
+    sh->setPath(currentMenuItem);
+    sh->save();
 }
 
 void Game::exit() {
