@@ -224,8 +224,6 @@ void Elodie::stateChanged(ElodieState from, ElodieState to) {
     if(from == ElodieState::FALLING && to == ElodieState::WALKING) {
         soundManager->play(SoundType::FOOTSTEP_GRASS);
     }
-
-
 }
 
 void Elodie::pause() {

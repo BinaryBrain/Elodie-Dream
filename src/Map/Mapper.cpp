@@ -2,8 +2,9 @@
 #include "../Entity/Elodie.h"
 #include "../Entity/Enemy/Sheep.h"
 
-Mapper::Mapper() {
+std::map< std::string, int > Mapper::freshIds;
 
+Mapper::Mapper() {
 }
 
 // The parser takes the ASCII level and modify the the TileMap and the EntityVector
@@ -26,7 +27,7 @@ void Mapper::parse(std::string asciiLevel, TileMap& tiles, EntityMap& entities, 
             break;
 
         case MAP_SHEEP:
-            entities.insert(std::make_pair("sheep", new Sheep(x*32, y*32)));
+            entities.insert(std::make_pair(getFreshID("sheep"), new Sheep(x*32, y*32)));
             break;
 
         // Terrain
@@ -117,3 +118,10 @@ void Mapper::print(TileMap& tiles, EntityMap& entities) {
 
     std::cout << out;
 }
+
+std::string Mapper::getFreshID(std::string key) {
+    std::stringstream sstm;
+    sstm << key << freshIds[key]++;
+    return sstm.str();
+}
+
