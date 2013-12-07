@@ -37,7 +37,7 @@ void Mapper::parse(std::string asciiLevel, TileMap& tiles, EntityMap& entities, 
 
         case MAP_LINE_BREAK:
             y++;
-            x=0;
+            x=-1;
             break;
 
         case MAP_NULL:
