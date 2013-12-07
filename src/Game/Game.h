@@ -28,6 +28,7 @@ public:
 
     void draw();
     void run();
+    void load();
     void save();
     void exit();
 

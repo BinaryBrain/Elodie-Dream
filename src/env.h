@@ -16,7 +16,7 @@ typedef std::vector< std::vector<TileSprite*> > TileMap;
 typedef std::map<std::string, Entity*> EntityMap;
 
 enum class GameState {
-    INLEVEL = 0, INOVERWORLD, INMENU, INCONSOLE, PAUSE, SAVE, EXIT
+    INLEVEL = 0, INOVERWORLD, INMENU, INCONSOLE, PAUSE, LOAD, SAVE, EXIT
 };
 
 enum class LevelEnv {
