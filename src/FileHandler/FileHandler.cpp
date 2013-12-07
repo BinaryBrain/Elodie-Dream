@@ -18,11 +18,18 @@ std::string FileHandler::getContent(std::string path) {
     // Do NOT remove parentheses. (most vexing parse)
     std::string str((std::istreambuf_iterator<char>(stream)),
                     std::istreambuf_iterator<char>());
+
+    stream.close();
     return str;
 }
 
 void FileHandler::writeContent(std::string path, std::string toWrite) {
     std::ofstream stream(path.c_str());
-    if(stream) stream << toWrite << std::endl;
-    else std::cerr << "An unexpected error occured. Is the file available ?" << std::endl;
+    if(stream) {
+        stream << toWrite << std::endl;
+        stream.close();
+    }
+    else {
+        std::cerr << "An unexpected error occured. Is the file available ?" << std::endl;
+    }
 }
