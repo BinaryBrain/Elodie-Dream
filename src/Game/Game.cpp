@@ -285,7 +285,6 @@ void Game::run() {
 }
 
 void Game::load() {
-    std::cout << "Load: " << currentMenuItem << std::endl;
     std::string path = "save/" + currentMenuItem + ".save";
     SaveHandler* sh = SaveHandler::getInstance();
     sh->setPath(path);
@@ -309,9 +308,8 @@ void Game::load() {
     // remove the temporary json
     if(remove(tempJsonFilePath.c_str()) != 0 ) {
         std::cerr << "Error deleting temporary json" << std::endl;
-    } else {
-        std::cout << "Temporary json successfully deleted." << std::endl;
     }
+    std::cout << "Successfully loaded " << currentMenuItem << "." << std::endl;
 
     state = GameState::INMENU;
 }
@@ -326,7 +324,7 @@ void Game::save() {
     stringifier->add(keyGameState, (int)state);
     sh->save();
 
-    std::cout << "Successfully saved on " << currentMenuItem << std::endl;
+    std::cout << "Successfully saved on " << currentMenuItem << "." << std::endl;
 
     sh->clearStringifier();
     state = GameState::INMENU;

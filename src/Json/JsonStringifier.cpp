@@ -13,7 +13,6 @@ JsonStringifier::~JsonStringifier() {
 }
 
 void JsonStringifier::add(std::string key, int i) {
-    std::cout << "Added: " << i << std::endl;
     values.AddMember(key.c_str(), i, values.GetAllocator());
 }
 
