@@ -1,7 +1,6 @@
 #include <SFML/Graphics.hpp>
-#include <vector>
-#include <iostream>
 #include <fstream>
+#include <ctime>
 
 #include "env.h"
 #include "Sprite/AnimatedSprite.h"
@@ -10,6 +9,7 @@
 #include "Json/JsonAccessor.h"
 #include "Game/Game.h"
 #include "Overworld/Overworld.h"
+#include "Utils/Utils.h"
 
 //Here for testing purpose. To remove later on
 #include "EntityManager/EntityManager.h"

@@ -45,9 +45,11 @@ Game* Game::getInstance() {
 }
 
 void Game::kill() {
+    std::cout << "Testing gameInstance..." << std::endl;
     if(gameInstance) {
         delete gameInstance;
         gameInstance = NULL;
+        std::cout << "Deleted gameinstance" << std::endl;
     }
 }
 
@@ -282,6 +284,7 @@ void Game::run() {
 
         view.draw();
     }
+
 }
 
 void Game::load() {
@@ -302,7 +305,8 @@ void Game::load() {
     JsonAccessor accessor;
     accessor.load(tempJsonFilePath);
     int gameState = accessor.getInt("gamestate");
-    std::cout << "Retrieved gamestate: " << gameState << std::endl;
+    std::string date = accessor.getString("date");
+    std::cout << "Retrieved gamestate: " << gameState << " from " << date << std::endl;
     accessor.close();
 
     // remove the temporary json
@@ -320,11 +324,23 @@ void Game::save() {
     sh->setPath(path);
     JsonStringifier* stringifier = sh->getStringifier();
 
+    time_t t = time(0);   // get time now
+    struct tm* now = localtime(&t);
+    std::string date("the ");
+    date += Utils::itos(now->tm_mday) + "/";
+    date += Utils::itos(now->tm_mon + 1) + "/";
+    date += Utils::itos(now->tm_year + 1900) + ", at ";
+    date += Utils::itos(now->tm_hour) + ":";
+    date += Utils::itos(now->tm_min) + ":";
+    date += Utils::itos(now->tm_sec);
+    std::string keyDate = "date";
+    stringifier->add(keyDate, date);
+
     std::string keyGameState = "gamestate";
     stringifier->add(keyGameState, (int)state);
     sh->save();
 
-    std::cout << "Successfully saved on " << currentMenuItem << "." << std::endl;
+    std::cout << "Successfully saved on " << currentMenuItem << date << std::endl;
 
     sh->clearStringifier();
     state = GameState::INMENU;
