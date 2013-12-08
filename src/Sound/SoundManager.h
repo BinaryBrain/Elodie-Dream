@@ -16,6 +16,8 @@ public:
     sf::SoundBuffer* getRandomSoundBuffer(SoundType type);
     std::string getPath(SoundType type, int n);
 
+    void cleanUnusedSounds();
+
     void play(sf::SoundBuffer* buffer);
     void play(SoundType type);
 protected:
@@ -28,6 +30,7 @@ private:
 
     std::map< SoundType, std::map< int, sf::SoundBuffer* > > soundBuffers;
     std::map< SoundType, std::pair< std::string, int > > SOUND_TYPE;
+    std::vector< sf::Sound* > sounds;
 };
 
 #endif // SOUNDSYSTEM_H

@@ -63,10 +63,21 @@ void SoundManager::play(sf::SoundBuffer* buffer) {
     sf::Sound* sound = new sf::Sound();
     sound->setBuffer(*buffer);
     sound->play();
-    // TODO destroy it!
+
+    sounds.push_back(sound);
+    cleanUnusedSounds();
 }
 
 void SoundManager::play(SoundType type) {
     sf::SoundBuffer* buffer = getRandomSoundBuffer(type);
     play(buffer);
+}
+
+void SoundManager::cleanUnusedSounds() {
+    for(unsigned int i = 0; i < sounds.size(); i++) {
+        if(sounds[i]->getStatus() != sf::Sound::Status::Playing) {
+            delete sounds[i];
+            sounds.erase(sounds.begin()+i);
+        }
+    }
 }
