@@ -12,8 +12,9 @@ void Mapper::parse(std::string asciiLevel, TileMap& tiles, EntityMap& entities, 
     std::cout << "PARSING MAP" << std::endl;
     unsigned int y = 0;
     unsigned int x = 0;
-
+    bool isEntity = true;
     for(unsigned int i = 0; i < asciiLevel.length(); i++) {
+        isEntity = true;
         if(y >= tiles.size()) {
             tiles.push_back(std::vector<TileSprite*>());
         }
@@ -29,7 +30,12 @@ void Mapper::parse(std::string asciiLevel, TileMap& tiles, EntityMap& entities, 
         case MAP_SHEEP:
             entities.insert(std::make_pair(getFreshID("sheep"), new Sheep(x*32, y*32)));
             break;
+        default:
+            isEntity = false;
+            break;
+        }
 
+        switch(asciiLevel[i]) {
         // Terrain
         case MAP_GROUND:
             tiles[y].push_back(new TileSprite(TileType::ROCK));
@@ -47,7 +53,9 @@ void Mapper::parse(std::string asciiLevel, TileMap& tiles, EntityMap& entities, 
 
         default:
             tiles[y].push_back(NULL);
-            std::cout << "[Warning] Mapper: tile type not found: '" << asciiLevel[i] << "'" << std::endl;
+            if(!isEntity) {
+                std::cout << "[Warning] Mapper: tile type not found: '" << asciiLevel[i] << "'" << std::endl;
+            }
             break;
         }
 
