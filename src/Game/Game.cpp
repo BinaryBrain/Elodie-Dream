@@ -30,12 +30,34 @@ Game::Game() {
 }
 
 Game::~Game() {
-    delete event;
-    delete menuHandler;
-    delete overworld;
-    delete console;
-    delete girly;
-    delete immBar;
+    if (event) {
+        delete event;
+        event = NULL;
+    }
+    if (menuHandler) {
+        delete menuHandler;
+        menuHandler = NULL;
+    }
+
+    if (overworld) {
+        delete overworld;
+        overworld = NULL;
+    }
+
+    if(console) {
+        delete console;
+        console = NULL;
+    }
+
+    if (girly) {
+        delete girly;
+        girly = NULL;
+    }
+
+    if (immBar) {
+        delete immBar;
+        girly = NULL;
+    }
 }
 
 // Gets the instance of the game
@@ -311,7 +333,7 @@ void Game::load() {
 
     JsonAccessor accessor;
     accessor.load(tempJsonFilePath);
-    if(accessor.canTakeElementFrom("date")){
+    if(accessor.canTakeElementFrom("date")) {
 
         int gameState = accessor.getInt("gamestate");
         std::string date = accessor.getString("date");

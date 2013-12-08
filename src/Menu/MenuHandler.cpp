@@ -28,28 +28,24 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
     saveGame->addItem(save1);
     saveGame->addItem(save2);
     saveGame->addItem(save3);
-    saveGame->addItem(title);
+    saveGame->addItem(title, true);
 
     loadGame->addItem(load1);
     loadGame->addItem(load2);
     loadGame->addItem(load3);
-    loadGame->addItem(title);
+    loadGame->addItem(title, true);
 
     settings->addItem(language);
-    settings->addItem(title);
+    settings->addItem(title, true);
 
     language->addItem(english);
-    language->addItem(settings);
+    language->addItem(settings, true);
 
     selectedMenu = title;
 }
 
 MenuHandler::~MenuHandler() {
     delete title;
-    delete saveGame;
-    delete loadGame;
-    delete settings;
-    delete language;
 
     title = NULL;
     saveGame = NULL;

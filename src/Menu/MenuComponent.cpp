@@ -8,8 +8,12 @@ MenuComponent::MenuComponent(std::string label) {
 }
 
 MenuComponent::~MenuComponent() {
-    delete text;
-    delete font;
+    if(text) {
+        delete text;
+    }
+    if(font) {
+        delete font;
+    }
     text = NULL;
     font = NULL;
 }

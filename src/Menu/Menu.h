@@ -14,7 +14,7 @@ public:
     Menu(std::string label);
     virtual ~Menu();
 
-    void addItem(MenuComponent* item);
+    void addItem(MenuComponent* item, bool isParent = false);
     void draw(GameView* view);
     void incIndex();
     void decIndex();
@@ -31,6 +31,8 @@ private:
     sf::RectangleShape background;
 
     std::vector<MenuComponent*> items;
+
+    std::vector<bool> isParent;
 
     unsigned int index = 0;
 };

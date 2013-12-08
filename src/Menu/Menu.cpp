@@ -10,11 +10,14 @@ Menu::Menu(std::string label): MenuComponent(label) {
 
 Menu::~Menu() {
     for(unsigned int i(0); i<items.size(); ++i) {
-        delete items[i];
+        if(items[i] && !isParent[i]) {
+            delete items[i];
+            items[i] = NULL;
+        }
     }
 }
 
-void Menu::addItem(MenuComponent* item) {
+void Menu::addItem(MenuComponent* item, bool isParent) {
     sf::Text* text = item->getText();
 
     text->setCharacterSize(30);
@@ -22,6 +25,7 @@ void Menu::addItem(MenuComponent* item) {
     text->setColor(sf::Color::Magenta);
     item->setText(text);
     items.push_back(item);
+    this->isParent.push_back(isParent);
 }
 
 // Draws the everything in the menu
