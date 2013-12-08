@@ -76,6 +76,7 @@ Collide Entity::collideWithTiles(std::vector< std::vector<TileSprite*> > const& 
     int mapPnt;
     int totMin = 0, totMax = 0, incMin = 0, incMax = 0;
 
+    collideWith.ground = TileType::VOID;
     collideWith.left["distance"] = collideWith.right["distance"] = step.x;
     //The +-1 is here because the hitbox will touch a bit the bottom/top/left/right tile, but it should not disturb the adjacent face
     for(float y = minY + 1; y < maxY - 1; ++y) {
@@ -147,6 +148,18 @@ Collide Entity::collideWithTiles(std::vector< std::vector<TileSprite*> > const& 
         while (checkTiles(world, (int)std::floor((minX + 1 - collideWith.left["distance"]*time) / 32), (int)std::floor((minY + 1 - collideWith.top["distance"]*time) / 32)))
             collideWith.left["distance"] -= 1;
     }
+
+    //On check le ground
+    float x = minX + 1;
+    float mapY = (int)std::floor((maxY + collideWith.bottom["distance"] * time) / 32 + 0.5f);
+    while(x < maxX - 1 && collideWith.ground == TileType::VOID && collideWith.bottom["surface"]) {
+        float mapX = (int)std::floor(x / 32);
+
+        if (mapX >= 0 && mapX < (int)world[0].size() && mapY >= 0 && mapY < (int)world.size())
+            collideWith.ground = world[mapY][mapX] ? world[mapY][mapX]->getType() : TileType::VOID;
+        ++x;
+    }
+
     return collideWith;
 }
 
