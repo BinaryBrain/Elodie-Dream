@@ -136,6 +136,21 @@ bool JsonAccessor::load(string file) {
     }
 }
 
+bool JsonAccessor::canTakeElementFrom(std::string key) {
+    if(pFile) {
+        std::string contents;
+        std::fseek(pFile, 0, SEEK_END);
+        contents.resize(std::ftell(pFile));
+        std::rewind(pFile);
+        std::fread(&contents[0], 1, contents.size(), pFile);
+
+        if (contents.find(key) != std::string::npos) {
+            return true;
+        }
+    }
+    return false;
+}
+
 bool JsonAccessor::close() {
     if(loaded) {
         fclose(pFile);

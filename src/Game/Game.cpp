@@ -311,20 +311,30 @@ void Game::load() {
 
     JsonAccessor accessor;
     accessor.load(tempJsonFilePath);
-    int gameState = accessor.getInt("gamestate");
-    std::string date = accessor.getString("date");
-    std::cout << "Retrieved gamestate: " << gameState << " from " << date << std::endl;
+    if(accessor.canTakeElementFrom("date")){
+
+        int gameState = accessor.getInt("gamestate");
+        std::string date = accessor.getString("date");
+        std::cout << "Retrieved gamestate: " << gameState << " from " << date << std::endl;
+
+        console->clear();
+        console->addParagraph("Successfully loaded " + currentMenuItem + " (from " + date + ").");
+        console->setCurrentPage(0);
+        console->setNextState(GameState::INMENU);
+
+    } else {
+        console->clear();
+        console->addParagraph("Save doesn't exist.");
+        console->setCurrentPage(0);
+        console->setNextState(GameState::INMENU);
+    }
+
     accessor.close();
 
     // remove the temporary json
     if(remove(tempJsonFilePath.c_str()) != 0 ) {
         std::cerr << "Error deleting temporary json" << std::endl;
     }
-
-    console->clear();
-    console->addParagraph("Successfully loaded " + currentMenuItem + " (from " + date + ").");
-    console->setCurrentPage(0);
-    console->setNextState(GameState::INMENU);
 
     state = GameState::INCONSOLE;
     view.show(ViewLayer::MENU);

@@ -1,12 +1,10 @@
 #ifndef JSONACCESSOR_H
 #define JSONACCESSOR_H
 
-#include <string>
-#include <iostream>
-#include <vector>
-#include <sstream>
 #include <algorithm>
 #include <iterator>
+#include <string>
+#include <vector>
 
 #include "../Json/JsonParser.h"
 #include "../Utils/Utils.h"
@@ -24,8 +22,9 @@ public:
     std::vector< std::vector<int>* >* getInt2DVector(string key);
     EntityInfo* getEntityInfo();
     bool load(string file);
+    bool canTakeElementFrom(std::string key);
     bool close();
-protected:
+
 private:
     rapidjson::Document values;
     rapidjson::Value& getAskedObject(string key);
