@@ -239,7 +239,7 @@ void Game::run() {
     window->setFramerateLimit(FPS);
 
     while (window->isOpen()) {
-        sf::Time time = frameClock.restart();
+        sf::Time sfTime = frameClock.restart();
         event->listening();
 
         if (event->lostFocus()) {
@@ -261,9 +261,17 @@ void Game::run() {
             window->close();
         }
 
-        if (event->keyIsPressed(sf::Keyboard::F1)) {
+        if (event->keyIsPressed(sf::Keyboard::F12)) {
             sf::Image screen = window->capture();
-            screen.saveToFile("screenshot.jpg");
+
+            // creates date
+            time_t t = time(0);
+            struct tm* now = localtime(&t);
+            std::string date("");
+            date += Utils::itos(now->tm_mday) + "-" + Utils::itos(now->tm_mon + 1) + "-" + Utils::itos(now->tm_year + 1900) + " ";
+            date += Utils::itos(now->tm_hour) + "-" + Utils::itos(now->tm_min) + "-" + Utils::itos(now->tm_sec);
+
+            screen.saveToFile("screenshots/"+date+".jpg");
         }
 
         if (event->mouseIsPressed(sf::Mouse::Left)) {
@@ -277,10 +285,10 @@ void Game::run() {
 
         switch(state) {
         case GameState::INLEVEL:
-            displayLevel(curLevelNbr, time);
+            displayLevel(curLevelNbr, sfTime);
             break;
         case GameState::INOVERWORLD:
-            handleOverworld(time);
+            handleOverworld(sfTime);
             break;
         case GameState::INMENU:
             displayMenu();
