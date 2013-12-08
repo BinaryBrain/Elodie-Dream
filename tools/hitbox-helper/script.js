@@ -78,10 +78,10 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
 	$.each(anim, function(name, stance) {	
 		console.log(stance);
 		for (frame = 0; frame < stance.hitbox.length; frame++) {
-			var x1 = width*frame+stance.hitbox[frame]["x1"];
-			var y1 = height*animNumber+stance.hitbox[frame]["y1"];
-			var w = stance.hitbox[frame]["x2"]-stance.hitbox[frame]["x1"];
-			var h = stance.hitbox[frame]["y2"]-stance.hitbox[frame]["y1"];
+			var x1 = width*frame+stance.hitbox[frame]["x"];
+			var y1 = height*animNumber+stance.hitbox[frame]["y"];
+			var w = stance.hitbox[frame]["w"]
+			var h = stance.hitbox[frame]["h"];
 			console.log(x1 + ", " + y1 + ", " + w + ", " + h);
 			ctx.fillRect(x1, y1, w, h);
 		}
