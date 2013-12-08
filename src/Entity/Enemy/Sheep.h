@@ -8,6 +8,7 @@
 #include "../../Include/EntityInfo.h"
 #include "../../EventHandler/EventHandler.h"
 #include "../../EntityManager/EntityManager.h"
+#include "../Elodie.h"
 
 enum class SheepState { STANDING };
 
@@ -21,7 +22,9 @@ public:
     void update(sf::Time deltaTime);
 
     SheepSprite* getSprite();
-    void doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, sf::Time animate);
+    Hitbox returnCurrentHitbox();
+    void doAttack(std::map< std::string, Entity* >& entities);
+    void doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate);
     void pause();
     void play();
 protected:

@@ -46,8 +46,21 @@ SheepSprite* Sheep::getSprite() {
     return sprite;
 }
 
-void Sheep::doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, sf::Time animate) {
+void Sheep::doAttack(std::map< std::string, Entity* >& entities) {
+    sf::FloatRect entity = getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()).getArea();
+    Elodie* elodie = (Elodie*) entities["elodie"];
+    if (entity.intersects(elodie->returnCurrentHitbox().getArea()))
+        elodie->takeDamage(25);
+}
+
+Hitbox Sheep::returnCurrentHitbox() {
+    return getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame());
+}
+
+void Sheep::doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) {
     Collide collideTiles = collideWithTiles(tiles, &speed, animate.asSeconds(), getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()));
+
+    doAttack(entities);
 
     move(animate.asSeconds()*speed.x, animate.asSeconds()*speed.y);
 

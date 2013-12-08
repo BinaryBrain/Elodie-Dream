@@ -45,7 +45,8 @@ public:
 
     void setEntitySprite(sf::Sprite* sprite);
 
-    virtual void doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, sf::Time animate) = 0;
+    virtual Hitbox returnCurrentHitbox() = 0;
+    virtual void doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) = 0;
 
     void computeGravity(sf::Time time);
     void move(sf::Vector2f& diff);

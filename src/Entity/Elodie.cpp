@@ -127,17 +127,32 @@ int Elodie::getNightmareLevel() {
     return nightmareLevel;
 }
 
+void Elodie::takeDamage(int damage) {
+    if (!damageCD) {
+        immersionLevel -= damage;
+        if (immersionLevel < 0)
+            immersionLevel = 0;
+        damageCD = DAMAGE_CD;
+    }
+}
+
 void Elodie::walk() {
     sprite->walk();
 }
 
+Hitbox Elodie::returnCurrentHitbox() {
+    return getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame());
+}
+
 //What's in doStuff right now is only for testing purpose. Lot of stuff to do here.
-void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, sf::Time animate) {
-    timer += animate.asSeconds();
+void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) {
+    /*timer += animate.asSeconds();
     if (timer > 3) {
         timer = 0;
         immersionLevel = immersionLevel == 100 ? 100 : immersionLevel + 25;
-    }
+    }*/
+    if (damageCD)
+        --damageCD;
     Collide collideTiles = collideWithTiles(tiles, &speed, animate.asSeconds(), getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()));
 
     if (speed.x < 0) {
@@ -175,7 +190,7 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
             speed.x = 300;
         else
             speed.x = -300;
-        immersionLevel = immersionLevel == 0 ? 0 : immersionLevel-25;
+        //immersionLevel = immersionLevel == 0 ? 0 : immersionLevel-25;
     }
 
     if (collideTiles.bottom["surface"] && speed.y >= 0) {

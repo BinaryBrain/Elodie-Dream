@@ -12,6 +12,10 @@ using std::string;
 const int WINDOW_WIDTH = 1280;
 const int WINDOW_HEIGHT = 720;
 const int FPS = 100;
+const int LIVE_SCOPE = 2000;
+
+// -- ELODIE -- //
+const int DAMAGE_CD = 25;
 
 // -- LEVEL -- //
 const float ZOOM_LEVEL = 2;

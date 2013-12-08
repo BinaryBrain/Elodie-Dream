@@ -65,8 +65,14 @@ void Level::display() {
 }
 
 void Level::live(EventHandler* const& event, sf::Time animate) {
+    sf::FloatRect scope(0, 0, LIVE_SCOPE, LIVE_SCOPE);
+    scope.top = ((Elodie*)entities["elodie"])->getPosition().y - LIVE_SCOPE / 2;
+    scope.left = ((Elodie*)entities["elodie"])->getPosition().x - LIVE_SCOPE / 2;
+    entities["elodie"]->doStuff(event, tiles, entities, animate);
     for (EntityMap::iterator it = entities.begin(); it != entities.end(); ++it) {
-        it->second->doStuff(event, tiles, animate);
+        if (it->first != "elodie" && scope.intersects(it->second->returnCurrentHitbox().getArea())) {
+            it->second->doStuff(event, tiles, entities, animate);
+        }
     }
 }
 
