@@ -10,6 +10,7 @@
 
 #include "../Json/JsonParser.h"
 #include "../Json/JsonStringifier.h"
+#include "../Json/JsonAccessor.h"
 #include "FileHandler.h"
 
 class SaveHandler {
@@ -20,7 +21,7 @@ public:
     JsonStringifier* getStringifier();
 
     void save();
-    void load();
+    std::string load();
 
     void clearStringifier();
 
@@ -33,6 +34,7 @@ private:
 
     std::string path;
     JsonStringifier* stringifier;
+    JsonAccessor* accessor;
 
     std::vector<int> encrypt(std::string p, std::string key);
     std::string decrypt(std::vector<int> tmp, std::string key);

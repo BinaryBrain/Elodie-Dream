@@ -286,6 +286,33 @@ void Game::run() {
 
 void Game::load() {
     std::cout << "Load: " << currentMenuItem << std::endl;
+    std::string path = "save/" + currentMenuItem + ".save";
+    SaveHandler* sh = SaveHandler::getInstance();
+    sh->setPath(path);
+
+    std::string json = sh->load();
+
+    // creates a temporary json file for the JsonAccessor
+    std::ofstream tempJsonFile;
+    std::string tempJsonFilePath = "save/temp.json";
+
+    tempJsonFile.open(tempJsonFilePath);
+    tempJsonFile << json << std::endl;
+    tempJsonFile.close();
+
+    JsonAccessor accessor;
+    accessor.load(tempJsonFilePath);
+    int gameState = accessor.getInt("gamestate");
+    std::cout << "Retrieved gamestate: " << gameState << std::endl;
+    accessor.close();
+
+    // remove the temporary json
+    if(remove(tempJsonFilePath.c_str()) != 0 ) {
+        std::cerr << "Error deleting temporary json" << std::endl;
+    } else {
+        std::cout << "Temporary json successfully deleted." << std::endl;
+    }
+
     state = GameState::INMENU;
 }
 

@@ -5,11 +5,14 @@ SaveHandler* SaveHandler::shInstance = NULL;
 
 SaveHandler::SaveHandler() {
     stringifier = new JsonStringifier();
+    accessor = new JsonAccessor();
 }
 
 SaveHandler::~SaveHandler() {
     delete stringifier;
+    delete accessor;
     stringifier = NULL;
+    accessor = NULL;
 }
 
 // Gets the instance of the game
@@ -40,7 +43,7 @@ void SaveHandler::save() {
     myfile.close();
 }
 
-void SaveHandler::load() {
+std::string SaveHandler::load() {
     // loads the file, decrypts the json inside
     std::vector<int> tmp;
     std::ifstream infile;
@@ -52,29 +55,7 @@ void SaveHandler::load() {
     infile.close();
     std::string json = decrypt(tmp, "key");
 
-    // creates a temporary json file for the JsonAccessor
-    std::ofstream tempJsonFile;
-    std::string tempJsonFilePath = "save/temp.json";
-
-    tempJsonFile.open(tempJsonFilePath);
-    tempJsonFile << json << std::endl;
-    tempJsonFile.close();
-
-    JsonAccessor accessor;
-    accessor.load(tempJsonFilePath);
-    int gameState = accessor.getInt("gamestate");
-    int currentEnv = accessor.getInt("currentenv");
-    std::cout << "Retrieved gamestate: " << gameState << std::endl;
-    std::cout << "Retrieved currentenv: " << currentEnv << std::endl;
-    accessor.close();
-
-    // remove the temporary json
-    if(remove(tempJsonFilePath.c_str()) != 0 ) {
-        std::cerr << "Error deleting temporary json" << std::endl;
-    } else {
-        std::cout << "Temporary json successfully deleted." << std::endl;
-    }
-
+    return json;
 }
 
 void SaveHandler::clearStringifier() {
