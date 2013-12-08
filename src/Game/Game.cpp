@@ -177,7 +177,11 @@ void Game::displayMenu() {
             }
         }
     }
-
+    if (event->keyIsPressed(sf::Keyboard::C)) {
+        state = GameState::INCONSOLE;
+        console->setNextState(GameState::INMENU);
+        view.show(ViewLayer::CONSOLE);
+    }
 }
 
 void Game::displayConsole() {
@@ -198,6 +202,9 @@ void Game::displayConsole() {
             } else {
                 std::cerr << "Must display level but not initialized." << std::endl;
             }
+        } else if (state == GameState::INMENU) {
+            view.hide(ViewLayer::CONSOLE);
+            view.show(ViewLayer::MENU);
         }
     }
 
@@ -313,9 +320,15 @@ void Game::load() {
     if(remove(tempJsonFilePath.c_str()) != 0 ) {
         std::cerr << "Error deleting temporary json" << std::endl;
     }
-    std::cout << "Successfully loaded " << currentMenuItem << "." << std::endl;
 
-    state = GameState::INMENU;
+    console->clear();
+    console->addParagraph("Successfully loaded " + currentMenuItem + " (from " + date + ").");
+    console->setCurrentPage(0);
+    console->setNextState(GameState::INMENU);
+
+    state = GameState::INCONSOLE;
+    view.show(ViewLayer::MENU);
+    view.show(ViewLayer::CONSOLE);
 }
 
 void Game::save() {
@@ -324,26 +337,29 @@ void Game::save() {
     sh->setPath(path);
     JsonStringifier* stringifier = sh->getStringifier();
 
-    time_t t = time(0);   // get time now
+    // creates date
+    time_t t = time(0);
     struct tm* now = localtime(&t);
     std::string date("the ");
-    date += Utils::itos(now->tm_mday) + "/";
-    date += Utils::itos(now->tm_mon + 1) + "/";
-    date += Utils::itos(now->tm_year + 1900) + ", at ";
-    date += Utils::itos(now->tm_hour) + ":";
-    date += Utils::itos(now->tm_min) + ":";
-    date += Utils::itos(now->tm_sec);
+    date += Utils::itos(now->tm_mday) + "/" + Utils::itos(now->tm_mon + 1) + "/" + Utils::itos(now->tm_year + 1900) + ", at ";
+    date += Utils::itos(now->tm_hour) + ":" + Utils::itos(now->tm_min) + ":" + Utils::itos(now->tm_sec);
+
     std::string keyDate = "date";
     stringifier->add(keyDate, date);
 
     std::string keyGameState = "gamestate";
     stringifier->add(keyGameState, (int)state);
     sh->save();
-
-    std::cout << "Successfully saved on " << currentMenuItem << date << std::endl;
-
     sh->clearStringifier();
-    state = GameState::INMENU;
+
+    console->clear();
+    console->addParagraph("Successfully saved on " + currentMenuItem + " (" + date + ").");
+    console->setCurrentPage(0);
+    console->setNextState(GameState::INMENU);
+
+    state = GameState::INCONSOLE;
+    view.show(ViewLayer::MENU);
+    view.show(ViewLayer::CONSOLE);
 }
 
 void Game::exit() {

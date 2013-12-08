@@ -1,6 +1,5 @@
 #include <SFML/Graphics.hpp>
 #include <fstream>
-#include <ctime>
 
 #include "env.h"
 #include "Sprite/AnimatedSprite.h"
