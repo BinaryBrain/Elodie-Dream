@@ -28,6 +28,14 @@ void Menu::addItem(MenuComponent* item, bool isParent) {
     this->isParent.push_back(isParent);
 }
 
+void Menu::addSaveItems(std::vector<SaveItem*> saveItems) {
+    this->saveItems = saveItems;
+}
+
+void Menu::addLoadItems(std::vector<LoadItem*> loadItems) {
+    this->loadItems = loadItems;
+}
+
 // Draws the everything in the menu
 void Menu::draw(GameView* view) {
     float posX(200);

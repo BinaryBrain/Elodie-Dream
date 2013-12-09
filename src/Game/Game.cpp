@@ -67,11 +67,9 @@ Game* Game::getInstance() {
 }
 
 void Game::kill() {
-    std::cout << "Testing gameInstance..." << std::endl;
     if(gameInstance) {
         delete gameInstance;
         gameInstance = NULL;
-        std::cout << "Deleted gameinstance" << std::endl;
     }
 }
 
