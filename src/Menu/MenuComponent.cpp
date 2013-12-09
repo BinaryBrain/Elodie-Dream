@@ -29,3 +29,11 @@ void MenuComponent::setText(sf::Text* text) {
 bool MenuComponent::isAMenu() {
     return isMenu;
 }
+
+bool MenuComponent::isASaveItem() {
+    return isSaveItem;
+}
+
+bool MenuComponent::isALoadItem() {
+    return isLoadItem;
+}

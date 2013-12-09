@@ -7,6 +7,8 @@
 #include "../Game/GameView.h"
 #include "MenuComponent.h"
 #include "MenuItem.h"
+#include "SaveItem.h"
+#include "LoadItem.h"
 
 class Menu : public MenuComponent {
 

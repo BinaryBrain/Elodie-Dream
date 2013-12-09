@@ -10,6 +10,7 @@ public:
     virtual ~LoadItem();
 
     std::pair<GameState, std::string> execute();
+    std::string getDate();
 
 private:
     std::string date;

@@ -37,7 +37,23 @@ void Menu::draw(GameView* view) {
 
     for(unsigned int i(0); i < items.size(); ++i) {
         items[i]->getText()->setPosition(posX, posY+50*i);
-        view->addDrawable(ViewLayer::MENU, (items[i]->getText()));
+        if(items[i]->isASaveItem()) {
+            SaveItem* save = dynamic_cast<SaveItem*>(items[i]);
+            std::string date = save->getDate();
+            sf::Text* t = save->getText();
+            t->setString(date);
+            view->addDrawable(ViewLayer::MENU, t);
+        }
+        else if(items[i]->isALoadItem()) {
+            LoadItem* save = dynamic_cast<LoadItem*>(items[i]);
+            std::string date = save->getDate();
+            sf::Text* t = save->getText();
+            t->setString(date);
+            view->addDrawable(ViewLayer::MENU, t);
+        }
+        else {
+            view->addDrawable(ViewLayer::MENU, (items[i]->getText()));
+        }
     }
 
     background.setSize(sf::Vector2f(300,50*(items.size())));
