@@ -1,7 +1,8 @@
 #include "LoadItem.h"
 
-LoadItem::LoadItem(std::string label): MenuItem(label) {
-    //ctor
+LoadItem::LoadItem(std::string label, std::string date): MenuItem(label) {
+    this->date = date;
+    isSaveRelateditem = true;
 }
 
 LoadItem::~LoadItem() {

@@ -5,13 +5,13 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
     QuitItem* quit = new QuitItem("Quit");
     EnglishItem* english = new EnglishItem("English");
 
-    SaveItem* save1 = new SaveItem("Slot 1");
-    SaveItem* save2 = new SaveItem("Slot 2");
-    SaveItem* save3 = new SaveItem("Slot 3");
+    SaveItem* save1 = new SaveItem("Slot 1", "The date ...");
+    SaveItem* save2 = new SaveItem("Slot 2", "The date !");
+    SaveItem* save3 = new SaveItem("Slot 3", "Fnu la date !");
 
-    LoadItem* load1 = new LoadItem("Slot 1");
-    LoadItem* load2 = new LoadItem("Slot 2");
-    LoadItem* load3 = new LoadItem("Slot 3");
+    LoadItem* load1 = new LoadItem("Slot 1", "The date ...");
+    LoadItem* load2 = new LoadItem("Slot 2", "The date !");
+    LoadItem* load3 = new LoadItem("Slot 3", "Fnu la date !");
 
     title = new Menu("Title menu");
     saveGame = new Menu("Save game");

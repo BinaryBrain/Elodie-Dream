@@ -7,8 +7,6 @@
 #include "../Game/GameView.h"
 #include "MenuComponent.h"
 #include "MenuItem.h"
-#include "SaveItem.h"
-#include "LoadItem.h"
 
 class Menu : public MenuComponent {
 
@@ -17,8 +15,6 @@ public:
     virtual ~Menu();
 
     void addItem(MenuComponent* item, bool isParent = false);
-    void addSaveItems(std::vector<SaveItem*> saveItems);
-    void addLoadItems(std::vector<LoadItem*> loadItems);
     void draw(GameView* view);
     void incIndex();
     void decIndex();
@@ -35,8 +31,6 @@ private:
     sf::RectangleShape background;
 
     std::vector<MenuComponent*> items;
-    std::vector<SaveItem*> saveItems;
-    std::vector<LoadItem*> loadItems;
 
     std::vector<bool> isParent;
 

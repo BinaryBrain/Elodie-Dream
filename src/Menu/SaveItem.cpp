@@ -1,7 +1,8 @@
 #include "SaveItem.h"
 
-SaveItem::SaveItem(std::string label): MenuItem(label) {
-
+SaveItem::SaveItem(std::string label, std::string date): MenuItem(label) {
+    this->date = date;
+    isSaveRelateditem = true;
 }
 
 SaveItem::~SaveItem() {
