@@ -52,7 +52,7 @@ private:
 
     GameView view;
     GameState state = GameState::INMENU;
-    std::string currentMenuItem;
+    MenuComponent* currentMenuItem;
 
     GameState pausePrevState;
 

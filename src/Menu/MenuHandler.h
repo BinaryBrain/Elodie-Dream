@@ -17,6 +17,7 @@
 #include "SaveItem.h"
 #include "LoadItem.h"
 #include "../Displayable/Displayable.h"
+#include "../FileHandler/SaveHandler.h"
 #include "../Json/JsonAccessor.h"
 
 
@@ -28,7 +29,7 @@ public:
     void display();
     void incIndex();
     void decIndex();
-    std::pair<GameState, std::string> execute();
+    std::pair<GameState, MenuComponent*> execute();
 
     void setNextState(GameState state);
     GameState getNextState();

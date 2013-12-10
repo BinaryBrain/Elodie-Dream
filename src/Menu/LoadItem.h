@@ -3,13 +3,14 @@
 
 #include "../env.h"
 #include "MenuItem.h"
+#include "MenuComponent.h"
 
 class LoadItem: public MenuItem {
 public:
     LoadItem(std::string label);
     virtual ~LoadItem();
 
-    std::pair<GameState, std::string> execute();
+    std::pair<GameState, MenuComponent*> execute();
 
 private:
     std::string date;

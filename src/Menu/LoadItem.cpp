@@ -8,7 +8,7 @@ LoadItem::~LoadItem() {
     //dtor
 }
 
-std::pair<GameState, std::string> LoadItem::execute() {
-    std::pair<GameState, std::string> p = std::make_pair(GameState::LOAD, label);
+std::pair<GameState, MenuComponent*> LoadItem::execute() {
+    std::pair<GameState, MenuComponent*> p = std::make_pair(GameState::LOAD, this);
     return p;
 }

@@ -190,7 +190,7 @@ void Game::displayMenu() {
     if (event->keyIsPressed(sf::Keyboard::Down)) menuHandler->incIndex();
     if (event->keyIsPressed(sf::Keyboard::Up)) menuHandler->decIndex();
     if (event->keyIsPressed(sf::Keyboard::Return)) {
-        std::pair<GameState, std::string> p = menuHandler->execute();
+        std::pair<GameState, MenuComponent*> p = menuHandler->execute();
         state = p.first;
         currentMenuItem = p.second;
         if (state == GameState::INOVERWORLD) {
@@ -371,7 +371,7 @@ void Game::run() {
 }
 
 void Game::load() {
-    std::string path = "save/" + currentMenuItem + ".save";
+    std::string path = "save/" + currentMenuItem->getLabel() + ".save";
     SaveHandler* sh = SaveHandler::getInstance();
     sh->setPath(path);
 
@@ -392,7 +392,7 @@ void Game::load() {
         int gameState = accessor.getInt("gamestate");
 
         console->clear();
-        console->addParagraph("Successfully loaded " + currentMenuItem + ".");
+        console->addParagraph("Successfully loaded " + currentMenuItem->getLabel() + ".");
         console->setCurrentPage(0);
         console->setNextState(GameState::INMENU);
 
@@ -424,24 +424,19 @@ void Game::save() {
     date += Utils::itos(now->tm_mday) + "/" + Utils::itos(now->tm_mon + 1) + "/" + Utils::itos(now->tm_year + 1900) + ", at ";
     date += Utils::itos(now->tm_hour) + ":" + Utils::itos(now->tm_min) + ":" + Utils::itos(now->tm_sec);
 
-    JsonStringifier dateStringifier;
-    JsonAccessor dateAccessor;
-
-
-
-    std::string keyDate("date");
-    dateStringifier.add(keyDate, date);
-
-    std::ofstream datesFile;
-    datesFile.open("save/dates.json");
-    datesFile << dateStringifier.getStringifiedDoc() << std::endl;
-    datesFile.close();
 
     // creates save
-    std::string path = "save/" + currentMenuItem + ".save";
+    std::string path = "save/" + currentMenuItem->getLabel() + ".save";
     SaveHandler* sh = SaveHandler::getInstance();
     sh->setPath(path);
     JsonStringifier* stringifier = sh->getStringifier();
+
+    std::string keyDate("date");
+    stringifier->add(keyDate, date);
+
+    std::string LDL("Level 42");
+    std::string keyLDL("lastdiscoveredlevel");
+    stringifier->add(keyLDL, LDL);
 
     std::string keyGameState = "gamestate";
     stringifier->add(keyGameState, (int)state);
@@ -450,7 +445,7 @@ void Game::save() {
 
     // displays on console
     console->clear();
-    console->addParagraph("Successfully saved on " + currentMenuItem + " (" + date + ").");
+    console->addParagraph("Successfully saved on " + currentMenuItem->getLabel() + " (" + date + ").");
     console->setCurrentPage(0);
     console->setNextState(GameState::INMENU);
 

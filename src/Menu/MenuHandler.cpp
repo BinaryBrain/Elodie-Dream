@@ -5,7 +5,7 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
     QuitItem* quit = new QuitItem("Quit");
     EnglishItem* english = new EnglishItem("English");
 
-    std::vector<std::string> dates = {"","",""};
+    std::vector<std::string> lastDiscoveredLevels = {"Level 0","Level 0","Level 0"};
     std::vector<std::string> labels = {"Slot 1", "Slot 2", "Slot 3"};
 
 
@@ -21,9 +21,9 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
     title->addItem(settings);
     title->addItem(quit);
 
-    JsonAccessor accessor;
-    accessor.load("save/dates.json");
+    SaveHandler* sh = SaveHandler::getInstance();
 
+    /*
     for(unsigned int i(0); i<dates.size(); ++i) {
         dates[i] = labels[i];
         if(accessor.canTakeElementFrom(labels[i])) dates[i] = accessor.getString(labels[i]);
@@ -37,9 +37,53 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
         t = load->getText();
         t->setString(dates[i]);
         loadGame->addItem(load);
+    }*/
+
+    // TEST
+
+    std::string path = "save/" + labels[0] + ".save";
+    sh->setPath(path);
+
+    std::string json = sh->load();
+
+    // creates a temporary json file for the JsonAccessor
+    std::ofstream tempJsonFile;
+    std::string tempJsonFilePath = "save/temp.json";
+
+    tempJsonFile.open(tempJsonFilePath);
+    tempJsonFile << json << std::endl;
+    tempJsonFile.close();
+
+    JsonAccessor accessor;
+    accessor.load(tempJsonFilePath);
+
+    lastDiscoveredLevels[0] = "Slot 1";
+    std::string key = "lastdiscoveredlevel";
+
+    if(accessor.canTakeElementFrom(key)) {
+        lastDiscoveredLevels[0] = accessor.getString(key);
     }
 
+    std::cout << lastDiscoveredLevels[0] << std::endl;
+
+    SaveItem* save = new SaveItem("Slot 1");
+    sf::Text* t = save->getText();
+    t->setString(lastDiscoveredLevels[0]);
+    saveGame->addItem(save);
+
+    LoadItem* load = new LoadItem("Slot 1");
+    t = load->getText();
+    t->setString(lastDiscoveredLevels[0]);
+    loadGame->addItem(load);
+
     accessor.close();
+
+    // remove the temporary json
+    if(remove(tempJsonFilePath.c_str()) != 0 ) {
+        std::cerr << "Error deleting temporary json" << std::endl;
+    }
+
+    // FIN TEST
 
     saveGame->addItem(title, true);
     loadGame->addItem(title, true);
@@ -75,7 +119,7 @@ void MenuHandler::decIndex() {
     selectedMenu->decIndex();
 }
 
-std::pair<GameState, std::string> MenuHandler::execute() {
+std::pair<GameState, MenuComponent*> MenuHandler::execute() {
 
     if (!selectedMenu->getSelectedItem()->isAMenu()) {
         return selectedMenu->execute();
@@ -93,13 +137,11 @@ std::pair<GameState, std::string> MenuHandler::execute() {
             selectedMenu = language;
         }
 
-        std::pair<GameState, std::string> p = std::make_pair(GameState::INMENU, label);
+     std::pair<GameState, MenuComponent*> p = std::make_pair(GameState::INMENU, selectedMenu);
         return p;
     }
-
-    std::pair<GameState, std::string> p = std::make_pair(GameState::INMENU, "None");
-    return p;
 }
+
 
 void MenuHandler::setNextState(GameState state) {
     this->nextState = state;

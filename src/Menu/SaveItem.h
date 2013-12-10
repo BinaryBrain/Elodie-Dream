@@ -3,13 +3,14 @@
 
 #include "../env.h"
 #include "MenuItem.h"
+#include "MenuComponent.h"
 
 class SaveItem: public MenuItem {
 public:
     SaveItem(std::string label);
     virtual ~SaveItem();
 
-    std::pair<GameState, std::string> execute();
+    std::pair<GameState, MenuComponent*> execute();
 
 private:
 };

@@ -69,7 +69,6 @@ MenuComponent* Menu::getSelectedItem() {
     return items[index];
 }
 
-std::pair<GameState, std::string> Menu::execute() {
-    std::string item = items[index]->getText()->getString();
+std::pair<GameState, MenuComponent*> Menu::execute() {
     return items[index]->execute();
 }

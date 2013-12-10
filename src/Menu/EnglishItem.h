@@ -9,7 +9,7 @@ public:
     EnglishItem(std::string label);
     virtual ~EnglishItem();
 
-    std::pair<GameState, std::string> execute();
+    std::pair<GameState, MenuComponent*> execute();
 private:
 };
 

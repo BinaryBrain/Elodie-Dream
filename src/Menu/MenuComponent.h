@@ -14,7 +14,7 @@ public:
     std::string getLabel();
     void setLabel(std::string label);
 
-    virtual std::pair<GameState, std::string> execute() = 0;
+    virtual std::pair<GameState, MenuComponent*> execute() = 0;
     bool isAMenu();
 
 protected:

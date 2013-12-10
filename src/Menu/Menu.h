@@ -24,7 +24,7 @@ public:
 
     MenuComponent* getSelectedItem();
 
-    std::pair<GameState, std::string> execute();
+    std::pair<GameState, MenuComponent*> execute();
 
 private:
     sf::Texture texture;

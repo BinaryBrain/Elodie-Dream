@@ -8,7 +8,7 @@ SaveItem::~SaveItem() {
     //dtor
 }
 
-std::pair<GameState, std::string> SaveItem::execute() {
-    std::pair<GameState, std::string> p = std::make_pair(GameState::SAVE, label);
+std::pair<GameState, MenuComponent*> SaveItem::execute() {
+    std::pair<GameState, MenuComponent*> p = std::make_pair(GameState::SAVE, this);
     return p;
 }

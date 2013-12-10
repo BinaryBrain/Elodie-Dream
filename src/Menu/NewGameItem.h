@@ -9,7 +9,7 @@ public:
     NewGameItem(std::string label);
     virtual ~NewGameItem();
 
-    std::pair<GameState, std::string> execute();
+    std::pair<GameState, MenuComponent*> execute();
 private:
 };
 
