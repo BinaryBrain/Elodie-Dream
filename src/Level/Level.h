@@ -35,7 +35,7 @@ public:
     void play(sf::Clock *frameClock);
 
     sf::Music* getMusic();
-
+    bool mustDie();
 protected:
 private:
     TileMap tiles;

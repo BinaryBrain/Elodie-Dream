@@ -74,14 +74,7 @@ void Level::display() {
     }
 
     Elodie* elodie = dynamic_cast<Elodie*>(entities["elodie"]);
-
     gameView->followPoint(ViewLayer::LEVEL, elodie->getCameraPos());
-
-    /*if(gameView->isPointOutsideView(ViewLayer::LEVEL, elodie->getPosition().x, elodie->getPosition().y)) {
-        std::cout << "OUT" << std::endl;
-    } else {
-        std::cout << "IN" << std::endl;
-    }*/
 }
 
 void Level::live(EventHandler* const& event, sf::Time animate) {
@@ -128,4 +121,11 @@ void Level::play(sf::Clock *frameClock) {
 
 sf::Music* Level::getMusic() {
     return &music;
+}
+
+bool Level::mustDie() {
+    Elodie* elodie = dynamic_cast<Elodie*>(entities["elodie"]);
+    bool test1 = gameView->isPointOutsideView(ViewLayer::LEVEL, elodie->getPosition().x, elodie->getPosition().y);
+    bool test2 = elodie->getImmersionLevel() <= 0;
+    return test1 || test2;
 }

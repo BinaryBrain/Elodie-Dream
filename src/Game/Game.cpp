@@ -8,7 +8,7 @@ Game::Game() {
 
     console = new Console(&view);
     event = new EventHandler(view.getWindow());
-    overworld = new Overworld(&view);
+    overworld = new Overworld(&view, mute);
     menuHandler = new MenuHandler(&view);
     girly = new Girly(&view);
     immBar = new ImmersionBar(&view);
@@ -86,8 +86,9 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
         view.hide(ViewLayer::IMMERSIONBAR);
         view.hide(ViewLayer::CONSOLE);
         view.show(ViewLayer::OVERWORLD);
-        overworld->getMusic()->play();
-
+        if(!isMute()) {
+            overworld->getMusic()->play();
+        }
         overworld->getElodie()->stand();
         overworld->resetPos();
 
@@ -114,7 +115,7 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
     } else {
         curLevel->live(event, time);
         immBar->setLevel(((Elodie*)curLevel->getEntities()["elodie"])->getImmersionLevel());
-        if (((Elodie*)curLevel->getEntities()["elodie"])->getImmersionLevel() <= 0 && !GOD_MODE) {
+        if (curLevel->mustDie() && !GOD_MODE) {
             view.hide(ViewLayer::LEVEL);
             view.show(ViewLayer::DEATH);
             console->clear();

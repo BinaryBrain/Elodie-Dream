@@ -15,7 +15,7 @@ class Game;
 
 class Overworld : public Displayable{
 public:
-    Overworld(GameView* gameView);
+    Overworld(GameView* gameView, bool muted);
     virtual ~Overworld();
 
     Elodie* getElodie();

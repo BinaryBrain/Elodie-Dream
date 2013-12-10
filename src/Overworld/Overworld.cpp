@@ -1,6 +1,6 @@
 #include "Overworld.h"
 
-Overworld::Overworld(GameView* gameView) : Displayable(gameView) {
+Overworld::Overworld(GameView* gameView, bool muted) : Displayable(gameView) {
     std::string filenames[4] = { "overworld1.png", "overworld2.png", "overworld3.png", "overworld4.png" };
 
     for(int i=0; i<4; i++) {
@@ -51,8 +51,9 @@ Overworld::Overworld(GameView* gameView) : Displayable(gameView) {
         // TODO Handle error
     } else {
         music.setLoop(true);
-
-        music.play();
+        if (!muted) {
+            music.play();
+        }
     }
 }
 
