@@ -435,6 +435,9 @@ void Game::save() {
     stringifier->add(keyDate, date);
 
     std::string LDL("Level 42");
+    sf::Text* txt = currentMenuItem->getText();
+    txt->setString(LDL);
+
     std::string keyLDL("lastdiscoveredlevel");
     stringifier->add(keyLDL, LDL);
 
