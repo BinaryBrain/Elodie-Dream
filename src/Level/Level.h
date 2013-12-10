@@ -35,6 +35,7 @@ private:
     EntityMap entities;
     LevelEnv environement;
     TextureManager* manager;
+    sf::Music music;
 };
 
 #endif // LEVEL_H

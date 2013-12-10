@@ -84,4 +84,8 @@ const int SOUND_TYPE_FOOTSTEP_GRASS_MAX = 3;
 // const string SOUND_TYPE_FOOTSTEP_GROUND = "footstep/ground";
 // const string SOUND_TYPE_FOOTSTEP_ROCK = "footstep/rock";
 
+const string MUSIC_PATH = "assets/music";
+const string OVERWORLD_MUSIC = "overworld.ogg";
+const string LEVEL_MUSIC = "level.ogg";
+
 #endif // CONST_H_INCLUDED

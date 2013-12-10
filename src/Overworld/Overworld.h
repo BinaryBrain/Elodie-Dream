@@ -24,6 +24,8 @@ public:
     void evolve();
     void display();
     void resetPos();
+    void playMusic();
+    void stopMusic();
 
 protected:
 private:
@@ -42,6 +44,7 @@ private:
     size_t curPosInPath=0;
 
     Elodie* elodie;
+    sf::Music music;
 };
 
 #endif // OVERWORLD_H

@@ -82,9 +82,15 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
         view.hide(ViewLayer::IMMERSIONBAR);
         view.hide(ViewLayer::CONSOLE);
         view.show(ViewLayer::OVERWORLD);
+        overworld->playMusic();
+
         overworld->getElodie()->stand();
         overworld->resetPos();
 
+        if(curLevel) {
+            delete curLevel;
+            curLevel = NULL;
+        }
     } else if (event->keyIsPressed(sf::Keyboard::M)) {
         state = GameState::INMENU;
         curLevel->pause();
@@ -106,11 +112,6 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
 }
 
 void Game::loadLevel(int levelNbr) {
-    if(curLevel) {
-        delete curLevel;
-        curLevel = NULL;
-    }
-
     state = GameState::INLEVEL;
     curLevelNbr = levelNbr;
     curLevel = new Level(&view, "assets/levels/level_sheep.txt", LevelEnv::FIELD, overworld->getElodie());
@@ -146,6 +147,7 @@ void Game::handleOverworld(sf::Time time) {
     } else if (event->keyIsPressed(sf::Keyboard::Return)) {
         loadLevel(0);
         view.hide(ViewLayer::OVERWORLD);
+        overworld->stopMusic();
         view.show(ViewLayer::LEVEL);
         view.show(ViewLayer::IMMERSIONBAR);
     } else if (event->keyIsPressed(sf::Keyboard::M)) {

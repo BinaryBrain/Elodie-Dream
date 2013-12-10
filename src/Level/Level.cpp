@@ -8,6 +8,13 @@ Level::Level(GameView* gameView, std::string filename, LevelEnv env, Elodie* elo
     gameView->addView(ViewLayer::LEVEL, this);
 
     gameView->setZoom(ViewLayer::LEVEL, ZOOM_LEVEL);
+
+    if (!music.openFromFile(MUSIC_PATH+"/"+LEVEL_MUSIC)) {
+        // TODO Handle error
+    } else {
+        music.setLoop(true);
+        music.play();
+    }
 }
 
 Level::~Level() {

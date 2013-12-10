@@ -40,6 +40,13 @@ Overworld::Overworld(GameView* gameView) : Displayable(gameView) {
     currentState = UNIL;
     elodie = new Elodie(0,0);
     resetPos();
+
+    if (!music.openFromFile(MUSIC_PATH+"/"+OVERWORLD_MUSIC)) {
+        // TODO Handle error
+    } else {
+        music.setLoop(true);
+        music.play();
+    }
 }
 
 
@@ -176,4 +183,12 @@ Elodie* Overworld::getElodie() {
 
 int Overworld::getCurrentEnv() {
     return (int)currentState;
+}
+
+void Overworld::playMusic() {
+    music.play();
+}
+
+void Overworld::stopMusic() {
+    music.stop();
 }
