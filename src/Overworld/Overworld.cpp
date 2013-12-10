@@ -12,28 +12,34 @@ Overworld::Overworld(GameView* gameView) : Displayable(gameView) {
     JsonAccessor lvlPos = JsonAccessor();
     lvlPos.load("assets/config/levels/levelPos.lvl");
 
-    levelPos.push_back(lvlPos.getIntVector("unil"));
-    levelPos.push_back(lvlPos.getIntVector("castle"));
-    levelPos.push_back(lvlPos.getIntVector("volcano"));
-    levelPos.push_back(lvlPos.getIntVector("freljord"));
+    //levelPos.push_back(lvlPos.getIntVector(LEVELENV_FIELD));
+    levelPos.push_back(lvlPos.getIntVector(LEVELENV_UNIL));
+    levelPos.push_back(lvlPos.getIntVector(LEVELENV_CASTLE));
+    levelPos.push_back(lvlPos.getIntVector(LEVELENV_VOLCANO));
+    levelPos.push_back(lvlPos.getIntVector(LEVELENV_FRELJORD));
 
     JsonAccessor lvlPaths;
     lvlPaths.load("assets/config/levels/levelPaths.lvl");
 
     for(size_t i = 0; i < levelPos.size(); i++) {
         int curPos = -1;
+
         sf::Vector2f* vec = new sf::Vector2f(-1,-1);
         std::vector<sf::Vector2f*>* mem = new std::vector<sf::Vector2f*>();
+
         do {
             curPos ++;
             std::vector<int>* tmp = lvlPaths.getIntVector(Utils::itos(curPos));
             vec = new sf::Vector2f((*tmp)[0], (*tmp)[1]);
             mem->push_back(vec);
         } while ((*vec).x != (*levelPos[i])[0] or (*vec).y != (*levelPos[i])[1]);
+
         sf::VertexArray* path = new sf::VertexArray(sf::LinesStrip, mem->size());
+
         for (size_t j = 0; j < mem->size(); j++) {
             (*path)[j].position = (*(*mem)[j]);
         }
+
         paths.push_back(path);
     }
 

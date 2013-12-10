@@ -56,7 +56,7 @@ const string LEVELENV_FIELD = "field";
 const string LEVELENV_UNIL = "unil";
 const string LEVELENV_CASTLE = "castle";
 const string LEVELENV_VOLCANO = "volcano";
-const string LEVELENV_FREJLORD = "frejlord";
+const string LEVELENV_FRELJORD = "freljord";
 
 const string TILETYPE_GROUND = "ground";
 const string TILETYPE_ROCK = "rock";
