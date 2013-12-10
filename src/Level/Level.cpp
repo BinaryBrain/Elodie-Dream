@@ -6,8 +6,9 @@ Level::Level(GameView* gameView, std::string filename, LevelEnv env, Elodie* elo
 
     loadLevel(filename, elodie);
     gameView->addView(ViewLayer::LEVEL, this);
-
     gameView->setZoom(ViewLayer::LEVEL, ZOOM_LEVEL);
+
+    gameView->setCameraCenter(ViewLayer::LEVEL, elodie->getPosition());
 
     if (!music.openFromFile(MUSIC_PATH+"/"+LEVEL_MUSIC)) {
         // TODO Handle error
