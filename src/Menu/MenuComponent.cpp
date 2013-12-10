@@ -5,6 +5,7 @@ MenuComponent::MenuComponent(std::string label) {
     font->loadFromFile("assets/fonts/arial.ttf");
 
     this->text = new sf::Text(label, *font);
+    this->label = label;
 }
 
 MenuComponent::~MenuComponent() {
@@ -26,14 +27,14 @@ void MenuComponent::setText(sf::Text* text) {
     this->text = text;
 }
 
+std::string MenuComponent::getLabel() {
+    return label;
+}
+
+void MenuComponent::setLabel(std::string label) {
+    this->label = label;
+}
+
 bool MenuComponent::isAMenu() {
     return isMenu;
-}
-
-bool MenuComponent::isASaveItem() {
-    return isSaveItem;
-}
-
-bool MenuComponent::isALoadItem() {
-    return isLoadItem;
 }

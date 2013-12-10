@@ -6,11 +6,10 @@
 
 class LoadItem: public MenuItem {
 public:
-    LoadItem(std::string label, std::string date);
+    LoadItem(std::string label);
     virtual ~LoadItem();
 
     std::pair<GameState, std::string> execute();
-    std::string getDate();
 
 private:
     std::string date;

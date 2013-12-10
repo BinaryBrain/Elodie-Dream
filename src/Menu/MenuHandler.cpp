@@ -5,13 +5,9 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
     QuitItem* quit = new QuitItem("Quit");
     EnglishItem* english = new EnglishItem("English");
 
-    SaveItem* save1 = new SaveItem("Slot 1", "The date ...");
-    SaveItem* save2 = new SaveItem("Slot 2", "The date !");
-    SaveItem* save3 = new SaveItem("Slot 3", "Fnu la date !");
+    std::vector<std::string> dates = {"","",""};
+    std::vector<std::string> labels = {"Slot 1", "Slot 2", "Slot 3"};
 
-    LoadItem* load1 = new LoadItem("Slot 1", "The date ...");
-    LoadItem* load2 = new LoadItem("Slot 2", "The date !");
-    LoadItem* load3 = new LoadItem("Slot 3", "Fnu la date !");
 
     title = new Menu("Title menu");
     saveGame = new Menu("Save game");
@@ -25,14 +21,27 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
     title->addItem(settings);
     title->addItem(quit);
 
-    saveGame->addItem(save1);
-    saveGame->addItem(save2);
-    saveGame->addItem(save3);
-    saveGame->addItem(title, true);
+    JsonAccessor accessor;
+    accessor.load("save/dates.json");
 
-    loadGame->addItem(load1);
-    loadGame->addItem(load2);
-    loadGame->addItem(load3);
+    for(unsigned int i(0); i<dates.size(); ++i) {
+        dates[i] = labels[i];
+        //if(accessor.canTakeElementFrom(labels[i])) dates[i] = accessor.getString(labels[i]);
+
+        SaveItem* save = new SaveItem(labels[i]);
+        sf::Text* t = save->getText();
+        t->setString(dates[i]);
+        saveGame->addItem(save);
+
+        LoadItem* load = new LoadItem(labels[i]);
+        t = load->getText();
+        t->setString(dates[i]);
+        loadGame->addItem(load);
+    }
+
+    accessor.close();
+
+    saveGame->addItem(title, true);
     loadGame->addItem(title, true);
 
     settings->addItem(language);

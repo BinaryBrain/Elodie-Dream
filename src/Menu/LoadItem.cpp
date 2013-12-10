@@ -1,8 +1,7 @@
 #include "LoadItem.h"
 
-LoadItem::LoadItem(std::string label, std::string date): MenuItem(label) {
-    this->date = date;
-    isLoadItem = true;
+LoadItem::LoadItem(std::string label): MenuItem(label) {
+
 }
 
 LoadItem::~LoadItem() {
@@ -12,8 +11,4 @@ LoadItem::~LoadItem() {
 std::pair<GameState, std::string> LoadItem::execute() {
     std::pair<GameState, std::string> p = std::make_pair(GameState::LOAD, text->getString());
     return p;
-}
-
-std::string LoadItem::getDate() {
-    return date;
 }

@@ -123,6 +123,9 @@ EntityInfo* JsonAccessor::getEntityInfo() {
 bool JsonAccessor::load(string file) {
     if(!this->loaded) {
         pathToFile = file;
+
+        createJsonIfNotExisting(file);
+
         pFile = fopen(file.c_str() , "r");
         rapidjson::FileStream is(pFile);
         if(values.ParseStream<0>(is).HasParseError()) {
@@ -130,6 +133,7 @@ bool JsonAccessor::load(string file) {
         }
         loaded = true;
         return true;
+
     } else {
         cerr << "Already loaded" << endl;
         return false;
@@ -159,4 +163,22 @@ bool JsonAccessor::close() {
         cerr << "Nothing to close" << endl;
         return false;
     }
+}
+
+bool JsonAccessor::createJsonIfNotExisting(std::string file) {
+    if (FILE * f = fopen(file.c_str(), "r")) {
+        fclose(f);
+        return true;
+    } else {
+        if (FILE * f = fopen(file.c_str(), "w")) {
+            fputs("{}", f);
+            fclose(f);
+            return true;
+        }
+        else {
+            cerr << "Could not create " << file << endl;
+            return false;
+        }
+    }
+    return false;
 }

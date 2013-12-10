@@ -24,6 +24,7 @@ public:
     bool load(string file);
     bool canTakeElementFrom(std::string key);
     bool close();
+    bool createJsonIfNotExisting(std::string file);
 
 private:
     rapidjson::Document values;

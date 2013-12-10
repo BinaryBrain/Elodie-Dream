@@ -6,14 +6,12 @@
 
 class SaveItem: public MenuItem {
 public:
-    SaveItem(std::string label, std::string date);
+    SaveItem(std::string label);
     virtual ~SaveItem();
 
     std::pair<GameState, std::string> execute();
-    std::string getDate();
 
 private:
-    std::string date;
 };
 
 #endif // SAVEITEM_H
