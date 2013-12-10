@@ -66,6 +66,7 @@ const string ENTITIES_JSON_PATH = "assets/img/sprites";
 
 const string ENTITYNAME_ELODIE = "elodie";
 const string ENTITYNAME_SHEEP = "sheep";
+const string ENTITYNAME_MAGMACUBE = "magmacube";
 
 const string ENTITYTYPE_ELODIE = "";
 const string ENTITYTYPE_ENEMY = "enemies";

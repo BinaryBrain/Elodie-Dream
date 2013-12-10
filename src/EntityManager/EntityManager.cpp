@@ -6,7 +6,8 @@ EntityManager* EntityManager::managerInstance = NULL;
 EntityManager::EntityManager() {
     ENTITY_NAME = {
         {EntityName::ELODIE, ENTITYNAME_ELODIE},
-        {EntityName::SHEEP, ENTITYNAME_SHEEP}
+        {EntityName::SHEEP, ENTITYNAME_SHEEP},
+        {EntityName::MAGMACUBE, ENTITYNAME_MAGMACUBE}
     };
 
     ENTITY_TYPE = {
