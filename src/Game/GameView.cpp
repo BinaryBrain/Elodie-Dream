@@ -100,3 +100,25 @@ void GameView::draw() {
         drawableMap[*keyIt].clear();
     }
 }
+
+bool GameView::isPointOutsideView(ViewLayer layer, sf::Vector2f point) {
+    isPointOutsideView(layer, point.x, point.y);
+}
+
+bool GameView::isPointOutsideView(ViewLayer layer, float x, float y) {
+    float zoom = zooms[ViewLayer::LEVEL];
+
+    sf::Vector2u windowSize = window->getSize();
+    windowSize.x = windowSize.x/zoom;
+    windowSize.y = windowSize.y/zoom;
+
+    sf::Vector2f layerSize = viewMap[ViewLayer::LEVEL]->getView()->getSize();
+    layerSize.x /= 2;
+    layerSize.y /= 2;
+
+    float relX = x-(centers[ViewLayer::LEVEL].x-layerSize.x);
+    float relY = y-(centers[ViewLayer::LEVEL].y-layerSize.y);
+
+    return (relX < 0 || relY < 0 || relX > windowSize.x || relY > windowSize.y);
+
+}

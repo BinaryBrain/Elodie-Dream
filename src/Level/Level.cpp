@@ -74,7 +74,14 @@ void Level::display() {
     }
 
     Elodie* elodie = dynamic_cast<Elodie*>(entities["elodie"]);
+
     gameView->followPoint(ViewLayer::LEVEL, elodie->getCameraPos());
+
+    if(gameView->isPointOutsideView(ViewLayer::LEVEL, elodie->getPosition().x, elodie->getPosition().y)) {
+        std::cout << "OUT" << std::endl;
+    } else {
+        std::cout << "IN" << std::endl;
+    }
 }
 
 void Level::live(EventHandler* const& event, sf::Time animate) {

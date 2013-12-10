@@ -35,6 +35,9 @@ public:
     void followPoint(ViewLayer viewKey, const sf::Vector2f pos);
     void followPoint(ViewLayer viewKey, float x, float y);
     void setZoom(ViewLayer viewKey, float zoom);
+
+    bool isPointOutsideView(ViewLayer layer, sf::Vector2f point);
+    bool isPointOutsideView(ViewLayer layer, float x, float y);
 protected:
 private:
     std::map<ViewLayer, Displayable*> viewMap;
