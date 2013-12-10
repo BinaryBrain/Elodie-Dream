@@ -208,7 +208,7 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
 
         unsigned int curFrame = sprite->getCurrentFrame();
         if((curFrame == 1 || curFrame == 3) && sprite->getPreviousFrame() != curFrame) {
-            soundManager->play(SoundType::FOOTSTEP_GRASS);
+            //soundManager->play(SoundType::FOOTSTEP_GRASS);
         }
     } else {
         computeGravity(animate);
@@ -236,7 +236,7 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
 
 void Elodie::stateChanged(ElodieState from, ElodieState to) {
     if(from == ElodieState::FALLING && to == ElodieState::WALKING) {
-        soundManager->play(SoundType::FOOTSTEP_GRASS);
+        //soundManager->play(SoundType::FOOTSTEP_GRASS);
     }
 }
 

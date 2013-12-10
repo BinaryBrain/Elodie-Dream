@@ -14,7 +14,11 @@ Level::Level(GameView* gameView, std::string filename, LevelEnv env, Elodie* elo
         // TODO Handle error
     } else {
         music.setLoop(true);
-        music.play();
+
+        Game* game = Game::getInstance();
+        if(!game->isMute()) {
+            music.play();
+        }
     }
 }
 
@@ -111,4 +115,8 @@ void Level::pause() {
 void Level::play(sf::Clock *frameClock) {
     entities["elodie"]->play();
     frameClock->restart();
+}
+
+sf::Music* Level::getMusic() {
+    return &music;
 }

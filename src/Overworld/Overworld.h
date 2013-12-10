@@ -5,10 +5,13 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
+#include "../Game/Game.h"
 #include "../Entity/Elodie.h"
 #include "../Json/JsonAccessor.h"
 #include "../Game/GameView.h"
 #include "../Displayable/Displayable.h"
+
+class Game;
 
 class Overworld : public Displayable{
 public:
@@ -26,6 +29,8 @@ public:
     void resetPos();
     void playMusic();
     void stopMusic();
+
+    sf::Music* getMusic();
 
 protected:
 private:

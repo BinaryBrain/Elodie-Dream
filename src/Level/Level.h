@@ -5,12 +5,15 @@
 
 #include "../const.h"
 #include "../env.h"
+#include "../Game/Game.h"
 #include "../Map/Mapper.h"
 #include "../FileHandler/FileHandler.h"
 #include "../Game/GameView.h"
 #include "../EventHandler/EventHandler.h"
 #include "../Displayable/Displayable.h"
 #include "../TextureManager/TextureManager.h"
+
+class Game;
 
 class Level : public Displayable {
 public:
@@ -29,6 +32,9 @@ public:
 
     void pause();
     void play(sf::Clock *frameClock);
+
+    sf::Music* getMusic();
+
 protected:
 private:
     TileMap tiles;

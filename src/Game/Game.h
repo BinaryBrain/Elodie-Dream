@@ -15,6 +15,9 @@
 #include "../Sound/SoundManager.h"
 #include "GameView.h"
 
+class Level;
+class Overworld;
+
 /**
 * The class representing the game.
 * Uses the Singleton Pattern so that Game can be instantiated only one time. Thus, the constructor is private an
@@ -36,6 +39,8 @@ public:
     Overworld* getOverworld();
     Console* getConsole();
 
+    bool isMute();
+    void toggleMute();
 private:
     Game();
     ~Game();
@@ -73,6 +78,8 @@ private:
     bool girlyMode = false;
 
     ImmersionBar* immBar;
+
+    bool mute;
 };
 
 #endif // GAME_H

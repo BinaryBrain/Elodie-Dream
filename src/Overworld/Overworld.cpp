@@ -51,6 +51,7 @@ Overworld::Overworld(GameView* gameView) : Displayable(gameView) {
         // TODO Handle error
     } else {
         music.setLoop(true);
+
         music.play();
     }
 }
@@ -191,10 +192,6 @@ int Overworld::getCurrentEnv() {
     return (int)currentState;
 }
 
-void Overworld::playMusic() {
-    music.play();
-}
-
-void Overworld::stopMusic() {
-    music.stop();
+sf::Music* Overworld::getMusic() {
+    return &music;
 }

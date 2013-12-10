@@ -4,6 +4,8 @@
 Game* Game::gameInstance = NULL;
 
 Game::Game() {
+    mute = false;
+
     console = new Console(&view);
     event = new EventHandler(view.getWindow());
     overworld = new Overworld(&view);
@@ -82,7 +84,7 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
         view.hide(ViewLayer::IMMERSIONBAR);
         view.hide(ViewLayer::CONSOLE);
         view.show(ViewLayer::OVERWORLD);
-        overworld->playMusic();
+        overworld->getMusic()->play();
 
         overworld->getElodie()->stand();
         overworld->resetPos();
@@ -91,11 +93,13 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
             delete curLevel;
             curLevel = NULL;
         }
-    } else if (event->keyIsPressed(sf::Keyboard::M)) {
+    } else if (event->keyIsPressed(sf::Keyboard::P)) {
         state = GameState::INMENU;
         curLevel->pause();
         menuHandler->setNextState(GameState::INLEVEL);
         view.show(ViewLayer::MENU);
+    } else if(event->keyIsPressed(sf::Keyboard::M)) {
+        toggleMute();
     }
     // testing purposes
     else if (event->keyIsPressed(sf::Keyboard::A)) {
@@ -147,14 +151,17 @@ void Game::handleOverworld(sf::Time time) {
     } else if (event->keyIsPressed(sf::Keyboard::Return)) {
         loadLevel(0);
         view.hide(ViewLayer::OVERWORLD);
-        overworld->stopMusic();
+        overworld->getMusic()->stop();
         view.show(ViewLayer::LEVEL);
         view.show(ViewLayer::IMMERSIONBAR);
-    } else if (event->keyIsPressed(sf::Keyboard::M)) {
+    } else if (event->keyIsPressed(sf::Keyboard::P)) {
         state = GameState::INMENU;
         menuHandler->setNextState(GameState::INOVERWORLD);
         view.show(ViewLayer::MENU);
         // testing purposes
+    } else if (event->keyIsPressed(sf::Keyboard::M)) {
+        toggleMute();
+    // testing purposes
     } else if (event->keyIsPressed(sf::Keyboard::C)) {
         state = GameState::INCONSOLE;
         console->setNextState(GameState::INOVERWORLD);
@@ -179,8 +186,7 @@ void Game::displayMenu() {
             overworld->resetPos();
             overworld->getElodie()->play();
         }
-    }
-    if(event->keyIsPressed(sf::Keyboard::M)) {
+    } else if(event->keyIsPressed(sf::Keyboard::P)) {
         state = menuHandler->getNextState();
         if (state == GameState::INOVERWORLD) {
             view.hide(ViewLayer::MENU);
@@ -198,8 +204,9 @@ void Game::displayMenu() {
                 std::cerr << "Must display level but not initialized." << std::endl;
             }
         }
-    }
-    if (event->keyIsPressed(sf::Keyboard::C)) {
+    } else if (event->keyIsPressed(sf::Keyboard::M)) {
+        toggleMute();
+    } else if (event->keyIsPressed(sf::Keyboard::C)) {
         state = GameState::INCONSOLE;
         console->setNextState(GameState::INMENU);
         view.show(ViewLayer::CONSOLE);
@@ -431,4 +438,32 @@ Overworld* Game::getOverworld() {
 
 Console* Game::getConsole() {
     return console;
+}
+
+void Game::toggleMute() {
+    mute = !mute;
+
+    if(mute) {
+        std::cout << "muted" << std::endl;
+    } else {
+        std::cout << "unmuted" << std::endl;
+    }
+
+    if (state == GameState::INLEVEL && curLevel) {
+        if(mute) {
+            curLevel->getMusic()->pause();
+        } else {
+            curLevel->getMusic()->play();
+        }
+    } else {
+        if(mute) {
+            overworld->getMusic()->pause();
+        } else {
+            overworld->getMusic()->play();
+        }
+    }
+}
+
+bool Game::isMute() {
+    return mute;
 }
