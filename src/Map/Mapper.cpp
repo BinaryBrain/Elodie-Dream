@@ -32,7 +32,7 @@ void Mapper::parse(std::string asciiLevel, TileMap& tiles, EntityMap& entities, 
             entities.insert(std::make_pair(getFreshID("sheep"), new Sheep(x*32, y*32)));
             break;
         case MAP_MAGMACUBE:
-            entities.insert(std::make_pair(getFreshID("magmacube"), new Sheep(x*32, y*32)));
+            entities.insert(std::make_pair(getFreshID("magmacube"), new MagmaCube(x*32, y*32)));
             break;
         default:
             isEntity = false;
