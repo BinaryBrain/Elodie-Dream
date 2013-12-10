@@ -10,6 +10,8 @@
 #include "../Include/EntityInfo.h"
 #include "../Sound/SoundManager.h"
 
+class SoundManager;
+
 enum class ElodieState {
     STANDING, WALKING, FALLING, PUNCHING, JUMPING
 };

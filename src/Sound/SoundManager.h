@@ -7,6 +7,7 @@
 
 #include "../env.h"
 #include "../const.h"
+#include "../Game/Game.h"
 
 class SoundManager {
 public:

@@ -14,6 +14,7 @@
 #include "../TextureManager/TextureManager.h"
 
 class Game;
+class Elodie;
 
 class Level : public Displayable {
 public:

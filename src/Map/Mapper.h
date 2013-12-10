@@ -15,6 +15,8 @@
 #include "../Entity/Entity.h"
 #include "../Entity/Elodie.h"
 
+class Elodie;
+
 class Mapper {
 public:
     Mapper();

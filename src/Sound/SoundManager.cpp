@@ -60,11 +60,15 @@ std::string SoundManager::getPath(SoundType type, int n) {
 }
 
 void SoundManager::play(sf::SoundBuffer* buffer) {
-    sf::Sound* sound = new sf::Sound();
-    sound->setBuffer(*buffer);
-    sound->play();
+    Game* game = Game::getInstance();
 
-    sounds.push_back(sound);
+    if(!game->isMute()) {
+        sf::Sound* sound = new sf::Sound();
+        sound->setBuffer(*buffer);
+        sound->play();
+        sounds.push_back(sound);
+    }
+
     cleanUnusedSounds();
 }
 

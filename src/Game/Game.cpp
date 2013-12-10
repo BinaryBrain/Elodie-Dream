@@ -4,7 +4,7 @@
 Game* Game::gameInstance = NULL;
 
 Game::Game() {
-    mute = false;
+    mute = DEFAULT_MUTE;
 
     console = new Console(&view);
     event = new EventHandler(view.getWindow());

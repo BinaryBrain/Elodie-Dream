@@ -18,6 +18,7 @@
 
 class Level;
 class Overworld;
+class SoundManager;
 
 /**
 * The class representing the game.
