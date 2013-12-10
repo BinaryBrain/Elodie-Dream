@@ -21,3 +21,6 @@
 *.layout
 *.db
 *.cscope_file_list
+
+# Game
+save
