@@ -17,6 +17,8 @@ void MagmaCube::init(float x, float y) {
         {MagmaCubeState::STANDING, "standing"}
     };
 
+    damage = MAGMACUBE_DAMAGE;
+
     EntityManager* ToyBox = EntityManager::getInstance();
     EntityInfo* magmaCubeInfo = ToyBox->getEnemyInfo(EntityType::ENEMY, EntityName::MAGMACUBE);
 
@@ -50,7 +52,7 @@ void MagmaCube::doAttack(std::map< std::string, Entity* >& entities) {
     sf::FloatRect entity = getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()).getArea();
     Elodie* elodie = (Elodie*) entities["elodie"];
     if (entity.intersects(elodie->returnCurrentHitbox().getArea()))
-        elodie->takeDamage(25);
+        elodie->takeDamage(damage);
 }
 
 Hitbox MagmaCube::returnCurrentHitbox() {

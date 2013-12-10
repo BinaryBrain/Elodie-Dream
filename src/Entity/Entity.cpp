@@ -102,8 +102,8 @@ Collide Entity::collideWithTiles(std::vector< std::vector<TileSprite*> > const& 
         ++tot;
     }
     if (tot > 0) {
-        collideWith.left["surface"] = totMin / tot;
-        collideWith.right["surface"] = totMax / tot;
+        collideWith.left["surface"] = (float)totMin / tot;
+        collideWith.right["surface"] = (float)totMax / tot;
     }
 
     tot = totMin = totMax = 0;
@@ -131,8 +131,8 @@ Collide Entity::collideWithTiles(std::vector< std::vector<TileSprite*> > const& 
         ++tot;
     }
     if (tot > 0) {
-        collideWith.top["surface"] = totMin / tot;
-        collideWith.bottom["surface"] = totMax / tot;
+        collideWith.top["surface"] = (float)totMin / tot;
+        collideWith.bottom["surface"] = (float)totMax / tot;
     }
 
     //On test les diagonales

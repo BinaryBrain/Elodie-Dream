@@ -31,6 +31,7 @@ protected:
 
 private:
     void init(float x, float y);
+    int damage = 0;
 
     SheepSprite* sprite;
 

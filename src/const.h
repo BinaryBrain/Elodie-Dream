@@ -18,6 +18,10 @@ const int LIVE_SCOPE = 2000;
 // -- ELODIE -- //
 const int DAMAGE_CD = 25;
 
+// -- ENEMY -- //
+const int SHEEP_DAMAGE = 10;
+const int MAGMACUBE_DAMAGE = 25;
+
 // -- LEVEL -- //
 const float ZOOM_LEVEL = 2;
 const int BLOCK_SIZE = 32;

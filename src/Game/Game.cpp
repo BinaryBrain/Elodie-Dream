@@ -134,7 +134,7 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
 void Game::loadLevel(int levelNbr) {
     state = GameState::INLEVEL;
     curLevelNbr = levelNbr;
-    curLevel = new Level(&view, "assets/levels/level_sheep.txt", LevelEnv::FIELD, overworld->getElodie());
+    curLevel = new Level(&view, "assets/levels/level2.txt", LevelEnv::FIELD, overworld->getElodie());
 }
 
 void Game::handleOverworld(sf::Time time) {

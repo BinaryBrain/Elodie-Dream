@@ -17,6 +17,8 @@ void Sheep::init(float x, float y) {
         {SheepState::STANDING, "standing"}
     };
 
+    damage = SHEEP_DAMAGE;
+
     EntityManager* ToyBox = EntityManager::getInstance();
     EntityInfo* sheepInfo = ToyBox->getEnemyInfo(EntityType::ENEMY, EntityName::SHEEP);
 
@@ -50,7 +52,7 @@ void Sheep::doAttack(std::map< std::string, Entity* >& entities) {
     sf::FloatRect entity = getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()).getArea();
     Elodie* elodie = (Elodie*) entities["elodie"];
     if (entity.intersects(elodie->returnCurrentHitbox().getArea()))
-        elodie->takeDamage(25);
+        elodie->takeDamage(damage);
 }
 
 Hitbox Sheep::returnCurrentHitbox() {
@@ -58,7 +60,6 @@ Hitbox Sheep::returnCurrentHitbox() {
 }
 
 void Sheep::doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) {
-    speed.x = -500;
     Collide collideTiles = collideWithTiles(tiles, &speed, animate.asSeconds(), getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()));
 
     doAttack(entities);
