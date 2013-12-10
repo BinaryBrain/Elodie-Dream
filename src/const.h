@@ -41,6 +41,7 @@ static const char MAP_ELODIE = 'E';
 
 // Enemies
 static const char MAP_SHEEP = 'S';
+static const char MAP_MAGMACUBE = 'M';
 
 // Misc
 static const char MAP_LINE_BREAK = '\n';

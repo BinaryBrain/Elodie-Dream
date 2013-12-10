@@ -1,6 +1,7 @@
 #include "Mapper.h"
 #include "../Entity/Elodie.h"
 #include "../Entity/Enemy/Sheep.h"
+#include "../Entity/Enemy/MagmaCube.h"
 
 std::map< std::string, int > Mapper::freshIds;
 
@@ -29,6 +30,9 @@ void Mapper::parse(std::string asciiLevel, TileMap& tiles, EntityMap& entities, 
 
         case MAP_SHEEP:
             entities.insert(std::make_pair(getFreshID("sheep"), new Sheep(x*32, y*32)));
+            break;
+        case MAP_MAGMACUBE:
+            entities.insert(std::make_pair(getFreshID("magmacube"), new Sheep(x*32, y*32)));
             break;
         default:
             isEntity = false;
