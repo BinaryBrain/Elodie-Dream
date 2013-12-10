@@ -35,4 +35,3 @@ std::string JsonStringifier::getStringifiedDoc() {
 
     return strbuf.GetString();
 }
-

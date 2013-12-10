@@ -9,6 +9,6 @@ LoadItem::~LoadItem() {
 }
 
 std::pair<GameState, std::string> LoadItem::execute() {
-    std::pair<GameState, std::string> p = std::make_pair(GameState::LOAD, text->getString());
+    std::pair<GameState, std::string> p = std::make_pair(GameState::LOAD, label);
     return p;
 }

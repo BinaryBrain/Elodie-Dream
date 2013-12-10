@@ -26,7 +26,7 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
 
     for(unsigned int i(0); i<dates.size(); ++i) {
         dates[i] = labels[i];
-        //if(accessor.canTakeElementFrom(labels[i])) dates[i] = accessor.getString(labels[i]);
+        if(accessor.canTakeElementFrom(labels[i])) dates[i] = accessor.getString(labels[i]);
 
         SaveItem* save = new SaveItem(labels[i]);
         sf::Text* t = save->getText();

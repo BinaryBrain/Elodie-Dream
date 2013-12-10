@@ -31,7 +31,6 @@ JsonStringifier* SaveHandler::getStringifier() {
 
 void SaveHandler::save() {
     std::string stringified(stringifier->getStringifiedDoc());
-    std::cout << "Stringified json: " << stringified << std::endl;
 
     // saves the encrypted stringified json to the file
     std::vector<int> tmp = encrypt(stringified, "key");

@@ -9,6 +9,6 @@ QuitItem::~QuitItem() {
 }
 
 std::pair<GameState, std::string> QuitItem::execute() {
-    std::pair<GameState, std::string> p = std::make_pair(GameState::EXIT, text->getString());
+    std::pair<GameState, std::string> p = std::make_pair(GameState::EXIT, label);
     return p;
 }

@@ -9,6 +9,6 @@ EnglishItem::~EnglishItem() {
 }
 
 std::pair<GameState, std::string> EnglishItem::execute() {
-    std::pair<GameState, std::string> p = std::make_pair(GameState::INMENU, text->getString());
+    std::pair<GameState, std::string> p = std::make_pair(GameState::INMENU, label);
     return p;
 }

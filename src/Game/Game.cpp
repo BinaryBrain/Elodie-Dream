@@ -339,14 +339,12 @@ void Game::load() {
 
     JsonAccessor accessor;
     accessor.load(tempJsonFilePath);
-    if(accessor.canTakeElementFrom("date")) {
+    if(accessor.canTakeElementFrom("gamestate")) {
 
         int gameState = accessor.getInt("gamestate");
-        std::string date = accessor.getString("date");
-        std::cout << "Retrieved gamestate: " << gameState << " from " << date << std::endl;
 
         console->clear();
-        console->addParagraph("Successfully loaded " + currentMenuItem + " (from " + date + ").");
+        console->addParagraph("Successfully loaded " + currentMenuItem + ".");
         console->setCurrentPage(0);
         console->setNextState(GameState::INMENU);
 
@@ -370,10 +368,6 @@ void Game::load() {
 }
 
 void Game::save() {
-    std::string path = "save/" + currentMenuItem + ".save";
-    SaveHandler* sh = SaveHandler::getInstance();
-    sh->setPath(path);
-    JsonStringifier* stringifier = sh->getStringifier();
 
     // creates date
     time_t t = time(0);
@@ -382,14 +376,31 @@ void Game::save() {
     date += Utils::itos(now->tm_mday) + "/" + Utils::itos(now->tm_mon + 1) + "/" + Utils::itos(now->tm_year + 1900) + ", at ";
     date += Utils::itos(now->tm_hour) + ":" + Utils::itos(now->tm_min) + ":" + Utils::itos(now->tm_sec);
 
-    std::string keyDate = "date";
-    stringifier->add(keyDate, date);
+    JsonStringifier dateStringifier;
+    JsonAccessor dateAccessor;
+
+
+
+    std::string keyDate("date");
+    dateStringifier.add(keyDate, date);
+
+    std::ofstream datesFile;
+    datesFile.open("save/dates.json");
+    datesFile << dateStringifier.getStringifiedDoc() << std::endl;
+    datesFile.close();
+
+    // creates save
+    std::string path = "save/" + currentMenuItem + ".save";
+    SaveHandler* sh = SaveHandler::getInstance();
+    sh->setPath(path);
+    JsonStringifier* stringifier = sh->getStringifier();
 
     std::string keyGameState = "gamestate";
     stringifier->add(keyGameState, (int)state);
     sh->save();
     sh->clearStringifier();
 
+    // displays on console
     console->clear();
     console->addParagraph("Successfully saved on " + currentMenuItem + " (" + date + ").");
     console->setCurrentPage(0);

@@ -9,6 +9,6 @@ SaveItem::~SaveItem() {
 }
 
 std::pair<GameState, std::string> SaveItem::execute() {
-    std::pair<GameState, std::string> p = std::make_pair(GameState::SAVE, text->getString());
+    std::pair<GameState, std::string> p = std::make_pair(GameState::SAVE, label);
     return p;
 }
