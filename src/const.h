@@ -20,6 +20,7 @@ const int DAMAGE_CD = 25;
 // -- LEVEL -- //
 const float ZOOM_LEVEL = 2;
 const int BLOCK_SIZE = 32;
+const bool GOD_MODE = false;
 
 // Immersion Bar
 const float IMMERSION_BAR_X = 540;

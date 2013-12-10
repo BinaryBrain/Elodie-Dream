@@ -13,6 +13,7 @@
 #include "../Fnu/Girly.h"
 #include "../Level/Immersionbar.h"
 #include "../Sound/SoundManager.h"
+#include "../Level/Death.h"
 #include "GameView.h"
 
 class Level;
@@ -77,9 +78,12 @@ private:
     Girly* girly = NULL;
     bool girlyMode = false;
 
-    ImmersionBar* immBar;
-
     bool mute;
+
+    ImmersionBar* immBar = NULL;
+
+    Death* death = NULL;
+    void dead();
 };
 
 #endif // GAME_H

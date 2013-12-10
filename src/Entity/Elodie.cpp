@@ -146,16 +146,19 @@ Hitbox Elodie::returnCurrentHitbox() {
 
 //What's in doStuff right now is only for testing purpose. Lot of stuff to do here.
 void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) {
-    /*timer += animate.asSeconds();
+    timer += animate.asSeconds();
     if (timer > 3) {
         timer = 0;
         immersionLevel = immersionLevel == 100 ? 100 : immersionLevel + 25;
-    }*/
+    }
     if (damageCD)
         --damageCD;
     Collide collideTiles = collideWithTiles(tiles, &speed, animate.asSeconds(), getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()));
-
-    if (speed.x < 0) {
+    if (speed.x == 0 && !collideTiles.right["surface"]) {
+        speed.x=300;
+        buffed = true;
+        buff = cameraPos.x - sprite->getPosition().x;
+    } else if (speed.x < 0) {
         if (collideTiles.left["distance"])
             speed.x = -collideTiles.left["distance"];
         else
@@ -164,7 +167,7 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
         if (collideTiles.right["distance"])
             speed.x = collideTiles.right["distance"];
         else
-            speed.x = -300;
+            speed.x = 0;
     }
 
     if (speed.y < 0)
@@ -174,8 +177,15 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
 
     //move HAS to be made juste after the collision. Because you have to move with the speed you have tested.
     //If you put move at the end, you'll have to check the collision 2 times
-    move(animate.asSeconds()*speed.x, animate.asSeconds()*speed.y);
-
+    if(buffed && (cameraPos.x - sprite->getPosition().x) > 0) {
+        move(animate.asSeconds()*(speed.x+buff), animate.asSeconds()*speed.y);
+    } else if (buffed) {
+        buffed = false;
+        buff = 0;
+        move(animate.asSeconds()*(speed.x), animate.asSeconds()*speed.y);
+    } else {
+        move(animate.asSeconds()*(speed.x), animate.asSeconds()*speed.y);
+    }
     sprite->update(animate);
 
     if (sprite->getCurrentStance() == ANIMATIONS[ElodieState::STANDING]) {
@@ -189,7 +199,7 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
         if (speed.x <= 0)
             speed.x = 300;
         else
-            speed.x = -300;
+            speed.x = 0;
         //immersionLevel = immersionLevel == 0 ? 0 : immersionLevel-25;
     }
 
@@ -201,8 +211,7 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
         if(state == ElodieState::FALLING) {
             state = ElodieState::WALKING;
             stateChanged(ElodieState::FALLING, ElodieState::WALKING);
-        }
-        else if(state == ElodieState::JUMPING) {
+        } else if(state == ElodieState::JUMPING) {
             state = ElodieState::WALKING;
         }
 
@@ -232,6 +241,8 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
     } else {
         flipToRight();
     }
+    cameraPos.x += 300*animate.asSeconds();
+    cameraPos.y = sprite->getPosition().y + centerY;
 }
 
 void Elodie::stateChanged(ElodieState from, ElodieState to) {
@@ -261,11 +272,15 @@ void Elodie::reset() {
 
 void Elodie::setPosition(sf::Vector2f pos) {
     sprite->setPosition(pos);
+    cameraPos.x = pos.x;
+    cameraPos.y = pos.y;
     setHitboxes(infos, sprite->getPosition());
 }
 
 void Elodie::setPosition(float x, float y) {
     setPosition(sf::Vector2f(x,y));
+    cameraPos.x = x;
+    cameraPos.y = y;
     setHitboxes(infos, sprite->getPosition());
 }
 
@@ -276,4 +291,8 @@ void Elodie::flipToLeft() {
 void Elodie::flipToRight() {
     sprite->setOrigin(sf::Vector2f(64,0));
     sprite->setScale(-1, 1);
+}
+
+sf::Vector2f Elodie::getCameraPos() {
+    return cameraPos;
 }

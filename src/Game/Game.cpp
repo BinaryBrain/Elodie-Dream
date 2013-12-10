@@ -12,11 +12,13 @@ Game::Game() {
     menuHandler = new MenuHandler(&view);
     girly = new Girly(&view);
     immBar = new ImmersionBar(&view);
+    death = new Death(&view);
     soundManager = SoundManager::getInstance();
 
     view.addView(ViewLayer::MENU, menuHandler);
     view.addView(ViewLayer::OVERWORLD, overworld);
     view.addView(ViewLayer::CONSOLE, console);
+    view.addView(ViewLayer::DEATH, death);
 
     // testing purposes
     view.addView(ViewLayer::GIRLY, girly);
@@ -112,6 +114,20 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
     } else {
         curLevel->live(event, time);
         immBar->setLevel(((Elodie*)curLevel->getEntities()["elodie"])->getImmersionLevel());
+        if (((Elodie*)curLevel->getEntities()["elodie"])->getImmersionLevel() <= 0 && !GOD_MODE) {
+            view.hide(ViewLayer::LEVEL);
+            view.show(ViewLayer::DEATH);
+            console->clear();
+            console->addParagraph("You woke up...");
+            console->setCurrentPage(0);
+            view.show(ViewLayer::CONSOLE);
+            view.hide(ViewLayer::IMMERSIONBAR);
+            if(curLevel) {
+                delete curLevel;
+                curLevel = NULL;
+            }
+            state = GameState::DEAD;
+        }
     }
 }
 
@@ -161,7 +177,7 @@ void Game::handleOverworld(sf::Time time) {
         // testing purposes
     } else if (event->keyIsPressed(sf::Keyboard::M)) {
         toggleMute();
-    // testing purposes
+        // testing purposes
     } else if (event->keyIsPressed(sf::Keyboard::C)) {
         state = GameState::INCONSOLE;
         console->setNextState(GameState::INOVERWORLD);
@@ -193,6 +209,10 @@ void Game::displayMenu() {
             view.show(ViewLayer::OVERWORLD);
             overworld->getElodie()->stand();
             overworld->resetPos();
+            if(curLevel) {
+                delete curLevel;
+                curLevel = NULL;
+            }
         } else if (state == GameState::INLEVEL) {
             if(curLevel) {
                 state = GameState::INLEVEL;
@@ -237,6 +257,22 @@ void Game::displayConsole() {
         }
     }
 
+}
+
+void Game::dead() {
+    if (event->keyIsPressed(sf::Keyboard::Return)) {
+        view.hide(ViewLayer::CONSOLE);
+        view.hide(ViewLayer::DEATH);
+        view.show(ViewLayer::OVERWORLD);
+
+        if(!isMute()) {
+            overworld->getMusic()->play();
+        }
+
+        overworld->getElodie()->stand();
+        overworld->resetPos();
+        state = GameState::INOVERWORLD;
+    }
 }
 
 void Game::run() {
@@ -313,6 +349,9 @@ void Game::run() {
             break;
         case GameState::EXIT:
             exit();
+            break;
+        case GameState::DEAD:
+            dead();
             break;
         default :
             std::cout << "Error: unknown state" << std::endl;

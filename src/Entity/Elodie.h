@@ -149,7 +149,9 @@ public:
     void pause();
     void play();
     void flipToLeft();
+    void setSpeed(sf::Vector2f speed);
     void flipToRight();
+    sf::Vector2f getCameraPos();
 
 protected:
 
@@ -190,6 +192,9 @@ private:
     std::map< ElodieState, std::string > ANIMATIONS;
 
     SoundManager* soundManager;
+    sf::Vector2f cameraPos;
+    bool buffed = false;
+    float buff = 0;
 };
 
 #endif // ELODIE_H
