@@ -74,21 +74,24 @@ Collide Entity::collideWithTiles(std::vector< std::vector<TileSprite*> > const& 
     float maxY = std::get<1>(hitbox.getPoints()).y;
 
     int mapPnt;
-    int totMin = 0, totMax = 0, incMin = 0, incMax = 0;
+    int tot = 0, totMin = 0, totMax = 0, incMin = 0, incMax = 0;
 
     collideWith.ground = TileType::VOID;
     collideWith.left["distance"] = collideWith.right["distance"] = step.x;
     //The +-1 is here because the hitbox will touch a bit the bottom/top/left/right tile, but it should not disturb the adjacent face
-    for(float y = minY + 1; y < maxY - 1; ++y) {
-        mapPnt = (int)std::floor(y / 32);
+    for(float y = minY + 1; round(y) != round((maxY - 1) + BLOCK_SIZE); y += BLOCK_SIZE) {
+        if (y > (maxY - 1))
+            y = (maxY - 1);
+
+        mapPnt = (int)std::floor(y / BLOCK_SIZE);
         incMin = incMax = 0;
         for (float stepX = 0; stepX <= step.x + 1 / time; stepX += 1) {
-            if (checkTiles(world, (int)std::floor((minX - stepX * time) / 32), mapPnt)) {
+            if (checkTiles(world, (int)std::floor((minX - stepX * time) / BLOCK_SIZE), mapPnt)) {
                 incMin = 1;
                 if (collideWith.left["distance"] > stepX)
                     collideWith.left["distance"] = stepX;
             }
-            if (checkTiles(world, (int)std::floor((maxX + stepX * time) / 32), mapPnt)) {
+            if (checkTiles(world, (int)std::floor((maxX + stepX * time) / BLOCK_SIZE), mapPnt)) {
                 incMax = 1;
                 if (collideWith.right["distance"] > stepX)
                     collideWith.right["distance"] = stepX;
@@ -96,24 +99,28 @@ Collide Entity::collideWithTiles(std::vector< std::vector<TileSprite*> > const& 
         }
         totMin += incMin;
         totMax += incMax;
+        ++tot;
     }
-    if (maxY - minY > 0) {
-        collideWith.left["surface"] = totMin / (maxY - minY + 1);
-        collideWith.right["surface"] = totMax / (maxY - minY + 1);
+    if (tot > 0) {
+        collideWith.left["surface"] = totMin / tot;
+        collideWith.right["surface"] = totMax / tot;
     }
 
-    totMin = totMax = 0;
+    tot = totMin = totMax = 0;
     collideWith.top["distance"] = collideWith.bottom["distance"] = step.y;
-    for(float x = minX + 1; x < maxX - 1; ++x) {
-        mapPnt = (int)std::floor(x / 32);
+    for(float x = minX + 1; std::round(x) != std::round((maxX - 1) + BLOCK_SIZE); x += BLOCK_SIZE) {
+        if (x > (maxX - 1))
+            x = (maxX - 1);
+
+        mapPnt = (int)std::floor(x / BLOCK_SIZE);
         incMin = incMax = 0;
         for (float stepY = 0; stepY <= step.y + 1 / time; stepY += 1) {
-            if (checkTiles(world, mapPnt, (int)std::floor((minY - stepY * time) / 32))) {
+            if (checkTiles(world, mapPnt, (int)std::floor((minY - stepY * time) / BLOCK_SIZE))) {
                 incMin = 1;
                 if (collideWith.top["distance"] > stepY)
                     collideWith.top["distance"] = stepY;
             }
-            if (checkTiles(world, mapPnt, (int)std::floor((maxY + stepY * time) / 32))) {
+            if (checkTiles(world, mapPnt, (int)std::floor((maxY + stepY * time) / BLOCK_SIZE))) {
                 incMax = 1;
                 if (collideWith.bottom["distance"] > stepY)
                     collideWith.bottom["distance"] = stepY;
@@ -121,39 +128,40 @@ Collide Entity::collideWithTiles(std::vector< std::vector<TileSprite*> > const& 
         }
         totMin += incMin;
         totMax += incMax;
+        ++tot;
     }
-    if (maxX - minX > 0) {
-        collideWith.top["surface"] = totMin / (maxX - minX + 1);
-        collideWith.bottom["surface"] = totMax / (maxX - minX + 1);
+    if (tot > 0) {
+        collideWith.top["surface"] = totMin / tot;
+        collideWith.bottom["surface"] = totMax / tot;
     }
 
     //On test les diagonales
-    if (vit->x > 0 && vit->y > 0 && checkTiles(world, (int)std::floor((maxX - 2 + collideWith.right["distance"]*time) / 32), (int)std::floor((maxY - 2 + collideWith.bottom["distance"]*time) / 32))) {
+    if (vit->x > 0 && vit->y > 0 && checkTiles(world, (int)std::floor((maxX - 2 + collideWith.right["distance"]*time) / BLOCK_SIZE), (int)std::floor((maxY - 2 + collideWith.bottom["distance"]*time) / BLOCK_SIZE))) {
         collideWith.right["surface"] = 0.1;
-        while (checkTiles(world, (int)std::floor((maxX - 2 + collideWith.right["distance"]*time) / 32), (int)std::floor((maxY - 2 + collideWith.bottom["distance"]*time) / 32)))
+        while (checkTiles(world, (int)std::floor((maxX - 2 + collideWith.right["distance"]*time) / BLOCK_SIZE), (int)std::floor((maxY - 2 + collideWith.bottom["distance"]*time) / BLOCK_SIZE)))
             collideWith.right["distance"] -= 1;
     }
-    if (vit->x < 0 && vit->y > 0 && checkTiles(world, (int)std::floor((minX + 1 - collideWith.left["distance"]*time) / 32), (int)std::floor((maxY - 2 + collideWith.bottom["distance"]*time) / 32))) {
+    if (vit->x < 0 && vit->y > 0 && checkTiles(world, (int)std::floor((minX + 1 - collideWith.left["distance"]*time) / BLOCK_SIZE), (int)std::floor((maxY - 2 + collideWith.bottom["distance"]*time) / BLOCK_SIZE))) {
         collideWith.left["surface"] = 0.1;
-        while (checkTiles(world, (int)std::floor((minX + 1 - collideWith.left["distance"]*time) / 32), (int)std::floor((maxY - 2 + collideWith.bottom["distance"]*time) / 32)))
+        while (checkTiles(world, (int)std::floor((minX + 1 - collideWith.left["distance"]*time) / BLOCK_SIZE), (int)std::floor((maxY - 2 + collideWith.bottom["distance"]*time) / BLOCK_SIZE)))
             collideWith.left["distance"] -= 1;
     }
-    if (vit->x > 0 && vit->y < 0 && checkTiles(world, (int)std::floor((maxX - 2 + collideWith.right["distance"]*time) / 32), (int)std::floor((minY + 1 - collideWith.top["distance"]*time) / 32))) {
+    if (vit->x > 0 && vit->y < 0 && checkTiles(world, (int)std::floor((maxX - 2 + collideWith.right["distance"]*time) / BLOCK_SIZE), (int)std::floor((minY + 1 - collideWith.top["distance"]*time) / BLOCK_SIZE))) {
         collideWith.right["surface"] = 0.1;
-        while (checkTiles(world, (int)std::floor((maxX - 2 + collideWith.right["distance"]*time) / 32), (int)std::floor((minY + 1 - collideWith.top["distance"]*time) / 32)))
+        while (checkTiles(world, (int)std::floor((maxX - 2 + collideWith.right["distance"]*time) / BLOCK_SIZE), (int)std::floor((minY + 1 - collideWith.top["distance"]*time) / BLOCK_SIZE)))
             collideWith.right["distance"] -= 1;
     }
-    if (vit->x < 0 && vit->y < 0 && checkTiles(world, (int)std::floor((minX + 1 - collideWith.left["distance"]*time) / 32), (int)std::floor((minY + 1 - collideWith.top["distance"]*time) / 32))) {
+    if (vit->x < 0 && vit->y < 0 && checkTiles(world, (int)std::floor((minX + 1 - collideWith.left["distance"]*time) / BLOCK_SIZE), (int)std::floor((minY + 1 - collideWith.top["distance"]*time) / BLOCK_SIZE))) {
         collideWith.left["surface"] = 0.1;
-        while (checkTiles(world, (int)std::floor((minX + 1 - collideWith.left["distance"]*time) / 32), (int)std::floor((minY + 1 - collideWith.top["distance"]*time) / 32)))
+        while (checkTiles(world, (int)std::floor((minX + 1 - collideWith.left["distance"]*time) / BLOCK_SIZE), (int)std::floor((minY + 1 - collideWith.top["distance"]*time) / BLOCK_SIZE)))
             collideWith.left["distance"] -= 1;
     }
 
     //On check le ground
     float x = minX + 1;
-    float mapY = (int)std::floor((maxY + collideWith.bottom["distance"] * time) / 32 + 0.5f);
+    float mapY = (int)std::floor((maxY + collideWith.bottom["distance"] * time) / BLOCK_SIZE + 0.5f);
     while(x < maxX - 1 && collideWith.ground == TileType::VOID && collideWith.bottom["surface"]) {
-        float mapX = (int)std::floor(x / 32);
+        float mapX = (int)std::floor(x / BLOCK_SIZE);
 
         if (mapX >= 0 && mapX < (int)world[0].size() && mapY >= 0 && mapY < (int)world.size())
             collideWith.ground = world[mapY][mapX] ? world[mapY][mapX]->getType() : TileType::VOID;

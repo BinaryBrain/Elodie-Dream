@@ -58,6 +58,7 @@ Hitbox Sheep::returnCurrentHitbox() {
 }
 
 void Sheep::doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) {
+    speed.x = -500;
     Collide collideTiles = collideWithTiles(tiles, &speed, animate.asSeconds(), getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()));
 
     doAttack(entities);

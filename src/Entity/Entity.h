@@ -11,6 +11,7 @@
 #include "../Json/JsonAccessor.h"
 #include "../Include/Collide.h"
 #include "../Include/EntityInfo.h"
+#include "../const.h"
 #include "Hitbox.h"
 
 /**
