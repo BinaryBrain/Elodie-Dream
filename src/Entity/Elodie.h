@@ -62,7 +62,6 @@ public:
     void doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate);
     virtual ~Elodie();
 
-
     /**
     * \brief Used to get Elodie's position.
     *
@@ -73,7 +72,6 @@ public:
     void setPosition(sf::Vector2f pos);
 
     void setPosition(float x, float y);
-
 
     /**
     * \brief Makes Elodie stand.
@@ -148,7 +146,7 @@ public:
     */
     int getNightmareLevel();
     void takeDamage(int damage, bool ignore);
-    void stateChanged(ElodieState from, ElodieState to);
+    void changeState(ElodieState to);
     void reset();
     void pause();
     void play();

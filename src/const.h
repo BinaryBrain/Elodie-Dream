@@ -29,7 +29,7 @@ const int SPIKES_DAMAGE = 50;
 const float ZOOM_LEVEL = 2;
 const int BLOCK_SIZE = 32;
 const int CAMERA_TOL = 50;
-const bool GOD_MODE = false;
+const bool GOD_MODE = false; // TODO set to false
 
 // Immersion Bar
 const float IMMERSION_BAR_X = 540;
@@ -95,11 +95,13 @@ const int SOUND_TYPE_PUNCH_MAX = 2;
 const string SOUND_TYPE_SPIKES = "spikes";
 const int SOUND_TYPE_SPIKES_MAX = 2;
 
+const string SOUND_TYPE_FOOTSTEP_GROUND = "footstep_ground";
+const int SOUND_TYPE_FOOTSTEP_GROUND_MAX = 4;
+
 const string SOUND_TYPE_FOOTSTEP_GRASS = "footstep_grass";
 const int SOUND_TYPE_FOOTSTEP_GRASS_MAX = 3;
 
-// const string SOUND_TYPE_FOOTSTEP_GROUND = "footstep/ground";
-// const string SOUND_TYPE_FOOTSTEP_ROCK = "footstep/rock";
+// const string SOUND_TYPE_FOOTSTEP_ROCK = "footstep_rock";
 
 const string MUSIC_PATH = "assets/music";
 const string OVERWORLD_MUSIC = "overworld.ogg";
