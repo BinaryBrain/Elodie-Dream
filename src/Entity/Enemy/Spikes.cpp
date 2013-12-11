@@ -52,10 +52,12 @@ SpikesSprite* Spikes::getSprite() {
 void Spikes::doAttack(std::map< std::string, Entity* >& entities) {
     sf::FloatRect entity = getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()).getArea();
     Elodie* elodie = (Elodie*) entities["elodie"];
-    if (entity.intersects(elodie->returnCurrentHitbox().getArea())) {
-        state = SpikesState::ACTIVATED;
-        sprite->changeStance(ANIMATIONS[state], sf::seconds(0.05f));
+    if (state == SpikesState::ACTIVATED && sprite->getCurrentFrame() == 3 && entity.intersects(elodie->returnCurrentHitbox().getArea())) {
         elodie->takeDamage(damage);
+    }
+    if (!activated && entity.intersects(elodie->returnCurrentHitbox().getArea())) {
+        state = SpikesState::ACTIVATED;
+        sprite->changeStance(ANIMATIONS[state], sf::seconds(0.02f));
         activated = true;
     }
 }
@@ -65,13 +67,9 @@ Hitbox Spikes::returnCurrentHitbox() {
 }
 
 void Spikes::doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) {
-    Collide collideTiles = collideWithTiles(tiles, &speed, animate.asSeconds(), getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()));
+    doAttack(entities);
 
-    if (!activated) {
-        doAttack(entities);
-    }
-
-    if (activated && state == SpikesState::ACTIVATED && sprite->getCurrentFrame() == 3) {
+    if (state == SpikesState::ACTIVATED && sprite->getCurrentFrame() == 3) {
         state = SpikesState::UNACTIVATED;
         sprite->changeStance(ANIMATIONS[state], sf::seconds(0.1f));
     }
