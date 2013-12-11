@@ -6,7 +6,7 @@ Game* Game::gameInstance = NULL;
 Game::Game() {
     std::string savePath("save");
     if (CreateDirectory(savePath.c_str(), NULL) || ERROR_ALREADY_EXISTS == GetLastError()) {
-        std::cout << "Save folder created successfully" << std::endl;
+        // do nothing because it's k
     } else {
         std::cerr << "Could not create save folder." << std::endl;
     }
