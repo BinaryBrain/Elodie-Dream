@@ -23,67 +23,47 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
 
     SaveHandler* sh = SaveHandler::getInstance();
 
-    /*
-    for(unsigned int i(0); i<dates.size(); ++i) {
-        dates[i] = labels[i];
-        if(accessor.canTakeElementFrom(labels[i])) dates[i] = accessor.getString(labels[i]);
+    for(unsigned int i(0); i<labels.size(); ++i) {
+        std::string path = "save/" + labels[i] + ".save";
+        sh->setPath(path);
+
+        std::string json = sh->load();
+
+        // creates a temporary json file for the JsonAccessor
+        std::ofstream tempJsonFile;
+        std::string tempJsonFilePath = "save/temp.json";
+
+        tempJsonFile.open(tempJsonFilePath);
+        tempJsonFile << json << std::endl;
+        tempJsonFile.close();
+
+        JsonAccessor accessor;
+        accessor.load(tempJsonFilePath);
+
+        lastDiscoveredLevels[i] = labels[i];
+        std::string key = "lastdiscoveredlevel";
+
+        if(accessor.canTakeElementFrom(key)) {
+            lastDiscoveredLevels[i] = accessor.getString(key);
+        }
 
         SaveItem* save = new SaveItem(labels[i]);
         sf::Text* t = save->getText();
-        t->setString(dates[i]);
+        t->setString(lastDiscoveredLevels[i]);
         saveGame->addItem(save);
 
         LoadItem* load = new LoadItem(labels[i]);
-        t = load->getText();
-        t->setString(dates[i]);
+        load->setText(t);
         loadGame->addItem(load);
-    }*/
 
-    // TEST
+        accessor.close();
 
-    std::string path = "save/" + labels[0] + ".save";
-    sh->setPath(path);
+        // remove the temporary json
+        if(remove(tempJsonFilePath.c_str()) != 0 ) {
+            std::cerr << "Error deleting temporary json" << std::endl;
+        }
 
-    std::string json = sh->load();
-
-    // creates a temporary json file for the JsonAccessor
-    std::ofstream tempJsonFile;
-    std::string tempJsonFilePath = "save/temp.json";
-
-    tempJsonFile.open(tempJsonFilePath);
-    tempJsonFile << json << std::endl;
-    tempJsonFile.close();
-
-    JsonAccessor accessor;
-    accessor.load(tempJsonFilePath);
-
-    lastDiscoveredLevels[0] = "Slot 1";
-    std::string key = "lastdiscoveredlevel";
-
-    if(accessor.canTakeElementFrom(key)) {
-        lastDiscoveredLevels[0] = accessor.getString(key);
     }
-
-    std::cout << lastDiscoveredLevels[0] << std::endl;
-
-    SaveItem* save = new SaveItem("Slot 1");
-    sf::Text* t = save->getText();
-    t->setString(lastDiscoveredLevels[0]);
-    saveGame->addItem(save);
-
-    LoadItem* load = new LoadItem("Slot 1");
-    load->setText(t);
-    loadGame->addItem(load);
-
-
-    accessor.close();
-
-    // remove the temporary json
-    if(remove(tempJsonFilePath.c_str()) != 0 ) {
-        std::cerr << "Error deleting temporary json" << std::endl;
-    }
-
-    // FIN TEST
 
     saveGame->addItem(title, true);
     loadGame->addItem(title, true);
