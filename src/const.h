@@ -21,6 +21,7 @@ const int DAMAGE_CD = 25;
 // -- ENEMY -- //
 const int SHEEP_DAMAGE = 10;
 const int MAGMACUBE_DAMAGE = 25;
+const int SPIKES_DAMAGE = 50;
 
 // -- LEVEL -- //
 const float ZOOM_LEVEL = 2;
@@ -50,6 +51,7 @@ static const char MAP_ELODIE = 'E';
 // Enemies
 static const char MAP_SHEEP = 'S';
 static const char MAP_MAGMACUBE = 'M';
+static const char MAP_SPIKES = 'P';
 
 // Misc
 static const char MAP_LINE_BREAK = '\n';
@@ -76,9 +78,11 @@ const string ENTITIES_JSON_PATH = "assets/img/sprites";
 const string ENTITYNAME_ELODIE = "elodie";
 const string ENTITYNAME_SHEEP = "sheep";
 const string ENTITYNAME_MAGMACUBE = "magmacube";
+const string ENTITYNAME_SPIKES = "spikes";
 
 const string ENTITYTYPE_ELODIE = "";
 const string ENTITYTYPE_ENEMY = "enemies";
+const string ENTITYTYPE_MISC = "tiles/misc";
 
 // Sounds
 const string SOUNDS_PATH = "assets/sounds";

@@ -68,6 +68,8 @@
 		<Unit filename="src/Entity/Enemy/MagmaCube.h" />
 		<Unit filename="src/Entity/Enemy/Sheep.cpp" />
 		<Unit filename="src/Entity/Enemy/Sheep.h" />
+		<Unit filename="src/Entity/Enemy/Spikes.cpp" />
+		<Unit filename="src/Entity/Enemy/Spikes.h" />
 		<Unit filename="src/Entity/Entity.cpp" />
 		<Unit filename="src/Entity/Entity.h" />
 		<Unit filename="src/Entity/Hitbox.cpp" />
@@ -141,6 +143,8 @@
 		<Unit filename="src/Sprite/EnemySprite/MagmaCubeSprite.h" />
 		<Unit filename="src/Sprite/EnemySprite/SheepSprite.cpp" />
 		<Unit filename="src/Sprite/EnemySprite/SheepSprite.h" />
+		<Unit filename="src/Sprite/EnemySprite/SpikesSprite.cpp" />
+		<Unit filename="src/Sprite/EnemySprite/SpikesSprite.h" />
 		<Unit filename="src/Sprite/EnvSprite.cpp" />
 		<Unit filename="src/Sprite/EnvSprite.h" />
 		<Unit filename="src/Sprite/Interactive.cpp" />

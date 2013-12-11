@@ -7,12 +7,14 @@ EntityManager::EntityManager() {
     ENTITY_NAME = {
         {EntityName::ELODIE, ENTITYNAME_ELODIE},
         {EntityName::SHEEP, ENTITYNAME_SHEEP},
-        {EntityName::MAGMACUBE, ENTITYNAME_MAGMACUBE}
+        {EntityName::MAGMACUBE, ENTITYNAME_MAGMACUBE},
+        {EntityName::SPIKES, ENTITYNAME_SPIKES}
     };
 
     ENTITY_TYPE = {
         {EntityType::ELODIE, ENTITYTYPE_ELODIE},
-        {EntityType::ENEMY, ENTITYTYPE_ENEMY}
+        {EntityType::ENEMY, ENTITYTYPE_ENEMY},
+        {EntityType::MISC, ENTITYTYPE_MISC}
     };
 }
 
