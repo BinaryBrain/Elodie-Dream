@@ -5,7 +5,8 @@ EnglishItem::EnglishItem(std::string label): MenuItem(label) {
 }
 
 EnglishItem::~EnglishItem() {
-    //dtor
+    delete text;
+    text = NULL;
 }
 
 std::pair<GameState, MenuComponent*> EnglishItem::execute() {

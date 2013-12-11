@@ -54,6 +54,11 @@ std::string SaveHandler::load() {
     infile.close();
     std::string json = decrypt(tmp, "key");
 
+    // in case the file is not here -> no parse error
+    if(json == "") {
+        json = "{}";
+    }
+
     return json;
 }
 

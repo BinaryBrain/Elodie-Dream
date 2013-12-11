@@ -5,7 +5,10 @@ NewGameItem::NewGameItem(std::string label): MenuItem(label) {
 }
 
 NewGameItem::~NewGameItem() {
-    //dtor
+    if(text) {
+        delete text;
+        text = NULL;
+    }
 }
 
 std::pair<GameState, MenuComponent*> NewGameItem::execute() {

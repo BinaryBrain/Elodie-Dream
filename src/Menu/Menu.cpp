@@ -2,13 +2,18 @@
 
 Menu::Menu(std::string label): MenuComponent(label) {
 
-    texture.loadFromFile("assets/img/sprites/menu/selector.png");
+    texture.loadFromFile("assets/img/sprites/poro.png", sf::IntRect(102, 16, 120, 30));
     selector.setTexture(texture);
 
     isMenu = true;
 }
 
 Menu::~Menu() {
+    if(text) {
+        delete text;
+        text = NULL;
+    }
+
     for(unsigned int i(0); i<items.size(); ++i) {
         if(items[i] && !isParent[i]) {
             delete items[i];
@@ -46,8 +51,7 @@ void Menu::draw(GameView* view) {
     background.setOutlineThickness(3);
     background.setPosition(posX-60, posY-5);
 
-    selector.setPosition(150, 5+100+50*index);
-    selector.setScale(0.25, 0.25);
+    selector.setPosition(160, 110+50*index);
     view->addDrawable(ViewLayer::MENU, &selector);
 }
 

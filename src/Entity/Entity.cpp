@@ -14,6 +14,35 @@ void Entity::setEntitySprite(sf::Sprite* sprite) {
     this->sprite = sprite;
 }
 
+void Entity::flipToLeft() {
+    sprite->setOrigin(sf::Vector2f(0,0));
+    sprite->setScale(1, 1);
+}
+void Entity::flipToRight() {
+    sprite->setOrigin(sf::Vector2f(64,0));
+    sprite->setScale(-1, 1);
+}
+
+void Entity::setDistance(Collide collisions) {
+    if (speed.x < 0) {
+        speed.x = -collisions.left["distance"];
+    } else if (speed.x > 0) {
+        speed.x = collisions.right["distance"];
+    }
+
+    if (speed.y < 0) {
+        speed.y = -collisions.top["distance"];
+    } else {
+        speed.y = collisions.bottom["distance"];
+    }
+
+    if(speed.x < 0) {
+        flipToLeft();
+    } else {
+        flipToRight();
+    }
+}
+
 void Entity::setHitboxes(EntityInfo *informations, const sf::Vector2f position) {
     std::vector< std::string > keys;
 
@@ -155,6 +184,19 @@ Collide Entity::collideWithTiles(std::vector< std::vector<TileSprite*> > const& 
         collideWith.left["surface"] = 0.1;
         while (checkTiles(world, (int)std::floor((minX + 1 - collideWith.left["distance"]*time) / BLOCK_SIZE), (int)std::floor((minY + 1 - collideWith.top["distance"]*time) / BLOCK_SIZE)))
             collideWith.left["distance"] -= 1;
+    }
+
+    if (collideWith.left["distance"] < 0) {
+        collideWith.left["distance"] = 0;
+    }
+    if (collideWith.right["distance"] < 0) {
+        collideWith.right["distance"] = 0;
+    }
+    if (collideWith.top["distance"] < 0) {
+        collideWith.top["distance"] = 0;
+    }
+    if (collideWith.bottom["distance"] < 0) {
+        collideWith.bottom["distance"] = 0;
     }
 
     //On check le ground

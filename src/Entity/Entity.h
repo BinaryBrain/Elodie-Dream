@@ -46,6 +46,10 @@ public:
 
     void setEntitySprite(sf::Sprite* sprite);
 
+    void flipToLeft();
+    void flipToRight();
+    void setDistance(Collide collisions);
+
     virtual Hitbox returnCurrentHitbox() = 0;
     virtual void doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) = 0;
 

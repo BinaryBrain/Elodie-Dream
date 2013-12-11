@@ -57,6 +57,7 @@ public:
     * \brief The destructor of Elodie.
     */
     Hitbox returnCurrentHitbox();
+    void changeAnimation(Collide collideTiles);
     void doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate);
     virtual ~Elodie();
 
@@ -150,9 +151,7 @@ public:
     void reset();
     void pause();
     void play();
-    void flipToLeft();
     void setSpeed(sf::Vector2f speed);
-    void flipToRight();
     sf::Vector2f getCameraPos();
 
 protected:
