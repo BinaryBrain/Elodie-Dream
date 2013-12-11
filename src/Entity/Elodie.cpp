@@ -192,7 +192,7 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
     changeAnimation(collideTiles);
 
     if (event->keyIsPressed(sf::Keyboard::Space) && state == ElodieState::WALKING) {
-        speed.y = -400; // TODO Put in const file
+        speed.y = ELODIE_JUMP;
         state = ElodieState::JUMPING;
         stateChanged(ElodieState::WALKING, ElodieState::JUMPING);
         sprite->changeStance(ANIMATIONS[state], sf::seconds(0.1f));

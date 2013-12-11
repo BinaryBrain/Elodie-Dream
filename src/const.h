@@ -17,6 +17,7 @@ const int LIVE_SCOPE = 2000;
 
 // -- ELODIE -- //
 const int DAMAGE_CD = 25;
+const int ELODIE_JUMP = -400;
 
 // -- ENEMY -- //
 const int SHEEP_DAMAGE = 10;
