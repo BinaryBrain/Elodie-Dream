@@ -7,3 +7,7 @@ Sky::Sky(GameView* gameView) : Displayable(gameView) {
 Sky::~Sky() {
     //dtor
 }
+
+void Sky::display() {
+
+}

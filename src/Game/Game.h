@@ -16,6 +16,7 @@
 #include "../Sound/SoundManager.h"
 #include "../Level/Death.h"
 #include "GameView.h"
+#include "../Sky/sky.h"
 
 class Level;
 class Overworld;
@@ -80,12 +81,16 @@ private:
     Girly* girly = NULL;
     bool girlyMode = false;
 
+    Sky* sky = NULL;
+
     bool mute;
 
     ImmersionBar* immBar = NULL;
 
     Death* death = NULL;
     void dead();
+
+    void leaveLevel();
 };
 
 #endif // GAME_H

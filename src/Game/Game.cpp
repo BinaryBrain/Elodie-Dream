@@ -20,12 +20,14 @@ Game::Game() {
     girly = new Girly(&view);
     immBar = new ImmersionBar(&view);
     death = new Death(&view);
+    sky = new Sky(&view);
     soundManager = SoundManager::getInstance();
 
     view.addView(ViewLayer::MENU, menuHandler);
     view.addView(ViewLayer::OVERWORLD, overworld);
     view.addView(ViewLayer::CONSOLE, console);
     view.addView(ViewLayer::DEATH, death);
+    view.addView(ViewLayer::SKY, sky);
 
     // testing purposes
     view.addView(ViewLayer::GIRLY, girly);
@@ -60,6 +62,11 @@ Game::~Game() {
         console = NULL;
     }
 
+    if  (sky) {
+        delete sky;
+        sky = NULL;
+    }
+
     if (girly) {
         delete girly;
         girly = NULL;
@@ -84,25 +91,31 @@ void Game::kill() {
     }
 }
 
+void Game::leaveLevel() {
+    state = GameState::INOVERWORLD;
+    view.reset(ViewLayer::LEVEL);
+    view.hide(ViewLayer::SKY);
+    view.hide(ViewLayer::LEVEL);
+    view.hide(ViewLayer::IMMERSIONBAR);
+    view.hide(ViewLayer::CONSOLE);
+    view.show(ViewLayer::OVERWORLD);
+    if(!isMute()) {
+        overworld->getMusic()->play();
+    }
+    overworld->getElodie()->stand();
+    overworld->resetPos();
+
+    if(curLevel) {
+        delete curLevel;
+        curLevel = NULL;
+    }
+
+}
+
 void Game::displayLevel(int curLevelNbr, sf::Time time) {
     if(event->keyIsPressed(sf::Keyboard::Return)) {
-        state = GameState::INOVERWORLD;
+        leaveLevel();
 
-        view.reset(ViewLayer::LEVEL);
-        view.hide(ViewLayer::LEVEL);
-        view.hide(ViewLayer::IMMERSIONBAR);
-        view.hide(ViewLayer::CONSOLE);
-        view.show(ViewLayer::OVERWORLD);
-        if(!isMute()) {
-            overworld->getMusic()->play();
-        }
-        overworld->getElodie()->stand();
-        overworld->resetPos();
-
-        if(curLevel) {
-            delete curLevel;
-            curLevel = NULL;
-        }
     } else if (event->keyIsPressed(sf::Keyboard::P)) {
         state = GameState::INMENU;
         curLevel->pause();
@@ -176,6 +189,7 @@ void Game::handleOverworld(sf::Time time) {
         loadLevel(0);
         view.hide(ViewLayer::OVERWORLD);
         overworld->getMusic()->stop();
+        view.show(ViewLayer::SKY);
         view.show(ViewLayer::LEVEL);
         view.show(ViewLayer::IMMERSIONBAR);
     } else if (event->keyIsPressed(sf::Keyboard::P)) {
@@ -202,12 +216,8 @@ void Game::displayMenu() {
         state = p.first;
         currentMenuItem = p.second;
         if (state == GameState::INOVERWORLD) {
-            view.hide(ViewLayer::IMMERSIONBAR);
-            view.hide(ViewLayer::LEVEL);
+            leaveLevel();
             view.hide(ViewLayer::MENU);
-            view.show(ViewLayer::OVERWORLD);
-            overworld->getElodie()->stand();
-            overworld->resetPos();
             overworld->getElodie()->play();
         }
     } else if(event->keyIsPressed(sf::Keyboard::P)) {
@@ -269,17 +279,8 @@ void Game::displayConsole() {
 
 void Game::dead() {
     if (event->keyIsPressed(sf::Keyboard::Return)) {
-        view.hide(ViewLayer::CONSOLE);
+        leaveLevel();
         view.hide(ViewLayer::DEATH);
-        view.show(ViewLayer::OVERWORLD);
-
-        if(!isMute()) {
-            overworld->getMusic()->play();
-        }
-
-        overworld->getElodie()->stand();
-        overworld->resetPos();
-        state = GameState::INOVERWORLD;
     }
 }
 

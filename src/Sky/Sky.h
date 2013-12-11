@@ -6,8 +6,8 @@
 class Sky : public Displayable {
 public:
     Sky(GameView* gameView);
+    void display();
     virtual ~Sky();
-protected:
 private:
 };
 
