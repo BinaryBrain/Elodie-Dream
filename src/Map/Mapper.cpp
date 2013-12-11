@@ -11,7 +11,6 @@ Mapper::Mapper() {
 
 // The parser takes the ASCII level and modify the the TileMap and the EntityVector
 void Mapper::parse(std::string asciiLevel, TileMap& tiles, EntityMap& entities, Elodie* elodie) {
-    std::cout << "PARSING MAP" << std::endl;
     unsigned int y = 0;
     unsigned int x = 0;
     bool isEntity = true;
@@ -73,8 +72,6 @@ void Mapper::parse(std::string asciiLevel, TileMap& tiles, EntityMap& entities, 
 
 // Once the Map is parsed, we can automaticaly choose the right tiles
 void Mapper::beautify(TileMap& tiles) {
-    std::cout << "BEAUTIFYING MAP" << std::endl;
-
     for(unsigned int y=0; y<tiles.size(); y++) {
         for(unsigned int x=0; x<tiles[y].size(); x++) {
             if(tiles[y][x]) {
