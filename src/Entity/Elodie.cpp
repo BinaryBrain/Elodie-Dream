@@ -28,7 +28,7 @@ void Elodie::init() {
     infos = json.getEntityInfo();
 
     state = ElodieState::WALKING;
-    speed.x = 300;
+    speed.x = ELODIE_SPEED;
 
     sprite = new ElodieSprite(infos);
     setEntitySprite(sprite);
@@ -191,6 +191,24 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
     //Change the sprite in accord with the speed
     changeAnimation(collideTiles);
 
+    if (0 == speed.x && !collideTiles.right["surface"]) {
+        speed.x = ELODIE_SPEED;
+    }
+
+    float dist = cameraPos.x - sprite->getPosition().x;
+
+    if (dist > 0 && !collideTiles.right["surface"] && !buffed) {
+        buffed = true;
+        speed.x = ELODIE_SPEED + dist;
+    }
+
+    buffed = !collideTiles.right["surface"];
+
+    if (buffed && dist <= 0) {
+        buffed = false;
+        speed.x = ELODIE_SPEED;
+    }
+
     if (event->keyIsPressed(sf::Keyboard::Space) && state == ElodieState::WALKING) {
         speed.y = ELODIE_JUMP;
         state = ElodieState::JUMPING;
@@ -206,7 +224,7 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
     }
     if (damageCD)
         --damageCD;
-    cameraPos.x += 300*animate.asSeconds();
+    cameraPos.x += ELODIE_SPEED*animate.asSeconds();
     cameraPos.y = sprite->getPosition().y + centerY;
 }
 
@@ -228,7 +246,7 @@ void Elodie::reset() {
     immersionLevel = 100;
     timer = 0;
     state = ElodieState::WALKING;
-    speed.x = 300;
+    speed.x = ELODIE_SPEED;
 
     setEntitySprite(sprite);
 
