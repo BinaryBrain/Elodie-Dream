@@ -9,6 +9,11 @@ Menu::Menu(std::string label): MenuComponent(label) {
 }
 
 Menu::~Menu() {
+    if(text) {
+        delete text;
+        text = NULL;
+    }
+
     for(unsigned int i(0); i<items.size(); ++i) {
         if(items[i] && !isParent[i]) {
             delete items[i];

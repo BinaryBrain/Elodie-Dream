@@ -5,7 +5,10 @@ QuitItem::QuitItem(std::string label): MenuItem(label) {
 }
 
 QuitItem::~QuitItem() {
-    //dtor
+    if(text) {
+        delete text;
+        text = NULL;
+    }
 }
 
 std::pair<GameState, MenuComponent*> QuitItem::execute() {

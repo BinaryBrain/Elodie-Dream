@@ -5,7 +5,10 @@ SaveItem::SaveItem(std::string label): MenuItem(label) {
 }
 
 SaveItem::~SaveItem() {
-    //dtor
+    if(text) {
+        delete text;
+        text = NULL;
+    }
 }
 
 std::pair<GameState, MenuComponent*> SaveItem::execute() {
