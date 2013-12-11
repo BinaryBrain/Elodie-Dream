@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include "../env.h"
+#include <windows.h>
 #include "../Json/JsonStringifier.h"
 #include "../FileHandler/SaveHandler.h"
 #include "../Console/Console.h"

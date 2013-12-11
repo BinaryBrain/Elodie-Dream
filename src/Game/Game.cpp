@@ -4,6 +4,13 @@
 Game* Game::gameInstance = NULL;
 
 Game::Game() {
+    std::string savePath("save");
+    if (CreateDirectory(savePath.c_str(), NULL) || ERROR_ALREADY_EXISTS == GetLastError()) {
+        std::cout << "Save folder created successfully" << std::endl;
+    } else {
+        std::cerr << "Could not create save folder." << std::endl;
+    }
+
     mute = DEFAULT_MUTE;
 
     console = new Console(&view);
