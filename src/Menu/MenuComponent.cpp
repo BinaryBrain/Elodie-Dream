@@ -11,12 +11,12 @@ MenuComponent::MenuComponent(std::string label) {
 MenuComponent::~MenuComponent() {
     if(text) {
         delete text;
+        text = NULL;
     }
     if(font) {
         delete font;
+        font = NULL;
     }
-    text = NULL;
-    font = NULL;
 }
 
 sf::Text* MenuComponent::getText() {
