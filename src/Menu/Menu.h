@@ -21,14 +21,19 @@ public:
     void incIndex();
     void decIndex();
     int getIndex();
+    void showBackground();
+    void hideBackground();
 
     MenuComponent* getSelectedItem();
 
     std::pair<GameState, MenuComponent*> execute();
 
 private:
-    sf::Texture texture;
+    sf::Texture selectortexture;
     sf::Sprite selector;
+
+    sf::Texture tbgTexture;
+    sf::Sprite tbg;
 
     sf::RectangleShape background;
 
@@ -37,6 +42,8 @@ private:
     std::vector<bool> isParent;
 
     unsigned int index = 0;
+
+    bool withBackground = true;
 };
 
 #endif // MENU_H

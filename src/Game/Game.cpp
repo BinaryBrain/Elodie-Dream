@@ -215,6 +215,11 @@ void Game::displayMenu() {
         std::pair<GameState, MenuComponent*> p = menuHandler->execute();
         state = p.first;
         currentMenuItem = p.second;
+        if(state != GameState::INMENU){
+            Menu* title = menuHandler->getTitleMenu();
+            title->hideBackground();
+        }
+
         if (state == GameState::INOVERWORLD) {
             leaveLevel();
             view.hide(ViewLayer::MENU);

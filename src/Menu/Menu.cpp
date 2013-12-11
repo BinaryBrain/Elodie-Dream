@@ -2,8 +2,12 @@
 
 Menu::Menu(std::string label): MenuComponent(label) {
 
-    texture.loadFromFile("assets/img/sprites/poro.png", sf::IntRect(102, 16, 120, 30));
-    selector.setTexture(texture);
+    selectortexture.loadFromFile("assets/img/sprites/poro.png", sf::IntRect(102, 16, 120, 30));
+    selector.setTexture(selectortexture);
+
+    tbgTexture.loadFromFile("assets/img/sprites/menu/background.png");
+    tbg.setTexture(tbgTexture);
+    tbg.setPosition(0,0);
 
     isMenu = true;
 }
@@ -38,11 +42,8 @@ void Menu::draw(GameView* view) {
     float posX(200);
     float posY(100);
 
-    view->addDrawable(ViewLayer::MENU, &background);
-
-    for(unsigned int i(0); i < items.size(); ++i) {
-        items[i]->getText()->setPosition(posX, posY+50*i);
-        view->addDrawable(ViewLayer::MENU, (items[i]->getText()));
+    if(withBackground) {
+        view->addDrawable(ViewLayer::MENU, &tbg);
     }
 
     background.setSize(sf::Vector2f(300,50*(items.size())));
@@ -50,6 +51,12 @@ void Menu::draw(GameView* view) {
     background.setFillColor((sf::Color(0x00, 0x00, 0x00, 0x7f)));
     background.setOutlineThickness(3);
     background.setPosition(posX-60, posY-5);
+    view->addDrawable(ViewLayer::MENU, &background);
+
+    for(unsigned int i(0); i < items.size(); ++i) {
+        items[i]->getText()->setPosition(posX, posY+50*i);
+        view->addDrawable(ViewLayer::MENU, (items[i]->getText()));
+    }
 
     selector.setPosition(160, 110+50*index);
     view->addDrawable(ViewLayer::MENU, &selector);
@@ -67,6 +74,14 @@ void Menu::decIndex() {
 
 int Menu::getIndex() {
     return index;
+}
+
+void Menu::showBackground () {
+    withBackground = true;
+}
+
+void Menu::hideBackground () {
+    withBackground = false;
 }
 
 MenuComponent* Menu::getSelectedItem() {

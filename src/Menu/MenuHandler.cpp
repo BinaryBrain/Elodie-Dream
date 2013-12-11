@@ -130,3 +130,7 @@ void MenuHandler::setNextState(GameState state) {
 GameState MenuHandler::getNextState() {
     return this->nextState;
 }
+
+Menu* MenuHandler::getTitleMenu() {
+    return title;
+}

@@ -33,6 +33,7 @@ public:
 
     void setNextState(GameState state);
     GameState getNextState();
+    Menu* getTitleMenu();
 
 private:
     Menu* title;
