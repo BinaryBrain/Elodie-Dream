@@ -72,9 +72,9 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
     saveGame->addItem(save);
 
     LoadItem* load = new LoadItem("Slot 1");
-    t = load->getText();
-    t->setString(lastDiscoveredLevels[0]);
+    load->setText(t);
     loadGame->addItem(load);
+
 
     accessor.close();
 
