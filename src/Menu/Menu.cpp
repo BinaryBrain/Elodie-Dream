@@ -2,12 +2,17 @@
 
 Menu::Menu(std::string label): MenuComponent(label) {
 
-    selectortexture.loadFromFile("assets/img/sprites/poro.png", sf::IntRect(102, 16, 120, 30));
+    selectortexture.loadFromFile(MENU_SELECTOR_PATH, sf::IntRect(102, 16, 120, 30));
     selector.setTexture(selectortexture);
 
     tbgTexture.loadFromFile("assets/img/sprites/menu/background.png");
     tbg.setTexture(tbgTexture);
     tbg.setPosition(0,0);
+
+    background.setOutlineColor(sf::Color::Blue);
+    background.setFillColor((sf::Color(0x00, 0x00, 0x00, 0x7f)));
+    background.setOutlineThickness(3);
+    background.setPosition(MENU_X-60, MENU_Y-5);
 
     isMenu = true;
 }
@@ -29,7 +34,7 @@ Menu::~Menu() {
 void Menu::addItem(MenuComponent* item, bool isParent) {
     sf::Text* text = item->getText();
 
-    text->setCharacterSize(30);
+    text->setCharacterSize(MENU_CHAR_SIZE);
     text->setStyle(sf::Text::Bold);
     text->setColor(sf::Color::Magenta);
     item->setText(text);
@@ -39,26 +44,19 @@ void Menu::addItem(MenuComponent* item, bool isParent) {
 
 // Draws the everything in the menu
 void Menu::draw(GameView* view) {
-    float posX(200);
-    float posY(100);
-
     if(withBackground) {
         view->addDrawable(ViewLayer::MENU, &tbg);
     }
 
-    background.setSize(sf::Vector2f(300,50*(items.size())));
-    background.setOutlineColor(sf::Color::Blue);
-    background.setFillColor((sf::Color(0x00, 0x00, 0x00, 0x7f)));
-    background.setOutlineThickness(3);
-    background.setPosition(posX-60, posY-5);
+    background.setSize(sf::Vector2f(MENU_X, MENU_ITEMS_INTERSPACE*(items.size())));
     view->addDrawable(ViewLayer::MENU, &background);
 
     for(unsigned int i(0); i < items.size(); ++i) {
-        items[i]->getText()->setPosition(posX, posY+50*i);
+        items[i]->getText()->setPosition(MENU_X, MENU_Y+MENU_ITEMS_INTERSPACE*i);
         view->addDrawable(ViewLayer::MENU, (items[i]->getText()));
     }
 
-    selector.setPosition(160, 110+50*index);
+    selector.setPosition(MENU_X-40, MENU_Y+10+MENU_ITEMS_INTERSPACE*index);
     view->addDrawable(ViewLayer::MENU, &selector);
 }
 

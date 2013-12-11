@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "../env.h"
+#include "../const.h"
 #include "../Game/GameView.h"
 #include "MenuComponent.h"
 #include "MenuItem.h"
