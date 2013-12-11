@@ -5,7 +5,7 @@ Menu::Menu(std::string label): MenuComponent(label) {
     selectortexture.loadFromFile(MENU_SELECTOR_PATH, sf::IntRect(102, 16, 120, 30));
     selector.setTexture(selectortexture);
 
-    tbgTexture.loadFromFile("assets/img/sprites/menu/background.png");
+    tbgTexture.loadFromFile(MENU_BACKGROUND_PATH);
     tbg.setTexture(tbgTexture);
     tbg.setPosition(0,0);
 
