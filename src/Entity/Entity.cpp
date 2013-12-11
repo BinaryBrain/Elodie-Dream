@@ -14,13 +14,33 @@ void Entity::setEntitySprite(sf::Sprite* sprite) {
     this->sprite = sprite;
 }
 
+bool Entity::isInFront(sf::FloatRect entity, sf::FloatRect target, Direction dir) {
+    sf::FloatRect half;
+
+    half.top = entity.top;
+    half.width = entity.width / 2;
+    half.height = entity.height / 2;
+    if (dir == Direction::LEFT) {
+        half.left = entity.left;
+    } else if (dir == Direction::RIGHT) {
+        half.left = entity.left + half.width;
+    }
+    return half.intersects(target);
+}
+
+bool Entity::isAlive() {
+    return life > 0;
+}
+
 void Entity::flipToLeft() {
     sprite->setOrigin(sf::Vector2f(0,0));
     sprite->setScale(1, 1);
+    direction = Direction::LEFT;
 }
 void Entity::flipToRight() {
     sprite->setOrigin(sf::Vector2f(64,0));
     sprite->setScale(-1, 1);
+    direction = Direction::RIGHT;
 }
 
 void Entity::setDistance(Collide collisions) {

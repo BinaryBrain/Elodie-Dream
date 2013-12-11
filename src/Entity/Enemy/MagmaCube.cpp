@@ -18,6 +18,7 @@ void MagmaCube::init(float x, float y) {
     };
 
     damage = MAGMACUBE_DAMAGE;
+    life = 1;
 
     EntityManager* ToyBox = EntityManager::getInstance();
     EntityInfo* magmaCubeInfo = ToyBox->getEnemyInfo(EntityType::ENEMY, EntityName::MAGMACUBE);
@@ -52,11 +53,19 @@ void MagmaCube::doAttack(std::map< std::string, Entity* >& entities) {
     sf::FloatRect entity = getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()).getArea();
     Elodie* elodie = (Elodie*) entities["elodie"];
     if (entity.intersects(elodie->returnCurrentHitbox().getArea()))
-        elodie->takeDamage(damage);
+        elodie->takeDamage(damage, false);
 }
 
 Hitbox MagmaCube::returnCurrentHitbox() {
     return getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame());
+}
+
+void  MagmaCube::takeDamage(int damage, bool ignore) {
+    if (!damageCD && damage > 0) {
+        life = 0;
+        damageCD = DAMAGE_CD;
+        std::cout << "AIE" << std::endl;
+    }
 }
 
 void MagmaCube::doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) {
@@ -67,6 +76,8 @@ void MagmaCube::doStuff(EventHandler* const& event, std::vector< std::vector<Til
     move(animate.asSeconds()*speed.x, animate.asSeconds()*speed.y);
 
     sprite->update(animate);
+    if (damageCD)
+        --damageCD;
 }
 
 void MagmaCube::pause() {

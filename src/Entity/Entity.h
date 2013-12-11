@@ -14,6 +14,10 @@
 #include "../const.h"
 #include "Hitbox.h"
 
+enum class Direction {
+    LEFT, RIGHT
+};
+
 /**
 * The class representing entities.
 */
@@ -43,8 +47,12 @@ public:
     * \return A pointer to the Sprite.
     */
     virtual sf::Sprite* getSprite() = 0;
+    virtual void takeDamage(int damage, bool ignore) = 0;
 
     void setEntitySprite(sf::Sprite* sprite);
+
+    bool isInFront(sf::FloatRect entity, sf::FloatRect target, Direction dir);
+    bool isAlive();
 
     void flipToLeft();
     void flipToRight();
@@ -62,6 +70,9 @@ public:
 protected:
     sf::Sprite* sprite;
     sf::Vector2f speed;
+    Direction direction = Direction::LEFT;
+    int life = 0;
+    int damageCD = 0;
 
 private:
     int checkTiles(std::vector< std::vector<TileSprite*> > const& world, int x, int y);

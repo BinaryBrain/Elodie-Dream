@@ -20,6 +20,7 @@ void Spikes::init(float x, float y) {
     };
 
     damage = SPIKES_DAMAGE;
+    life = 1;
 
     EntityManager* ToyBox = EntityManager::getInstance();
     EntityInfo* info = ToyBox->getEnemyInfo(EntityType::MISC, EntityName::SPIKES);
@@ -53,7 +54,7 @@ void Spikes::doAttack(std::map< std::string, Entity* >& entities) {
     sf::FloatRect entity = getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()).getArea();
     Elodie* elodie = (Elodie*) entities["elodie"];
     if (state == SpikesState::ACTIVATED && sprite->getCurrentFrame() == 3 && entity.intersects(elodie->returnCurrentHitbox().getArea())) {
-        elodie->takeDamage(damage);
+        elodie->takeDamage(damage, true);
     }
     if (!activated && entity.intersects(elodie->returnCurrentHitbox().getArea())) {
         state = SpikesState::ACTIVATED;
@@ -67,6 +68,10 @@ void Spikes::doAttack(std::map< std::string, Entity* >& entities) {
 
 Hitbox Spikes::returnCurrentHitbox() {
     return getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame());
+}
+
+void  Spikes::takeDamage(int damage, bool ignore) {
+    //SPIKES ARE IMMORTAL BITCHES
 }
 
 void Spikes::doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) {

@@ -57,6 +57,7 @@ public:
     * \brief The destructor of Elodie.
     */
     Hitbox returnCurrentHitbox();
+    void punch(std::map< std::string, Entity* >& entities);
     void changeAnimation(Collide collideTiles);
     void doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate);
     virtual ~Elodie();
@@ -146,7 +147,7 @@ public:
     * \return An int, the value of the nightmare level.
     */
     int getNightmareLevel();
-    void takeDamage(int damage);
+    void takeDamage(int damage, bool ignore);
     void stateChanged(ElodieState from, ElodieState to);
     void reset();
     void pause();
@@ -185,7 +186,6 @@ private:
 
     int immersionLevel = 100;
     int nightmareLevel = 50; // Max: 100
-    int damageCD = 0;
 
     float timer = 0;
 

@@ -123,10 +123,6 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
         view.show(ViewLayer::MENU);
     } else if(event->keyIsPressed(sf::Keyboard::M)) {
         toggleMute();
-    }
-    // testing purposes
-    else if (event->keyIsPressed(sf::Keyboard::A)) {
-        soundManager->play(SoundType::PUNCH);
     } else if (event->keyIsPressed(sf::Keyboard::C)) {
         state = GameState::INCONSOLE;
         curLevel->pause();

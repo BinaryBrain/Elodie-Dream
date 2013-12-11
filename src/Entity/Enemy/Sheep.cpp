@@ -18,6 +18,7 @@ void Sheep::init(float x, float y) {
     };
 
     damage = SHEEP_DAMAGE;
+    life = 1;
 
     EntityManager* ToyBox = EntityManager::getInstance();
     EntityInfo* sheepInfo = ToyBox->getEnemyInfo(EntityType::ENEMY, EntityName::SHEEP);
@@ -52,11 +53,19 @@ void Sheep::doAttack(std::map< std::string, Entity* >& entities) {
     sf::FloatRect entity = getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()).getArea();
     Elodie* elodie = (Elodie*) entities["elodie"];
     if (entity.intersects(elodie->returnCurrentHitbox().getArea()))
-        elodie->takeDamage(damage);
+        elodie->takeDamage(damage, false);
 }
 
 Hitbox Sheep::returnCurrentHitbox() {
     return getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame());
+}
+
+void  Sheep::takeDamage(int damage, bool ignore) {
+    if (!damageCD && damage > 0) {
+        life = 0;
+        damageCD = DAMAGE_CD;
+        std::cout << "BEEEEEEEEEEEEEEEEEEEEEH" << std::endl;
+    }
 }
 
 void Sheep::doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) {
@@ -67,6 +76,8 @@ void Sheep::doStuff(EventHandler* const& event, std::vector< std::vector<TileSpr
     move(animate.asSeconds()*speed.x, animate.asSeconds()*speed.y);
 
     sprite->update(animate);
+    if (damageCD)
+        --damageCD;
 }
 
 void Sheep::pause() {

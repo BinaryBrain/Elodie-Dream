@@ -78,6 +78,7 @@ void Level::display() {
 }
 
 void Level::live(EventHandler* const& event, sf::Time animate) {
+    std::vector< std::string > toDelete;
     Elodie* elodie = dynamic_cast<Elodie*>(entities["elodie"]);
     sf::FloatRect scope(0, 0, LIVE_SCOPE, LIVE_SCOPE);
     scope.top = ((Elodie*)entities["elodie"])->getPosition().y - LIVE_SCOPE / 2;
@@ -86,7 +87,13 @@ void Level::live(EventHandler* const& event, sf::Time animate) {
     for (EntityMap::iterator it = entities.begin(); it != entities.end(); ++it) {
         if (it->first != "elodie" && scope.intersects(it->second->returnCurrentHitbox().getArea())) {
             it->second->doStuff(event, tiles, entities, animate);
+            if (!it->second->isAlive()) {
+                toDelete.push_back(it->first);
+            }
         }
+    }
+    for (unsigned int i = 0; i < toDelete.size(); ++i) {
+        entities.erase(toDelete[i]);
     }
 }
 
