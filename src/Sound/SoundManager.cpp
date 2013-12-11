@@ -5,6 +5,7 @@ SoundManager* SoundManager::soundManagerInstance = NULL;
 SoundManager::SoundManager() {
     SOUND_TYPE = {
         { SoundType::PUNCH, { SOUND_TYPE_PUNCH, SOUND_TYPE_PUNCH_MAX } }, // The int is the number after the max file (2 => punch2.wav)
+        { SoundType::SPIKES, { SOUND_TYPE_SPIKES, SOUND_TYPE_SPIKES_MAX } },
         { SoundType::FOOTSTEP_GRASS, { SOUND_TYPE_FOOTSTEP_GRASS, SOUND_TYPE_FOOTSTEP_GRASS_MAX } }
     };
 }

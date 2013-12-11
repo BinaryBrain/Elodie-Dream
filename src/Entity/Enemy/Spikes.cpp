@@ -59,6 +59,9 @@ void Spikes::doAttack(std::map< std::string, Entity* >& entities) {
         state = SpikesState::ACTIVATED;
         sprite->changeStance(ANIMATIONS[state], sf::seconds(0.02f));
         activated = true;
+
+        SoundManager* sounds = SoundManager::getInstance();
+        sounds->play(SoundType::SPIKES);
     }
 }
 
