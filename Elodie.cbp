@@ -151,8 +151,6 @@
 		<Unit filename="src/Sprite/EnvSprite.h" />
 		<Unit filename="src/Sprite/Interactive.cpp" />
 		<Unit filename="src/Sprite/Interactive.h" />
-		<Unit filename="src/Sprite/PortalSprite.cpp" />
-		<Unit filename="src/Sprite/PortalSprite.h" />
 		<Unit filename="src/Sprite/TileSprite.cpp" />
 		<Unit filename="src/Sprite/TileSprite.h" />
 		<Unit filename="src/TextureManager/TextureManager.cpp" />
