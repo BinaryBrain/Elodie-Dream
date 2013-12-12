@@ -143,8 +143,8 @@ const int MENU_ITEMS_INTERSPACE = 50;
 const int MENU_CHAR_SIZE = 30;
 
 //Game over
-const float GAMEOVER_CONTAINER_X = 0;
-const float GAMEOVER_CONTAINER_Y = 0;
+const float GAMEOVER_INTERSPACE = 50;
+const int GAMEOVER_ELOSCALE = 3;
 
 
 #endif // CONST_H_INCLUDED

@@ -19,7 +19,10 @@ private:
     sf::RectangleShape rect;
     sf::Font* font;
     sf::Text* text;
+    sf::Texture texture;
+    sf::Sprite elo;
     sf::Music music;
+
 };
 
 #endif // DEATH_H
