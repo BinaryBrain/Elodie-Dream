@@ -13,10 +13,22 @@ Overworld::Overworld(GameView* gameView, bool muted) : Displayable(gameView) {
     lvlPos.load("assets/config/levels/levelPos.lvl");
 
     //levelPos.push_back(lvlPos.getIntVector(LEVELENV_FIELD));
-    levelPos.push_back(lvlPos.getIntVector(LEVELENV_UNIL));
-    levelPos.push_back(lvlPos.getIntVector(LEVELENV_CASTLE));
-    levelPos.push_back(lvlPos.getIntVector(LEVELENV_VOLCANO));
-    levelPos.push_back(lvlPos.getIntVector(LEVELENV_FRELJORD));
+    levelPos.push_back(lvlPos.getIntVector(LEVELENV_UNIL + "1"));
+    levelPos.push_back(lvlPos.getIntVector(LEVELENV_UNIL + "2"));
+    levelPos.push_back(lvlPos.getIntVector(LEVELENV_CASTLE + "1"));
+    levelPos.push_back(lvlPos.getIntVector(LEVELENV_CASTLE + "2"));
+    levelPos.push_back(lvlPos.getIntVector(LEVELENV_VOLCANO + "1"));
+    levelPos.push_back(lvlPos.getIntVector(LEVELENV_VOLCANO + "2"));
+    levelPos.push_back(lvlPos.getIntVector(LEVELENV_FRELJORD + "1"));
+    levelPos.push_back(lvlPos.getIntVector(LEVELENV_FRELJORD + "2"));
+
+    for (size_t i = 0; i < 8; ++i) {
+        sf::Texture* spotTexture = new sf::Texture;
+        spotTexture->loadFromFile("assets/img/overworld/spot_level.png");
+        sf::Sprite* spotSprite = new sf::Sprite(*spotTexture);
+        spotSprite->setPosition((*levelPos[i])[0] - 16, (*levelPos[i])[1] - 16);
+        levelSpotSprites.push_back(spotSprite);
+    }
 
     JsonAccessor lvlPaths;
     lvlPaths.load("assets/config/levels/levelPaths.lvl");
@@ -43,7 +55,7 @@ Overworld::Overworld(GameView* gameView, bool muted) : Displayable(gameView) {
         paths.push_back(path);
     }
 
-    currentState = UNIL;
+    currentState = UNIL1;
     elodie = new Elodie(0,0);
     resetPos();
 
@@ -62,6 +74,11 @@ Overworld::~Overworld() {
     for (std::vector<sf::Sprite*>::iterator sprite = overworldSprites.begin(); sprite != overworldSprites.end(); ++sprite) {
         delete *sprite;
     }
+
+    for (std::vector<sf::Sprite*>::iterator sprite = levelSpotSprites.begin(); sprite != levelSpotSprites.end(); ++sprite) {
+        delete *sprite;
+    }
+
     for (std::vector<std::vector<int>*>::iterator pos = levelPos.begin(); pos != levelPos.end(); ++pos) {
         delete *pos;
     }
@@ -72,13 +89,16 @@ Overworld::~Overworld() {
 }
 
 void Overworld::resetPos() {
-    elodie->setPosition((* (paths[currentState]))[curPosInPath].position.x - 40,(* (paths[currentState]))[curPosInPath].position.y - 40);
+    elodie->setPosition((* (paths[currentState]))[curPosInPath].position.x-32,(* (paths[currentState]))[curPosInPath].position.y-40);
 }
 
 void Overworld::display() {
-    gameView->addDrawable(ViewLayer::OVERWORLD, overworldSprites[currentState]);
-    gameView->addDrawable(ViewLayer::OVERWORLD, elodie->getSprite());
+    gameView->addDrawable(ViewLayer::OVERWORLD, overworldSprites[whichOverworld()]);
     gameView->addDrawable(ViewLayer::OVERWORLD, paths[currentState]);
+    for(size_t i = 0; i <= currentState; ++i){
+        gameView->addDrawable(ViewLayer::OVERWORLD, levelSpotSprites[i]);
+    }
+    gameView->addDrawable(ViewLayer::OVERWORLD, elodie->getSprite());
 }
 
 int Overworld::moveUp() {
@@ -167,19 +187,50 @@ int Overworld::moveLeft() {
 
 void Overworld::evolve() {
     switch(currentState) {
-    case UNIL:
-        currentState = CASTLE;
+    case states::UNIL1:
+        currentState = states::UNIL2;
         break;
-    case CASTLE:
-        currentState = VOLCANO;
+    case states::UNIL2:
+        currentState = states::CASTLE1;
         break;
-    case VOLCANO:
-        currentState = FRELJORD;
+    case states::CASTLE1:
+        currentState = states::CASTLE2;
         break;
-        // FIXME Dev stuff
-    case FRELJORD:
-        currentState = UNIL;
+    case states::CASTLE2:
+        currentState = states::VOLCANO1;
         break;
+    case states::VOLCANO1:
+        currentState = states::VOLCANO2;
+        break;
+    case states::VOLCANO2:
+        currentState = states::FRELJORD1;
+        break;
+    case states::FRELJORD1:
+        currentState = states::FRELJORD2;
+        break;
+    default:
+        break;
+    }
+}
+
+int Overworld::whichOverworld() {
+switch(currentState) {
+    case states::UNIL1:
+        return 0;
+    case states::UNIL2:
+        return 0;
+    case states::CASTLE1:
+        return 1;
+    case states::CASTLE2:
+        return 1;
+    case states::VOLCANO1:
+        return 2;
+    case states::VOLCANO2:
+        return 2;
+    case states::FRELJORD1:
+        return 3;
+    case states::FRELJORD2:
+        return 3;
     default:
         break;
     }

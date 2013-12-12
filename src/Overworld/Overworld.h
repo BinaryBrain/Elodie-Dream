@@ -35,10 +35,14 @@ public:
 protected:
 private:
     enum states {
-        UNIL = 0,
-        CASTLE = 1,
-        VOLCANO = 2,
-        FRELJORD = 3
+        UNIL1 = 0,
+        UNIL2 = 1,
+        CASTLE1 = 2,
+        CASTLE2 = 3,
+        VOLCANO1 = 4,
+        VOLCANO2 = 5,
+        FRELJORD1 = 6,
+        FRELJORD2 = 7
     };
 
     states currentState;
@@ -48,8 +52,12 @@ private:
 
     size_t curPosInPath=0;
 
+    std::vector<sf::Sprite*> levelSpotSprites;
+
     Elodie* elodie;
     sf::Music music;
+
+    int whichOverworld();
 };
 
 #endif // OVERWORLD_H

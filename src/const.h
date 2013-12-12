@@ -33,6 +33,7 @@ const float ZOOM_LEVEL = 2;
 const int BLOCK_SIZE = 32;
 const int CAMERA_TOL = 50;
 const bool GOD_MODE = false; // TODO set to false
+const bool GOD_MODE = true;
 
 // Immersion Bar
 const float IMMERSION_BAR_X = 540;
