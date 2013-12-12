@@ -32,7 +32,7 @@ Sky::Sky(GameView* gameView, LevelEnv env, int tilesNumber, sf::Vector2f* camera
 
     //sky.scale(sf::Vector2f(dimX, 1));
     sky.setTexture(skyTexture);
-    sky.setTextureRect(sf::IntRect(0,0, tilesNumber*32 + WINDOW_WIDTH,WINDOW_HEIGHT));
+    sky.setTextureRect(sf::IntRect(0,0, tilesNumber*32*slow + WINDOW_WIDTH,WINDOW_HEIGHT));
     gameView->addView(ViewLayer::SKY, this);
 }
 

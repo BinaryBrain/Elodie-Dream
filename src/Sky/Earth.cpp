@@ -26,7 +26,7 @@ Earth::Earth(GameView* gameView, LevelEnv env, int tilesNumber, sf::Vector2f* ca
     earthTexture.loadFromFile(filename);
     earthTexture.setRepeated(true);
 
-    earth.setTextureRect(sf::IntRect(0,0, tilesNumber*32 + WINDOW_WIDTH,WINDOW_HEIGHT));
+    earth.setTextureRect(sf::IntRect(0,0, tilesNumber*32*slow + WINDOW_WIDTH,WINDOW_HEIGHT));
     earth.setTexture(earthTexture);
 
     gameView->addView(ViewLayer::EARTH, this);
