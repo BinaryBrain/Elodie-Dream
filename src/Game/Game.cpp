@@ -491,7 +491,11 @@ void Game::save() {
 
     int LDL = overworld->getState();
     sf::Text* txt = currentMenuItem->getText();
-    txt->setString("Level " + Utils::itos(LDL));
+    if(LDL == 0) {
+        txt->setString("Tutorial");
+    } else {
+        txt->setString("Level " + Utils::itos(LDL));
+    }
 
     std::string keyLDL("lastdiscoveredlevel");
     stringifier->add(keyLDL, LDL);
