@@ -1,7 +1,7 @@
 #include "SpikesSprite.h"
 
 SpikesSprite::SpikesSprite(EntityInfo *informations) : EnemySprite() {
-    texture.loadFromFile(ENTITIES_JSON_PATH+"/"+ENTITYTYPE_MISC+"/"+ENTITYNAME_SPIKES+".png");
+    texture.loadFromFile(ENTITIES_JSON_PATH+"/"+ENTITYTYPE_ENEMY+"/"+ENTITYNAME_SPIKES+".png");
 
     // push frames
     for(std::map< std::string, HitboxInfo >::iterator it = informations->anim.begin(); it != informations->anim.end(); ++it) {

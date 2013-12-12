@@ -23,7 +23,7 @@ void Spikes::init(float x, float y) {
     life = 1;
 
     EntityManager* ToyBox = EntityManager::getInstance();
-    info = ToyBox->getEnemyInfo(EntityType::MISC, EntityName::SPIKES);
+    info = ToyBox->getEnemyInfo(EntityType::ENEMY, EntityName::SPIKES);
 
     x -= info->width / 2;
     state = SpikesState::WAITING;
