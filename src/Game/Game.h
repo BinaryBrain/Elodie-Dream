@@ -20,6 +20,7 @@
 
 class Level;
 class Overworld;
+class Death;
 class SoundManager;
 
 /**
@@ -87,6 +88,8 @@ private:
 
     Death* death = NULL;
     void dead();
+
+    void newGame();
 
     void leaveLevel();
 };

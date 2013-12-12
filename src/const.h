@@ -132,6 +132,7 @@ const int SOUND_TYPE_FOOTSTEP_GRASS_MAX = 3;
 const string MUSIC_PATH = "assets/music";
 const string OVERWORLD_MUSIC = "overworld.ogg";
 const string LEVEL_MUSIC = "level.ogg";
+const string DEATH_MUSIC = "death.ogg";
 
 //Menu
 const string MENU_SELECTOR_PATH = "assets/img/sprites/poro.png";

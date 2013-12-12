@@ -2,7 +2,6 @@
 
 Overworld::Overworld(GameView* gameView, bool muted) : Displayable(gameView) {
     std::string filenames[4] = { "overworld1.png", "overworld2.png", "overworld3.png", "overworld4.png" };
-
     for(int i=0; i<4; i++) {
         sf::Texture* overworld = new sf::Texture;
         overworld->loadFromFile("assets/img/overworld/"+filenames[i]);
@@ -66,7 +65,6 @@ Overworld::Overworld(GameView* gameView, bool muted) : Displayable(gameView) {
     currentState = UNIL1;
     elodie = new Elodie(0,0);
     resetPos();
-
     if (!music.openFromFile(MUSIC_PATH+"/"+OVERWORLD_MUSIC)) {
         // TODO Handle error
     } else {
