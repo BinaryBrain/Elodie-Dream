@@ -8,6 +8,8 @@ EntityManager::EntityManager() {
         {EntityName::ELODIE, ENTITYNAME_ELODIE},
         {EntityName::SHEEP, ENTITYNAME_SHEEP},
         {EntityName::MAGMACUBE, ENTITYNAME_MAGMACUBE},
+        {EntityName::BRISTLE, ENTITYNAME_BRISTLE},
+        {EntityName::GHOST, ENTITYNAME_GHOST},
         {EntityName::SPIKES, ENTITYNAME_SPIKES},
         {EntityName::PORTAL, ENTITYNAME_PORTAL}
     };
