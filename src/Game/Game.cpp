@@ -13,16 +13,17 @@ Game::Game() {
 
     mute = DEFAULT_MUTE;
 
+    overworld = new Overworld(&view, DEFAULT_MUTE);
+    view.addView(ViewLayer::OVERWORLD, overworld);
+
     console = new Console(&view);
     event = new EventHandler(view.getWindow());
-    overworld = new Overworld(&view, mute);
     menuHandler = new MenuHandler(&view);
     girly = new Girly(&view);
     immBar = new ImmersionBar(&view);
     soundManager = SoundManager::getInstance();
 
     view.addView(ViewLayer::MENU, menuHandler);
-    view.addView(ViewLayer::OVERWORLD, overworld);
     view.addView(ViewLayer::CONSOLE, console);
 
     // testing purposes
@@ -110,6 +111,7 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
         leaveLevel();
         // Pause
     } else if (event->keyIsPressed(sf::Keyboard::P)) {
+        std::cout << "level p" << std::endl;
         state = GameState::INMENU;
         curLevel->pause();
         menuHandler->setNextState(GameState::INLEVEL);
@@ -233,6 +235,7 @@ void Game::handleOverworld(sf::Time time) {
             view.show(ViewLayer::IMMERSIONBAR);
         }
     } else if (event->keyIsPressed(sf::Keyboard::P)) {
+        std::cout << "overworld p" << std::endl;
         state = GameState::INMENU;
         menuHandler->setNextState(GameState::INOVERWORLD);
         view.show(ViewLayer::MENU);
@@ -265,6 +268,7 @@ void Game::displayMenu() {
             overworld->getElodie()->play();
         }
     } else if(event->keyIsPressed(sf::Keyboard::P)) {
+        std::cout << "menu p" << std::endl;
         state = menuHandler->getNextState();
         if (state == GameState::INOVERWORLD) {
             view.hide(ViewLayer::MENU);
@@ -303,7 +307,9 @@ void Game::displayConsole() {
         state = console->getNextState();
         if (state == GameState::INOVERWORLD) {
             view.hide(ViewLayer::CONSOLE);
+            view.hide(ViewLayer::MENU);
             view.show(ViewLayer::OVERWORLD);
+            menuHandler->getTitleMenu()->hideBackground();
         } else if (state == GameState::INLEVEL) {
             if(curLevel) {
                 state = GameState::INLEVEL;
@@ -318,7 +324,6 @@ void Game::displayConsole() {
             view.show(ViewLayer::MENU);
         }
     }
-
 }
 
 void Game::dead() {
@@ -408,6 +413,9 @@ void Game::run() {
         case GameState::DEAD:
             dead();
             break;
+        case GameState::NEWGAME:
+            newGame();
+            break;
         default :
             std::cout << "Error: unknown state" << std::endl;
             break;
@@ -423,6 +431,22 @@ void Game::run() {
         view.draw();
     }
 
+}
+
+void Game::newGame() {
+    if(curLevel) {
+        leaveLevel();
+    }
+    if(overworld) {
+        delete overworld;
+        overworld = NULL;
+    }
+    overworld = new Overworld(&view, mute);
+    view.addView(ViewLayer::OVERWORLD, overworld);
+    state = GameState::INOVERWORLD;
+    view.hide(ViewLayer::MENU);
+    view.show(ViewLayer::OVERWORLD);
+    menuHandler->getTitleMenu()->hideBackground();
 }
 
 void Game::load() {
@@ -445,13 +469,18 @@ void Game::load() {
     if(accessor.canTakeElementFrom("date")) {
         std::string date = accessor.getString("date");
         int LDL = accessor.getInt("lastdiscoveredlevel");
-
+        if(curLevel) {
+            leaveLevel();
+        }
+        if(!overworld) {
+            overworld = new Overworld(&view, mute);
+            view.addView(ViewLayer::OVERWORLD, overworld);
+        }
         overworld->setState(LDL);
 
         console->clear();
         console->addParagraph("Successfully loaded " + currentMenuItem->getLabel() + ", from " + date);
         console->setCurrentPage(0);
-        console->setNextState(GameState::INMENU);
 
     } else {
         console->clear();
@@ -468,6 +497,7 @@ void Game::load() {
     }
 
     state = GameState::INCONSOLE;
+    console->setNextState(GameState::INOVERWORLD);
     view.show(ViewLayer::MENU);
     view.show(ViewLayer::CONSOLE);
 }

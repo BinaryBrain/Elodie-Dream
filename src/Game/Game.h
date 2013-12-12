@@ -89,6 +89,8 @@ private:
     Death* death = NULL;
     void dead();
 
+    void newGame();
+
     void leaveLevel();
 };
 

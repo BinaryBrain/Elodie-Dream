@@ -12,6 +12,6 @@ NewGameItem::~NewGameItem() {
 }
 
 std::pair<GameState, MenuComponent*> NewGameItem::execute() {
-    std::pair<GameState, MenuComponent*> p = std::make_pair(GameState::INOVERWORLD, this);
+    std::pair<GameState, MenuComponent*> p = std::make_pair(GameState::NEWGAME, this);
     return p;
 }
