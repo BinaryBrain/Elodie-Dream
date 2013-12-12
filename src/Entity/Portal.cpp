@@ -46,6 +46,10 @@ PortalSprite* Portal::getSprite() {
     return sprite;
 }
 
+void Portal::takeDamage(int damage, bool ignore) {
+    // do nothing lol
+}
+
 Hitbox Portal::returnCurrentHitbox() {
     return getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame());
 }

@@ -37,6 +37,9 @@ void Mapper::parse(std::string asciiLevel, TileMap& tiles, EntityMap& entities, 
         case MAP_SPIKES:
             entities.insert(std::make_pair(getFreshID("spikes"), new Spikes(x*32, y*32)));
             break;
+        case MAP_PORTAL:
+            entities.insert(std::make_pair(getFreshID("portal"), new Portal(x*32, y*32)));
+            break;
         default:
             isEntity = false;
             break;
