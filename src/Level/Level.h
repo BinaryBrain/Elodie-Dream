@@ -40,6 +40,7 @@ public:
     bool mustDie();
 protected:
 private:
+    std::pair <float,float> getSlowVariables(LevelEnv env);
     TileMap tiles;
     EntityMap entities;
     LevelEnv environement;

@@ -10,12 +10,14 @@
 
 class Sky : public Displayable {
 public:
-    Sky(GameView* gameView, LevelEnv env);
+    Sky(GameView* gameView, LevelEnv env, int tilesNumber, sf::Vector2f* cameraPos, float slow);
     void display();
     virtual ~Sky();
 private:
     sf::Sprite sky;
     sf::Texture skyTexture;
+    sf::Vector2f* cameraPos;
+    float slow;
 };
 
 #endif // SKY_H

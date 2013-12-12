@@ -6,8 +6,9 @@ Level::Level(GameView* gameView, std::string filename, LevelEnv env, Elodie* elo
 
     loadLevel(filename, elodie);
 
-    this->sky = new Sky(gameView, env);
-    this->earth = new Earth(gameView, env, tiles[0].size(), elodie->getCameraPosPtr());
+    std::pair <float,float> slow = getSlowVariables(env);
+    this->sky = new Sky(gameView, env, tiles[0].size(), elodie->getCameraPosPtr(), slow.first);
+    this->earth = new Earth(gameView, env, tiles[0].size(), elodie->getCameraPosPtr(), slow.second);
 
     gameView->addView(ViewLayer::LEVEL, this);
     gameView->setZoom(ViewLayer::LEVEL, ZOOM_LEVEL);
@@ -142,4 +143,34 @@ bool Level::mustDie() {
     bool test1 = gameView->isPointOutsideView(ViewLayer::LEVEL, elodie->getPosition().x, elodie->getPosition().y);
     bool test2 = elodie->getImmersionLevel() <= 0;
     return test1 || test2;
+}
+
+std::pair <float,float> Level::getSlowVariables(LevelEnv env) {
+    float skyS=0;
+    float earthS=0;
+    switch(env) {
+        case LevelEnv::FIELD:
+            skyS = 0;
+            earthS = 0.5;
+            break;
+        case LevelEnv::CASTLE:
+            skyS = 0;
+            earthS = 0.5;
+            break;
+        case LevelEnv::VOLCANO:
+            skyS = 0;
+            earthS = 0.5;
+            break;
+        case LevelEnv::FREJLORD:
+            skyS = 0;
+            earthS = 0.5;
+            break;
+        default:
+            skyS = 0;
+            earthS = 0;
+            break;
+        }
+        std::cout << skyS;
+        std::cout << earthS;
+        return std::make_pair(skyS,earthS);
 }
