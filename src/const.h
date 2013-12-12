@@ -19,6 +19,7 @@ const int LIVE_SCOPE = 2000;
 const int DAMAGE_CD = 25;
 const int ELODIE_JUMP = -400;
 const int ELODIE_SPEED = 250;
+const float INC_PV_TIMER = 0.12;
 
 // -- ENEMY -- //
 const int SHEEP_DAMAGE = 10;
@@ -39,8 +40,8 @@ const float IMMERSION_BAR_X = 540;
 const float IMMERSION_BAR_DELTA_X = 2;
 const float IMMERSION_BAR_Y = 50;
 const float IMMERSION_BAR_DELTA_Y = 1;
-const float IMMERSION_BAR_W = 200;
-const float IMMERSION_BAR_H = 15;
+const float IMMERSION_BAR_W = 204;
+const float IMMERSION_BAR_H = 19;
 const float IMMERSION_BG_W = 202;
 const float IMMERSION_BG_H = 18;
 const float IMMERSION_IMAGE_W = 406;

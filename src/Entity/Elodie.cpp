@@ -242,9 +242,9 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
 
     //Other stuff to do
     timer += animate.asSeconds();
-    if (timer > 3) {
+    if (timer > INC_PV_TIMER) {
         timer = 0;
-        immersionLevel = immersionLevel == 100 ? 100 : immersionLevel + 25;
+        immersionLevel = immersionLevel == 100 ? 100 : immersionLevel + 1;
     }
     if (damageCD)
         --damageCD;

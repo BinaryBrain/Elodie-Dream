@@ -3,8 +3,8 @@
 ImmersionBar::ImmersionBar(GameView* gameView) : Displayable(gameView) {
     xRatioBg = IMMERSION_BG_W/IMMERSION_IMAGE_W;
     yRatioBg = IMMERSION_BG_H/IMMERSION_IMAGE_H;
-    xRatioBar = (IMMERSION_BAR_W+4)/IMMERSION_IMAGE_W;
-    yRatioBar = (IMMERSION_BAR_H+4)/IMMERSION_IMAGE_H;
+    xRatioBar = (IMMERSION_BAR_W)/IMMERSION_IMAGE_W;
+    yRatioBar = (IMMERSION_BAR_H)/IMMERSION_IMAGE_H;
     bgTexture = new sf::Texture;
     bgTexture->loadFromFile("assets/img/immersion/immersion_bar_bg.png");
     bgSprite = new sf::Sprite(*bgTexture);
@@ -42,7 +42,6 @@ ImmersionBar::~ImmersionBar() {
 }
 
 void ImmersionBar::display() {
-    std::cout << level << std::endl;
     barSprite->setTextureRect(sf::IntRect(0,0,barWidth*level/100,barHeight));
     gameView->addDrawable(ViewLayer::IMMERSIONBAR, bgSprite);
     gameView->addDrawable(ViewLayer::IMMERSIONBAR, barSprite);
