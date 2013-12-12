@@ -14,9 +14,17 @@ public:
     void setLevel(int level);
 protected:
 private:
-    sf::RectangleShape outLine;
-    sf::RectangleShape filling;
+    sf::Sprite* bgSprite = NULL;
+    sf::Texture* bgTexture = NULL;
+    sf::Sprite* barSprite = NULL;
+    sf::Texture* barTexture = NULL;
     int level = 100;
+    float xRatioBg = 1;
+    float yRatioBg = 1;
+    float xRatioBar = 1;
+    float yRatioBar = 1;
+    int barWidth = 0;
+    int barHeight = 0;
 };
 
 #endif // IMMERSIONBAR_H

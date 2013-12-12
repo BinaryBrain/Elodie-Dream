@@ -32,13 +32,19 @@ const int SPIKES_DAMAGE = 50;
 const float ZOOM_LEVEL = 2;
 const int BLOCK_SIZE = 32;
 const int CAMERA_TOL = 50;
-const bool GOD_MODE = false; // TODO set to false
+const bool GOD_MODE = true; // TODO set to false
 
 // Immersion Bar
 const float IMMERSION_BAR_X = 540;
+const float IMMERSION_BAR_DELTA_X = 2;
 const float IMMERSION_BAR_Y = 50;
+const float IMMERSION_BAR_DELTA_Y = 1;
 const float IMMERSION_BAR_W = 200;
 const float IMMERSION_BAR_H = 15;
+const float IMMERSION_BG_W = 202;
+const float IMMERSION_BG_H = 18;
+const float IMMERSION_IMAGE_W = 406;
+const float IMMERSION_IMAGE_H = 38;
 
 const float IMMERSION_BAR_OUTLINE_THICKNESS = 2;
 
