@@ -38,6 +38,7 @@ public:
 
     sf::Music* getMusic();
     bool mustDie();
+    bool isFinished();
 protected:
 private:
     std::pair <float,float> getSlowVariables(LevelEnv env);

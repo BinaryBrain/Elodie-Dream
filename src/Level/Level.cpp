@@ -151,6 +151,12 @@ bool Level::mustDie() {
     return test1 || test2;
 }
 
+bool Level::isFinished() {
+    Elodie* elodie = dynamic_cast<Elodie*>(entities["elodie"]);
+    Portal* portal = dynamic_cast<Portal*>(entities["portal"]);
+    return portal->returnCurrentHitbox().getArea().intersects(elodie->returnCurrentHitbox().getArea());
+}
+
 std::pair <float,float> Level::getSlowVariables(LevelEnv env) {
     float skyS=0;
     float earthS=0;
