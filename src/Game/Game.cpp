@@ -153,7 +153,7 @@ void Game::loadLevel(int levelNbr) {
     state = GameState::INLEVEL;
     curLevelNbr = levelNbr;
     std::cout << levelNbr<< std::endl;
-    curLevel = new Level(&view, "assets/levels/level"+Utils::itos(curLevelNbr)+".txt", LevelEnv::VOLCANO, overworld->getElodie());
+    curLevel = new Level(&view, "assets/levels/level"+Utils::itos(curLevelNbr)+".txt", LevelEnv::FIELD, overworld->getElodie());
 }
 
 void Game::handleOverworld(sf::Time time) {

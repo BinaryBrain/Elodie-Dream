@@ -7,7 +7,7 @@ Level::Level(GameView* gameView, std::string filename, LevelEnv env, Elodie* elo
     loadLevel(filename, elodie);
 
     this->sky = new Sky(gameView, env);
-    this->earth = new Earth(gameView, env);
+    this->earth = new Earth(gameView, env, tiles[0].size(), elodie->getCameraPosPtr());
 
     gameView->addView(ViewLayer::LEVEL, this);
     gameView->setZoom(ViewLayer::LEVEL, ZOOM_LEVEL);

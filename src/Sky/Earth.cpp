@@ -1,7 +1,8 @@
 #include "Earth.h"
 
-Earth::Earth(GameView* gameView, LevelEnv env) : Displayable(gameView) {
+Earth::Earth(GameView* gameView, LevelEnv env, int tilesNumber, sf::Vector2f* cameraPos) : Displayable(gameView) {
     std::string filename;
+    this->cameraPos = cameraPos;
 
     switch(env) {
     case LevelEnv::CASTLE:
@@ -24,6 +25,7 @@ Earth::Earth(GameView* gameView, LevelEnv env) : Displayable(gameView) {
     earthTexture.loadFromFile(filename);
     earthTexture.setRepeated(true);
 
+    earth.setTextureRect(sf::IntRect(0,0, tilesNumber*32 + WINDOW_WIDTH,WINDOW_HEIGHT));
     earth.setTexture(earthTexture);
 
     gameView->addView(ViewLayer::EARTH, this);
@@ -34,6 +36,6 @@ Earth::~Earth() {
 }
 
 void Earth::display() {
-
+    earth.setPosition(sf::Vector2f(-cameraPos->x/2, 0));
     gameView->addDrawable(ViewLayer::EARTH, &earth);
 }

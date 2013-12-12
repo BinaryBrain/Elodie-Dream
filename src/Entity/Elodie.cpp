@@ -318,3 +318,7 @@ void Elodie::setPosition(float x, float y) {
 sf::Vector2f Elodie::getCameraPos() {
     return cameraPos;
 }
+
+sf::Vector2f* Elodie::getCameraPosPtr() {
+    return &cameraPos;
+}

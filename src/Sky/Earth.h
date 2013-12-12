@@ -10,12 +10,13 @@
 
 class Earth : public Displayable {
 public:
-    Earth(GameView* gameView, LevelEnv env);
+    Earth(GameView* gameView, LevelEnv env, int tilesNumber, sf::Vector2f*);
     void display();
     virtual ~Earth();
 private:
     sf::Sprite earth;
     sf::Texture earthTexture;
+    sf::Vector2f* cameraPos;
 };
 
 #endif // EARTH_H
