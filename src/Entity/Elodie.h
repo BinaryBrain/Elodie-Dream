@@ -152,6 +152,7 @@ public:
     void play();
     void setSpeed(sf::Vector2f speed);
     sf::Vector2f getCameraPos();
+    void handleEvent();
 
 protected:
 

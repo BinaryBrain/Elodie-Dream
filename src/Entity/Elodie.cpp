@@ -157,8 +157,9 @@ void Elodie::punch(std::map< std::string, Entity* >& entities) {
 void Elodie::changeAnimation(Collide collideTiles) {
     if (sprite->getCurrentStance() == ANIMATIONS[ElodieState::STANDING] ||
         (state == ElodieState::PUNCHING && sprite->getCurrentFrame() == 3)) {
-        this->walk();
+        changeState(ElodieState::WALKING);
     }
+
     ElodieState memState = state;
 
     if (collideTiles.bottom["surface"] && speed.y >= 0) {
@@ -172,7 +173,7 @@ void Elodie::changeAnimation(Collide collideTiles) {
         if(curFrame == 1 && sprite->getPreviousFrame() != curFrame) {
             soundManager->play(SoundType::FOOTSTEP_GROUND);
         }
-    } else if (state != ElodieState::PUNCHING) {
+    } else if(state != ElodieState::PUNCHING) {
         if (speed.y > 0) {
             changeState(ElodieState::FALLING);
         } else {
@@ -182,6 +183,17 @@ void Elodie::changeAnimation(Collide collideTiles) {
 
     if (state != memState) {
         sprite->changeStance(ANIMATIONS[state], sf::seconds(0.1f));
+    }
+}
+
+void Elodie::handleEvent() {
+    if (event->keyIsPressed(sf::Keyboard::Space) &&
+            (state == ElodieState::WALKING || state == ElodieState::PUNCHING || state == ElodieState::STANDING)) {
+        changeState(ElodieState::JUMPING);
+    } else if (event->keyIsPressed(sf::Keyboard::A)) {
+        changeState(ElodieState::PUNCHING);
+    } else if (state == ElodieState::PUNCHING) {
+        punch(entities);
     }
 }
 
@@ -198,6 +210,7 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
 
     //Change the sprite in accord with the speed
     changeAnimation(collideTiles);
+    handleEvent();
 
     if (0 == speed.x && !collideTiles.right["surface"]) {
         speed.x = ELODIE_SPEED;
@@ -215,17 +228,6 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
     if (buffed && dist <= 0) {
         buffed = false;
         speed.x = ELODIE_SPEED;
-    }
-
-    if (event->keyIsPressed(sf::Keyboard::Space) &&
-            (state == ElodieState::WALKING || state == ElodieState::PUNCHING || state == ElodieState::STANDING)) {
-        changeState(ElodieState::JUMPING);
-    } else if (event->keyIsPressed(sf::Keyboard::A)) {
-        state = ElodieState::PUNCHING;
-        sprite->changeStance(ANIMATIONS[state], sf::seconds(0.05f));
-        soundManager->play(SoundType::PUNCH);
-    } else if (state == ElodieState::PUNCHING) {
-        punch(entities);
     }
 
     //Other stuff to do
@@ -247,12 +249,18 @@ void Elodie::changeState(ElodieState to) {
     if(from == ElodieState::WALKING && to == ElodieState::JUMPING) {
         speed.y = ELODIE_JUMP;
         sprite->changeStance(ANIMATIONS[state], sf::seconds(0.1f));
-    }
-    else if(from == ElodieState::FALLING && to == ElodieState::WALKING) {
+    } else if(from == ElodieState::PUNCHING && to == ElodieState::JUMPING) {
+        speed.y = ELODIE_JUMP;
+        sprite->changeStance(ANIMATIONS[state], sf::seconds(0.1f));
+    } else if(from == ElodieState::FALLING && to == ElodieState::WALKING) {
+        soundManager->play(SoundType::FOOTSTEP_GROUND);
+    } else if(from == ElodieState::JUMPING && to == ElodieState::WALKING) {
         soundManager->play(SoundType::FOOTSTEP_GROUND);
     }
-    else if(from == ElodieState::JUMPING && to == ElodieState::WALKING) {
-        soundManager->play(SoundType::FOOTSTEP_GROUND);
+
+    if(to == ElodieState::PUNCHING) {
+        sprite->changeStance(ANIMATIONS[state], sf::seconds(0.05f));
+        soundManager->play(SoundType::PUNCH);
     }
 }
 
