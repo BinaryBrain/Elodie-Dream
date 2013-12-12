@@ -59,7 +59,7 @@ public:
     Hitbox returnCurrentHitbox();
     void punch(std::map< std::string, Entity* >& entities);
     void changeAnimation(Collide collideTiles);
-    void doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate);
+    void doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, EntityMap& entities, sf::Time animate);
     virtual ~Elodie();
 
     /**
@@ -152,7 +152,7 @@ public:
     void play();
     void setSpeed(sf::Vector2f speed);
     sf::Vector2f getCameraPos();
-    void handleEvent();
+    void handleEvent(EventHandler* const& event, EntityMap& entities);
 
 protected:
 

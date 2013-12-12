@@ -186,7 +186,7 @@ void Elodie::changeAnimation(Collide collideTiles) {
     }
 }
 
-void Elodie::handleEvent() {
+void Elodie::handleEvent(EventHandler* const& event, EntityMap& entities) {
     if (event->keyIsPressed(sf::Keyboard::Space) &&
             (state == ElodieState::WALKING || state == ElodieState::PUNCHING || state == ElodieState::STANDING)) {
         changeState(ElodieState::JUMPING);
@@ -198,7 +198,7 @@ void Elodie::handleEvent() {
 }
 
 //What's in doStuff right now is only for testing purpose. Lot of stuff to do here.
-void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) {
+void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, EntityMap& entities, sf::Time animate) {
     //Compute the gravity
     computeGravity(animate);
 
@@ -210,7 +210,7 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
 
     //Change the sprite in accord with the speed
     changeAnimation(collideTiles);
-    handleEvent();
+    handleEvent(event, entities);
 
     if (0 == speed.x && !collideTiles.right["surface"]) {
         speed.x = ELODIE_SPEED;
