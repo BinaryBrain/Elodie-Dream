@@ -22,7 +22,6 @@ Death::~Death() {
 }
 
 void Death::display() {
-
     gameView->addDrawable(ViewLayer::DEATH, &rect);
     gameView->addDrawable(ViewLayer::DEATH, text);
 }

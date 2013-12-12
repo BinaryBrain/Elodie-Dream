@@ -12,6 +12,7 @@
 #include "../EventHandler/EventHandler.h"
 #include "../Displayable/Displayable.h"
 #include "../TextureManager/TextureManager.h"
+#include "../Sky/Sky.h"
 
 class Game;
 class Elodie;
@@ -43,6 +44,7 @@ private:
     LevelEnv environement;
     TextureManager* manager;
     sf::Music music;
+    Sky* sky;
 };
 
 #endif // LEVEL_H

@@ -5,6 +5,9 @@ Level::Level(GameView* gameView, std::string filename, LevelEnv env, Elodie* elo
     this->manager = new TextureManager();
 
     loadLevel(filename, elodie);
+
+    this->sky = new Sky(gameView, env);
+
     gameView->addView(ViewLayer::LEVEL, this);
     gameView->setZoom(ViewLayer::LEVEL, ZOOM_LEVEL);
 
@@ -37,6 +40,7 @@ Level::~Level() {
     }
 
     delete this->manager;
+    delete this->sky;
 }
 
 void Level::setEnvironement(LevelEnv env) {

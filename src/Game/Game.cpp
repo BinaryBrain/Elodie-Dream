@@ -20,14 +20,12 @@ Game::Game() {
     girly = new Girly(&view);
     immBar = new ImmersionBar(&view);
     death = new Death(&view);
-    sky = new Sky(&view);
     soundManager = SoundManager::getInstance();
 
     view.addView(ViewLayer::MENU, menuHandler);
     view.addView(ViewLayer::OVERWORLD, overworld);
     view.addView(ViewLayer::CONSOLE, console);
     view.addView(ViewLayer::DEATH, death);
-    view.addView(ViewLayer::SKY, sky);
 
     // testing purposes
     view.addView(ViewLayer::GIRLY, girly);
@@ -60,11 +58,6 @@ Game::~Game() {
     if(console) {
         delete console;
         console = NULL;
-    }
-
-    if  (sky) {
-        delete sky;
-        sky = NULL;
     }
 
     if (girly) {
@@ -142,6 +135,7 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
         // Game over
         if (curLevel->mustDie() && !GOD_MODE) {
             view.hide(ViewLayer::LEVEL);
+            view.hide(ViewLayer::SKY);
             view.show(ViewLayer::DEATH);
             death->display();
             if(curLevel) {

@@ -81,8 +81,6 @@ private:
     Girly* girly = NULL;
     bool girlyMode = false;
 
-    Sky* sky = NULL;
-
     bool mute;
 
     ImmersionBar* immBar = NULL;

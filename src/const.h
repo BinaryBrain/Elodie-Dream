@@ -73,6 +73,7 @@ static const char MAP_NULL2 = '.';
 // -- PATHS -- //
 // Tiles
 const string TILES_TEXTURES_PATH = "assets/img/sprites/tiles/extended";
+const string ENVIRONMENT_TEXTURES_PATH = "assets/img/sprites/environments";
 
 const string LEVELENV_FIELD = "field";
 const string LEVELENV_UNIL = "unil";

@@ -64,6 +64,7 @@
 		<Unit filename="src/EntityManager/EntityManager.h" />
 		<Unit filename="src/Entity/Elodie.cpp" />
 		<Unit filename="src/Entity/Elodie.h" />
+		<Unit filename="src/Entity/Enemy/Ghost.h" />
 		<Unit filename="src/Entity/Enemy/MagmaCube.cpp" />
 		<Unit filename="src/Entity/Enemy/MagmaCube.h" />
 		<Unit filename="src/Entity/Enemy/Sheep.cpp" />
@@ -139,6 +140,7 @@
 		<Unit filename="src/Sprite/ElodieSprite.h" />
 		<Unit filename="src/Sprite/EnemySprite.cpp" />
 		<Unit filename="src/Sprite/EnemySprite.h" />
+		<Unit filename="src/Sprite/EnemySprite/GhostSprite.h" />
 		<Unit filename="src/Sprite/EnemySprite/MagmaCubeSprite.cpp" />
 		<Unit filename="src/Sprite/EnemySprite/MagmaCubeSprite.h" />
 		<Unit filename="src/Sprite/EnemySprite/SheepSprite.cpp" />
