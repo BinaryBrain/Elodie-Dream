@@ -72,15 +72,21 @@ void Level::display() {
     }
 
     for(EntityMap::iterator entity_ptr = entities.begin(); entity_ptr != entities.end(); ++entity_ptr) {
-        Entity* entity = entity_ptr->second;
-        sf::Sprite* sprite = entity->getSprite();
+        if(entity_ptr->first != "elodie") {
+            Entity* entity = entity_ptr->second;
+            sf::Sprite* sprite = entity->getSprite();
 
-        if(sprite) {
-            gameView->addDrawable(ViewLayer::LEVEL, sprite);
+            if(sprite) {
+                gameView->addDrawable(ViewLayer::LEVEL, sprite);
+            }
         }
     }
 
     Elodie* elodie = dynamic_cast<Elodie*>(entities["elodie"]);
+    if (elodie->getSprite())
+    {
+        gameView->addDrawable(ViewLayer::LEVEL, elodie->getSprite());
+    }
     gameView->followPoint(ViewLayer::LEVEL, elodie->getCameraPos());
 }
 
@@ -149,28 +155,28 @@ std::pair <float,float> Level::getSlowVariables(LevelEnv env) {
     float skyS=0;
     float earthS=0;
     switch(env) {
-        case LevelEnv::FIELD:
-            skyS = 0;
-            earthS = 0.5;
-            break;
-        case LevelEnv::CASTLE:
-            skyS = 0.5;
-            earthS = 0.3;
-            break;
-        case LevelEnv::VOLCANO:
-            skyS = 0.15;
-            earthS = 0.5;
-            break;
-        case LevelEnv::FREJLORD:
-            skyS = 0;
-            earthS = 0.2;
-            break;
-        default:
-            skyS = 0;
-            earthS = 0;
-            break;
-        }
-        std::cout << skyS;
-        std::cout << earthS;
-        return std::make_pair(skyS,earthS);
+    case LevelEnv::FIELD:
+        skyS = 0;
+        earthS = 0.5;
+        break;
+    case LevelEnv::CASTLE:
+        skyS = 0.5;
+        earthS = 0.3;
+        break;
+    case LevelEnv::VOLCANO:
+        skyS = 0.15;
+        earthS = 0.5;
+        break;
+    case LevelEnv::FREJLORD:
+        skyS = 0;
+        earthS = 0.2;
+        break;
+    default:
+        skyS = 0;
+        earthS = 0;
+        break;
+    }
+    std::cout << skyS;
+    std::cout << earthS;
+    return std::make_pair(skyS,earthS);
 }
