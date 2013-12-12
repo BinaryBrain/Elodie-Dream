@@ -166,8 +166,8 @@ std::pair <float,float> Level::getSlowVariables(LevelEnv env) {
             earthS = 0.5;
             break;
         case LevelEnv::CASTLE:
-            skyS = 0.5;
-            earthS = 0.3;
+            skyS = 1.0;
+            earthS = 0.4;
             break;
         case LevelEnv::VOLCANO:
             skyS = 0.15;
@@ -175,7 +175,7 @@ std::pair <float,float> Level::getSlowVariables(LevelEnv env) {
             break;
         case LevelEnv::FRELJORD:
             skyS = 0.2;
-            earthS = 3.2;
+            earthS = 2.8;
             break;
         default:
             skyS = 0;
