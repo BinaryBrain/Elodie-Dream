@@ -93,7 +93,7 @@ void Game::leaveLevel() {
     view.hide(ViewLayer::IMMERSIONBAR);
     view.hide(ViewLayer::CONSOLE);
     view.show(ViewLayer::OVERWORLD);
-    if(!isMute()) {
+    if(!isMute() && overworld->getMusic()->getStatus() != sf::Music::Status::Playing) {
         overworld->getMusic()->play();
     }
     overworld->getElodie()->stand();
@@ -217,7 +217,6 @@ void Game::displayMenu() {
             Menu* title = menuHandler->getTitleMenu();
             title->hideBackground();
         }
-
         if (state == GameState::INOVERWORLD) {
             leaveLevel();
             view.hide(ViewLayer::MENU);
