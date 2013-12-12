@@ -94,10 +94,11 @@ const string ENTITYNAME_SHEEP = "sheep";
 const string ENTITYNAME_GHOST = "ghost";
 const string ENTITYNAME_MAGMACUBE = "magmacube";
 const string ENTITYNAME_SPIKES = "spikes";
+const string ENTITYNAME_PORTAL = "portal";
 
 const string ENTITYTYPE_ELODIE = "";
 const string ENTITYTYPE_ENEMY = "enemies";
-const string ENTITYTYPE_MISC = "tiles/misc";
+const string ENTITYTYPE_MISC = "misc";
 
 // Sounds
 const string SOUNDS_PATH = "assets/sounds";
