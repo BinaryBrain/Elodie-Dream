@@ -138,7 +138,6 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
             view.hide(ViewLayer::SKY);
             view.hide(ViewLayer::EARTH);
             view.show(ViewLayer::DEATH);
-            death->display();
             if(curLevel) {
                 delete curLevel;
                 curLevel = NULL;
@@ -149,7 +148,6 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
             view.hide(ViewLayer::SKY);
             view.hide(ViewLayer::EARTH);
             view.show(ViewLayer::DEATH);
-            death->display();
             if(curLevel) {
                 delete curLevel;
                 curLevel = NULL;
