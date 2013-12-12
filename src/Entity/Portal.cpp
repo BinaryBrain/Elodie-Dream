@@ -23,7 +23,6 @@ void Portal::init(float x, float y) {
     EntityManager* ToyBox = EntityManager::getInstance();
     info = ToyBox->getEnemyInfo(EntityType::MISC, EntityName::PORTAL);
 
-    x -= info->width / 2;
     y -= (info->height - BLOCK_SIZE);
     state = PortalState::STANDING;
 
