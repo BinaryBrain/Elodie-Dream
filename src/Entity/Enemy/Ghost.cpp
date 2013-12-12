@@ -19,6 +19,7 @@ void Ghost::init(float x, float y) {
 
     damage = GHOST_DAMAGE;
     life = 1;
+    speed.x = -GHOST_SPEED_X;
 
     EntityManager* ToyBox = EntityManager::getInstance();
     info = ToyBox->getEnemyInfo(EntityType::ENEMY, EntityName::GHOST);
@@ -60,22 +61,19 @@ Hitbox Ghost::returnCurrentHitbox() {
 }
 
 void  Ghost::takeDamage(int damage, bool ignore) {
-    if (!damageCD && damage > 0) {
-        life = 0;
-        damageCD = DAMAGE_CD;
-        soundManager->play(SoundType::GHOST);
-    }
+    //GHOSTS ARE IMMORTAL BITCHES
 }
 
 void Ghost::doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) {
-    //Compute the gravity
-    computeGravity(animate);
-
-    //Check the collisions, set the new distances and do the move
-    Collide collideTiles = collideWithTiles(tiles, &speed, animate.asSeconds(), getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()));
-    setDistance(collideTiles);
     move(animate.asSeconds()*(speed.x), animate.asSeconds()*speed.y);
     sprite->update(animate);
+
+    if (speed.y < 0 && speed.y < -limitSpeed) {
+        step = GHOST_STEP;
+    } else if (speed.y > 0 && speed.y > limitSpeed) {
+        step = -GHOST_STEP;
+    }
+    speed.y += step;
 
     doAttack(entities);
 
