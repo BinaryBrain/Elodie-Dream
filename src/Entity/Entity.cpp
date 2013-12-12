@@ -38,7 +38,7 @@ void Entity::flipToLeft() {
     direction = Direction::LEFT;
 }
 void Entity::flipToRight() {
-    sprite->setOrigin(sf::Vector2f(64,0));
+    sprite->setOrigin(sf::Vector2f(info->width,0));
     sprite->setScale(-1, 1);
     direction = Direction::RIGHT;
 }

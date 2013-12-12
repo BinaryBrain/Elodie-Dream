@@ -25,12 +25,12 @@ void Elodie::init() {
 
     JsonAccessor json = JsonAccessor();
     json.load(ENTITIES_JSON_PATH+"/"+ENTITYNAME_ELODIE+".json");
-    infos = json.getEntityInfo();
+    info = json.getEntityInfo();
 
     state = ElodieState::WALKING;
     speed.x = ELODIE_SPEED;
 
-    sprite = new ElodieSprite(infos);
+    sprite = new ElodieSprite(info);
     setEntitySprite(sprite);
 
     soundManager = SoundManager::getInstance();
@@ -42,9 +42,9 @@ ElodieSprite* Elodie::getSprite() {
 
 Elodie::~Elodie() {
     delete sprite;
-    delete infos;
+    delete info;
     sprite = NULL;
-    infos = NULL;
+    info = NULL;
     setEntitySprite(NULL);
 }
 
@@ -280,21 +280,21 @@ void Elodie::reset() {
 
     setEntitySprite(sprite);
 
-    setHitboxes(infos, sprite->getPosition());
+    setHitboxes(info, sprite->getPosition());
 }
 
 void Elodie::setPosition(sf::Vector2f pos) {
     sprite->setPosition(pos);
     cameraPos.x = pos.x;
     cameraPos.y = pos.y;
-    setHitboxes(infos, sprite->getPosition());
+    setHitboxes(info, sprite->getPosition());
 }
 
 void Elodie::setPosition(float x, float y) {
     setPosition(sf::Vector2f(x,y));
     cameraPos.x = x;
     cameraPos.y = y;
-    setHitboxes(infos, sprite->getPosition());
+    setHitboxes(info, sprite->getPosition());
 }
 
 sf::Vector2f Elodie::getCameraPos() {

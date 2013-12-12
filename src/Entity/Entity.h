@@ -73,6 +73,7 @@ protected:
     Direction direction = Direction::LEFT;
     int life = 0;
     int damageCD = 0;
+    EntityInfo* info = NULL;
 
 private:
     int checkTiles(std::vector< std::vector<TileSprite*> > const& world, int x, int y);

@@ -166,8 +166,6 @@ private:
     */
     void walk();
 
-    EntityInfo* infos = NULL;
-
     ElodieSprite* sprite;
 
     ElodieState state;
