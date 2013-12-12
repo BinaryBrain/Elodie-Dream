@@ -76,14 +76,32 @@ int Menu::getIndex() {
 
 void Menu::showBackground () {
     withBackground = true;
+    for(unsigned int i(0); i < items.size(); ++i) {
+        if(items[i]->isAMenu()) {
+            if(!(((Menu*)items[i])->hasBackground())) {
+                ((Menu*) items[i])->showBackground();
+            }
+        }
+    }
 }
 
 void Menu::hideBackground () {
     withBackground = false;
+    for(unsigned int i(0); i < items.size(); ++i) {
+        if(items[i]->isAMenu()) {
+            if(((Menu*)items[i])->hasBackground()) {
+                ((Menu*) items[i])->hideBackground();
+            }
+        }
+    }
 }
 
 MenuComponent* Menu::getSelectedItem() {
     return items[index];
+}
+
+bool Menu::hasBackground() {
+    return withBackground;
 }
 
 std::pair<GameState, MenuComponent*> Menu::execute() {

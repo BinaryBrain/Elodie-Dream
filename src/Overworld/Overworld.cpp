@@ -196,7 +196,8 @@ int Overworld::moveLeft() {
     return 0;
 }
 
-void Overworld::evolve(int maxLevel) {
+void Overworld::evolve(int minLevel, int maxLevel) {
+    maxLevel = minLevel > maxLevel ? minLevel : maxLevel;
     switch(currentState) {
     case states::UNIL1:
         currentState = states::UNIL2;

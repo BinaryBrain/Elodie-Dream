@@ -28,6 +28,7 @@ public:
     MenuComponent* getSelectedItem();
 
     std::pair<GameState, MenuComponent*> execute();
+    bool hasBackground();
 
 private:
     sf::Texture selectortexture;
