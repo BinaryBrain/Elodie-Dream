@@ -6,12 +6,12 @@ Elodie::Elodie() {
 
 Elodie::Elodie(sf::Vector2f position) {
     init();
-    setPosition(position.x - centerX, position.y - centerY);
+    setPosition(position.x, position.y);
 }
 
 Elodie::Elodie(float x, float y) {
     init();
-    setPosition(x - centerX, y - centerY);
+    setPosition(x, y);
 }
 
 void Elodie::init() {
@@ -49,7 +49,7 @@ Elodie::~Elodie() {
 }
 
 sf::Vector2f Elodie::getPosition() {
-    return sf::Vector2f(sprite->getPosition().x + centerX, sprite->getPosition().y + centerY);
+    return sf::Vector2f(sprite->getPosition().x, sprite->getPosition().y);
 }
 
 void Elodie::stand() {
@@ -61,15 +61,23 @@ void Elodie::overworldMove(float seconds) {
         noMoves();
         stand();
     } else {
-        toMove -= seconds*overworldSpeed.x;
+        float rem = toMove - seconds*overworldSpeed.x;
+        float delta;
+        if (rem > 0) {
+            toMove -= seconds*overworldSpeed.x;
+            delta = seconds*overworldSpeed.x;
+        } else {
+            delta = toMove;
+            toMove = 0;
+        }
         if (goingDown) {
-            sprite->move(0, seconds*overworldSpeed.x);
+            sprite->move(0,delta);
         } else if (goingLeft) {
-            sprite->move(-seconds*overworldSpeed.x, 0);
+            sprite->move(-delta, 0);
         } else if (goingRight) {
-            sprite->move(+seconds*overworldSpeed.x, 0);
+            sprite->move(+delta, 0);
         } else if (goingUp) {
-            sprite->move(0, -seconds*overworldSpeed.x);
+            sprite->move(0, -delta);
         } else {
             noMoves();
         }
@@ -163,8 +171,7 @@ void Elodie::changeAnimation(Collide collideTiles) {
         if(collideTiles.bottom["surface"]) {
             changeState(ElodieState::WALKING);
             this->walk();
-        }
-        else {
+        } else {
             if(speed.y > 0) {
                 changeState(ElodieState::FALLING);
             } else {
@@ -200,7 +207,7 @@ void Elodie::changeAnimation(Collide collideTiles) {
 void Elodie::handleEvent(EventHandler* const& event, EntityMap& entities, Collide collideTiles) {
     if (event->keyIsPressed(sf::Keyboard::Space) &&
             (state == ElodieState::WALKING || state == ElodieState::STANDING ||
-            (state == ElodieState::PUNCHING && collideTiles.bottom["surface"]))) {
+             (state == ElodieState::PUNCHING && collideTiles.bottom["surface"]))) {
         changeState(ElodieState::JUMPING);
         speed.y = ELODIE_JUMP;
         sprite->changeStance(ANIMATIONS[state], sf::seconds(0.1f));
@@ -253,7 +260,7 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
     if (damageCD)
         --damageCD;
     cameraPos.x += ELODIE_SPEED*animate.asSeconds();
-    cameraPos.y = sprite->getPosition().y + centerY;
+    cameraPos.y = sprite->getPosition().y;
 }
 
 void Elodie::changeState(ElodieState to) {
