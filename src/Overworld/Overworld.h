@@ -30,6 +30,10 @@ public:
     void playMusic();
     void stopMusic();
 
+    int getLevelToLoad();
+
+    int getState();
+
     sf::Music* getMusic();
 
 protected:

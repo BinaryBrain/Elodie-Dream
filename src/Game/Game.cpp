@@ -110,25 +110,25 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
     // leave level
     if(event->keyIsPressed(sf::Keyboard::Return)) {
         leaveLevel();
-    // Pause
+        // Pause
     } else if (event->keyIsPressed(sf::Keyboard::P)) {
         state = GameState::INMENU;
         curLevel->pause();
         menuHandler->setNextState(GameState::INLEVEL);
         view.show(ViewLayer::MENU);
 
-    // toggle sound
+        // toggle sound
     } else if(event->keyIsPressed(sf::Keyboard::M)) {
         toggleMute();
 
-    // toggle console
+        // toggle console
     } else if (event->keyIsPressed(sf::Keyboard::C)) {
         state = GameState::INCONSOLE;
         curLevel->pause();
         console->setNextState(GameState::INLEVEL);
         view.show(ViewLayer::CONSOLE);
 
-    // the level
+        // the level
     } else {
         curLevel->live(event, time);
         immBar->setLevel(((Elodie*)curLevel->getEntities()["elodie"])->getImmersionLevel());
@@ -152,7 +152,8 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
 void Game::loadLevel(int levelNbr) {
     state = GameState::INLEVEL;
     curLevelNbr = levelNbr;
-    curLevel = new Level(&view, "assets/levels/level2.txt", LevelEnv::VOLCANO, overworld->getElodie());
+    std::cout << levelNbr<< std::endl;
+    curLevel = new Level(&view, "assets/levels/level"+Utils::itos(curLevelNbr)+".txt", LevelEnv::VOLCANO, overworld->getElodie());
 }
 
 void Game::handleOverworld(sf::Time time) {
@@ -183,7 +184,9 @@ void Game::handleOverworld(sf::Time time) {
             overworld->getElodie()->setWalkRight();
         }
     } else if (event->keyIsPressed(sf::Keyboard::Return)) {
-        loadLevel(0);
+        if(overworld->getLevelToLoad() >= 0) {
+            loadLevel(overworld->getLevelToLoad());
+        }
         view.hide(ViewLayer::OVERWORLD);
         overworld->getMusic()->stop();
         view.show(ViewLayer::SKY);
@@ -213,7 +216,7 @@ void Game::displayMenu() {
         std::pair<GameState, MenuComponent*> p = menuHandler->execute();
         state = p.first;
         currentMenuItem = p.second;
-        if(state != GameState::INMENU){
+        if(state != GameState::INMENU) {
             Menu* title = menuHandler->getTitleMenu();
             title->hideBackground();
         }

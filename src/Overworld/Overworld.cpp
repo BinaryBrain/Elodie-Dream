@@ -30,7 +30,7 @@ Overworld::Overworld(GameView* gameView, bool muted) : Displayable(gameView) {
         levelSpotSprites.push_back(spotSprite);
     }
     pathSprites.push_back(new sf::Sprite);
-    for (size_t i = 1; i < 8; ++i){
+    for (size_t i = 1; i < 8; ++i) {
         sf::Texture* pathTexture = new sf::Texture;
         pathTexture->loadFromFile("assets/img/overworld/path"+Utils::itos(i)+".png");
         sf::Sprite* pathSprite = new sf::Sprite(*pathTexture);
@@ -106,7 +106,7 @@ void Overworld::resetPos() {
 void Overworld::display() {
     gameView->addDrawable(ViewLayer::OVERWORLD, overworldSprites[whichOverworld()]);
     gameView->addDrawable(ViewLayer::OVERWORLD, pathSprites[currentState]);
-    for(size_t i = 0; i <= currentState; ++i){
+    for(size_t i = 0; i <= currentState; ++i) {
         gameView->addDrawable(ViewLayer::OVERWORLD, levelSpotSprites[i]);
     }
     gameView->addDrawable(ViewLayer::OVERWORLD, elodie->getSprite());
@@ -225,7 +225,7 @@ void Overworld::evolve() {
 }
 
 int Overworld::whichOverworld() {
-switch(currentState) {
+    switch(currentState) {
     case states::UNIL1:
         return 0;
     case states::UNIL2:
@@ -257,4 +257,30 @@ int Overworld::getCurrentEnv() {
 
 sf::Music* Overworld::getMusic() {
     return &music;
+}
+
+int Overworld::getLevelToLoad() {
+    if(curPosInPath == 0) {
+        return 0;
+    } else if (curPosInPath == 1) {
+        return 1;
+    } else if (curPosInPath == 3) {
+        return 2;
+    } else if (curPosInPath == 4) {
+        return 3;
+    } else if (curPosInPath == 5) {
+        return 4;
+    } else if (curPosInPath == 7) {
+        return 5;
+    } else if (curPosInPath == 8) {
+        return 6;
+    } else if (curPosInPath == 10) {
+        return 7;
+    } else {
+        return -1;
+    }
+}
+
+int Overworld::getState() {
+    return currentState;
 }
