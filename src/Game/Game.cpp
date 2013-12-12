@@ -137,12 +137,14 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
             view.hide(ViewLayer::LEVEL);
             view.hide(ViewLayer::SKY);
             view.hide(ViewLayer::EARTH);
-            view.show(ViewLayer::DEATH);
+            view.show(ViewLayer::OVERWORLD);
+            overworld->evolve(curLevelNbr + 1);
+            leaveLevel();
             if(curLevel) {
                 delete curLevel;
                 curLevel = NULL;
             }
-            state = GameState::DEAD;
+            state = GameState::INOVERWORLD;
         } else if (curLevel->mustDie() && !GOD_MODE) {
             view.hide(ViewLayer::LEVEL);
             view.hide(ViewLayer::SKY);
