@@ -74,6 +74,8 @@
 		<Unit filename="src/Entity/Entity.h" />
 		<Unit filename="src/Entity/Hitbox.cpp" />
 		<Unit filename="src/Entity/Hitbox.h" />
+		<Unit filename="src/Entity/Portal.cpp" />
+		<Unit filename="src/Entity/Portal.h" />
 		<Unit filename="src/EventHandler/EventHandler.cpp" />
 		<Unit filename="src/EventHandler/EventHandler.h" />
 		<Unit filename="src/FileHandler/FileHandler.cpp" />
