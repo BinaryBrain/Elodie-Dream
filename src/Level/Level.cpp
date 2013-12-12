@@ -93,7 +93,7 @@ void Level::live(EventHandler* const& event, sf::Time animate) {
         }
     }
     for (unsigned int i = 0; i < toDelete.size(); ++i) {
-        delete toDelete[i];
+        delete entities[toDelete[i]];
         entities.erase(toDelete[i]);
     }
 }
