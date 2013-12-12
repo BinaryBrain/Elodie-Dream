@@ -11,8 +11,8 @@ var MAP_NULL = ' ';
 
 // Images
 images = []
-images[MAP_GROUND] = "../../assets/img/sprites/tilesets/autotiles/rock1extended.png"
-images[MAP_ELODIE] = "../../assets/img/sprites/tilesets/autotiles/ground1extended.png"
+images[MAP_GROUND] = "../../assets/img/sprites/tiles/extended/field/rock.png"
+images[MAP_ELODIE] = "../../assets/img/sprites/tiles/extended/field/ground.png"
 
 function parse(level, tiles, entities) {
   var y = 0
