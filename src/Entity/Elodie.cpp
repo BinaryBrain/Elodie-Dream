@@ -155,10 +155,11 @@ void Elodie::punch(std::map< std::string, Entity* >& entities) {
 }
 
 void Elodie::changeAnimation(Collide collideTiles) {
+    unsigned int curFrame = sprite->getCurrentFrame();
     ElodieState memState = state;
 
     if (sprite->getCurrentStance() == ANIMATIONS[ElodieState::STANDING] ||
-            (state == ElodieState::PUNCHING && sprite->getCurrentFrame() == 3)) {
+            (state == ElodieState::PUNCHING && curFrame == 3)) {
         if(collideTiles.bottom["surface"]) {
             changeState(ElodieState::WALKING);
             this->walk();
@@ -179,6 +180,9 @@ void Elodie::changeAnimation(Collide collideTiles) {
         }
         if (state == ElodieState::STANDING) {
             changeState(ElodieState::WALKING);
+        }
+        if (state == ElodieState::WALKING && curFrame == 1 && sprite->getPreviousFrame() != curFrame) {
+            soundManager->play(SoundType::FOOTSTEP_GROUND);
         }
     } else if (state != ElodieState::PUNCHING) {
         if (speed.y > 0) {
