@@ -133,13 +133,23 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
         curLevel->live(event, time);
         immBar->setLevel(((Elodie*)curLevel->getEntities()["elodie"])->getImmersionLevel());
 
-        // Game over
-        if (curLevel->mustDie() && !GOD_MODE) {
+        if(curLevel->isFinished()) {
+            view.hide(ViewLayer::LEVEL);
+            view.hide(ViewLayer::SKY);
+            view.hide(ViewLayer::EARTH);
+            view.show(ViewLayer::OVERWORLD);
+            overworld->evolve(curLevelNbr + 1);
+            leaveLevel();
+            if(curLevel) {
+                delete curLevel;
+                curLevel = NULL;
+            }
+            state = GameState::INOVERWORLD;
+        } else if (curLevel->mustDie() && !GOD_MODE) {
             view.hide(ViewLayer::LEVEL);
             view.hide(ViewLayer::SKY);
             view.hide(ViewLayer::EARTH);
             view.show(ViewLayer::DEATH);
-            death->display();
             if(curLevel) {
                 delete curLevel;
                 curLevel = NULL;

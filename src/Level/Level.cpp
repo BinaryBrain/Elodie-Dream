@@ -72,15 +72,21 @@ void Level::display() {
     }
 
     for(EntityMap::iterator entity_ptr = entities.begin(); entity_ptr != entities.end(); ++entity_ptr) {
-        Entity* entity = entity_ptr->second;
-        sf::Sprite* sprite = entity->getSprite();
+        if(entity_ptr->first != "elodie") {
+            Entity* entity = entity_ptr->second;
+            sf::Sprite* sprite = entity->getSprite();
 
-        if(sprite) {
-            gameView->addDrawable(ViewLayer::LEVEL, sprite);
+            if(sprite) {
+                gameView->addDrawable(ViewLayer::LEVEL, sprite);
+            }
         }
     }
 
     Elodie* elodie = dynamic_cast<Elodie*>(entities["elodie"]);
+    if (elodie->getSprite())
+    {
+        gameView->addDrawable(ViewLayer::LEVEL, elodie->getSprite());
+    }
     gameView->followPoint(ViewLayer::LEVEL, elodie->getCameraPos());
 }
 
@@ -143,6 +149,12 @@ bool Level::mustDie() {
     bool test1 = gameView->isPointOutsideView(ViewLayer::LEVEL, elodie->getPosition().x, elodie->getPosition().y);
     bool test2 = elodie->getImmersionLevel() <= 0;
     return test1 || test2;
+}
+
+bool Level::isFinished() {
+    Elodie* elodie = dynamic_cast<Elodie*>(entities["elodie"]);
+    Portal* portal = dynamic_cast<Portal*>(entities["portal"]);
+    return portal->returnCurrentHitbox().getArea().intersects(elodie->returnCurrentHitbox().getArea());
 }
 
 std::pair <float,float> Level::getSlowVariables(LevelEnv env) {

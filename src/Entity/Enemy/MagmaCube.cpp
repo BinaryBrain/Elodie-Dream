@@ -23,7 +23,6 @@ void MagmaCube::init(float x, float y) {
     EntityManager* ToyBox = EntityManager::getInstance();
     info = ToyBox->getEnemyInfo(EntityType::ENEMY, EntityName::MAGMACUBE);
 
-    x -= info->width / 2;
     y -= (info->height - BLOCK_SIZE);
     state = MagmaCubeState::STANDING;
 

@@ -26,7 +26,6 @@ public:
 
     EntitySprite* getSprite();
     Hitbox returnCurrentHitbox();
-    void doAttack(std::map< std::string, Entity* >& entities);
     void takeDamage(int damage, bool ignore);
     void doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate);
     void pause();

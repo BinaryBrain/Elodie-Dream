@@ -24,7 +24,7 @@ public:
     int moveDown();
     int moveRight();
     int moveLeft();
-    void evolve();
+    void evolve(int maxLevel = 7);
     void display();
     void resetPos();
     void playMusic();

@@ -23,7 +23,6 @@ void Sheep::init(float x, float y) {
     EntityManager* ToyBox = EntityManager::getInstance();
     info = ToyBox->getEnemyInfo(EntityType::ENEMY, EntityName::SHEEP);
 
-    x -= info->width / 2;
     y -= (info->height - BLOCK_SIZE);
     state = SheepState::STANDING;
 

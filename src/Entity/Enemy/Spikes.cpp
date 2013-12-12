@@ -25,7 +25,6 @@ void Spikes::init(float x, float y) {
     EntityManager* ToyBox = EntityManager::getInstance();
     info = ToyBox->getEnemyInfo(EntityType::ENEMY, EntityName::SPIKES);
 
-    x -= info->width / 2;
     state = SpikesState::WAITING;
     speed.x = 0;
 
