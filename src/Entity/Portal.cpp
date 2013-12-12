@@ -17,6 +17,9 @@ void Portal::init(float x, float y) {
         {PortalState::STANDING, "standing"}
     };
 
+    damage = 0;
+    life = 1;
+
     EntityManager* ToyBox = EntityManager::getInstance();
     info = ToyBox->getEnemyInfo(EntityType::MISC, EntityName::PORTAL);
 
@@ -24,8 +27,11 @@ void Portal::init(float x, float y) {
     y -= (info->height - BLOCK_SIZE);
     state = PortalState::STANDING;
 
+    std::cout << "Before creating portal sprite" << std::endl;
     sprite = new PortalSprite(info);
+    std::cout << "Created portal sprite" << std::endl;
     setEntitySprite(sprite);
+    std::cout << "Set entity sprite done" << std::endl;
 
     sprite->setPosition(sf::Vector2f(x,y));
     setHitboxes(info, sprite->getPosition());
@@ -46,14 +52,24 @@ PortalSprite* Portal::getSprite() {
     return sprite;
 }
 
-void Portal::takeDamage(int damage, bool ignore) {
-    // do nothing lol
+void Portal::doAttack(std::map< std::string, Entity* >& entities) {
+    sf::FloatRect entity = getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()).getArea();
+    Elodie* elodie = (Elodie*) entities["elodie"];
+    if (entity.intersects(elodie->returnCurrentHitbox().getArea()))
+        elodie->takeDamage(damage, false);
 }
 
 Hitbox Portal::returnCurrentHitbox() {
     return getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame());
 }
 
+void  Portal::takeDamage(int damage, bool ignore) {
+    if (!damageCD && damage > 0) {
+        life = 0;
+        damageCD = DAMAGE_CD;
+        soundManager->play(SoundType::SHEEP);
+    }
+}
 
 void Portal::doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) {
     //Compute the gravity
@@ -64,6 +80,11 @@ void Portal::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
     setDistance(collideTiles);
     move(animate.asSeconds()*(speed.x), animate.asSeconds()*speed.y);
     sprite->update(animate);
+
+    doAttack(entities);
+
+    if (damageCD)
+        --damageCD;
 }
 
 void Portal::pause() {

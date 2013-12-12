@@ -25,10 +25,9 @@ public:
     void update(sf::Time deltaTime);
 
     PortalSprite* getSprite();
-    void takeDamage(int damage, bool ignore);
-
     Hitbox returnCurrentHitbox();
-
+    void doAttack(std::map< std::string, Entity* >& entities);
+    void takeDamage(int damage, bool ignore);
     void doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate);
     void pause();
     void play();
@@ -36,9 +35,11 @@ protected:
 
 private:
     void init(float x, float y);
+    int damage = 0;
     SoundManager* soundManager;
 
     PortalSprite* sprite;
+
     PortalState state;
 
     std::map< PortalState, std::string > ANIMATIONS;

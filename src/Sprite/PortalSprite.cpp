@@ -1,6 +1,6 @@
 #include "PortalSprite.h"
 
-PortalSprite::PortalSprite(EntityInfo *informations) : AnimatedSprite() {
+PortalSprite::PortalSprite(EntityInfo *informations) : EnemySprite() {
     texture.loadFromFile(ENTITIES_JSON_PATH+"/"+ENTITYTYPE_MISC+"/"+ENTITYNAME_PORTAL+".png");
 
     // push frames
@@ -10,8 +10,16 @@ PortalSprite::PortalSprite(EntityInfo *informations) : AnimatedSprite() {
             animations[it->first].addFrame(sf::IntRect(i * informations->width, it->second.row * informations->height, informations->width, informations->height));
         }
     }
+
+    changeStance("standing", sf::seconds(0.1));
 }
 
 PortalSprite::~PortalSprite() {
     //dtor
+}
+
+void PortalSprite::changeStance(std::string stance, sf::Time speed) {
+    AnimatedSprite::setAnimation(animations[stance]);
+    setFrameTime(speed);
+    setCurrentStance(stance);
 }

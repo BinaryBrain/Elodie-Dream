@@ -1,13 +1,20 @@
 #ifndef PORTALSPRITE_H
 #define PORTALSPRITE_H
 
-#include "../env.h"
-#include "AnimatedSprite.h"
+#include <iostream>
+#include <string>
+#include <map>
 
-class PortalSprite: public AnimatedSprite {
+#include "../const.h"
+#include "../env.h"
+#include "EnemySprite.h"
+#include "../Include/EntityInfo.h"
+
+class PortalSprite: public EnemySprite {
 public:
     PortalSprite(EntityInfo *informations);
     virtual ~PortalSprite();
+    void changeStance(std::string stance, sf::Time speed);
 protected:
 private:
     std::map< std::string, Animation > animations;
