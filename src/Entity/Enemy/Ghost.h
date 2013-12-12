@@ -39,6 +39,8 @@ private:
     SoundManager* soundManager;
 
     EntitySprite* sprite;
+    int limitSpeed = GHOST_LIMIT_Y;
+    int step = GHOST_STEP;
 
     GhostState state;
 

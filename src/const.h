@@ -24,6 +24,9 @@ const float INC_PV_TIMER = 0.12;
 // -- ENEMY -- //
 const int SHEEP_DAMAGE = 10;
 const int GHOST_DAMAGE = 12;
+const int GHOST_STEP = 5;
+const int GHOST_LIMIT_Y = 150;
+const int GHOST_SPEED_X = 100;
 const int MAGMACUBE_DAMAGE = 25;
 const int MAGMACUBE_JUMP_CD = 50;
 const int MAGMACUBE_MOVE_X = 200;
