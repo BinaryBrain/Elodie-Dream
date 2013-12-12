@@ -24,11 +24,6 @@ Earth::Earth(GameView* gameView, LevelEnv env) : Displayable(gameView) {
     earthTexture.loadFromFile(filename);
     earthTexture.setRepeated(true);
 
-    float viewX(gameView->getWindow()->getSize().x);
-
-    float dimX(viewX);
-
-    earth.scale(sf::Vector2f(dimX, 1));
     earth.setTexture(earthTexture);
 
     gameView->addView(ViewLayer::EARTH, this);

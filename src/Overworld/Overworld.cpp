@@ -29,6 +29,14 @@ Overworld::Overworld(GameView* gameView, bool muted) : Displayable(gameView) {
         spotSprite->setPosition((*levelPos[i])[0] - 16, (*levelPos[i])[1] - 16);
         levelSpotSprites.push_back(spotSprite);
     }
+    pathSprites.push_back(new sf::Sprite);
+    for (size_t i = 1; i < 8; ++i){
+        sf::Texture* pathTexture = new sf::Texture;
+        pathTexture->loadFromFile("assets/img/overworld/path"+Utils::itos(i)+".png");
+        sf::Sprite* pathSprite = new sf::Sprite(*pathTexture);
+        pathSprite->setPosition(-8, -7);
+        pathSprites.push_back(pathSprite);
+    }
 
     JsonAccessor lvlPaths;
     lvlPaths.load("assets/config/levels/levelPaths.lvl");
@@ -71,6 +79,9 @@ Overworld::Overworld(GameView* gameView, bool muted) : Displayable(gameView) {
 
 
 Overworld::~Overworld() {
+    for (std::vector<sf::Sprite*>::iterator sprite = pathSprites.begin(); sprite != pathSprites.end(); ++sprite) {
+        delete *sprite;
+    }
     for (std::vector<sf::Sprite*>::iterator sprite = overworldSprites.begin(); sprite != overworldSprites.end(); ++sprite) {
         delete *sprite;
     }
@@ -89,12 +100,12 @@ Overworld::~Overworld() {
 }
 
 void Overworld::resetPos() {
-    elodie->setPosition((* (paths[currentState]))[curPosInPath].position.x-32,(* (paths[currentState]))[curPosInPath].position.y-40);
+    elodie->setPosition((* (paths[currentState]))[curPosInPath].position.x-32,(* (paths[currentState]))[curPosInPath].position.y-64);
 }
 
 void Overworld::display() {
     gameView->addDrawable(ViewLayer::OVERWORLD, overworldSprites[whichOverworld()]);
-    gameView->addDrawable(ViewLayer::OVERWORLD, paths[currentState]);
+    gameView->addDrawable(ViewLayer::OVERWORLD, pathSprites[currentState]);
     for(size_t i = 0; i <= currentState; ++i){
         gameView->addDrawable(ViewLayer::OVERWORLD, levelSpotSprites[i]);
     }

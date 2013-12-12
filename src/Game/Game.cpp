@@ -152,7 +152,7 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
 void Game::loadLevel(int levelNbr) {
     state = GameState::INLEVEL;
     curLevelNbr = levelNbr;
-    curLevel = new Level(&view, "assets/levels/level2.txt", LevelEnv::FIELD, overworld->getElodie());
+    curLevel = new Level(&view, "assets/levels/level2.txt", LevelEnv::VOLCANO, overworld->getElodie());
 }
 
 void Game::handleOverworld(sf::Time time) {
@@ -187,7 +187,7 @@ void Game::handleOverworld(sf::Time time) {
         view.hide(ViewLayer::OVERWORLD);
         overworld->getMusic()->stop();
         view.show(ViewLayer::SKY);
-        view.hide(ViewLayer::EARTH);
+        view.show(ViewLayer::EARTH);
         view.show(ViewLayer::LEVEL);
         view.show(ViewLayer::IMMERSIONBAR);
     } else if (event->keyIsPressed(sf::Keyboard::P)) {

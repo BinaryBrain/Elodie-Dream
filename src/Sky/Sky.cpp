@@ -28,7 +28,7 @@ Sky::Sky(GameView* gameView, LevelEnv env) : Displayable(gameView) {
 
     float dimX(viewX);
 
-    sky.scale(sf::Vector2f(dimX, 1));
+    //sky.scale(sf::Vector2f(dimX, 1));
     sky.setTexture(skyTexture);
 
     gameView->addView(ViewLayer::SKY, this);
