@@ -19,13 +19,11 @@ Game::Game() {
     menuHandler = new MenuHandler(&view);
     girly = new Girly(&view);
     immBar = new ImmersionBar(&view);
-    death = new Death(&view);
     soundManager = SoundManager::getInstance();
 
     view.addView(ViewLayer::MENU, menuHandler);
     view.addView(ViewLayer::OVERWORLD, overworld);
     view.addView(ViewLayer::CONSOLE, console);
-    view.addView(ViewLayer::DEATH, death);
 
     // testing purposes
     view.addView(ViewLayer::GIRLY, girly);
@@ -146,6 +144,8 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
             }
             state = GameState::INOVERWORLD;
         } else if (curLevel->mustDie() && !GOD_MODE) {
+            death = new Death(&view, mute);
+
             view.hide(ViewLayer::LEVEL);
             view.hide(ViewLayer::SKY);
             view.hide(ViewLayer::EARTH);
@@ -325,6 +325,8 @@ void Game::dead() {
     if (event->keyIsPressed(sf::Keyboard::Return)) {
         leaveLevel();
         view.hide(ViewLayer::DEATH);
+        delete death;
+        death = NULL;
     }
 }
 

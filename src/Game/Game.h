@@ -20,6 +20,7 @@
 
 class Level;
 class Overworld;
+class Death;
 class SoundManager;
 
 /**
