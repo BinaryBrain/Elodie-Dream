@@ -1,33 +1,33 @@
-#include "Sheep.h"
+#include "Ghost.h"
 
-Sheep::Sheep() {
+Ghost::Ghost() {
     init(0, 0);
 }
 
-Sheep::Sheep(sf::Vector2f position) {
+Ghost::Ghost(sf::Vector2f position) {
     init(position.x, position.y);
 }
 
-Sheep::Sheep(float x, float y) {
+Ghost::Ghost(float x, float y) {
     init(x, y);
 }
 
-void Sheep::init(float x, float y) {
+void Ghost::init(float x, float y) {
     ANIMATIONS = {
-        {SheepState::STANDING, "standing"}
+        {GhostState::STANDING, "standing"}
     };
 
-    damage = SHEEP_DAMAGE;
+    damage = GHOST_DAMAGE;
     life = 1;
 
     EntityManager* ToyBox = EntityManager::getInstance();
-    info = ToyBox->getEnemyInfo(EntityType::ENEMY, EntityName::SHEEP);
+    info = ToyBox->getEnemyInfo(EntityType::ENEMY, EntityName::GHOST);
 
     x -= info->width / 2;
     y -= (info->height - BLOCK_SIZE);
-    state = SheepState::STANDING;
+    state = GhostState::STANDING;
 
-    sprite = new SheepSprite(info);
+    sprite = new GhostSprite(info);
     setEntitySprite(sprite);
 
     sprite->setPosition(sf::Vector2f(x,y));
@@ -35,40 +35,40 @@ void Sheep::init(float x, float y) {
     soundManager = SoundManager::getInstance();
 }
 
-Sheep::~Sheep() {
+Ghost::~Ghost() {
     delete sprite;
     sprite = NULL;
     setEntitySprite(NULL);
 }
 
-void Sheep::update(sf::Time deltaTime) {
+void Ghost::update(sf::Time deltaTime) {
     sprite->update(deltaTime);
 }
 
-SheepSprite* Sheep::getSprite() {
+GhostSprite* Ghost::getSprite() {
     return sprite;
 }
 
-void Sheep::doAttack(std::map< std::string, Entity* >& entities) {
+void Ghost::doAttack(std::map< std::string, Entity* >& entities) {
     sf::FloatRect entity = getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()).getArea();
     Elodie* elodie = (Elodie*) entities["elodie"];
     if (entity.intersects(elodie->returnCurrentHitbox().getArea()))
         elodie->takeDamage(damage, false);
 }
 
-Hitbox Sheep::returnCurrentHitbox() {
+Hitbox Ghost::returnCurrentHitbox() {
     return getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame());
 }
 
-void  Sheep::takeDamage(int damage, bool ignore) {
+void  Ghost::takeDamage(int damage, bool ignore) {
     if (!damageCD && damage > 0) {
         life = 0;
         damageCD = DAMAGE_CD;
-        soundManager->play(SoundType::SHEEP);
+        soundManager->play(SoundType::GHOST);
     }
 }
 
-void Sheep::doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) {
+void Ghost::doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) {
     //Compute the gravity
     computeGravity(animate);
 
@@ -84,10 +84,10 @@ void Sheep::doStuff(EventHandler* const& event, std::vector< std::vector<TileSpr
         --damageCD;
 }
 
-void Sheep::pause() {
+void Ghost::pause() {
     sprite->pause();
 }
 
-void Sheep::play() {
+void Ghost::play() {
     sprite->play();
 }

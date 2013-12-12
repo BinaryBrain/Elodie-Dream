@@ -23,6 +23,7 @@ const float INC_PV_TIMER = 0.12;
 
 // -- ENEMY -- //
 const int SHEEP_DAMAGE = 10;
+const int GHOST_DAMAGE = 12;
 const int MAGMACUBE_DAMAGE = 25;
 const int MAGMACUBE_JUMP_CD = 50;
 const int MAGMACUBE_MOVE_X = 200;
@@ -90,6 +91,7 @@ const string ENTITIES_JSON_PATH = "assets/img/sprites";
 
 const string ENTITYNAME_ELODIE = "elodie";
 const string ENTITYNAME_SHEEP = "sheep";
+const string ENTITYNAME_GHOST = "ghost";
 const string ENTITYNAME_MAGMACUBE = "magmacube";
 const string ENTITYNAME_SPIKES = "spikes";
 
