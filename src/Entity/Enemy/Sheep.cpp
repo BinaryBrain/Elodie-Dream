@@ -21,17 +21,18 @@ void Sheep::init(float x, float y) {
     life = 1;
 
     EntityManager* ToyBox = EntityManager::getInstance();
-    EntityInfo* sheepInfo = ToyBox->getEnemyInfo(EntityType::ENEMY, EntityName::SHEEP);
+    info = ToyBox->getEnemyInfo(EntityType::ENEMY, EntityName::SHEEP);
 
-    x -= sheepInfo->width / 2;
-    y -= (sheepInfo->height - BLOCK_SIZE);
+    x -= info->width / 2;
+    y -= (info->height - BLOCK_SIZE);
     state = SheepState::STANDING;
 
-    sprite = new SheepSprite(sheepInfo);
+    sprite = new SheepSprite(info);
     setEntitySprite(sprite);
 
     sprite->setPosition(sf::Vector2f(x,y));
-    setHitboxes(sheepInfo, sprite->getPosition());
+    setHitboxes(info, sprite->getPosition());
+    soundManager = SoundManager::getInstance();
 }
 
 Sheep::~Sheep() {
@@ -63,7 +64,7 @@ void  Sheep::takeDamage(int damage, bool ignore) {
     if (!damageCD && damage > 0) {
         life = 0;
         damageCD = DAMAGE_CD;
-        std::cout << "BEEEEEEEEEEEEEEEEEEEEEH" << std::endl;
+        soundManager->play(SoundType::SHEEP);
     }
 }
 

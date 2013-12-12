@@ -21,17 +21,17 @@ void MagmaCube::init(float x, float y) {
     life = 1;
 
     EntityManager* ToyBox = EntityManager::getInstance();
-    EntityInfo* magmaCubeInfo = ToyBox->getEnemyInfo(EntityType::ENEMY, EntityName::MAGMACUBE);
+    info = ToyBox->getEnemyInfo(EntityType::ENEMY, EntityName::MAGMACUBE);
 
-    x -= magmaCubeInfo->width / 2;
-    y -= (magmaCubeInfo->height - BLOCK_SIZE);
+    x -= info->width / 2;
+    y -= (info->height - BLOCK_SIZE);
     state = MagmaCubeState::STANDING;
 
-    sprite = new MagmaCubeSprite(magmaCubeInfo);
+    sprite = new MagmaCubeSprite(info);
     setEntitySprite(sprite);
 
     sprite->setPosition(sf::Vector2f(x,y));
-    setHitboxes(magmaCubeInfo, sprite->getPosition());
+    setHitboxes(info, sprite->getPosition());
 }
 
 MagmaCube::~MagmaCube() {
