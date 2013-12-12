@@ -69,7 +69,7 @@ public:
     virtual void play() = 0;
 protected:
     sf::Sprite* sprite;
-    sf::Vector2f speed;
+    sf::Vector2f speed = {0, 0};
     Direction direction = Direction::LEFT;
     int life = 0;
     int damageCD = 0;

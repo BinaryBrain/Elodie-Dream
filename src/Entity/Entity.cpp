@@ -19,7 +19,7 @@ bool Entity::isInFront(sf::FloatRect entity, sf::FloatRect target, Direction dir
 
     half.top = entity.top;
     half.width = entity.width / 2;
-    half.height = entity.height / 2;
+    half.height = entity.height;
     if (dir == Direction::LEFT) {
         half.left = entity.left;
     } else if (dir == Direction::RIGHT) {
@@ -58,7 +58,7 @@ void Entity::setDistance(Collide collisions) {
 
     if(speed.x < 0) {
         flipToLeft();
-    } else {
+    } else if (speed.x > 0) {
         flipToRight();
     }
 }

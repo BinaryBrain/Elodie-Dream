@@ -26,7 +26,6 @@ void MagmaCube::init(float x, float y) {
     x -= magmaCubeInfo->width / 2;
     y -= (magmaCubeInfo->height - BLOCK_SIZE);
     state = MagmaCubeState::STANDING;
-    speed.x = 0;
 
     sprite = new MagmaCubeSprite(magmaCubeInfo);
     setEntitySprite(sprite);
@@ -68,14 +67,39 @@ void  MagmaCube::takeDamage(int damage, bool ignore) {
     }
 }
 
+void MagmaCube::jump() {
+    if (!jumpCD && !speed.x && !speed.y) {
+        speed.x = -MAGMACUBE_MOVE_X;
+        speed.y = -MAGMACUBE_MOVE_Y;
+    } else if (speed.y == 0 && !jumpCD) {
+        speed.x = 0;
+        jumpCD = MAGMACUBE_JUMP_CD;
+    } else if (!speed.x && speed.y) {
+        if (direction == Direction::LEFT) {
+            direction = Direction::RIGHT;
+            speed.x = -MAGMACUBE_MOVE_X;
+        } else if (direction == Direction::RIGHT) {
+            direction = Direction::LEFT;
+            speed.x = MAGMACUBE_MOVE_X;
+        }
+    } else if (jumpCD > 0) {
+        --jumpCD;
+    }
+}
+
 void MagmaCube::doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) {
+    //Compute the gravity
+    computeGravity(animate);
+
+    //Check the collisions, set the new distances and do the move
     Collide collideTiles = collideWithTiles(tiles, &speed, animate.asSeconds(), getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()));
+    setDistance(collideTiles);
+    move(animate.asSeconds()*(speed.x), animate.asSeconds()*speed.y);
+    sprite->update(animate);
 
     doAttack(entities);
+    jump();
 
-    move(animate.asSeconds()*speed.x, animate.asSeconds()*speed.y);
-
-    sprite->update(animate);
     if (damageCD)
         --damageCD;
 }

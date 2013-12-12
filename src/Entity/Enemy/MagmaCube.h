@@ -25,6 +25,7 @@ public:
     Hitbox returnCurrentHitbox();
     void doAttack(std::map< std::string, Entity* >& entities);
     void takeDamage(int damage, bool ignore);
+    void jump();
     void doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate);
     void pause();
     void play();
@@ -33,6 +34,7 @@ protected:
 private:
     void init(float x, float y);
     int damage = 0;
+    int jumpCD = 0;
 
     MagmaCubeSprite* sprite;
 

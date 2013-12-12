@@ -23,6 +23,9 @@ const int ELODIE_SPEED = 250;
 // -- ENEMY -- //
 const int SHEEP_DAMAGE = 10;
 const int MAGMACUBE_DAMAGE = 25;
+const int MAGMACUBE_JUMP_CD = 50;
+const int MAGMACUBE_MOVE_X = 200;
+const int MAGMACUBE_MOVE_Y = 400;
 const int SPIKES_DAMAGE = 50;
 
 // -- LEVEL -- //

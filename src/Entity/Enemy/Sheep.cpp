@@ -26,7 +26,6 @@ void Sheep::init(float x, float y) {
     x -= sheepInfo->width / 2;
     y -= (sheepInfo->height - BLOCK_SIZE);
     state = SheepState::STANDING;
-    speed.x = 0;
 
     sprite = new SheepSprite(sheepInfo);
     setEntitySprite(sprite);
@@ -69,13 +68,17 @@ void  Sheep::takeDamage(int damage, bool ignore) {
 }
 
 void Sheep::doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) {
+    //Compute the gravity
+    computeGravity(animate);
+
+    //Check the collisions, set the new distances and do the move
     Collide collideTiles = collideWithTiles(tiles, &speed, animate.asSeconds(), getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()));
+    setDistance(collideTiles);
+    move(animate.asSeconds()*(speed.x), animate.asSeconds()*speed.y);
+    sprite->update(animate);
 
     doAttack(entities);
 
-    move(animate.asSeconds()*speed.x, animate.asSeconds()*speed.y);
-
-    sprite->update(animate);
     if (damageCD)
         --damageCD;
 }
