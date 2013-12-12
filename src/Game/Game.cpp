@@ -152,8 +152,37 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
 void Game::loadLevel(int levelNbr) {
     state = GameState::INLEVEL;
     curLevelNbr = levelNbr;
-    std::cout << levelNbr<< std::endl;
-    curLevel = new Level(&view, "assets/levels/level"+Utils::itos(curLevelNbr)+".txt", LevelEnv::FIELD, overworld->getElodie());
+    LevelEnv env = LevelEnv::FIELD;
+    switch(levelNbr) {
+    case 0:
+        env = LevelEnv::FIELD;
+        break;
+    case 1:
+        env = LevelEnv::FIELD;
+        break;
+    case 2:
+        env = LevelEnv::CASTLE;
+        break;
+    case 3:
+        env = LevelEnv::CASTLE;
+        break;
+    case 4:
+        env = LevelEnv::VOLCANO;
+        break;
+    case 5:
+        env = LevelEnv::VOLCANO;
+        break;
+    case 6:
+        env = LevelEnv::FREJLORD;
+        break;
+    case 7:
+        env = LevelEnv::FREJLORD;
+        break;
+    default:
+        env = LevelEnv::FIELD;
+        break;
+    }
+    curLevel = new Level(&view, "assets/levels/level"+Utils::itos(curLevelNbr)+".txt", env, overworld->getElodie());
 }
 
 void Game::handleOverworld(sf::Time time) {
@@ -186,13 +215,13 @@ void Game::handleOverworld(sf::Time time) {
     } else if (event->keyIsPressed(sf::Keyboard::Return)) {
         if(overworld->getLevelToLoad() >= 0) {
             loadLevel(overworld->getLevelToLoad());
+            view.hide(ViewLayer::OVERWORLD);
+            overworld->getMusic()->stop();
+            view.show(ViewLayer::SKY);
+            view.show(ViewLayer::EARTH);
+            view.show(ViewLayer::LEVEL);
+            view.show(ViewLayer::IMMERSIONBAR);
         }
-        view.hide(ViewLayer::OVERWORLD);
-        overworld->getMusic()->stop();
-        view.show(ViewLayer::SKY);
-        view.show(ViewLayer::EARTH);
-        view.show(ViewLayer::LEVEL);
-        view.show(ViewLayer::IMMERSIONBAR);
     } else if (event->keyIsPressed(sf::Keyboard::P)) {
         state = GameState::INMENU;
         menuHandler->setNextState(GameState::INOVERWORLD);
