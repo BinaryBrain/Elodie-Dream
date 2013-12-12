@@ -182,7 +182,8 @@ private:
     int immersionLevel = 100;
     int nightmareLevel = 50; // Max: 100
 
-    float timer = 0;
+    float pvTimer = 0;
+    float attackTimer = 0;
 
     std::vector<Item> stuff;
     std::map< ElodieState, std::string > ANIMATIONS;
