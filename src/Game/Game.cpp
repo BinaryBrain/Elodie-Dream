@@ -138,7 +138,7 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
             view.hide(ViewLayer::SKY);
             view.hide(ViewLayer::EARTH);
             view.show(ViewLayer::OVERWORLD);
-            overworld->evolve(curLevelNbr + 1);
+            overworld->evolve(overworld->getState(), curLevelNbr + 1);
             leaveLevel();
             if(curLevel) {
                 delete curLevel;
