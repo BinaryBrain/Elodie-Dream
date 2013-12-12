@@ -2,6 +2,9 @@
 #include "../Entity/Elodie.h"
 #include "../Entity/Enemy/Sheep.h"
 #include "../Entity/Enemy/MagmaCube.h"
+#include "../Entity/Enemy/Ghost.h"
+#include "../Entity/Enemy/Bristle.h"
+#include "../Entity/Portal.h"
 #include "../Entity/Enemy/Spikes.h"
 
 std::map< std::string, int > Mapper::freshIds;
@@ -33,6 +36,12 @@ void Mapper::parse(std::string asciiLevel, TileMap& tiles, EntityMap& entities, 
             break;
         case MAP_MAGMACUBE:
             entities.insert(std::make_pair(getFreshID("magmacube"), new MagmaCube(x*32, y*32)));
+            break;
+        case MAP_GHOST:
+            entities.insert(std::make_pair(getFreshID("ghost"), new Ghost(x*32, y*32)));
+            break;
+        case MAP_BRISTLE:
+            entities.insert(std::make_pair(getFreshID("bristle"), new Bristle(x*32, y*32)));
             break;
         case MAP_SPIKES:
             entities.insert(std::make_pair(getFreshID("spikes"), new Spikes(x*32, y*32)));

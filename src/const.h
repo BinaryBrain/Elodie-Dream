@@ -28,6 +28,7 @@ const int MAGMACUBE_DAMAGE = 25;
 const int MAGMACUBE_JUMP_CD = 50;
 const int MAGMACUBE_MOVE_X = 200;
 const int MAGMACUBE_MOVE_Y = 400;
+const int BRISTLE_DAMAGE = 20;
 const int SPIKES_DAMAGE = 50;
 
 // -- LEVEL -- //
@@ -64,6 +65,8 @@ static const char MAP_ELODIE = 'E';
 // Enemies
 static const char MAP_SHEEP = 'S';
 static const char MAP_MAGMACUBE = 'M';
+static const char MAP_GHOST = 'G';
+static const char MAP_BRISTLE = 'B';
 static const char MAP_SPIKES = 'P';
 
 // Misc
@@ -94,6 +97,7 @@ const string ENTITYNAME_ELODIE = "elodie";
 const string ENTITYNAME_SHEEP = "sheep";
 const string ENTITYNAME_GHOST = "ghost";
 const string ENTITYNAME_MAGMACUBE = "magmacube";
+const string ENTITYNAME_BRISTLE = "bristle";
 const string ENTITYNAME_SPIKES = "spikes";
 const string ENTITYNAME_PORTAL = "portal";
 

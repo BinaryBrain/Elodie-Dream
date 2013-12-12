@@ -33,6 +33,7 @@ public:
     int getLevelToLoad();
 
     int getState();
+    void setState(int state);
 
     sf::Music* getMusic();
 

@@ -245,7 +245,7 @@ void Game::displayMenu() {
         std::pair<GameState, MenuComponent*> p = menuHandler->execute();
         state = p.first;
         currentMenuItem = p.second;
-        if(state != GameState::INMENU) {
+        if(state == GameState::INOVERWORLD) {
             Menu* title = menuHandler->getTitleMenu();
             title->hideBackground();
         }
@@ -430,12 +430,14 @@ void Game::load() {
 
     JsonAccessor accessor;
     accessor.load(tempJsonFilePath);
-    if(accessor.canTakeElementFrom("gamestate")) {
+    if(accessor.canTakeElementFrom("date")) {
+        std::string date = accessor.getString("date");
+        int LDL = accessor.getInt("lastdiscoveredlevel");
 
-        int gameState = accessor.getInt("gamestate");
+        overworld->setState(LDL);
 
         console->clear();
-        console->addParagraph("Successfully loaded " + currentMenuItem->getLabel() + ".");
+        console->addParagraph("Successfully loaded " + currentMenuItem->getLabel() + ", from " + date);
         console->setCurrentPage(0);
         console->setNextState(GameState::INMENU);
 
@@ -477,15 +479,13 @@ void Game::save() {
     std::string keyDate("date");
     stringifier->add(keyDate, date);
 
-    std::string LDL("Level 42");
+    int LDL = overworld->getState();
     sf::Text* txt = currentMenuItem->getText();
-    txt->setString(LDL);
+    txt->setString("Level " + Utils::itos(LDL));
 
     std::string keyLDL("lastdiscoveredlevel");
     stringifier->add(keyLDL, LDL);
 
-    std::string keyGameState = "gamestate";
-    stringifier->add(keyGameState, (int)state);
     sh->save();
     sh->clearStringifier();
 

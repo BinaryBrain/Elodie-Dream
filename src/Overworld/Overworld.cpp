@@ -284,3 +284,7 @@ int Overworld::getLevelToLoad() {
 int Overworld::getState() {
     return currentState;
 }
+
+void Overworld::setState(int state) {
+    this->currentState = static_cast<states>(state);
+}
