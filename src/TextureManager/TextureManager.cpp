@@ -6,7 +6,7 @@ TextureManager::TextureManager() {
         {LevelEnv::UNIL, LEVELENV_UNIL},
         {LevelEnv::CASTLE, LEVELENV_CASTLE},
         {LevelEnv::VOLCANO, LEVELENV_VOLCANO},
-        {LevelEnv::FREJLORD, LEVELENV_FRELJORD}
+        {LevelEnv::FRELJORD, LEVELENV_FRELJORD}
     };
 
     TILE_TYPE = {

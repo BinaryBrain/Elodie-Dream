@@ -9,7 +9,7 @@ Earth::Earth(GameView* gameView, LevelEnv env, int tilesNumber, sf::Vector2f* ca
     case LevelEnv::CASTLE:
         filename = ENVIRONMENT_TEXTURES_PATH + "/" + LEVELENV_CASTLE + "/backlayer.png";
         break;
-    case LevelEnv::FREJLORD:
+    case LevelEnv::FRELJORD:
         filename = ENVIRONMENT_TEXTURES_PATH + "/" + LEVELENV_FRELJORD + "/backlayer.png";
         break;
     case LevelEnv::FIELD:

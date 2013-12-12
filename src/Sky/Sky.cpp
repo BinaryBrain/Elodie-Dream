@@ -9,7 +9,7 @@ Sky::Sky(GameView* gameView, LevelEnv env, int tilesNumber, sf::Vector2f* camera
     case LevelEnv::CASTLE:
         filename = ENVIRONMENT_TEXTURES_PATH + "/" + LEVELENV_CASTLE + "/background.png";
         break;
-    case LevelEnv::FREJLORD:
+    case LevelEnv::FRELJORD:
         filename = ENVIRONMENT_TEXTURES_PATH + "/" + LEVELENV_FRELJORD + "/background.png";
         break;
     case LevelEnv::FIELD:

@@ -173,10 +173,10 @@ void Game::loadLevel(int levelNbr) {
         env = LevelEnv::VOLCANO;
         break;
     case 6:
-        env = LevelEnv::FREJLORD;
+        env = LevelEnv::FRELJORD;
         break;
     case 7:
-        env = LevelEnv::FREJLORD;
+        env = LevelEnv::FRELJORD;
         break;
     default:
         env = LevelEnv::FIELD;
