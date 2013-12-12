@@ -14,6 +14,7 @@
 #include "../Sprite/TileSprite.h"
 #include "../Entity/Entity.h"
 #include "../Entity/Elodie.h"
+#include "../Entity/Portal.h"
 
 class Elodie;
 

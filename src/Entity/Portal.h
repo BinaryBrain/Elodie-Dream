@@ -25,7 +25,10 @@ public:
     void update(sf::Time deltaTime);
 
     PortalSprite* getSprite();
+    void takeDamage(int damage, bool ignore);
+
     Hitbox returnCurrentHitbox();
+
     void doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate);
     void pause();
     void play();

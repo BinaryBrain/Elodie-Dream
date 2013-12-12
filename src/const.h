@@ -67,6 +67,7 @@ static const char MAP_MAGMACUBE = 'M';
 static const char MAP_SPIKES = 'P';
 
 // Misc
+static const char MAP_PORTAL = 'F';
 static const char MAP_LINE_BREAK = '\n';
 static const char MAP_NULL = ' ';
 static const char MAP_NULL2 = '.';
