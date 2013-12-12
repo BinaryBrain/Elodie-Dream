@@ -20,6 +20,7 @@ const int DAMAGE_CD = 25;
 const int ELODIE_JUMP = -400;
 const int ELODIE_SPEED = 250;
 const float INC_PV_TIMER = 0.12;
+const float ATTACK_COOLDOWN = 0.5;
 
 // -- ENEMY -- //
 const int SHEEP_DAMAGE = 10;

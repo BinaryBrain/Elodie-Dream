@@ -211,7 +211,8 @@ void Elodie::handleEvent(EventHandler* const& event, EntityMap& entities, Collid
         changeState(ElodieState::JUMPING);
         speed.y = ELODIE_JUMP;
         sprite->changeStance(ANIMATIONS[state], sf::seconds(0.1f));
-    } else if (event->keyIsPressed(sf::Keyboard::A)) {
+    } else if (event->keyIsPressed(sf::Keyboard::A) && (attackTimer > ATTACK_COOLDOWN)) {
+        attackTimer = 0;
         changeState(ElodieState::PUNCHING);
     } else if (state == ElodieState::PUNCHING) {
         punch(entities);
@@ -252,9 +253,10 @@ void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSp
     }
 
     //Other stuff to do
-    timer += animate.asSeconds();
-    if (timer > INC_PV_TIMER) {
-        timer = 0;
+    attackTimer += animate.asSeconds();
+    pvTimer += animate.asSeconds();
+    if (pvTimer > INC_PV_TIMER) {
+        pvTimer = 0;
         immersionLevel = immersionLevel == 100 ? 100 : immersionLevel + 1;
     }
     if (damageCD)
@@ -292,7 +294,8 @@ void Elodie::play() {
 
 void Elodie::reset() {
     immersionLevel = 100;
-    timer = 0;
+    pvTimer = 0;
+    attackTimer = 2;
     state = ElodieState::WALKING;
     speed.x = ELODIE_SPEED;
 
