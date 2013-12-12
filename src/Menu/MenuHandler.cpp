@@ -44,7 +44,7 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
         std::string key = "lastdiscoveredlevel";
 
         if(accessor.canTakeElementFrom(key)) {
-            lastDiscoveredLevels[i] = accessor.getString(key);
+            lastDiscoveredLevels[i] = "Level "+ Utils::itos(accessor.getInt(key)+1);
         }
 
         SaveItem* save = new SaveItem(labels[i]);
