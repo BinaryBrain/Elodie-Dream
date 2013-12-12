@@ -13,6 +13,7 @@
 #include "../Displayable/Displayable.h"
 #include "../TextureManager/TextureManager.h"
 #include "../Sky/Sky.h"
+#include "../Sky/Earth.h"
 
 class Game;
 class Elodie;
@@ -45,6 +46,7 @@ private:
     TextureManager* manager;
     sf::Music music;
     Sky* sky;
+    Earth* earth;
 };
 
 #endif // LEVEL_H

@@ -88,6 +88,7 @@ void Game::leaveLevel() {
     state = GameState::INOVERWORLD;
     view.reset(ViewLayer::LEVEL);
     view.hide(ViewLayer::SKY);
+    view.hide(ViewLayer::EARTH);
     view.hide(ViewLayer::LEVEL);
     view.hide(ViewLayer::IMMERSIONBAR);
     view.hide(ViewLayer::CONSOLE);
@@ -136,6 +137,7 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
         if (curLevel->mustDie() && !GOD_MODE) {
             view.hide(ViewLayer::LEVEL);
             view.hide(ViewLayer::SKY);
+            view.hide(ViewLayer::EARTH);
             view.show(ViewLayer::DEATH);
             death->display();
             if(curLevel) {
@@ -185,6 +187,7 @@ void Game::handleOverworld(sf::Time time) {
         view.hide(ViewLayer::OVERWORLD);
         overworld->getMusic()->stop();
         view.show(ViewLayer::SKY);
+        view.hide(ViewLayer::EARTH);
         view.show(ViewLayer::LEVEL);
         view.show(ViewLayer::IMMERSIONBAR);
     } else if (event->keyIsPressed(sf::Keyboard::P)) {

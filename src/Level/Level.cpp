@@ -7,6 +7,7 @@ Level::Level(GameView* gameView, std::string filename, LevelEnv env, Elodie* elo
     loadLevel(filename, elodie);
 
     this->sky = new Sky(gameView, env);
+    this->earth = new Earth(gameView, env);
 
     gameView->addView(ViewLayer::LEVEL, this);
     gameView->setZoom(ViewLayer::LEVEL, ZOOM_LEVEL);
@@ -41,6 +42,7 @@ Level::~Level() {
 
     delete this->manager;
     delete this->sky;
+    delete this->earth;
 }
 
 void Level::setEnvironement(LevelEnv env) {
