@@ -113,32 +113,37 @@ void Game::leaveLevel() {
 }
 
 void Game::displayLevel(int curLevelNbr, sf::Time time) {
+    // leave level
     if(event->keyIsPressed(sf::Keyboard::Return)) {
         leaveLevel();
-
+    // Pause
     } else if (event->keyIsPressed(sf::Keyboard::P)) {
         state = GameState::INMENU;
         curLevel->pause();
         menuHandler->setNextState(GameState::INLEVEL);
         view.show(ViewLayer::MENU);
+
+    // toggle sound
     } else if(event->keyIsPressed(sf::Keyboard::M)) {
         toggleMute();
+
+    // toggle console
     } else if (event->keyIsPressed(sf::Keyboard::C)) {
         state = GameState::INCONSOLE;
         curLevel->pause();
         console->setNextState(GameState::INLEVEL);
         view.show(ViewLayer::CONSOLE);
+
+    // the level
     } else {
         curLevel->live(event, time);
         immBar->setLevel(((Elodie*)curLevel->getEntities()["elodie"])->getImmersionLevel());
+
+        // Game over
         if (curLevel->mustDie() && !GOD_MODE) {
             view.hide(ViewLayer::LEVEL);
             view.show(ViewLayer::DEATH);
-            console->clear();
-            console->addParagraph("You woke up...");
-            console->setCurrentPage(0);
-            view.show(ViewLayer::CONSOLE);
-            view.hide(ViewLayer::IMMERSIONBAR);
+            death->display();
             if(curLevel) {
                 delete curLevel;
                 curLevel = NULL;

@@ -33,7 +33,7 @@ const int SPIKES_DAMAGE = 50;
 const float ZOOM_LEVEL = 2;
 const int BLOCK_SIZE = 32;
 const int CAMERA_TOL = 50;
-const bool GOD_MODE = true; // TODO set to false
+const bool GOD_MODE = false; // TODO set to false
 
 // Immersion Bar
 const float IMMERSION_BAR_X = 540;
@@ -127,5 +127,10 @@ const float MENU_X = 300;
 const float MENU_Y = 200;
 const int MENU_ITEMS_INTERSPACE = 50;
 const int MENU_CHAR_SIZE = 30;
+
+//Game over
+const float GAMEOVER_CONTAINER_X = 0;
+const float GAMEOVER_CONTAINER_Y = 0;
+
 
 #endif // CONST_H_INCLUDED
