@@ -28,7 +28,7 @@ void Portal::init(float x, float y) {
     state = PortalState::STANDING;
 
     std::cout << "Before creating portal sprite" << std::endl;
-    sprite = new PortalSprite(info);
+    sprite = new EntitySprite(info, ENTITIES_JSON_PATH+"/"+ENTITYTYPE_MISC+"/"+ENTITYNAME_PORTAL+".png", "standing");
     std::cout << "Created portal sprite" << std::endl;
     setEntitySprite(sprite);
     std::cout << "Set entity sprite done" << std::endl;
@@ -48,7 +48,7 @@ void Portal::update(sf::Time deltaTime) {
     sprite->update(deltaTime);
 }
 
-PortalSprite* Portal::getSprite() {
+EntitySprite* Portal::getSprite() {
     return sprite;
 }
 

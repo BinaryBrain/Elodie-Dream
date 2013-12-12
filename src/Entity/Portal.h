@@ -3,7 +3,7 @@
 
 #include "../const.h"
 #include "Entity.h"
-#include "../Sprite/PortalSprite.h"
+#include "../Sprite/EntitySprite.h"
 #include "../Include/Collide.h"
 #include "../Include/EntityInfo.h"
 #include "../EventHandler/EventHandler.h"
@@ -24,7 +24,7 @@ public:
 
     void update(sf::Time deltaTime);
 
-    PortalSprite* getSprite();
+    EntitySprite* getSprite();
     Hitbox returnCurrentHitbox();
     void doAttack(std::map< std::string, Entity* >& entities);
     void takeDamage(int damage, bool ignore);
@@ -38,7 +38,7 @@ private:
     int damage = 0;
     SoundManager* soundManager;
 
-    PortalSprite* sprite;
+    EntitySprite* sprite;
 
     PortalState state;
 

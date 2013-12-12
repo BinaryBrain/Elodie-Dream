@@ -27,7 +27,7 @@ void MagmaCube::init(float x, float y) {
     y -= (info->height - BLOCK_SIZE);
     state = MagmaCubeState::STANDING;
 
-    sprite = new MagmaCubeSprite(info);
+    sprite = new EntitySprite(info, ENTITIES_JSON_PATH+"/"+ENTITYTYPE_ENEMY+"/"+ENTITYNAME_MAGMACUBE+".png", "standing");
     setEntitySprite(sprite);
 
     sprite->setPosition(sf::Vector2f(x,y));
@@ -44,7 +44,7 @@ void MagmaCube::update(sf::Time deltaTime) {
     sprite->update(deltaTime);
 }
 
-MagmaCubeSprite* MagmaCube::getSprite() {
+EntitySprite* MagmaCube::getSprite() {
     return sprite;
 }
 

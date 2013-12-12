@@ -1,5 +1,7 @@
-#ifndef PORTALSPRITE_H
-#define PORTALSPRITE_H
+#ifndef ENTITYSPRITE_H
+#define ENTITYSPRITE_H
+
+#include "CharacterSprite.h"
 
 #include <iostream>
 #include <string>
@@ -7,13 +9,13 @@
 
 #include "../const.h"
 #include "../env.h"
-#include "EnemySprite.h"
 #include "../Include/EntityInfo.h"
 
-class PortalSprite: public EnemySprite {
+
+class EntitySprite : public CharacterSprite {
 public:
-    PortalSprite(EntityInfo *informations);
-    virtual ~PortalSprite();
+    EntitySprite(EntityInfo *informations, std::string path, std::string stance);
+    virtual ~EntitySprite();
     void changeStance(std::string stance, sf::Time speed);
 protected:
 private:
@@ -21,4 +23,4 @@ private:
     sf::Texture texture;
 };
 
-#endif // PORTALSPRITE_H
+#endif // ENTITYSPRITE_H

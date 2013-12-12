@@ -27,7 +27,7 @@ void Sheep::init(float x, float y) {
     y -= (info->height - BLOCK_SIZE);
     state = SheepState::STANDING;
 
-    sprite = new SheepSprite(info);
+    sprite = new EntitySprite(info, ENTITIES_JSON_PATH+"/"+ENTITYTYPE_ENEMY+"/"+ENTITYNAME_SHEEP+".png", "standing");
     setEntitySprite(sprite);
 
     sprite->setPosition(sf::Vector2f(x,y));
@@ -45,7 +45,7 @@ void Sheep::update(sf::Time deltaTime) {
     sprite->update(deltaTime);
 }
 
-SheepSprite* Sheep::getSprite() {
+EntitySprite* Sheep::getSprite() {
     return sprite;
 }
 

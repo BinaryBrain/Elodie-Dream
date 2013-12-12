@@ -27,7 +27,7 @@ void Bristle::init(float x, float y) {
     y -= (info->height - BLOCK_SIZE);
     state = BristleState::STANDING;
 
-    sprite = new BristleSprite(info);
+    sprite = new EntitySprite(info, ENTITIES_JSON_PATH+"/"+ENTITYTYPE_ENEMY+"/"+ENTITYNAME_BRISTLE+".png", "standing");
     setEntitySprite(sprite);
 
     sprite->setPosition(sf::Vector2f(x,y));
@@ -45,7 +45,7 @@ void Bristle::update(sf::Time deltaTime) {
     sprite->update(deltaTime);
 }
 
-BristleSprite* Bristle::getSprite() {
+EntitySprite* Bristle::getSprite() {
     return sprite;
 }
 

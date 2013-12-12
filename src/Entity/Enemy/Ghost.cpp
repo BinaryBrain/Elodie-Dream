@@ -27,7 +27,7 @@ void Ghost::init(float x, float y) {
     y -= (info->height - BLOCK_SIZE);
     state = GhostState::STANDING;
 
-    sprite = new GhostSprite(info);
+    sprite = new EntitySprite(info, ENTITIES_JSON_PATH+"/"+ENTITYTYPE_ENEMY+"/"+ENTITYNAME_GHOST+".png", "standing");
     setEntitySprite(sprite);
 
     sprite->setPosition(sf::Vector2f(x,y));
@@ -45,7 +45,7 @@ void Ghost::update(sf::Time deltaTime) {
     sprite->update(deltaTime);
 }
 
-GhostSprite* Ghost::getSprite() {
+EntitySprite* Ghost::getSprite() {
     return sprite;
 }
 

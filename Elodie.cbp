@@ -64,6 +64,8 @@
 		<Unit filename="src/EntityManager/EntityManager.h" />
 		<Unit filename="src/Entity/Elodie.cpp" />
 		<Unit filename="src/Entity/Elodie.h" />
+		<Unit filename="src/Entity/Enemy/Bristle.cpp" />
+		<Unit filename="src/Entity/Enemy/Bristle.h" />
 		<Unit filename="src/Entity/Enemy/Ghost.cpp" />
 		<Unit filename="src/Entity/Enemy/Ghost.h" />
 		<Unit filename="src/Entity/Enemy/MagmaCube.cpp" />
@@ -143,16 +145,8 @@
 		<Unit filename="src/Sprite/CharacterSprite.h" />
 		<Unit filename="src/Sprite/ElodieSprite.cpp" />
 		<Unit filename="src/Sprite/ElodieSprite.h" />
-		<Unit filename="src/Sprite/EnemySprite.cpp" />
-		<Unit filename="src/Sprite/EnemySprite.h" />
-		<Unit filename="src/Sprite/EnemySprite/GhostSprite.cpp" />
-		<Unit filename="src/Sprite/EnemySprite/GhostSprite.h" />
-		<Unit filename="src/Sprite/EnemySprite/MagmaCubeSprite.cpp" />
-		<Unit filename="src/Sprite/EnemySprite/MagmaCubeSprite.h" />
-		<Unit filename="src/Sprite/EnemySprite/SheepSprite.cpp" />
-		<Unit filename="src/Sprite/EnemySprite/SheepSprite.h" />
-		<Unit filename="src/Sprite/EnemySprite/SpikesSprite.cpp" />
-		<Unit filename="src/Sprite/EnemySprite/SpikesSprite.h" />
+		<Unit filename="src/Sprite/EntitySprite.cpp" />
+		<Unit filename="src/Sprite/EntitySprite.h" />
 		<Unit filename="src/Sprite/EnvSprite.cpp" />
 		<Unit filename="src/Sprite/EnvSprite.h" />
 		<Unit filename="src/Sprite/Interactive.cpp" />

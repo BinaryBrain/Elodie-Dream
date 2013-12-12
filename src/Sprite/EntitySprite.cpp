@@ -1,7 +1,7 @@
-#include "SheepSprite.h"
+#include "EntitySprite.h"
 
-SheepSprite::SheepSprite(EntityInfo *informations) : EnemySprite() {
-    texture.loadFromFile(ENTITIES_JSON_PATH+"/"+ENTITYTYPE_ENEMY+"/"+ENTITYNAME_SHEEP+".png");
+EntitySprite::EntitySprite(EntityInfo *informations, std::string path, std::string stance) : CharacterSprite() {
+    texture.loadFromFile(path);
 
     // push frames
     for(std::map< std::string, HitboxInfo >::iterator it = informations->anim.begin(); it != informations->anim.end(); ++it) {
@@ -11,14 +11,14 @@ SheepSprite::SheepSprite(EntityInfo *informations) : EnemySprite() {
         }
     }
 
-    changeStance("standing", sf::seconds(0.1));
+    changeStance(stance, sf::seconds(0.1));
 }
 
-SheepSprite::~SheepSprite() {
+EntitySprite::~EntitySprite() {
     //dtor
 }
 
-void SheepSprite::changeStance(std::string stance, sf::Time speed) {
+void EntitySprite::changeStance(std::string stance, sf::Time speed) {
     AnimatedSprite::setAnimation(animations[stance]);
     setFrameTime(speed);
     setCurrentStance(stance);

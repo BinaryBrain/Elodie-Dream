@@ -29,7 +29,7 @@ void Spikes::init(float x, float y) {
     state = SpikesState::WAITING;
     speed.x = 0;
 
-    sprite = new SpikesSprite(info);
+    sprite = new EntitySprite(info, ENTITIES_JSON_PATH+"/"+ENTITYTYPE_ENEMY+"/"+ENTITYNAME_SPIKES+".png", "waiting");
     setEntitySprite(sprite);
 
     sprite->setPosition(sf::Vector2f(x,y));
@@ -46,7 +46,7 @@ void Spikes::update(sf::Time deltaTime) {
     sprite->update(deltaTime);
 }
 
-SpikesSprite* Spikes::getSprite() {
+EntitySprite* Spikes::getSprite() {
     return sprite;
 }
 
