@@ -16,8 +16,8 @@ Game::Game() {
     overworld = new Overworld(&view, DEFAULT_MUTE);
     view.addView(ViewLayer::OVERWORLD, overworld);
 
-    scoreboard = new Scoreboard(&view);
-    view.addView(ViewLayer::SCORE, scoreboard);
+    //scoreboard = new Scoreboard(&view);
+    //view.addView(ViewLayer::SCORE, scoreboard);
 
     console = new Console(&view);
     event = new EventHandler(view.getWindow());
@@ -349,7 +349,7 @@ void Game::run() {
         sf::Time sfTime = frameClock.restart();
         if (sfTime.asSeconds() > MAX_TIME_FRAME)
             sfTime = sf::seconds(MAX_TIME_FRAME);
-        std::cout << 1.0/sfTime.asSeconds() << std::endl;
+        //std::cout << 1.0/sfTime.asSeconds() << std::endl;
         event->listening();
 
         if (event->lostFocus()) {
@@ -430,8 +430,8 @@ void Game::run() {
 
 
         view.hide(ViewLayer::GIRLY);
-        view.hide(ViewLayer::SCORE);
-        view.show(ViewLayer::SCORE);
+        //view.hide(ViewLayer::SCORE);
+        //view.show(ViewLayer::SCORE);
         if (girlyMode) {
             view.show(ViewLayer::GIRLY);
         }

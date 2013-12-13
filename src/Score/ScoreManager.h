@@ -15,6 +15,7 @@ public:
     void loadScore(std::vector< int > scores, std::vector< int > bonuses);
 
     Score getScore(int level);
+    Score getCurrentScore();
     void takeBonus();
     void addScore(int score);
     void saveScore(int level);

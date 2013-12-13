@@ -41,6 +41,10 @@ Score ScoreManager::getScore(int level) {
     return gameScore[level];
 }
 
+Score ScoreManager::getCurrentScore() {
+    return currentScore;
+}
+
 void ScoreManager::takeBonus() {
     currentScore.bonus += 1;
 }
