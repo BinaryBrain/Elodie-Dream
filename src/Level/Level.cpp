@@ -62,18 +62,28 @@ void Level::loadLevel(std::string filename, Elodie* elodie) {
 
 // Ask the given view to draw a Level frame
 void Level::display() {
-    Elodie* elodie = dynamic_cast<Elodie*>(entities["elodie"]);
-    int elodieX = elodie->getPosition().x;
-    int marginLeft = elodieX - 100;
-    int marginRight = elodieX + 100;
+    int cameraCenterX = this->getView()->getCenter().x;
+    int cameraCenterY = this->getView()->getCenter().y;
+
+    int marginLeft = cameraCenterX - HORIZONTAL_DISPLAY_MARGIN;
+    int marginRight = cameraCenterX + HORIZONTAL_DISPLAY_MARGIN;
     int startX = marginLeft / 32;
     if(startX < 0 ) {
         startX = 0;
     }
     size_t endX = marginRight / 32;
-    for(unsigned int y=0; y<tiles.size(); y++) {
+
+    int marginTop = cameraCenterY - VERTICAL_DISPLAY_MARGIN;
+    int marginBot = cameraCenterY + VERTICAL_DISPLAY_MARGIN;
+    int startY = marginTop / 32;
+    if(startY < 0 ) {
+        startY = 0;
+    }
+    size_t endY = marginBot / 32;
+    endY = endY > tiles.size() ? tiles.size() : endY;
+    for(unsigned int y=startY; y<endY; y++) {
         size_t tmpEndX = endX > tiles[y].size() ? tiles[y].size() : endX;
-        for(unsigned int x=startX; x<endX; x++) {
+        for(unsigned int x=startX; x<tmpEndX; x++) {
             if(tiles[y][x]) {
                 tiles[y][x]->setPosition(x*32, y*32);
                 gameView->addDrawable(ViewLayer::LEVEL, tiles[y][x]);
@@ -89,14 +99,17 @@ void Level::display() {
         if(entity_ptr->first != "elodie" && entity_ptr->first != "portal") {
             Entity* entity = entity_ptr->second;
             sf::Sprite* sprite = entity->getSprite();
-            if (sprite->getPosition().x > (elodieX - 100) && sprite->getPosition().x < (elodieX + 100)) {
+            if (sprite->getPosition().x > marginLeft
+                    && sprite->getPosition().x < marginRight
+                    && sprite->getPosition().y < marginBot
+                    && sprite->getPosition().y > marginTop) {
                 if(sprite) {
                     gameView->addDrawable(ViewLayer::LEVEL, sprite);
                 }
             }
         }
     }
-
+    Elodie* elodie = dynamic_cast<Elodie*>(entities["elodie"]);
     if (elodie->getSprite()) {
         gameView->addDrawable(ViewLayer::LEVEL, elodie->getSprite());
     }

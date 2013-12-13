@@ -14,7 +14,6 @@ public:
 
 protected:
     GameView* gameView;
-
 private:
     sf::View* view;
 };
