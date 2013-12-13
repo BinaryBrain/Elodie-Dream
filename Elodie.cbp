@@ -105,6 +105,8 @@
 		<Unit filename="src/Json/JsonParser.h" />
 		<Unit filename="src/Json/JsonStringifier.cpp" />
 		<Unit filename="src/Json/JsonStringifier.h" />
+		<Unit filename="src/LanguageHandler/LanguageHandler.cpp" />
+		<Unit filename="src/LanguageHandler/LanguageHandler.h" />
 		<Unit filename="src/Level/Death.cpp" />
 		<Unit filename="src/Level/Death.h" />
 		<Unit filename="src/Level/Immersionbar.cpp" />

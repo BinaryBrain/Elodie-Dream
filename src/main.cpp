@@ -6,6 +6,7 @@
 #include "EventHandler/EventHandler.h"
 #include "Json/JsonParser.h"
 #include "Json/JsonAccessor.h"
+#include "LanguageHandler/LanguageHandler.h"
 #include "Game/Game.h"
 #include "Overworld/Overworld.h"
 #include "Utils/Utils.h"
@@ -19,6 +20,27 @@ using std::endl;
 int main() {
     // Map Parsing test
     Game* game = Game::getInstance();
+
+    /*JsonAccessor accessor;
+    accessor.load("settings/settings.json");
+
+    std::string language("");
+    if(accessor.canTakeElementFrom("language")) {
+        language = accessor.getString("language");
+    }
+    else {
+        language = "EN";
+    }
+    accessor.close();
+
+    cout << language << endl;
+
+    LanguageHandler* lh = LanguageHandler::getInstance();
+    JsonAccessor* lhA = lh->getAccessor();
+    cout << "got accessor" << endl;
+    lhA->load("assets/config/languages/"+language+".lang");
+
+    cout << "loaded" << endl;*/
 
     if (false) {
         // Conf test
