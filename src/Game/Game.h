@@ -15,12 +15,14 @@
 #include "../Level/Immersionbar.h"
 #include "../Sound/SoundManager.h"
 #include "../Level/Death.h"
+#include "../Score/Scoreboard.h"
 #include "GameView.h"
 #include "../Sky/sky.h"
 
 class Level;
 class Overworld;
 class Death;
+class Scoreboard;
 class SoundManager;
 
 /**
@@ -60,6 +62,8 @@ private:
     GameState pausePrevState;
 
     SoundManager* soundManager;
+
+    Scoreboard* scoreboard = NULL;
 
     EventHandler* event = NULL;
     Overworld* overworld = NULL;

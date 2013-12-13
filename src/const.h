@@ -63,6 +63,10 @@ const float IMMERSION_BAR_OUTLINE_THICKNESS = 2;
 const sf::Color IMMERSION_BAR_FILL = sf::Color(0x73, 0xC8, 0xA9, 0xFF);
 const sf::Color IMMERSION_BAR_OUTLINE = sf::Color(0x31, 0x55, 0x48, 0xFF);
 
+// -- SCORE -- //
+const float SCORE_OVERWORLD_SPRITE_SIZE = 40;
+const float SCORE_LEVEL_SPRITE_SIZE = 20;
+
 // -- MAPS --
 // ASCII Map
 // Terrain

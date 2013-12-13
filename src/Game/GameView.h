@@ -11,7 +11,7 @@
 #include "../Displayable/Displayable.h"
 
 enum class ViewLayer {
-    MENU, OVERWORLD, LEVEL, HUD, CONSOLE, GIRLY, IMMERSIONBAR, DEATH, SKY, EARTH
+    MENU, OVERWORLD, LEVEL, HUD, CONSOLE, GIRLY, IMMERSIONBAR, DEATH, SKY, EARTH, SCORE
 };
 
 class GameView {
