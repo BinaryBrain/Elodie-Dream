@@ -34,7 +34,7 @@ public:
 
     int getState();
     void setState(int state);
-
+    void setPosInPath(int pos = 0);
     sf::Music* getMusic();
 
 protected:

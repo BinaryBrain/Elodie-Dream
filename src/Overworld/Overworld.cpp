@@ -101,6 +101,10 @@ void Overworld::resetPos() {
     elodie->setPosition((* (paths[currentState]))[curPosInPath].position.x-32,(* (paths[currentState]))[curPosInPath].position.y-64);
 }
 
+void Overworld::setPosInPath(int pos) {
+    curPosInPath = pos;
+}
+
 void Overworld::display() {
     gameView->addDrawable(ViewLayer::OVERWORLD, overworldSprites[whichOverworld()]);
     gameView->addDrawable(ViewLayer::OVERWORLD, pathSprites[currentState]);

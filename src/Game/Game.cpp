@@ -486,6 +486,8 @@ void Game::load() {
             view.addView(ViewLayer::OVERWORLD, overworld);
         }
         overworld->setState(LDL);
+        overworld->setPosInPath(0);
+        overworld->resetPos();
 
         console->clear();
         console->setNextState(GameState::INOVERWORLD);
