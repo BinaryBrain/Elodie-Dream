@@ -31,6 +31,7 @@ void MagmaCube::init(float x, float y) {
 
     sprite->setPosition(sf::Vector2f(x,y));
     setHitboxes(info, sprite->getPosition());
+    soundManager = SoundManager::getInstance();
 }
 
 MagmaCube::~MagmaCube() {
@@ -70,6 +71,7 @@ void MagmaCube::jump() {
         speed.x = -MAGMACUBE_MOVE_X;
         speed.y = -MAGMACUBE_MOVE_Y;
     } else if (speed.y == 0 && !jumpCD) {
+        soundManager->play(SoundType::MAGMACUBE);
         speed.x = 0;
         jumpCD = MAGMACUBE_JUMP_CD;
     } else if (!speed.x && speed.y) {

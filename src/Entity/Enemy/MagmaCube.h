@@ -7,6 +7,7 @@
 #include "../../Include/Collide.h"
 #include "../../Include/EntityInfo.h"
 #include "../../EventHandler/EventHandler.h"
+#include "../../Sound/SoundManager.h"
 #include "../../EntityManager/EntityManager.h"
 #include "../Elodie.h"
 
@@ -39,6 +40,8 @@ private:
     EntitySprite* sprite;
 
     MagmaCubeState state;
+
+    SoundManager* soundManager = NULL;
 
     std::map< MagmaCubeState, std::string > ANIMATIONS;
 };

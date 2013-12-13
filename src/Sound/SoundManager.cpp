@@ -7,6 +7,7 @@ SoundManager::SoundManager() {
         { SoundType::PUNCH, { SOUND_TYPE_PUNCH, SOUND_TYPE_PUNCH_MAX } }, // The int is the number after the max file (2 => punch2.wav)
         { SoundType::SPIKES, { SOUND_TYPE_SPIKES, SOUND_TYPE_SPIKES_MAX } },
         { SoundType::SHEEP, { SOUND_TYPE_SHEEP, SOUND_TYPE_SHEEP_MAX } },
+        { SoundType::MAGMACUBE, { SOUND_TYPE_MAGMACUBE, SOUND_TYPE_MAGMACUBE_MAX } },
         { SoundType::FOOTSTEP_GROUND, { SOUND_TYPE_FOOTSTEP_GROUND, SOUND_TYPE_FOOTSTEP_GROUND_MAX } },
         { SoundType::FOOTSTEP_GRASS, { SOUND_TYPE_FOOTSTEP_GRASS, SOUND_TYPE_FOOTSTEP_GRASS_MAX } }
     };
