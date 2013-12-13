@@ -59,16 +59,17 @@ void GameView::followPoint(ViewLayer viewKey, const sf::Vector2f pos) {
 void GameView::followPoint(ViewLayer viewKey, float x, float y) {
     sf::Vector2f viewSize = viewMap[viewKey]->getView()->getSize();
 
-    float margin = viewSize.y/3;
+    float marginTop = viewSize.y/3.8;
+    float marginBot = viewSize.y/2.0;
     // margin = 0; // FIXME I bug with the zoom
 
     float camX = x+viewSize.x/2-viewSize.x/5; // 1/5 of the screen
     float camY = viewMap[viewKey]->getView()->getCenter().y;
 
-    if(centers[viewKey].y-y > viewSize.y/2-margin) {
-        camY = y+(viewSize.y/2-margin);
-    } else if(-centers[viewKey].y+y > viewSize.y/2-margin) {
-        camY = y-(viewSize.y/2-margin);
+    if(centers[viewKey].y-y > viewSize.y/2-marginTop) {
+        camY = y+(viewSize.y/2-marginTop);
+    } else if(-centers[viewKey].y+y > viewSize.y/2-marginBot) {
+        camY = y-(viewSize.y/2-marginBot);
     }
 
     setCameraCenter(viewKey, camX, camY);
