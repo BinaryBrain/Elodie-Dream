@@ -155,5 +155,7 @@ const int MENU_CHAR_SIZE = 30;
 const float GAMEOVER_INTERSPACE = 50;
 const int GAMEOVER_ELOSCALE = 3;
 
+//Console
+const int CONSOLE_NLINES = 6;
 
 #endif // CONST_H_INCLUDED

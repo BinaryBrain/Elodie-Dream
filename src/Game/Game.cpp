@@ -96,6 +96,23 @@ void Game::leaveLevel() {
 }
 
 void Game::displayLevel(int curLevelNbr, sf::Time time) {
+    // tutorial
+    if (showTutoConsole) {
+        state = GameState::INCONSOLE;
+        curLevel->pause();
+        view.show(ViewLayer::CONSOLE);
+
+        console->clear();
+        const char *tutorial = "You learned the existence of a legendary poro land, where you can find all the poros. More than interested, you begin your long journey to find this mysterious country...\n"
+            "As you progress, you will surely come across some animals or monsters, like this sheep there.\n"
+            "You can press 'A' to kill them or just jump over them with the space bar.\n"
+            "Well, good luck, you might need it! :3\n"
+            "   Alia";
+        console->addParagraph(tutorial);
+        console->setCurrentPage(0);
+        console->setNextState(GameState::INLEVEL);
+        showTutoConsole = false;
+    }
     // leave level
     if(event->keyIsPressed(sf::Keyboard::Return)) {
         leaveLevel();
@@ -110,13 +127,6 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
         // toggle sound
     } else if(event->keyIsPressed(sf::Keyboard::M)) {
         toggleMute();
-
-        // toggle console
-    } else if (event->keyIsPressed(sf::Keyboard::C)) {
-        state = GameState::INCONSOLE;
-        curLevel->pause();
-        console->setNextState(GameState::INLEVEL);
-        view.show(ViewLayer::CONSOLE);
 
         // the level
     } else {
@@ -157,6 +167,7 @@ void Game::loadLevel(int levelNbr) {
     LevelEnv env = LevelEnv::FIELD;
     switch(levelNbr) {
     case 0:
+        showTutoConsole = true;
         env = LevelEnv::FIELD;
         break;
     case 1:

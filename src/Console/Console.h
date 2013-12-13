@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "../env.h"
+#include "../const.h"
 #include "../Game/GameView.h"
 #include "../Displayable/Displayable.h"
 
@@ -52,7 +53,6 @@ private:
 
     float sizeX = 1280;
     float sizeY = 200;
-    int linesPerPage = 5;
 
     float marginX = 50;
     float marginY = 20;

@@ -27,7 +27,7 @@ Console::~Console() {
 }
 
 void Console::addParagraph(std::string paragraph) {
-    pushAll(makePages(cutShort(paragraph, " ", sizeX-3*marginX), linesPerPage), pages);
+    pushAll(makePages(cutShort(paragraph, " ", sizeX-3*marginX), CONSOLE_NLINES), pages);
     totalPages = pages.size();
 }
 

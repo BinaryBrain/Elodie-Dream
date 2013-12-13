@@ -92,6 +92,8 @@ private:
     void newGame();
     GameState defaultReturnState;
     void leaveLevel();
+
+    bool showTutoConsole = false;
 };
 
 #endif // GAME_H
