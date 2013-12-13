@@ -10,6 +10,7 @@ using std::string;
 
 // -- GAME --//
 const int DEFAULT_MUTE = true; // TODO Change me to false
+const int FULLSCREEN = false; // TODO Change me to true
 const int WINDOW_WIDTH = 1280;
 const int WINDOW_HEIGHT = 720;
 const int FPS = 100;

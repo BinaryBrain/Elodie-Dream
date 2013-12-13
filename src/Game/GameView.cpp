@@ -1,7 +1,11 @@
 #include "GameView.h"
 
 GameView::GameView() {
-    window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Elodie's Dream: Quest for Poros", sf::Style::Default);
+    if(FULLSCREEN) {
+        window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Elodie's Dream: Quest for Poros", sf::Style::Fullscreen);
+    } else {
+        window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Elodie's Dream: Quest for Poros", sf::Style::Default);
+    }
 }
 
 GameView::~GameView() {
