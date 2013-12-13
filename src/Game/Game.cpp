@@ -343,6 +343,9 @@ void Game::run() {
 
     while (window->isOpen()) {
         sf::Time sfTime = frameClock.restart();
+        if (sfTime.asSeconds() > MAX_TIME_FRAME)
+            sfTime = sf::seconds(MAX_TIME_FRAME);
+
         event->listening();
 
         if (event->lostFocus()) {

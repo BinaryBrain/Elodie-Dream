@@ -14,6 +14,7 @@ const int WINDOW_WIDTH = 1280;
 const int WINDOW_HEIGHT = 720;
 const int FPS = 100;
 const int LIVE_SCOPE = 2000;
+const float MAX_TIME_FRAME = 0.02;
 
 // -- ELODIE -- //
 const int DAMAGE_CD = 25;
