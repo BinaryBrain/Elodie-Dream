@@ -109,6 +109,8 @@
 		<Unit filename="src/LanguageHandler/LanguageHandler.h" />
 		<Unit filename="src/Level/Death.cpp" />
 		<Unit filename="src/Level/Death.h" />
+		<Unit filename="src/Level/EndingScreen.cpp" />
+		<Unit filename="src/Level/EndingScreen.h" />
 		<Unit filename="src/Level/Immersionbar.cpp" />
 		<Unit filename="src/Level/Immersionbar.h" />
 		<Unit filename="src/Level/Level.cpp" />
