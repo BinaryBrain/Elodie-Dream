@@ -13,7 +13,6 @@
 
 //Here for testing purpose. To remove later on
 #include "EntityManager/EntityManager.h"
-#include "Score/ScoreManager.h"
 
 using std::cout;
 using std::endl;
@@ -90,15 +89,6 @@ int main() {
         delete sheep;
         ToyBox->kill();
     }
-
-    if (true) {
-        ScoreManager* score = ScoreManager::getInstance();
-        std::vector< int > scores = {0, 0};
-        std::vector< int > bonuses = {1, 1};
-        score->loadScore(1, 100, 8);
-        std::cout << score->getScore(8).score << std::endl;
-    }
-
     game->run();
     game->kill();
 
