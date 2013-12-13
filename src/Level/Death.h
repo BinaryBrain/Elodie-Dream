@@ -18,7 +18,8 @@ public:
 private:
     sf::RectangleShape rect;
     sf::Font* font;
-    sf::Text* text;
+    sf::Text* oh;
+    sf::Text* wokeUp;
     sf::Texture texture;
     sf::Sprite elo;
     sf::Music music;

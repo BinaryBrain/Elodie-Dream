@@ -10,15 +10,29 @@ Death::Death(GameView * view, bool isMute) : Displayable(view) {
 
     font = new sf::Font();
     font->loadFromFile("assets/fonts/pf_tempesta_seven/pf_tempesta_seven.ttf");
-    text = new sf::Text("You woke up ... ", *font);
-    text->setCharacterSize(30);
+
+    oh = new sf::Text("OH.", *font);
+    oh->setCharacterSize(20);
+
+    wokeUp = new sf::Text("You woke up ... ", *font);
+    wokeUp->setCharacterSize(30);
+
+    float midX = WINDOW_WIDTH/2;
+    float midY = WINDOW_HEIGHT/2;
 
     texture.loadFromFile("assets/img/sprites/dreamover.png");
     elo.setTexture(texture);
     elo.setScale(GAMEOVER_ELOSCALE, GAMEOVER_ELOSCALE);
-    elo.setPosition(WINDOW_WIDTH/2 - (elo.getLocalBounds().width*GAMEOVER_ELOSCALE)/2, WINDOW_HEIGHT/2 - (elo.getLocalBounds().height*GAMEOVER_ELOSCALE)/2);
 
-    text->setPosition(WINDOW_WIDTH/2 - text->getLocalBounds().width/2, WINDOW_HEIGHT/2 + (elo.getLocalBounds().height*GAMEOVER_ELOSCALE)/2 + GAMEOVER_INTERSPACE);
+    float midEloX = (elo.getLocalBounds().width*GAMEOVER_ELOSCALE)/2;
+    float midEloY = (elo.getLocalBounds().height*GAMEOVER_ELOSCALE)/2;
+    float topElo = midY - midEloY;
+    float botElo = midY + midEloY;
+    elo.setPosition(midX - midEloX, midY - midEloY);
+
+    oh->setPosition(midX - oh->getLocalBounds().width/2, topElo - GAMEOVER_INTERSPACE);
+
+    wokeUp->setPosition(midX - wokeUp->getLocalBounds().width/2, botElo + GAMEOVER_INTERSPACE);
 
 
     view->addView(ViewLayer::DEATH, this);
@@ -37,11 +51,13 @@ Death::Death(GameView * view, bool isMute) : Displayable(view) {
 
 Death::~Death() {
     delete font;
-    delete text;
+    delete oh;
+    delete wokeUp;
 }
 
 void Death::display() {
     gameView->addDrawable(ViewLayer::DEATH, &rect);
-    gameView->addDrawable(ViewLayer::DEATH, text);
+    gameView->addDrawable(ViewLayer::DEATH, oh);
     gameView->addDrawable(ViewLayer::DEATH, &elo);
+    gameView->addDrawable(ViewLayer::DEATH, wokeUp);
 }

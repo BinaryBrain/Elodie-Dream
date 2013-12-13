@@ -25,7 +25,9 @@ void GameView::show(ViewLayer viewKey) {
     if(std::find(toDraw.begin(), toDraw.end(), viewKey) == toDraw.end()) {
         toDraw.push_back(viewKey);
     }
-    viewMap[viewKey]->getView()->setSize(window->getDefaultView().getSize());
+    if (zooms[viewKey]<=0) {
+        viewMap[viewKey]->getView()->setSize(window->getDefaultView().getSize()/zooms[viewKey]);
+    }
 }
 
 void GameView::hide(ViewLayer viewKey) {
@@ -74,6 +76,7 @@ void GameView::followPoint(ViewLayer viewKey, float x, float y) {
 
 void GameView::setZoom(ViewLayer viewKey, float zoom) {
     zooms[viewKey] = zoom;
+    viewMap[viewKey]->getView()->setSize(window->getDefaultView().getSize()/zooms[viewKey]);
 }
 
 void GameView::draw() {
