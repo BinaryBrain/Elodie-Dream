@@ -65,7 +65,7 @@ void Poro::checkArea(std::map< std::string, Entity* >& entities) {
     if (zone.intersects(portal)) {
         if (speed.y == 0 && ((portal.left > getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()).getArea().left && speed.x > 0) ||
             (portal.left < getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()).getArea().left && speed.x < 0))) {
-                speed.y = -PORO_SPEED_Y;
+                speed.y = -PORO_SPEED_Y - 50;
         }
     }
     if (portal.intersects(getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()).getArea())) {
@@ -87,10 +87,10 @@ void  Poro::takeDamage(int damage, bool ignore) {
 }
 
 void Poro::doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) {
+    checkArea(entities);
+
     //Compute the gravity
     computeGravity(animate);
-
-    checkArea(entities);
 
     //Check the collisions, set the new distances and do the move
     Collide collideTiles = collideWithTiles(tiles, &speed, animate.asSeconds(), getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()));
