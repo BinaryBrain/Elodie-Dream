@@ -35,6 +35,9 @@ const int MAGMACUBE_MOVE_X = 200;
 const int MAGMACUBE_MOVE_Y = 400;
 const int BRISTLE_DAMAGE = 20;
 const int SPIKES_DAMAGE = 50;
+const int PORO_SPEED_X = 255;
+const int PORO_SPEED_Y = 300;
+const int PORO_DETECTION = 350;
 
 // -- LEVEL -- //
 const float ZOOM_LEVEL = 2;
@@ -75,6 +78,7 @@ static const char MAP_MAGMACUBE = 'M';
 static const char MAP_GHOST = 'G';
 static const char MAP_BRISTLE = 'B';
 static const char MAP_SPIKES = 'P';
+static const char MAP_PORO = 'O';
 
 // Misc
 static const char MAP_PORTAL = 'F';
@@ -108,6 +112,7 @@ const string ENTITYNAME_MAGMACUBE = "magmacube";
 const string ENTITYNAME_BRISTLE = "bristle";
 const string ENTITYNAME_SPIKES = "spikes";
 const string ENTITYNAME_PORTAL = "portal";
+const string ENTITYNAME_PORO = "poro";
 
 const string ENTITYTYPE_ELODIE = "";
 const string ENTITYTYPE_ENEMY = "enemies";

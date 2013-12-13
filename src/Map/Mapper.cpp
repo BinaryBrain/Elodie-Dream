@@ -6,6 +6,7 @@
 #include "../Entity/Enemy/Bristle.h"
 #include "../Entity/Portal.h"
 #include "../Entity/Enemy/Spikes.h"
+#include "../Entity/poro.h"
 
 std::map< std::string, int > Mapper::freshIds;
 
@@ -48,6 +49,9 @@ void Mapper::parse(std::string asciiLevel, TileMap& tiles, EntityMap& entities, 
             break;
         case MAP_PORTAL:
             entities.insert(std::make_pair("portal", new Portal(x*32, y*32)));
+            break;
+        case MAP_PORO:
+            entities.insert(std::make_pair(getFreshID("poro"), new Poro(x*32, y*32)));
             break;
         default:
             isEntity = false;

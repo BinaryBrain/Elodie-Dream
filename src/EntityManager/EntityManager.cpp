@@ -11,7 +11,8 @@ EntityManager::EntityManager() {
         {EntityName::BRISTLE, ENTITYNAME_BRISTLE},
         {EntityName::GHOST, ENTITYNAME_GHOST},
         {EntityName::SPIKES, ENTITYNAME_SPIKES},
-        {EntityName::PORTAL, ENTITYNAME_PORTAL}
+        {EntityName::PORTAL, ENTITYNAME_PORTAL},
+        {EntityName::PORO, ENTITYNAME_PORO}
     };
 
     ENTITY_TYPE = {

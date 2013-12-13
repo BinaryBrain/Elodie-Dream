@@ -78,6 +78,8 @@
 		<Unit filename="src/Entity/Entity.h" />
 		<Unit filename="src/Entity/Hitbox.cpp" />
 		<Unit filename="src/Entity/Hitbox.h" />
+		<Unit filename="src/Entity/Poro.cpp" />
+		<Unit filename="src/Entity/Poro.h" />
 		<Unit filename="src/Entity/Portal.cpp" />
 		<Unit filename="src/Entity/Portal.h" />
 		<Unit filename="src/EventHandler/EventHandler.cpp" />

@@ -10,7 +10,7 @@
 #include "../Json/JsonAccessor.h"
 
 enum class EntityName {
-    ELODIE, SHEEP, MAGMACUBE, BRISTLE, GHOST, SPIKES, PORTAL
+    ELODIE, SHEEP, MAGMACUBE, BRISTLE, GHOST, SPIKES, PORTAL, PORO
 };
 
 enum class EntityType {
