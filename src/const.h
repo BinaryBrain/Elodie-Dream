@@ -21,7 +21,7 @@ const float MAX_TIME_FRAME = 1.0/10.0;
 const int DAMAGE_CD = 25;
 const int ELODIE_JUMP = -400;
 const int ELODIE_SPEED = 250;
-const float INC_PV_TIMER = 0.12;
+const float INC_PV_TIMER = 0.2;
 const float ATTACK_COOLDOWN = 0.5;
 
 // -- ENEMY -- //
@@ -149,6 +149,7 @@ const string MUSIC_PATH = "assets/music";
 const string OVERWORLD_MUSIC = "overworld.ogg";
 const string LEVEL_MUSIC = "level.ogg";
 const string DEATH_MUSIC = "death.ogg";
+const string END_MUSIC = "end.ogg";
 
 //Menu
 const string MENU_SELECTOR_PATH = "assets/img/sprites/poro.png";

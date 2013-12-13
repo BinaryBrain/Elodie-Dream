@@ -3,6 +3,8 @@
 
 #include "../env.h"
 #include <windows.h>
+#include "../Level/EndingScreen.h"
+#include "../Level/Death.h"
 #include "../Json/JsonStringifier.h"
 #include "../FileHandler/SaveHandler.h"
 #include "../Console/Console.h"
@@ -14,16 +16,15 @@
 #include "../Fnu/Girly.h"
 #include "../Level/Immersionbar.h"
 #include "../Sound/SoundManager.h"
-#include "../Level/Death.h"
 #include "../Score/Scoreboard.h"
 #include "GameView.h"
-#include "../Sky/sky.h"
 
 class Level;
 class Overworld;
 class Death;
 class Scoreboard;
 class SoundManager;
+class EndingScreen;
 
 /**
 * The class representing the game.
@@ -92,6 +93,9 @@ private:
 
     Death* death = NULL;
     void dead();
+
+    EndingScreen* endingScreen = NULL;
+    void displayEnd();
 
     void newGame();
     GameState defaultReturnState;

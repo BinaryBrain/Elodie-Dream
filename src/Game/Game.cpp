@@ -136,17 +136,30 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
         immBar->setLevel(((Elodie*)curLevel->getEntities()["elodie"])->getImmersionLevel());
 
         if(curLevel->isFinished()) {
-            view.hide(ViewLayer::LEVEL);
-            view.hide(ViewLayer::SKY);
-            view.hide(ViewLayer::EARTH);
-            view.show(ViewLayer::OVERWORLD);
-            overworld->evolve(overworld->getState(), curLevelNbr + 1);
-            leaveLevel();
-            if(curLevel) {
-                delete curLevel;
-                curLevel = NULL;
+            if(curLevelNbr == 7) {
+                endingScreen = new EndingScreen(&view, mute);
+                view.hide(ViewLayer::LEVEL);
+                view.hide(ViewLayer::SKY);
+                view.hide(ViewLayer::EARTH);
+                view.show(ViewLayer::ENDINGSCREEN);
+                if(curLevel) {
+                    delete curLevel;
+                    curLevel = NULL;
+                }
+                state = GameState::ENDINGSCREEN;
+            } else {
+                view.hide(ViewLayer::LEVEL);
+                view.hide(ViewLayer::SKY);
+                view.hide(ViewLayer::EARTH);
+                view.show(ViewLayer::OVERWORLD);
+                overworld->evolve(overworld->getState(), curLevelNbr + 1);
+                leaveLevel();
+                if(curLevel) {
+                    delete curLevel;
+                    curLevel = NULL;
+                }
+                state = GameState::INOVERWORLD;
             }
-            state = GameState::INOVERWORLD;
         } else if (curLevel->mustDie() && !GOD_MODE) {
             death = new Death(&view, mute);
 
@@ -332,6 +345,17 @@ void Game::dead() {
     }
 }
 
+void Game::displayEnd() {
+    if (event->keyIsPressed(sf::Keyboard::Return)) {
+        leaveLevel();
+        view.hide(ViewLayer::ENDINGSCREEN);
+        if(endingScreen) {
+            delete endingScreen;
+            endingScreen = NULL;
+        }
+    }
+}
+
 void Game::run() {
     sf::RenderWindow* window = view.getWindow();
     view.show(ViewLayer::MENU);
@@ -415,6 +439,9 @@ void Game::run() {
             break;
         case GameState::NEWGAME:
             newGame();
+            break;
+        case GameState::ENDINGSCREEN:
+            displayEnd();
             break;
         default :
             std::cerr << "Error: unknown state" << std::endl;
