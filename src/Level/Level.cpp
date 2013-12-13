@@ -62,8 +62,18 @@ void Level::loadLevel(std::string filename, Elodie* elodie) {
 
 // Ask the given view to draw a Level frame
 void Level::display() {
+    Elodie* elodie = dynamic_cast<Elodie*>(entities["elodie"]);
+    int elodieX = elodie->getPosition().x;
+    int marginLeft = elodieX - 100;
+    int marginRight = elodieX + 100;
+    int startX = marginLeft / 32;
+    if(startX < 0 ) {
+        startX = 0;
+    }
+    size_t endX = marginRight / 32;
     for(unsigned int y=0; y<tiles.size(); y++) {
-        for(unsigned int x=0; x<tiles[y].size(); x++) {
+        size_t tmpEndX = endX > tiles[y].size() ? tiles[y].size() : endX;
+        for(unsigned int x=startX; x<endX; x++) {
             if(tiles[y][x]) {
                 tiles[y][x]->setPosition(x*32, y*32);
                 gameView->addDrawable(ViewLayer::LEVEL, tiles[y][x]);
@@ -72,24 +82,22 @@ void Level::display() {
     }
 
     Portal* portal = dynamic_cast<Portal*>(entities["portal"]);
-    if (portal->getSprite())
-    {
+    if (portal->getSprite()) {
         gameView->addDrawable(ViewLayer::LEVEL, portal->getSprite());
     }
     for(EntityMap::iterator entity_ptr = entities.begin(); entity_ptr != entities.end(); ++entity_ptr) {
         if(entity_ptr->first != "elodie" && entity_ptr->first != "portal") {
             Entity* entity = entity_ptr->second;
             sf::Sprite* sprite = entity->getSprite();
-
-            if(sprite) {
-                gameView->addDrawable(ViewLayer::LEVEL, sprite);
+            if (sprite->getPosition().x > (elodieX - 100) && sprite->getPosition().x < (elodieX + 100)) {
+                if(sprite) {
+                    gameView->addDrawable(ViewLayer::LEVEL, sprite);
+                }
             }
         }
     }
 
-    Elodie* elodie = dynamic_cast<Elodie*>(entities["elodie"]);
-    if (elodie->getSprite())
-    {
+    if (elodie->getSprite()) {
         gameView->addDrawable(ViewLayer::LEVEL, elodie->getSprite());
     }
     gameView->followPoint(ViewLayer::LEVEL, elodie->getCameraPos());
@@ -167,26 +175,26 @@ std::pair <float,float> Level::getSlowVariables(LevelEnv env) {
     float skyS=0;
     float earthS=0;
     switch(env) {
-        case LevelEnv::FIELD:
-            skyS = 0;
-            earthS = 0.5;
-            break;
-        case LevelEnv::CASTLE:
-            skyS = 1.0;
-            earthS = 0.4;
-            break;
-        case LevelEnv::VOLCANO:
-            skyS = 0.15;
-            earthS = 0.5;
-            break;
-        case LevelEnv::FRELJORD:
-            skyS = 0.2;
-            earthS = 2.8;
-            break;
-        default:
-            skyS = 0;
-            earthS = 0;
-            break;
-        }
-        return std::make_pair(skyS,earthS);
+    case LevelEnv::FIELD:
+        skyS = 0;
+        earthS = 0.5;
+        break;
+    case LevelEnv::CASTLE:
+        skyS = 1.0;
+        earthS = 0.4;
+        break;
+    case LevelEnv::VOLCANO:
+        skyS = 0.15;
+        earthS = 0.5;
+        break;
+    case LevelEnv::FRELJORD:
+        skyS = 0.2;
+        earthS = 2.8;
+        break;
+    default:
+        skyS = 0;
+        earthS = 0;
+        break;
+    }
+    return std::make_pair(skyS,earthS);
 }
