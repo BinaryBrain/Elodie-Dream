@@ -148,7 +148,8 @@ bool Level::mustDie() {
     Elodie* elodie = dynamic_cast<Elodie*>(entities["elodie"]);
     bool test1 = gameView->isPointOutsideView(ViewLayer::LEVEL, elodie->getPosition().x, elodie->getPosition().y);
     bool test2 = elodie->getImmersionLevel() <= 0;
-    return test1 || test2;
+    bool test3 = elodie->getPosition().y > tiles.size()*32;
+    return test1 || test2 || test3;
 }
 
 bool Level::isFinished() {
