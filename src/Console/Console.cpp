@@ -161,7 +161,7 @@ void Console::prepareCurrentPage() {
     currentPageText.push_back(newText);
 
     // press C to hide
-    newText.setString("Press C to hide/show");
+    newText.setString("Press C to hide");
     newText.setCharacterSize(13);
     newText.setPosition((startX+sizeX/2)-newText.getLocalBounds().width/2, startY+sizeY-marginY);
     currentPageText.push_back(newText);

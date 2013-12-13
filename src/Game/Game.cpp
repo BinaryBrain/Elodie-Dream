@@ -246,10 +246,6 @@ void Game::handleOverworld(sf::Time time) {
     } else if (event->keyIsPressed(sf::Keyboard::M)) {
         toggleMute();
         // testing purposes
-    } else if (event->keyIsPressed(sf::Keyboard::C)) {
-        state = GameState::INCONSOLE;
-        console->setNextState(GameState::INOVERWORLD);
-        view.show(ViewLayer::CONSOLE);
     }
     overworld->getElodie()->update(time);
 }
@@ -295,10 +291,6 @@ void Game::displayMenu() {
         }
     } else if (event->keyIsPressed(sf::Keyboard::M)) {
         toggleMute();
-    } else if (event->keyIsPressed(sf::Keyboard::C)) {
-        state = GameState::INCONSOLE;
-        console->setNextState(GameState::INMENU);
-        view.show(ViewLayer::CONSOLE);
     }
 }
 
