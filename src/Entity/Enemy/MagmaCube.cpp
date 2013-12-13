@@ -62,7 +62,6 @@ void  MagmaCube::takeDamage(int damage, bool ignore) {
     if (!damageCD && damage > 0) {
         life = 0;
         damageCD = DAMAGE_CD;
-        std::cout << "AIE" << std::endl;
     }
 }
 

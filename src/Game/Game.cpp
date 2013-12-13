@@ -410,7 +410,7 @@ void Game::run() {
             newGame();
             break;
         default :
-            std::cout << "Error: unknown state" << std::endl;
+            std::cerr << "Error: unknown state" << std::endl;
             break;
         }
 
@@ -562,12 +562,6 @@ Console* Game::getConsole() {
 
 void Game::toggleMute() {
     mute = !mute;
-
-    if(mute) {
-        std::cout << "muted" << std::endl;
-    } else {
-        std::cout << "unmuted" << std::endl;
-    }
 
     if (state == GameState::INLEVEL && curLevel) {
         if(mute) {

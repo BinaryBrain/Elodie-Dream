@@ -81,7 +81,7 @@ void Mapper::parse(std::string asciiLevel, TileMap& tiles, EntityMap& entities, 
         default:
             tiles[y].push_back(NULL);
             if(!isEntity) {
-                std::cout << "[Warning] Mapper: tile type not found: '" << asciiLevel[i] << "'" << std::endl;
+                std::cerr << "[Warning] Mapper: tile type not found: '" << asciiLevel[i] << "'" << std::endl;
             }
             break;
         }
@@ -133,7 +133,6 @@ void Mapper::beautify(TileMap& tiles) {
 
 // Print the map in the console for testing purpose
 void Mapper::print(TileMap& tiles, EntityMap& entities) {
-    std::cout << "PRINTING MAP" << std::endl;
 
     std::string out = "";
     for (TileMap::iterator col = tiles.begin(); col != tiles.end(); ++col) {
@@ -149,7 +148,6 @@ void Mapper::print(TileMap& tiles, EntityMap& entities) {
         out += MAP_LINE_BREAK;
     }
 
-    std::cout << out;
 }
 
 std::string Mapper::getFreshID(std::string key) {

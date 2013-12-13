@@ -14,7 +14,7 @@ Death::Death(GameView * view, bool isMute) : Displayable(view) {
     oh = new sf::Text("OH.", *font);
     oh->setCharacterSize(20);
 
-    wokeUp = new sf::Text("You woke up ... ", *font);
+    wokeUp = new sf::Text("You woke up... ", *font);
     wokeUp->setCharacterSize(30);
 
     float midX = WINDOW_WIDTH/2;

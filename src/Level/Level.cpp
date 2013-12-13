@@ -146,10 +146,10 @@ sf::Music* Level::getMusic() {
 
 bool Level::mustDie() {
     Elodie* elodie = dynamic_cast<Elodie*>(entities["elodie"]);
-    bool test1 = gameView->isPointOutsideView(ViewLayer::LEVEL, elodie->getPosition().x, elodie->getPosition().y);
-    bool test2 = elodie->getImmersionLevel() <= 0;
-    bool test3 = elodie->getPosition().y > tiles.size()*32;
-    return test1 || test2 || test3;
+    bool outOfCam = gameView->isPointOutsideView(ViewLayer::LEVEL, elodie->getPosition().x, elodie->getPosition().y);
+    bool noMoreImmersion = elodie->getImmersionLevel() <= 0;
+    bool fellInTheDepths = elodie->getPosition().y > tiles.size()*32;
+    return outOfCam || noMoreImmersion || fellInTheDepths;
 }
 
 bool Level::isFinished() {
@@ -183,7 +183,5 @@ std::pair <float,float> Level::getSlowVariables(LevelEnv env) {
             earthS = 0;
             break;
         }
-        std::cout << skyS;
-        std::cout << earthS;
         return std::make_pair(skyS,earthS);
 }
