@@ -298,6 +298,7 @@ void Elodie::reset() {
     attackTimer = 2;
     state = ElodieState::WALKING;
     speed.x = ELODIE_SPEED;
+    speed.y = 0;
 
     setEntitySprite(sprite);
 
