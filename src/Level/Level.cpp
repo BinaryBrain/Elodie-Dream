@@ -71,8 +71,13 @@ void Level::display() {
         }
     }
 
+    Portal* portal = dynamic_cast<Portal*>(entities["portal"]);
+    if (portal->getSprite())
+    {
+        gameView->addDrawable(ViewLayer::LEVEL, portal->getSprite());
+    }
     for(EntityMap::iterator entity_ptr = entities.begin(); entity_ptr != entities.end(); ++entity_ptr) {
-        if(entity_ptr->first != "elodie") {
+        if(entity_ptr->first != "elodie" && entity_ptr->first != "portal") {
             Entity* entity = entity_ptr->second;
             sf::Sprite* sprite = entity->getSprite();
 
