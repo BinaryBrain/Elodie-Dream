@@ -111,7 +111,7 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
         leaveLevel();
         // Pause
     } else if (event->keyIsPressed(sf::Keyboard::P)) {
-        std::cout << "level p" << std::endl;
+        defaultReturnState = state;
         state = GameState::INMENU;
         curLevel->pause();
         menuHandler->setNextState(GameState::INLEVEL);
@@ -235,7 +235,7 @@ void Game::handleOverworld(sf::Time time) {
             view.show(ViewLayer::IMMERSIONBAR);
         }
     } else if (event->keyIsPressed(sf::Keyboard::P)) {
-        std::cout << "overworld p" << std::endl;
+        defaultReturnState = state;
         state = GameState::INMENU;
         menuHandler->setNextState(GameState::INOVERWORLD);
         view.show(ViewLayer::MENU);
@@ -268,7 +268,7 @@ void Game::displayMenu() {
             overworld->getElodie()->play();
         }
     } else if(event->keyIsPressed(sf::Keyboard::P)) {
-        std::cout << "menu p" << std::endl;
+        defaultReturnState = state;
         state = menuHandler->getNextState();
         if (state == GameState::INOVERWORLD) {
             view.hide(ViewLayer::MENU);
@@ -482,11 +482,13 @@ void Game::load() {
         overworld->setState(LDL);
 
         console->clear();
+        console->setNextState(GameState::INOVERWORLD);
         console->addParagraph("Successfully loaded " + currentMenuItem->getLabel() + ", from " + date);
         console->setCurrentPage(0);
 
     } else {
         console->clear();
+        console->setNextState(defaultReturnState);
         console->addParagraph("Save doesn't exist.");
         console->setCurrentPage(0);
         console->setNextState(GameState::INMENU);
@@ -500,7 +502,6 @@ void Game::load() {
     }
 
     state = GameState::INCONSOLE;
-    console->setNextState(GameState::INOVERWORLD);
     view.show(ViewLayer::MENU);
     view.show(ViewLayer::CONSOLE);
 }

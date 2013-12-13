@@ -90,7 +90,7 @@ private:
     void dead();
 
     void newGame();
-
+    GameState defaultReturnState;
     void leaveLevel();
 };
 
