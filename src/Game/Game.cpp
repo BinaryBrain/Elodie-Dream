@@ -25,18 +25,8 @@ Game::Game() {
 
     view.addView(ViewLayer::MENU, menuHandler);
     view.addView(ViewLayer::CONSOLE, console);
-
-    // testing purposes
     view.addView(ViewLayer::GIRLY, girly);
-
     view.addView(ViewLayer::IMMERSIONBAR, immBar);
-
-    // testing purposes
-    JsonAccessor language = JsonAccessor();
-    language.load("assets/config/languages/FR.lang");
-    console->addParagraph(language.getString("ConsoleTest"));
-    console->addParagraph(language.getString("ConsoleTest2"));
-    console->setCurrentPage(0);
 }
 
 Game::~Game() {
