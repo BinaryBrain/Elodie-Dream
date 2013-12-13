@@ -6,7 +6,7 @@
 #include "EnvSprite.h"
 
 enum class TileType {
-    VOID = 0, GROUND, GRASS, ROCK, ICE
+    VOID = 0, GROUND, DIRT, ROCK, ICE
 };
 
 enum class TileSide {

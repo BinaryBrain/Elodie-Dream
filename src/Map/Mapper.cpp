@@ -60,6 +60,14 @@ void Mapper::parse(std::string asciiLevel, TileMap& tiles, EntityMap& entities, 
             tiles[y].push_back(new TileSprite(TileType::ROCK));
             break;
 
+        case MAP_ICE:
+            tiles[y].push_back(new TileSprite(TileType::ICE));
+            break;
+
+        case MAP_DIRT:
+            tiles[y].push_back(new TileSprite(TileType::DIRT));
+            break;
+
         case MAP_LINE_BREAK:
             y++;
             x=-1;

@@ -105,8 +105,7 @@ int Entity::checkTiles(std::vector< std::vector<TileSprite*> > const& world, int
 
     tile = world[y][x] ? world[y][x]->getType() : TileType::VOID;
 
-    if (tile == TileType::GROUND ||
-            tile == TileType::GRASS ||
+    if (tile == TileType::DIRT ||
             tile == TileType::ROCK ||
             tile == TileType::ICE)
         return 1;

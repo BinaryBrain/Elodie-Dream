@@ -62,6 +62,8 @@ const sf::Color IMMERSION_BAR_OUTLINE = sf::Color(0x31, 0x55, 0x48, 0xFF);
 // ASCII Map
 // Terrain
 static const char MAP_GROUND = '#';
+static const char MAP_ICE = 'I';
+static const char MAP_DIRT = 'D';
 
 // Characters
 static const char MAP_ELODIE = 'E';
@@ -91,6 +93,7 @@ const string LEVELENV_VOLCANO = "volcano";
 const string LEVELENV_FRELJORD = "freljord";
 
 const string TILETYPE_GROUND = "ground";
+const string TILETYPE_DIRT = "dirt";
 const string TILETYPE_ROCK = "rock";
 const string TILETYPE_ICE = "ice";
 

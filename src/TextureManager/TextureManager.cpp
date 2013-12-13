@@ -10,7 +10,7 @@ TextureManager::TextureManager() {
     };
 
     TILE_TYPE = {
-        { TileType::GROUND, TILETYPE_GROUND },
+        { TileType::DIRT, TILETYPE_DIRT },
         { TileType::ROCK, TILETYPE_ROCK },
         { TileType::ICE, TILETYPE_ICE }
     };
