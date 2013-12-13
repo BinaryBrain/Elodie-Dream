@@ -16,7 +16,7 @@ Game::Game() {
     overworld = new Overworld(&view, DEFAULT_MUTE);
     view.addView(ViewLayer::OVERWORLD, overworld);
 
-    //scoreboard = new Scoreboard(&view);
+    scoreboard = new Scoreboard(&view);
     //view.addView(ViewLayer::SCORE, scoreboard);
 
     console = new Console(&view);

@@ -19,10 +19,8 @@ public:
 private:
     GameState lastUsableState = GameState::INMENU;
     ScoreManager* scoreManager = NULL;
-    sf::Font font;
     sf::Text levelScore;
     sf::Text levelBonus;
-    sf::Texture texture;
     sf::Sprite bonusSprite;
 };
 

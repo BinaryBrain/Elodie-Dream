@@ -1,6 +1,9 @@
 #include "Scoreboard.h"
 
 Scoreboard::Scoreboard(GameView* view) : Displayable(view) {
+    sf::Font font;
+    sf::Texture texture;
+
     //scoreManager = ScoreManager::getInstance();
 
     font.loadFromFile("assets/fonts/pf_tempesta_seven/pf_tempesta_seven.ttf");
