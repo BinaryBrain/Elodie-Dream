@@ -78,7 +78,6 @@ void Game::kill() {
 
 void Game::leaveLevel() {
     state = GameState::INOVERWORLD;
-    view.reset(ViewLayer::LEVEL);
     view.hide(ViewLayer::SKY);
     view.hide(ViewLayer::EARTH);
     view.hide(ViewLayer::LEVEL);
@@ -107,10 +106,10 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
 
         console->clear();
         const char *tutorial = "You learned the existence of a legendary poro land, where you can find all the poros. More than interested, you begin your long journey to find this mysterious country...\n"
-            "As you progress, you will surely come across some animals or monsters, like this sheep there.\n"
-            "You can press 'A' to kill them or just jump over them with the space bar.\n"
-            "Well, good luck, you might need it! :3\n"
-            "   Alia";
+                               "As you progress, you will surely come across some animals or monsters, like this sheep there.\n"
+                               "You can press 'A' to kill them or just jump over them with the space bar.\n"
+                               "Well, good luck, you might need it! :3\n"
+                               "   Alia";
         console->addParagraph(tutorial);
         console->setCurrentPage(0);
         console->setNextState(GameState::INLEVEL);
@@ -334,8 +333,10 @@ void Game::dead() {
     if (event->keyIsPressed(sf::Keyboard::Return)) {
         leaveLevel();
         view.hide(ViewLayer::DEATH);
-        delete death;
-        death = NULL;
+        if(death) {
+            delete death;
+            death = NULL;
+        }
     }
 }
 

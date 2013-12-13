@@ -22,12 +22,12 @@ int main() {
     // Map Parsing test
     Game* game = Game::getInstance();
 
-    JsonStringifier str;
-    std::string key("scores");
-    std::vector<int> scores = {0,1,2,3,4,5,6,7};
-    str.add(key, scores);
-    cout << str.getStringifiedDoc() << endl;
-
+    /* JsonStringifier str;
+     std::string key("scores");
+     std::vector<int> scores = {0,1,2,3,4,5,6,7};
+     str.add(key, scores);
+     cout << str.getStringifiedDoc() << endl;
+    */
     /*JsonAccessor accessor;
     accessor.load("settings/settings.json");
 
