@@ -370,6 +370,7 @@ void Game::run() {
     view.show(ViewLayer::MENU);
 
     window->setFramerateLimit(FPS);
+    window->setIcon(icon.width, icon.height, icon.pixel_data);
 
     while (window->isOpen()) {
         sf::Time sfTime = frameClock.restart();

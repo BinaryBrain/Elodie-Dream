@@ -1,6 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include "../icon.h"
 #include "../env.h"
 #include <windows.h>
 #include "../Level/EndingScreen.h"
