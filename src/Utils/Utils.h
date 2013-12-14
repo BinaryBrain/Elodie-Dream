@@ -9,6 +9,7 @@ public:
     Utils();
     static char* toCharArray(std::string s);
     static std::string itos(int number);
+    static std::string toStringWithLength(int number, unsigned int length);
 };
 
 #endif // UTILS_H_INCLUDED

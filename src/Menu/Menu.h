@@ -6,6 +6,7 @@
 #include "../env.h"
 #include "../const.h"
 #include "../Game/GameView.h"
+#include "../Utils/Utils.h"
 #include "MenuComponent.h"
 #include "MenuItem.h"
 #include "SaveItem.h"
@@ -42,6 +43,9 @@ private:
     std::vector<MenuComponent*> items;
 
     std::vector<bool> isParent;
+
+    std::map< int, sf::Texture* > poroTextures;
+    int poroIndex;
 
     unsigned int index = 0;
 

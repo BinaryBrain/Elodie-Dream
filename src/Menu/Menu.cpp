@@ -1,13 +1,27 @@
 #include "Menu.h"
 
-Menu::Menu(std::string label): MenuComponent(label) {
+bool MENU_PORO_IS_LOADED = false; // TODO global variable lol
 
+Menu::Menu(std::string label): MenuComponent(label) {
     selectortexture.loadFromFile(MENU_SELECTOR_PATH, sf::IntRect(102, 16, 120, 30));
     selector.setTexture(selectortexture);
 
-    tbgTexture.loadFromFile(MENU_BACKGROUND_PATH);
-    tbg.setTexture(tbgTexture);
-    tbg.setPosition(0,0);
+    // Background
+    if(!MENU_PORO_IS_LOADED) {
+        poroIndex = MENU_BACKGROUND_FIRST_FRAME;
+        for(int i = MENU_BACKGROUND_FIRST_FRAME; i <= MENU_BACKGROUND_LAST_FRAME; i++) {
+            sf::Texture* poroTexture = new sf::Texture();
+            std::cout << "loading " << i << std::endl;
+            if(!poroTexture->loadFromFile(MENU_ANIMATED_BACKGROUND_PATH+"/"+Utils::toStringWithLength(i, 4)+".png"))
+                std::cerr << "Unable to load menu background";
+
+            poroTextures.insert(std::make_pair(i, poroTexture));
+        }
+
+        //tbg.setTexture(*poroTextures[45]);
+        tbg.setPosition(0,0);
+        MENU_PORO_IS_LOADED = true;
+    }
 
     background.setOutlineColor(sf::Color::Blue);
     background.setFillColor((sf::Color(0x00, 0x00, 0x00, 0x7f)));
@@ -46,6 +60,11 @@ void Menu::addItem(MenuComponent* item, bool isParent) {
 void Menu::draw(GameView* view, bool inLevel) {
     if(withBackground) {
         view->addDrawable(ViewLayer::MENU, &tbg);
+        tbg.setTexture(*poroTextures[poroIndex]);
+        poroIndex++;
+        if(poroIndex > MENU_BACKGROUND_LAST_FRAME) {
+            poroIndex = MENU_BACKGROUND_FIRST_FRAME;
+        }
     }
 
     if (label == "Title menu" && !inLevel) {

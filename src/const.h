@@ -170,10 +170,13 @@ const string END_MUSIC = "end.ogg";
 //Menu
 const string MENU_SELECTOR_PATH = "assets/img/sprites/poro.png";
 const string MENU_BACKGROUND_PATH = "assets/img/sprites/menu/background.png";
+const string MENU_ANIMATED_BACKGROUND_PATH = "assets/img/sprites/title/poro";
 const float MENU_X = 300;
 const float MENU_Y = 200;
 const int MENU_ITEMS_INTERSPACE = 50;
 const int MENU_CHAR_SIZE = 30;
+const int MENU_BACKGROUND_FIRST_FRAME = 69;
+const int MENU_BACKGROUND_LAST_FRAME = 100;
 
 //Game over
 const float GAMEOVER_INTERSPACE = 50;
