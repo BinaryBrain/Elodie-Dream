@@ -16,6 +16,8 @@
 #include "EnglishItem.h"
 #include "SaveItem.h"
 #include "LoadItem.h"
+#include "ResumeItem.h"
+#include "BackOverworldItem.h"
 #include "../Displayable/Displayable.h"
 #include "../FileHandler/SaveHandler.h"
 #include "../Json/JsonAccessor.h"
@@ -34,13 +36,12 @@ public:
     void setNextState(GameState state);
     GameState getNextState();
     Menu* getTitleMenu();
+    void resetMenu();
 
 private:
     Menu* title;
     Menu* saveGame;
     Menu* loadGame;
-    Menu* settings;
-    Menu* language;
 
     Menu* selectedMenu;
 

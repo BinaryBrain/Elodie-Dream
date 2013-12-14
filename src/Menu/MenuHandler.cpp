@@ -5,6 +5,9 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
     QuitItem* quit = new QuitItem("Quit game");
     EnglishItem* english = new EnglishItem("English");
 
+    ResumeItem* resume = new ResumeItem("Resume");
+    BackOverWorldItem* backToOv = new BackOverWorldItem("Leave level");
+
     std::vector<std::string> lastDiscoveredLevels = {"Level 0","Level 0","Level 0"};
     std::vector<std::string> labels = {"Slot 1", "Slot 2", "Slot 3"};
 
@@ -12,13 +15,14 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
     title = new Menu("Title menu");
     saveGame = new Menu("Save game");
     loadGame = new Menu("Load game");
-    settings = new Menu("Settings");
-    language = new Menu("Language");
 
     title->addItem(newGame);
     title->addItem(saveGame);
     title->addItem(loadGame);
-    title->addItem(settings);
+
+    title->addItem(resume);
+    title->addItem(backToOv);
+
     title->addItem(quit);
 
     SaveHandler* sh = SaveHandler::getInstance();
@@ -73,11 +77,6 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
     saveGame->addItem(title, true);
     loadGame->addItem(title, true);
 
-    settings->addItem(language);
-    settings->addItem(title, true);
-
-    language->addItem(english);
-    language->addItem(settings, true);
 
     selectedMenu = title;
 }
@@ -88,8 +87,6 @@ MenuHandler::~MenuHandler() {
     title = NULL;
     saveGame = NULL;
     loadGame = NULL;
-    settings = NULL;
-    language = NULL;
 }
 
 void MenuHandler::display() {
@@ -116,10 +113,6 @@ std::pair<GameState, MenuComponent*> MenuHandler::execute() {
             selectedMenu = saveGame;
         } else if (label == "Load game") {
             selectedMenu = loadGame;
-        } else if (label == "Settings") {
-            selectedMenu = settings;
-        } else if (label == "Language") {
-            selectedMenu = language;
         }
 
      std::pair<GameState, MenuComponent*> p = std::make_pair(GameState::INMENU, selectedMenu);
@@ -138,4 +131,8 @@ GameState MenuHandler::getNextState() {
 
 Menu* MenuHandler::getTitleMenu() {
     return title;
+}
+
+void MenuHandler::resetMenu() {
+    selectedMenu = title;
 }
