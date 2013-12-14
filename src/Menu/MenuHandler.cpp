@@ -14,6 +14,7 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
     loading.setFont(globalFont);
     loading.setCharacterSize(SCORES_CHAR_SIZE);
     loading.setString("Loading...");
+    loading.setPosition(MENU_LOADING_X, MENU_LOADING_Y);
 
     sf::Texture* poroTexture = new sf::Texture();
     if(!poroTexture->loadFromFile(MENU_ANIMATED_BACKGROUND_PATH+"/"+Utils::toStringWithLength(MENU_BACKGROUND_FIRST_FRAME, 4)+".png"))
@@ -21,7 +22,7 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
 
     tbg.setTexture(*poroTexture);
 
-    gameView->getWindow()->draw(tbg );
+    gameView->getWindow()->draw(tbg);
     gameView->getWindow()->draw(loading);
     gameView->getWindow()->display();
 

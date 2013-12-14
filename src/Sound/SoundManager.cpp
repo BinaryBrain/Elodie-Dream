@@ -86,6 +86,9 @@ void SoundManager::play(SoundType type) {
     case SoundType::PUNCH:
         volume = PUNCH_VOLUME;
         break;
+    case SoundType::WOOSH:
+        volume = WOOSH_VOLUME;
+        break;
     default:
         break;
     }

@@ -164,6 +164,7 @@ const string SOUND_TYPE_BOTTLE = "bottle";
 const int SOUND_TYPE_BOTTLE_MAX = 1;
 
 const int PUNCH_VOLUME = 55;
+const int WOOSH_VOLUME = 50;
 
 // const string SOUND_TYPE_FOOTSTEP_ROCK = "footstep_rock";
 const string MUSIC_PATH = "assets/music";
@@ -189,6 +190,8 @@ const int MENU_ITEMS_INTERSPACE = 50;
 const int MENU_CHAR_SIZE = 30;
 const int MENU_BACKGROUND_FIRST_FRAME = 69;
 const int MENU_BACKGROUND_LAST_FRAME = 100;
+const int MENU_LOADING_X = 1100;
+const int MENU_LOADING_Y = 660;
 
 //Game over
 const float GAMEOVER_INTERSPACE = 50;
