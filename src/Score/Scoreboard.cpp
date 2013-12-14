@@ -61,7 +61,7 @@ void Scoreboard::display() {
     points = points-damages+boni*BONUS_POINTS;
 
     std::string p("");
-    if(damages > 0) {
+    if(damages == 0) {
         p = "Bonus 0 damages received: "+ Utils::itos(BONUS_NODAMAGES) +" pts !\n";
         points += BONUS_NODAMAGES;
     }
