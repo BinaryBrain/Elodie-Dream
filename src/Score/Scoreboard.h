@@ -23,6 +23,7 @@ private:
     sf::Text damagesTakenText;
     sf::Text enemiesKilledText;
     sf::Text pointsText;
+    sf::Text boniText;
 };
 
 #endif // SCOREBOARD_H

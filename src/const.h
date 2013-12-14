@@ -188,5 +188,6 @@ const int CONSOLE_NLINES = 6;
 const float SCORES_INTERSPACE = 100;
 const int SCORES_CHAR_SIZE = 25;
 const float SCORES_STARTY = 100;
+const int BONUS_POINTS = 50;
 
 #endif // CONST_H_INCLUDED

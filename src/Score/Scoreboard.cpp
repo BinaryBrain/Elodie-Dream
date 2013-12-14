@@ -16,6 +16,9 @@ Scoreboard::Scoreboard(GameView* view) : Displayable(view) {
     enemiesKilledText.setFont(globalFont);
     enemiesKilledText.setCharacterSize(SCORES_CHAR_SIZE);
 
+    boniText.setFont(globalFont);
+    boniText.setCharacterSize(SCORES_CHAR_SIZE);
+
     pointsText.setFont(globalFont);
     pointsText.setCharacterSize(SCORES_CHAR_SIZE);
 
@@ -53,18 +56,23 @@ void Scoreboard::display() {
     std::string enemiesString = "Enemies killed: " + Utils::itos(enemiesKilled) + s + m + b;
     int points = scoreManager->getLastSavedScore().score;
 
-    points = points-damages;
+    int boni = scoreManager->getLastSavedScore().bonus;
+
+    points = points-damages+boni*BONUS_POINTS;
 
     damagesTakenText.setString("Damages taken: " + Utils::itos(damages));
     enemiesKilledText.setString(enemiesString);
-    pointsText.setString("Points obtained: " + Utils::itos(points));
+    boniText.setString("Boni collected: "+ Utils::itos(boni)+" => " + Utils::itos(boni*BONUS_POINTS) + " pts");
+    pointsText.setString("Points obtained: " + Utils::itos(points) + " pts");
 
     damagesTakenText.setPosition(viewX/2-damagesTakenText.getLocalBounds().width/2, SCORES_STARTY);
     enemiesKilledText.setPosition(viewX/2-enemiesKilledText.getLocalBounds().width/2, SCORES_STARTY + damagesTakenText.getLocalBounds().height + SCORES_INTERSPACE);
-    pointsText.setPosition(viewX/2-pointsText.getLocalBounds().width/2, SCORES_STARTY + damagesTakenText.getLocalBounds().height + enemiesKilledText.getLocalBounds().height + 2*SCORES_INTERSPACE);
+    boniText.setPosition(viewX/2-boniText.getLocalBounds().width/2, SCORES_STARTY + damagesTakenText.getLocalBounds().height + enemiesKilledText.getLocalBounds().height + 2*SCORES_INTERSPACE);
+    pointsText.setPosition(viewX/2-pointsText.getLocalBounds().width/2, SCORES_STARTY + damagesTakenText.getLocalBounds().height + enemiesKilledText.getLocalBounds().height + boniText.getLocalBounds().height +3*SCORES_INTERSPACE);
 
     gameView->addDrawable(ViewLayer::SCORE, &rect);
     gameView->addDrawable(ViewLayer::SCORE, &damagesTakenText);
     gameView->addDrawable(ViewLayer::SCORE, &enemiesKilledText);
+    gameView->addDrawable(ViewLayer::SCORE, &boniText);
     gameView->addDrawable(ViewLayer::SCORE, &pointsText);
 }
