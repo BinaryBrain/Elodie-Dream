@@ -52,7 +52,7 @@ EntitySprite* Spikes::getSprite() {
 void Spikes::doAttack(std::map< std::string, Entity* >& entities) {
     sf::FloatRect entity = getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()).getArea();
     Elodie* elodie = (Elodie*) entities["elodie"];
-    if (state == SpikesState::ACTIVATED && sprite->getCurrentFrame() == 3 && entity.intersects(elodie->returnCurrentHitbox().getArea())) {
+    if (state == SpikesState::ACTIVATED && sprite->getCurrentFrame() == 2 && entity.intersects(elodie->returnCurrentHitbox().getArea())) {
         elodie->takeDamage(damage, true);
     }
     if (!activated && entity.intersects(elodie->returnCurrentHitbox().getArea())) {

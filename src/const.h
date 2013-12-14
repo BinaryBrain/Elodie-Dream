@@ -126,11 +126,12 @@ const string ENTITYNAME_BRISTLE = "bristle";
 const string ENTITYNAME_SPIKES = "spikes";
 const string ENTITYNAME_PORTAL = "portal";
 const string ENTITYNAME_PORO = "poro";
+const string ENTITYNAME_SPRITE = "sprite";
 
 const string ENTITYTYPE_ELODIE = "";
 const string ENTITYTYPE_ENEMY = "enemies";
 const string ENTITYTYPE_MISC = "misc";
-
+const string ENTITYTYPE_BONUS = "bonus";
 // Sounds
 const string SOUNDS_PATH = "assets/sounds";
 

@@ -10,11 +10,11 @@
 #include "../Json/JsonAccessor.h"
 
 enum class EntityName {
-    ELODIE, SHEEP, MAGMACUBE, BRISTLE, GHOST, SPIKES, PORTAL, PORO
+    ELODIE, SHEEP, MAGMACUBE, BRISTLE, GHOST, SPIKES, PORTAL, PORO, SPRITE
 };
 
 enum class EntityType {
-    ELODIE, ENEMY, MISC
+    ELODIE, ENEMY, MISC, BONUS
 };
 
 typedef std::map< EntityType, std::map< EntityName, EntityInfo* > > EntityBox;
