@@ -12,6 +12,6 @@ ResumeItem::~ResumeItem() {
 }
 
 std::pair<GameState, MenuComponent*> ResumeItem::execute() {
-    std::pair<GameState, MenuComponent*> p = std::make_pair(GameState::LOAD, this); // todo
+    std::pair<GameState, MenuComponent*> p = std::make_pair(GameState::INLEVEL, this); // todo
     return p;
 }

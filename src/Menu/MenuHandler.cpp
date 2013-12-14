@@ -90,15 +90,15 @@ MenuHandler::~MenuHandler() {
 }
 
 void MenuHandler::display() {
-    selectedMenu->draw(gameView);
+    selectedMenu->draw(gameView, inLevel);
 }
 
 void MenuHandler::incIndex() {
-    selectedMenu->incIndex();
+    selectedMenu->incIndex(inLevel);
 }
 
 void MenuHandler::decIndex() {
-    selectedMenu->decIndex();
+    selectedMenu->decIndex(inLevel);
 }
 
 std::pair<GameState, MenuComponent*> MenuHandler::execute() {
@@ -135,4 +135,8 @@ Menu* MenuHandler::getTitleMenu() {
 
 void MenuHandler::resetMenu() {
     selectedMenu = title;
+}
+
+void MenuHandler::setInLevel(bool inLevel) {
+    this->inLevel = inLevel;
 }

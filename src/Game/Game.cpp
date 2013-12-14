@@ -31,6 +31,7 @@ Game::Game() {
     view.addView(ViewLayer::CONSOLE, console);
     view.addView(ViewLayer::GIRLY, girly);
     view.addView(ViewLayer::IMMERSIONBAR, immBar);
+    menuHandler->setInLevel(false);
 }
 
 Game::~Game() {
@@ -117,16 +118,14 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
         showTutoConsole = false;
     }
     // leave level
-    if(event->keyIsPressed(sf::Keyboard::Return)) {
-        leaveLevel();
-        // Pause
-    } else if (event->keyIsPressed(sf::Keyboard::P)) {
+    if (event->keyIsPressed(sf::Keyboard::Escape)) {
         defaultReturnState = state;
         state = GameState::INMENU;
         curLevel->pause();
         menuHandler->setNextState(GameState::INLEVEL);
+        menuHandler->resetMenu();
         view.show(ViewLayer::MENU);
-
+        menuHandler->setInLevel(true);
         // toggle sound
     } else if(event->keyIsPressed(sf::Keyboard::M)) {
         toggleMute();
@@ -216,10 +215,6 @@ void Game::loadLevel(int levelNbr) {
 }
 
 void Game::handleOverworld(sf::Time time) {
-    if (event->keyIsPressed(sf::Keyboard::N)) {
-        overworld->evolve();
-    }
-
     if(overworld->getElodie()->isMoving()) {
         overworld->getElodie()->overworldMove(time.asSeconds());
     } else if (event->keyIsHold(sf::Keyboard::Down)) {
@@ -242,7 +237,7 @@ void Game::handleOverworld(sf::Time time) {
         if(overworld->getElodie()->hasToMove()) {
             overworld->getElodie()->setWalkRight();
         }
-    } else if (event->keyIsPressed(sf::Keyboard::Return)) {
+    } else if (event->keyIsPressed(sf::Keyboard::Return) || event->keyIsPressed(sf::Keyboard::Space)) {
         if(overworld->getLevelToLoad() >= 0) {
             loadLevel(overworld->getLevelToLoad());
             view.hide(ViewLayer::OVERWORLD);
@@ -252,11 +247,13 @@ void Game::handleOverworld(sf::Time time) {
             view.show(ViewLayer::LEVEL);
             view.show(ViewLayer::IMMERSIONBAR);
         }
-    } else if (event->keyIsPressed(sf::Keyboard::P)) {
+    } else if (event->keyIsPressed(sf::Keyboard::Escape)) {
+        menuHandler->resetMenu();
         defaultReturnState = state;
         state = GameState::INMENU;
         menuHandler->setNextState(GameState::INOVERWORLD);
         view.show(ViewLayer::MENU);
+        menuHandler->setInLevel(false);
         // testing purposes
     } else if (event->keyIsPressed(sf::Keyboard::M)) {
         toggleMute();
@@ -275,13 +272,21 @@ void Game::displayMenu() {
         if(state == GameState::INOVERWORLD) {
             Menu* title = menuHandler->getTitleMenu();
             title->hideBackground();
-        }
-        if (state == GameState::INOVERWORLD) {
             leaveLevel();
             view.hide(ViewLayer::MENU);
             overworld->getElodie()->play();
+        } else if (state == GameState::INLEVEL) {
+            if(curLevel) {
+                state = GameState::INLEVEL;
+                view.hide(ViewLayer::MENU);
+                view.show(ViewLayer::LEVEL);
+                view.show(ViewLayer::IMMERSIONBAR);
+                curLevel->play(&frameClock);
+            } else {
+                std::cerr << "Must display level but not initialized." << std::endl;
+            }
         }
-    } else if(event->keyIsPressed(sf::Keyboard::P)) {
+    } else if(event->keyIsPressed(sf::Keyboard::Escape)) {
         defaultReturnState = state;
         state = menuHandler->getNextState();
         if (state == GameState::INOVERWORLD) {
@@ -313,7 +318,7 @@ void Game::displayConsole() {
 
     if (event->keyIsPressed(sf::Keyboard::Up)) console->previousPage();
     if (event->keyIsPressed(sf::Keyboard::Down)) console->nextPage();
-    if(event->keyIsPressed(sf::Keyboard::C)) {
+    if(event->keyIsPressed(sf::Keyboard::Space) || event->keyIsPressed(sf::Keyboard::Return)) {
         state = console->getNextState();
         if (state == GameState::INOVERWORLD) {
             view.hide(ViewLayer::CONSOLE);
@@ -337,7 +342,7 @@ void Game::displayConsole() {
 }
 
 void Game::dead() {
-    if (event->keyIsPressed(sf::Keyboard::Return)) {
+    if (event->keyIsPressed(sf::Keyboard::Return) || event->keyIsPressed(sf::Keyboard::Space) ) {
         leaveLevel();
         view.hide(ViewLayer::DEATH);
         if(death) {
@@ -348,7 +353,7 @@ void Game::dead() {
 }
 
 void Game::displayEnd() {
-    if (event->keyIsPressed(sf::Keyboard::Return)) {
+    if (event->keyIsPressed(sf::Keyboard::Return) || event->keyIsPressed(sf::Keyboard::Space)) {
         leaveLevel();
         view.hide(ViewLayer::ENDINGSCREEN);
         if(endingScreen) {
@@ -359,7 +364,7 @@ void Game::displayEnd() {
 }
 
 void Game::displayScore() {
-    if (event->keyIsPressed(sf::Keyboard::Return)) {
+    if (event->keyIsPressed(sf::Keyboard::Return)|| event->keyIsPressed(sf::Keyboard::Space)) {
         leaveLevel();
         view.hide(ViewLayer::SCORE);
         view.show(ViewLayer::OVERWORLD);
@@ -395,10 +400,6 @@ void Game::run() {
                 state = pausePrevState;
                 curLevel->play(&frameClock);
             }
-        }
-
-        if (event->keyIsHold(sf::Keyboard::Escape)) {
-            window->close();
         }
 
         if (event->keyIsPressed(sf::Keyboard::F12)) {

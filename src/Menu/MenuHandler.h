@@ -38,12 +38,16 @@ public:
     Menu* getTitleMenu();
     void resetMenu();
 
+    void setInLevel(bool inLevel);
+
 private:
     Menu* title;
     Menu* saveGame;
     Menu* loadGame;
 
     Menu* selectedMenu;
+
+    bool inLevel;
 
     GameState nextState = GameState::INOVERWORLD;
 };

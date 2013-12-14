@@ -18,9 +18,9 @@ public:
     virtual ~Menu();
 
     void addItem(MenuComponent* item, bool isParent = false);
-    void draw(GameView* view);
-    void incIndex();
-    void decIndex();
+    void draw(GameView* view, bool inLevel);
+    void incIndex(bool inLevel);
+    void decIndex(bool inLevel);
     int getIndex();
     void showBackground();
     void hideBackground();

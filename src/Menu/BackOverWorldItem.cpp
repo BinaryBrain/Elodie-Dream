@@ -12,6 +12,6 @@ BackOverWorldItem::~BackOverWorldItem() {
 }
 
 std::pair<GameState, MenuComponent*> BackOverWorldItem::execute() {
-    std::pair<GameState, MenuComponent*> p = std::make_pair(GameState::LOAD, this); // todo
+    std::pair<GameState, MenuComponent*> p = std::make_pair(GameState::INOVERWORLD, this); // todo
     return p;
 }

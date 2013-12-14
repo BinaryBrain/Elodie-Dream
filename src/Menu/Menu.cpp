@@ -43,31 +43,54 @@ void Menu::addItem(MenuComponent* item, bool isParent) {
 }
 
 // Draws the everything in the menu
-void Menu::draw(GameView* view) {
+void Menu::draw(GameView* view, bool inLevel) {
     if(withBackground) {
         view->addDrawable(ViewLayer::MENU, &tbg);
     }
 
-    background.setSize(sf::Vector2f(MENU_X, MENU_ITEMS_INTERSPACE*(items.size())));
-    view->addDrawable(ViewLayer::MENU, &background);
+    if (label == "Title menu" && !inLevel) {
 
-    for(unsigned int i(0); i < items.size(); ++i) {
-        items[i]->getText()->setPosition(MENU_X, MENU_Y+MENU_ITEMS_INTERSPACE*i);
-        view->addDrawable(ViewLayer::MENU, (items[i]->getText()));
+        background.setSize(sf::Vector2f(MENU_X, MENU_ITEMS_INTERSPACE*(items.size()-2)));
+        view->addDrawable(ViewLayer::MENU, &background);
+
+        for(unsigned int i(0); i < items.size(); ++i) {
+            if(items[i]->getLabel() != "Leave level" && items[i]->getLabel() != "Resume") {
+                int tmpi = i > 2 ? i-2 : i;
+                items[i]->getText()->setPosition(MENU_X, MENU_Y+MENU_ITEMS_INTERSPACE*tmpi);
+                view->addDrawable(ViewLayer::MENU, (items[i]->getText()));
+            }
+        }
+        int tmpIndex = index > 2 ? index-2 : index;
+        selector.setPosition(MENU_X-40, MENU_Y+10+MENU_ITEMS_INTERSPACE*tmpIndex);
+        view->addDrawable(ViewLayer::MENU, &selector);
+    } else {
+        background.setSize(sf::Vector2f(MENU_X, MENU_ITEMS_INTERSPACE*(items.size())));
+        view->addDrawable(ViewLayer::MENU, &background);
+
+        for(unsigned int i(0); i < items.size(); ++i) {
+            items[i]->getText()->setPosition(MENU_X, MENU_Y+MENU_ITEMS_INTERSPACE*i);
+            view->addDrawable(ViewLayer::MENU, (items[i]->getText()));
+        }
+
+        selector.setPosition(MENU_X-40, MENU_Y+10+MENU_ITEMS_INTERSPACE*index);
+        view->addDrawable(ViewLayer::MENU, &selector);
     }
-
-    selector.setPosition(MENU_X-40, MENU_Y+10+MENU_ITEMS_INTERSPACE*index);
-    view->addDrawable(ViewLayer::MENU, &selector);
 }
 
-void Menu::incIndex() {
+void Menu::incIndex(bool inLevel) {
     if (index == items.size()-1) index = 0;
     else ++index;
+    if(!inLevel && label == "Title menu" && (index == 3 || index == 4)){
+        index = 5;
+    }
 }
 
-void Menu::decIndex() {
+void Menu::decIndex(bool inLevel) {
     if (index == 0) index = items.size()-1;
     else --index;
+    if(!inLevel && label == "Title menu" && (index == 3 || index == 4)){
+        index = 2;
+    }
 }
 
 int Menu::getIndex() {
