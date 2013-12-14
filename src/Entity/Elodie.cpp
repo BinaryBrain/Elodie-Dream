@@ -282,6 +282,7 @@ void Elodie::changeState(ElodieState to) {
 
     if(to == ElodieState::PUNCHING) {
         sprite->changeStance(ANIMATIONS[state], sf::seconds(0.05f));
+        soundManager->play(SoundType::WOOSH);
     }
 }
 

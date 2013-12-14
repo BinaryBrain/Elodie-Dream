@@ -139,6 +139,9 @@ const string SOUNDS_PATH = "assets/sounds";
 const string SOUND_TYPE_PUNCH = "punch";
 const int SOUND_TYPE_PUNCH_MAX = 2;
 
+const string SOUND_TYPE_WOOSH = "whoosh";
+const int SOUND_TYPE_WOOSH_MAX = 1;
+
 const string SOUND_TYPE_SPIKES = "spikes";
 const int SOUND_TYPE_SPIKES_MAX = 2;
 
