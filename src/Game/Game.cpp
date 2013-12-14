@@ -16,6 +16,9 @@ Game::Game() {
     overworld = new Overworld(&view, DEFAULT_MUTE);
     view.addView(ViewLayer::OVERWORLD, overworld);
 
+    scoreboard = new Scoreboard(&view);
+    view.addView(ViewLayer::SCORE, scoreboard);
+
     console = new Console(&view);
     event = new EventHandler(view.getWindow());
     menuHandler = new MenuHandler(&view);
@@ -148,14 +151,13 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
                 view.hide(ViewLayer::LEVEL);
                 view.hide(ViewLayer::SKY);
                 view.hide(ViewLayer::EARTH);
-                view.show(ViewLayer::OVERWORLD);
-                overworld->evolve(overworld->getState(), curLevelNbr + 1);
-                leaveLevel();
+                view.hide(ViewLayer::SCORE);
+                view.show(ViewLayer::SCORE);
                 if(curLevel) {
                     delete curLevel;
                     curLevel = NULL;
                 }
-                state = GameState::INOVERWORLD;
+                state = GameState::INSCORE;
             }
         } else if (curLevel->mustDie() && !GOD_MODE) {
             death = new Death(&view, mute);
@@ -353,6 +355,16 @@ void Game::displayEnd() {
     }
 }
 
+void Game::displayScore() {
+    if (event->keyIsPressed(sf::Keyboard::Return)) {
+        leaveLevel();
+        view.hide(ViewLayer::SCORE);
+        view.show(ViewLayer::OVERWORLD);
+        overworld->evolve(overworld->getState(), curLevelNbr + 1);
+    }
+
+}
+
 void Game::run() {
     sf::RenderWindow* window = view.getWindow();
     view.show(ViewLayer::MENU);
@@ -439,6 +451,9 @@ void Game::run() {
             break;
         case GameState::ENDINGSCREEN:
             displayEnd();
+            break;
+        case GameState::INSCORE:
+            displayScore();
             break;
         default :
             std::cerr << "Error: unknown state" << std::endl;

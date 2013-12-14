@@ -137,6 +137,11 @@
 		<Unit filename="src/Menu/SaveItem.h" />
 		<Unit filename="src/Overworld/Overworld.cpp" />
 		<Unit filename="src/Overworld/Overworld.h" />
+		<Unit filename="src/Score/Score.h" />
+		<Unit filename="src/Score/ScoreManager.cpp" />
+		<Unit filename="src/Score/ScoreManager.h" />
+		<Unit filename="src/Score/Scoreboard.cpp" />
+		<Unit filename="src/Score/Scoreboard.h" />
 		<Unit filename="src/Sky/Earth.cpp" />
 		<Unit filename="src/Sky/Earth.h" />
 		<Unit filename="src/Sky/Sky.cpp" />

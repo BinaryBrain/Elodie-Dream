@@ -16,6 +16,7 @@
 #include "../Fnu/Girly.h"
 #include "../Level/Immersionbar.h"
 #include "../Sound/SoundManager.h"
+#include "../Score/Scoreboard.h"
 #include "GameView.h"
 
 class Level;
@@ -62,6 +63,9 @@ private:
     GameState pausePrevState;
 
     SoundManager* soundManager;
+
+    Scoreboard* scoreboard = NULL;
+    void displayScore();
 
     EventHandler* event = NULL;
     Overworld* overworld = NULL;
