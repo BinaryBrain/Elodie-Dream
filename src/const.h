@@ -166,7 +166,6 @@ const int SOUND_TYPE_BOTTLE_MAX = 1;
 const int PUNCH_VOLUME = 55;
 
 // const string SOUND_TYPE_FOOTSTEP_ROCK = "footstep_rock";
-
 const string MUSIC_PATH = "assets/music";
 const string OVERWORLD_MUSIC = "overworld.ogg";
 const string LEVEL_MUSIC = "level.ogg";
