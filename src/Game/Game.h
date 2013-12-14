@@ -107,6 +107,7 @@ private:
     void leaveLevel();
 
     bool showTutoConsole = false;
+    bool showCastleConsole = false;
 };
 
 #endif // GAME_H

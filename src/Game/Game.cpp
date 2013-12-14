@@ -116,6 +116,19 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
         console->setCurrentPage(0);
         console->setNextState(GameState::INLEVEL);
         showTutoConsole = false;
+    } else if (showCastleConsole) {
+        state = GameState::INCONSOLE;
+        curLevel->pause();
+        view.show(ViewLayer::CONSOLE);
+
+        console->clear();
+        const char *castle = "It is such a dark and scary place for a pretty girl like you, isn't it ? Press G to make it better <3\n"
+                               "Good luck again, pretty ! :3\n"
+                               "   Alia";
+        console->addParagraph(castle);
+        console->setCurrentPage(0);
+        console->setNextState(GameState::INLEVEL);
+        showCastleConsole = false;
     }
     // leave level
     if (event->keyIsPressed(sf::Keyboard::Escape)) {
@@ -193,6 +206,7 @@ void Game::loadLevel(int levelNbr) {
         env = LevelEnv::CASTLE;
         break;
     case 3:
+        showCastleConsole = true;
         env = LevelEnv::CASTLE;
         break;
     case 4:
@@ -522,6 +536,7 @@ void Game::load() {
         console->setNextState(GameState::INOVERWORLD);
         console->addParagraph("Successfully loaded " + currentMenuItem->getLabel() + ", from " + date);
         console->setCurrentPage(0);
+        overworld->getElodie()->play();
 
     } else {
         console->clear();
