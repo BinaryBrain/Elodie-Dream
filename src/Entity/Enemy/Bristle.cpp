@@ -59,6 +59,22 @@ Hitbox Bristle::returnCurrentHitbox() {
     return getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame());
 }
 
+void Bristle::checkArea(std::map< std::string, Entity* >& entities) {
+    sf::FloatRect zone = getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()).getArea();
+    zone.top -= BRISTLE_DETECTION / 2;
+    zone.left -= BRISTLE_DETECTION / 2;
+    zone.width += BRISTLE_DETECTION;
+    zone.height += BRISTLE_DETECTION;
+    sf::FloatRect elodie = ((Elodie*)entities["elodie"])->returnCurrentHitbox().getArea();
+    if (zone.intersects(elodie)) {
+        if (elodie.left > getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()).getArea().left)
+            speed.x = BRISTLE_SPEED_X;
+        else
+            speed.x = -BRISTLE_SPEED_X;
+        speed.y = -BRISTLE_SPEED_Y;
+    }
+}
+
 void  Bristle::takeDamage(int damage, bool ignore) {
     if (!damageCD && damage > 0) {
         life = 0;
@@ -67,6 +83,8 @@ void  Bristle::takeDamage(int damage, bool ignore) {
 }
 
 void Bristle::doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) {
+    checkArea(entities);
+
     //Compute the gravity
     computeGravity(animate);
 
@@ -74,7 +92,7 @@ void Bristle::doStuff(EventHandler* const& event, std::vector< std::vector<TileS
     Collide collideTiles = collideWithTiles(tiles, &speed, animate.asSeconds(), getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()));
     setDistance(collideTiles);
     move(animate.asSeconds()*(speed.x), animate.asSeconds()*speed.y);
-    sprite->update(animate);
+    //sprite->update(animate);
 
     doAttack(entities);
 
