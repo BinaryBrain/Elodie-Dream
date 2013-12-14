@@ -6,7 +6,7 @@ Menu::Menu(std::string label): MenuComponent(label) {
     selectortexture.loadFromFile(MENU_SELECTOR_PATH, sf::IntRect(102, 16, 120, 30));
     selector.setTexture(selectortexture);
 
-    background.setOutlineColor(sf::Color::Blue);
+    background.setOutlineColor(MENU_BACKGROUND_OUTLINE_COLOR);
     background.setFillColor((sf::Color(0x00, 0x00, 0x00, 0x7f)));
     background.setOutlineThickness(3);
     background.setPosition(MENU_X-60, MENU_Y-5);
@@ -33,7 +33,7 @@ void Menu::addItem(MenuComponent* item, bool isParent) {
 
     text->setCharacterSize(MENU_CHAR_SIZE);
     text->setStyle(sf::Text::Bold);
-    text->setColor(sf::Color::Magenta);
+    text->setColor(MENU_ITEM_COLOR);
     item->setText(text);
     items.push_back(item);
     this->isParent.push_back(isParent);
@@ -52,12 +52,20 @@ void Menu::draw(GameView* view, bool inLevel) {
             poroTextures.insert(std::make_pair(i, poroTexture));
         }
 
+        titleTextTexture.loadFromFile(MENU_TITLE_TEXT);
+        titleText.setTexture(titleTextTexture);
+
         tbg.setPosition(0,0);
+        titleText.setPosition(MENU_TITLE_TEXT_LEFT, MENU_TITLE_TEXT_TOP);
+
         MENU_PORO_IS_LOADED = true;
     }
     if(withBackground) {
         view->addDrawable(ViewLayer::MENU, &tbg);
         tbg.setTexture(*poroTextures[poroIndex]);
+        view->addDrawable(ViewLayer::MENU, &titleText);
+
+        // Animating title poro
         poroIndex++;
         if(poroIndex > MENU_BACKGROUND_LAST_FRAME) {
             poroIndex = MENU_BACKGROUND_FIRST_FRAME;
@@ -66,7 +74,7 @@ void Menu::draw(GameView* view, bool inLevel) {
 
     if (label == "Title menu" && !inLevel) {
 
-        background.setSize(sf::Vector2f(MENU_X, MENU_ITEMS_INTERSPACE*(items.size()-2)));
+        background.setSize(sf::Vector2f(MENU_WIDTH, MENU_ITEMS_INTERSPACE*(items.size()-2)));
         view->addDrawable(ViewLayer::MENU, &background);
 
         for(unsigned int i(0); i < items.size(); ++i) {
@@ -80,7 +88,7 @@ void Menu::draw(GameView* view, bool inLevel) {
         selector.setPosition(MENU_X-40, MENU_Y+10+MENU_ITEMS_INTERSPACE*tmpIndex);
         view->addDrawable(ViewLayer::MENU, &selector);
     } else {
-        background.setSize(sf::Vector2f(MENU_X, MENU_ITEMS_INTERSPACE*(items.size())));
+        background.setSize(sf::Vector2f(MENU_WIDTH, MENU_ITEMS_INTERSPACE*(items.size())));
         view->addDrawable(ViewLayer::MENU, &background);
 
         for(unsigned int i(0); i < items.size(); ++i) {

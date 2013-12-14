@@ -10,7 +10,7 @@ using std::string;
 
 // -- GAME --//
 const int DEFAULT_MUTE = false; // TODO Change me to false
-const int FULLSCREEN = true; // TODO Change me to true
+const int FULLSCREEN = false; // TODO Change me to true
 const int WINDOW_WIDTH = 1280;
 const int WINDOW_HEIGHT = 720;
 const int FPS = 60;
@@ -174,8 +174,15 @@ const string END_MUSIC = "end.ogg";
 const string MENU_SELECTOR_PATH = "assets/img/sprites/poro.png";
 const string MENU_BACKGROUND_PATH = "assets/img/sprites/menu/background.png";
 const string MENU_ANIMATED_BACKGROUND_PATH = "assets/img/sprites/title/poro";
-const float MENU_X = 300;
-const float MENU_Y = 200;
+const string MENU_TITLE_TEXT = "assets/img/sprites/title/title.png";
+
+const int MENU_TITLE_TEXT_LEFT = 150;
+const int MENU_TITLE_TEXT_TOP = 20;
+const float MENU_X = 200;
+const float MENU_Y = 220;
+const float MENU_WIDTH = 300;
+const sf::Color MENU_ITEM_COLOR = sf::Color(0xEE, 0xAA, 0x4A, 0xFF);
+const sf::Color MENU_BACKGROUND_OUTLINE_COLOR = sf::Color(0x29, 0x43, 0x07, 0xFF);
 const int MENU_ITEMS_INTERSPACE = 50;
 const int MENU_CHAR_SIZE = 30;
 const int MENU_BACKGROUND_FIRST_FRAME = 69;

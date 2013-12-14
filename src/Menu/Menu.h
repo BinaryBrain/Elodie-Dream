@@ -40,6 +40,9 @@ private:
 
     sf::RectangleShape background;
 
+    sf::Texture titleTextTexture;
+    sf::Sprite titleText;
+
     std::vector<MenuComponent*> items;
 
     std::vector<bool> isParent;
