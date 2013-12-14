@@ -52,7 +52,6 @@ void Menu::draw(GameView* view, bool inLevel) {
             poroTextures.insert(std::make_pair(i, poroTexture));
         }
 
-        //tbg.setTexture(*poroTextures[45]);
         tbg.setPosition(0,0);
         MENU_PORO_IS_LOADED = true;
     }
