@@ -19,7 +19,7 @@ public:
 
     void cleanUnusedSounds();
 
-    void play(sf::SoundBuffer* buffer);
+    void play(sf::SoundBuffer* buffer, int volume = 100);
     void play(SoundType type);
 protected:
 private:

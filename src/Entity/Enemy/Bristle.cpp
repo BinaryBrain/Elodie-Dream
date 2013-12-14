@@ -68,6 +68,9 @@ void Bristle::checkArea(std::map< std::string, Entity* >& entities) {
     zone.height += BRISTLE_DETECTION;
     sf::FloatRect elodie = ((Elodie*)entities["elodie"])->returnCurrentHitbox().getArea();
     if (zone.intersects(elodie) && !speed.x && !speed.y) {
+        if (!charge) {
+            soundManager->play(SoundType::BRISTLE);
+        }
         if (elodie.left > getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()).getArea().left)
             speed.x = BRISTLE_SPEED_X;
         else

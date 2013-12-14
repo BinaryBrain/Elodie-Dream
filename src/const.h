@@ -149,6 +149,11 @@ const int SOUND_TYPE_FOOTSTEP_GROUND_MAX = 4;
 const string SOUND_TYPE_FOOTSTEP_GRASS = "footstep_grass";
 const int SOUND_TYPE_FOOTSTEP_GRASS_MAX = 3;
 
+const string SOUND_TYPE_BRISTLE = "bristle";
+const int SOUND_TYPE_BRISTLE_MAX = 2;
+
+const int PUNCH_VOLUME = 55;
+
 // const string SOUND_TYPE_FOOTSTEP_ROCK = "footstep_rock";
 
 const string MUSIC_PATH = "assets/music";

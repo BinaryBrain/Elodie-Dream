@@ -9,7 +9,8 @@ SoundManager::SoundManager() {
         { SoundType::SHEEP, { SOUND_TYPE_SHEEP, SOUND_TYPE_SHEEP_MAX } },
         { SoundType::MAGMACUBE, { SOUND_TYPE_MAGMACUBE, SOUND_TYPE_MAGMACUBE_MAX } },
         { SoundType::FOOTSTEP_GROUND, { SOUND_TYPE_FOOTSTEP_GROUND, SOUND_TYPE_FOOTSTEP_GROUND_MAX } },
-        { SoundType::FOOTSTEP_GRASS, { SOUND_TYPE_FOOTSTEP_GRASS, SOUND_TYPE_FOOTSTEP_GRASS_MAX } }
+        { SoundType::FOOTSTEP_GRASS, { SOUND_TYPE_FOOTSTEP_GRASS, SOUND_TYPE_FOOTSTEP_GRASS_MAX } },
+        { SoundType::BRISTLE, {SOUND_TYPE_BRISTLE, SOUND_TYPE_BRISTLE_MAX} }
     };
 }
 
@@ -63,12 +64,13 @@ std::string SoundManager::getPath(SoundType type, int n) {
     return sstm.str();
 }
 
-void SoundManager::play(sf::SoundBuffer* buffer) {
+void SoundManager::play(sf::SoundBuffer* buffer, int volume) {
     Game* game = Game::getInstance();
 
     if(!game->isMute()) {
         sf::Sound* sound = new sf::Sound();
         sound->setBuffer(*buffer);
+        sound->setVolume(volume);
         sound->play();
         sounds.push_back(sound);
     }
@@ -77,8 +79,16 @@ void SoundManager::play(sf::SoundBuffer* buffer) {
 }
 
 void SoundManager::play(SoundType type) {
+    int volume = 100;
+    switch(type) {
+    case SoundType::PUNCH:
+        volume = PUNCH_VOLUME;
+        break;
+    default:
+        break;
+    }
     sf::SoundBuffer* buffer = getRandomSoundBuffer(type);
-    play(buffer);
+    play(buffer, volume);
 }
 
 void SoundManager::cleanUnusedSounds() {
