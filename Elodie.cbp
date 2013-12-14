@@ -11,6 +11,7 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option use_console_runner="0" />
 				<Compiler>
 					<Add option="-std=c++11" />
 					<Add option="-Wextra" />
@@ -33,7 +34,7 @@
 			<Target title="Release">
 				<Option output="Elodie-release" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
-				<Option type="1" />
+				<Option type="0" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
@@ -56,6 +57,9 @@
 				</Linker>
 			</Target>
 		</Build>
+		<Unit filename="resource.rc">
+			<Option compilerVar="WINDRES" />
+		</Unit>
 		<Unit filename="src/Console/Console.cpp" />
 		<Unit filename="src/Console/Console.h" />
 		<Unit filename="src/Displayable/Displayable.cpp" />
@@ -170,6 +174,7 @@
 		<Unit filename="src/Utils/Utils.h" />
 		<Unit filename="src/const.h" />
 		<Unit filename="src/env.h" />
+		<Unit filename="src/icon.h" />
 		<Unit filename="src/main.cpp" />
 		<Extensions>
 			<code_completion />
