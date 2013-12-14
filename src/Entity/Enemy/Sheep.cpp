@@ -59,7 +59,7 @@ Hitbox Sheep::returnCurrentHitbox() {
     return getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame());
 }
 
-void  Sheep::takeDamage(int damage, bool ignore) {
+void Sheep::takeDamage(int damage, bool ignore) {
     if (!damageCD && damage > 0) {
         life = 0;
         damageCD = DAMAGE_CD;
@@ -67,6 +67,7 @@ void  Sheep::takeDamage(int damage, bool ignore) {
     }
     ScoreManager* score = ScoreManager::getInstance();
     score->addEnemyKilled();
+    score->addScore(this->damage);
 }
 
 void Sheep::doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) {

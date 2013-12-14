@@ -57,7 +57,19 @@ void  Bonus::takeDamage(int damage, bool ignore) {
     // nothing here lol
 }
 
+void Bonus::getTaken(std::map< std::string, Entity* >& entities) {
+    sf::FloatRect zone = getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()).getArea();
+    sf::FloatRect elodie = ((Elodie*)entities["elodie"])->returnCurrentHitbox().getArea();
+    sf::FloatRect portal = ((Portal*)entities["portal"])->returnCurrentHitbox().getArea();
+    if (zone.intersects(elodie)) {
+        ScoreManager* scoreManager = ScoreManager::getInstance();
+        scoreManager->takeBonus();
+        life = 0;
+    }
+}
+
 void Bonus::doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) {
+    getTaken(entities);
     sprite->update(animate);
 }
 

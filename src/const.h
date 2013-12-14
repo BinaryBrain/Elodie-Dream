@@ -89,6 +89,7 @@ static const char MAP_GHOST = 'G';
 static const char MAP_BRISTLE = 'B';
 static const char MAP_SPIKES = 'P';
 static const char MAP_PORO = 'O';
+static const char MAP_BONUS = 'N';
 
 // Misc
 static const char MAP_PORTAL = 'F';

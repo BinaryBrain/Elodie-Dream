@@ -55,6 +55,7 @@ void ScoreManager::takeBonus() {
 
 void ScoreManager::addScore(int score) {
     currentScore.score += score;
+    std::cout << "Score added : " << score << std::endl;
 }
 
 void ScoreManager::addDamage(int damage) {
@@ -63,7 +64,6 @@ void ScoreManager::addDamage(int damage) {
 
 void ScoreManager::addEnemyKilled() {
     currentScore.enemiesKilled += 1;
-    std::cout << "Enemy killed" << std::endl;
 }
 
 void ScoreManager::saveScore(int level) {

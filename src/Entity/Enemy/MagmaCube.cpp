@@ -59,13 +59,14 @@ Hitbox MagmaCube::returnCurrentHitbox() {
     return getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame());
 }
 
-void  MagmaCube::takeDamage(int damage, bool ignore) {
+void MagmaCube::takeDamage(int damage, bool ignore) {
     if (!damageCD && damage > 0) {
         life = 0;
         damageCD = DAMAGE_CD;
     }
     ScoreManager* score = ScoreManager::getInstance();
     score->addEnemyKilled();
+    score->addScore(this->damage);
 }
 
 void MagmaCube::jump() {

@@ -30,6 +30,8 @@ void Bristle::init(float x, float y) {
     sprite = new EntitySprite(info, ENTITIES_JSON_PATH+"/"+ENTITYTYPE_ENEMY+"/"+ENTITYNAME_BRISTLE+".png", "gratting");
     setEntitySprite(sprite);
 
+    sprite->changeStance(ANIMATIONS[state], sf::seconds(0.2f));
+
     sprite->setPosition(sf::Vector2f(x,y));
     setHitboxes(info, sprite->getPosition());
     soundManager = SoundManager::getInstance();
@@ -83,13 +85,14 @@ void Bristle::checkArea(std::map< std::string, Entity* >& entities) {
     }
 }
 
-void  Bristle::takeDamage(int damage, bool ignore) {
+void Bristle::takeDamage(int damage, bool ignore) {
     if (!damageCD && damage > 0) {
         life = 0;
         damageCD = DAMAGE_CD;
     }
     ScoreManager* score = ScoreManager::getInstance();
     score->addEnemyKilled();
+    score->addScore(this->damage);
 }
 
 void Bristle::doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) {
