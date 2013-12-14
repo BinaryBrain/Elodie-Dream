@@ -29,6 +29,7 @@ void Bonus::init(float x, float y) {
     sprite = new EntitySprite(info, ENTITIES_JSON_PATH+"/"+ENTITYTYPE_BONUS+"/"+ENTITYNAME_SPRITE+".png", "standing");
     setEntitySprite(sprite);
 
+    sprite->changeStance(ANIMATIONS[state], sf::seconds(0.2f));
 
     sprite->setPosition(sf::Vector2f(x,y));
     setHitboxes(info, sprite->getPosition());
