@@ -2,7 +2,7 @@
 
 MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
     NewGameItem* newGame = new NewGameItem("New game");
-    QuitItem* quit = new QuitItem("Quit");
+    QuitItem* quit = new QuitItem("Quit game");
     EnglishItem* english = new EnglishItem("English");
 
     std::vector<std::string> lastDiscoveredLevels = {"Level 0","Level 0","Level 0"};

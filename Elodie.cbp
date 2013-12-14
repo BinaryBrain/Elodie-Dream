@@ -121,6 +121,8 @@
 		<Unit filename="src/Level/Level.h" />
 		<Unit filename="src/Map/Mapper.cpp" />
 		<Unit filename="src/Map/Mapper.h" />
+		<Unit filename="src/Menu/BackOverWorldItem.cpp" />
+		<Unit filename="src/Menu/BackOverWorldItem.h" />
 		<Unit filename="src/Menu/EnglishItem.cpp" />
 		<Unit filename="src/Menu/EnglishItem.h" />
 		<Unit filename="src/Menu/LoadItem.cpp" />
@@ -137,6 +139,8 @@
 		<Unit filename="src/Menu/NewGameItem.h" />
 		<Unit filename="src/Menu/QuitItem.cpp" />
 		<Unit filename="src/Menu/QuitItem.h" />
+		<Unit filename="src/Menu/ResumeItem.cpp" />
+		<Unit filename="src/Menu/ResumeItem.h" />
 		<Unit filename="src/Menu/SaveItem.cpp" />
 		<Unit filename="src/Menu/SaveItem.h" />
 		<Unit filename="src/Overworld/Overworld.cpp" />
