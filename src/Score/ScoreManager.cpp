@@ -61,6 +61,10 @@ void ScoreManager::addDamage(int damage) {
     currentScore.damage += damage;
 }
 
+void ScoreManager::addEnemyKilled() {
+    currentScore.enemyKilled += 1;
+}
+
 void ScoreManager::saveScore(int level) {
     lastSavedScore = currentScore;
     if (gameScore[level].score < currentScore.score) {

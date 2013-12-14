@@ -10,13 +10,18 @@ Scoreboard::Scoreboard(GameView* view) : Displayable(view) {
     rect.setFillColor(sf::Color(0x00, 0x00, 0x00, 0xFF));
     rect.setPosition(0, 0);
 
-    int damages = scoreManager->getLastSavedScore().damage;
-    int enemiesKilled = 3;
+    int damages = scoreManager->getCurrentScore().damage;
+    int enemiesKilled = scoreManager->getCurrentScore().enemyKilled;
 
     damagesTakenText.setString("Damages taken: " + Utils::itos(damages));
     damagesTakenText.setFont(globalFont);
     damagesTakenText.setCharacterSize(SCORES_CHAR_SIZE);
     damagesTakenText.setPosition(viewX/2-damagesTakenText.getLocalBounds().width/2, SCORES_STARTY);
+
+    enemiesKilledText.setString("Enemies killed: " + Utils::itos(enemiesKilled));
+    enemiesKilledText.setFont(globalFont);
+    enemiesKilledText.setCharacterSize(SCORES_CHAR_SIZE);
+    enemiesKilledText.setPosition(viewX/2-damagesTakenText.getLocalBounds().width/2, SCORES_STARTY + damagesTakenText.getLocalBounds().height + SCORES_INTERSPACE);
 
     view->addView(ViewLayer::SCORE, this);
 }
@@ -38,4 +43,5 @@ void Scoreboard::display() {
 
     gameView->addDrawable(ViewLayer::SCORE, &rect);
     gameView->addDrawable(ViewLayer::SCORE, &damagesTakenText);
+    gameView->addDrawable(ViewLayer::SCORE, &enemiesKilledText);
 }

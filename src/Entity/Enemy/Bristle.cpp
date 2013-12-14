@@ -85,6 +85,8 @@ void  Bristle::takeDamage(int damage, bool ignore) {
         life = 0;
         damageCD = DAMAGE_CD;
     }
+    ScoreManager* score = ScoreManager::getInstance();
+    score->addEnemyKilled();
 }
 
 void Bristle::doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) {

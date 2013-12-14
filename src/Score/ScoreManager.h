@@ -20,6 +20,7 @@ public:
     void takeBonus();
     void addScore(int score);
     void addDamage(int damage);
+    void addEnemyKilled();
     void saveScore(int level);
     void resetCurrentScore();
 protected:

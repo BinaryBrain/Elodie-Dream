@@ -64,6 +64,8 @@ void  MagmaCube::takeDamage(int damage, bool ignore) {
         life = 0;
         damageCD = DAMAGE_CD;
     }
+    ScoreManager* score = ScoreManager::getInstance();
+    score->addEnemyKilled();
 }
 
 void MagmaCube::jump() {

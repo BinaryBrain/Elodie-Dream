@@ -10,6 +10,7 @@
 #include "../../EntityManager/EntityManager.h"
 #include "../Elodie.h"
 #include "../../Sound/SoundManager.h"
+#include "../../Score/ScoreManager.h"
 
 class SoundManager;
 

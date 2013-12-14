@@ -10,6 +10,7 @@
 #include "../../Sound/SoundManager.h"
 #include "../../EntityManager/EntityManager.h"
 #include "../Elodie.h"
+#include "../../Score/ScoreManager.h"
 
 enum class MagmaCubeState { STANDING };
 
