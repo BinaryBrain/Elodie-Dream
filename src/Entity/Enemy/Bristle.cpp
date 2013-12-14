@@ -90,6 +90,7 @@ void Bristle::takeDamage(int damage, bool ignore) {
         life = 0;
         damageCD = DAMAGE_CD;
     }
+    soundManager->play(SoundType::PUNCH);
     ScoreManager* score = ScoreManager::getInstance();
     score->addEnemyKilled();
     score->addKilledBristle();

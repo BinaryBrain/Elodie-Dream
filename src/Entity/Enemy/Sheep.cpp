@@ -65,6 +65,7 @@ void Sheep::takeDamage(int damage, bool ignore) {
         damageCD = DAMAGE_CD;
         soundManager->play(SoundType::SHEEP);
     }
+    soundManager->play(SoundType::PUNCH);
     ScoreManager* score = ScoreManager::getInstance();
     score->addEnemyKilled();
     score->addKilledSheep();
