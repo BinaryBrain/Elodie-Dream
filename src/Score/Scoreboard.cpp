@@ -3,17 +3,20 @@
 Scoreboard::Scoreboard(GameView* view) : Displayable(view) {
     ScoreManager* scoreManager = ScoreManager::getInstance();
 
-    float viewX(gameView->getWindow()->getSize().x);
-    float viewY(gameView->getWindow()->getSize().y);
+    float viewX(WINDOW_WIDTH);
+    float viewY(WINDOW_HEIGHT);
 
     rect.setSize(sf::Vector2f(viewX, viewY));
     rect.setFillColor(sf::Color(0x00, 0x00, 0x00, 0xFF));
     rect.setPosition(0, 0);
 
-    damagesTaken.setString("empty");
-    damagesTaken.setFont(globalFont);
-    damagesTaken.setCharacterSize(30);
-    damagesTaken.setPosition(60,60);
+    int damages = 42;
+    int enemiesKilled = 3;
+
+    damagesTakenText.setString("Damages taken: " + Utils::itos(damages));
+    damagesTakenText.setFont(globalFont);
+    damagesTakenText.setCharacterSize(SCORES_CHAR_SIZE);
+    damagesTakenText.setPosition(viewX/2-damagesTakenText.getLocalBounds().width/2, SCORES_STARTY);
 
     view->addView(ViewLayer::SCORE, this);
 }
@@ -24,5 +27,5 @@ Scoreboard::~Scoreboard() {
 
 void Scoreboard::display() {
     gameView->addDrawable(ViewLayer::SCORE, &rect);
-    gameView->addDrawable(ViewLayer::SCORE, &damagesTaken);
+    gameView->addDrawable(ViewLayer::SCORE, &damagesTakenText);
 }

@@ -5,6 +5,7 @@
 #include "../Game/Game.h"
 #include "../Game/GameView.h"
 #include "../Score/ScoreManager.h"
+#include "../Utils/Utils.h"
 #include "../const.h"
 #include "../font.h"
 
@@ -19,7 +20,9 @@ public:
 
 private:
     sf::RectangleShape rect;
-    sf::Text damagesTaken;
+    sf::Text damagesTakenText;
+    sf::Text enemiesKilledText;
+    sf::Text pointsText;
 };
 
 #endif // SCOREBOARD_H
