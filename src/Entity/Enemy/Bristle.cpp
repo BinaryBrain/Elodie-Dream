@@ -62,10 +62,10 @@ Hitbox Bristle::returnCurrentHitbox() {
 
 void Bristle::checkArea(std::map< std::string, Entity* >& entities) {
     sf::FloatRect zone = getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()).getArea();
-    zone.top -= BRISTLE_DETECTION / 2;
+    zone.top -= BRISTLE_DETECTION / 4;
     zone.left -= BRISTLE_DETECTION / 2;
     zone.width += BRISTLE_DETECTION;
-    zone.height += BRISTLE_DETECTION;
+    zone.height += BRISTLE_DETECTION / 2;
     sf::FloatRect elodie = ((Elodie*)entities["elodie"])->returnCurrentHitbox().getArea();
     if (zone.intersects(elodie) && !speed.x && !speed.y) {
         if (!charge) {
