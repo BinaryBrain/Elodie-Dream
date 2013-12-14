@@ -12,13 +12,15 @@ EntityManager::EntityManager() {
         {EntityName::GHOST, ENTITYNAME_GHOST},
         {EntityName::SPIKES, ENTITYNAME_SPIKES},
         {EntityName::PORTAL, ENTITYNAME_PORTAL},
-        {EntityName::PORO, ENTITYNAME_PORO}
+        {EntityName::PORO, ENTITYNAME_PORO},
+        {EntityName::SPRITE, ENTITYNAME_SPRITE}
     };
 
     ENTITY_TYPE = {
         {EntityType::ELODIE, ENTITYTYPE_ELODIE},
         {EntityType::ENEMY, ENTITYTYPE_ENEMY},
-        {EntityType::MISC, ENTITYTYPE_MISC}
+        {EntityType::MISC, ENTITYTYPE_MISC},
+        {EntityType::BONUS, ENTITYTYPE_BONUS}
     };
 }
 

@@ -30,6 +30,8 @@ void Bristle::init(float x, float y) {
     sprite = new EntitySprite(info, ENTITIES_JSON_PATH+"/"+ENTITYTYPE_ENEMY+"/"+ENTITYNAME_BRISTLE+".png", "gratting");
     setEntitySprite(sprite);
 
+    sprite->changeStance(ANIMATIONS[state], sf::seconds(0.2f));
+
     sprite->setPosition(sf::Vector2f(x,y));
     setHitboxes(info, sprite->getPosition());
     soundManager = SoundManager::getInstance();
