@@ -66,6 +66,7 @@ void Bonus::getTaken(std::map< std::string, Entity* >& entities) {
         ScoreManager* scoreManager = ScoreManager::getInstance();
         scoreManager->takeBonus();
         life = 0;
+        soundManager->play(SoundType::BOTTLE);
     }
 }
 

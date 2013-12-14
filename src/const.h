@@ -157,6 +157,9 @@ const int SOUND_TYPE_FOOTSTEP_GRASS_MAX = 3;
 const string SOUND_TYPE_BRISTLE = "bristle";
 const int SOUND_TYPE_BRISTLE_MAX = 2;
 
+const string SOUND_TYPE_BOTTLE = "bottle";
+const int SOUND_TYPE_BOTTLE_MAX = 1;
+
 const int PUNCH_VOLUME = 55;
 
 // const string SOUND_TYPE_FOOTSTEP_ROCK = "footstep_rock";
@@ -188,5 +191,7 @@ const int CONSOLE_NLINES = 6;
 const float SCORES_INTERSPACE = 100;
 const int SCORES_CHAR_SIZE = 25;
 const float SCORES_STARTY = 100;
+const int BONUS_POINTS = 50;
+const int BONUS_NODAMAGES = 1000;
 
 #endif // CONST_H_INCLUDED

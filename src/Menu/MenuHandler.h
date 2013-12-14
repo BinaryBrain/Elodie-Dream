@@ -47,6 +47,9 @@ private:
 
     Menu* selectedMenu;
 
+    sf::Text loading;
+    sf::Sprite tbg;
+
     bool inLevel;
 
     GameState nextState = GameState::INOVERWORLD;

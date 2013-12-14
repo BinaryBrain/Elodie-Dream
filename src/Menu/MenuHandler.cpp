@@ -11,6 +11,19 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
     std::vector<std::string> lastDiscoveredLevels = {"Level 0","Level 0","Level 0"};
     std::vector<std::string> labels = {"Slot 1", "Slot 2", "Slot 3"};
 
+    loading.setFont(globalFont);
+    loading.setCharacterSize(SCORES_CHAR_SIZE);
+    loading.setString("Loading...");
+
+    sf::Texture* poroTexture = new sf::Texture();
+    if(!poroTexture->loadFromFile(MENU_ANIMATED_BACKGROUND_PATH+"/"+Utils::toStringWithLength(MENU_BACKGROUND_FIRST_FRAME, 4)+".png"))
+        std::cerr << "Unable to load menu background";
+
+    tbg.setTexture(*poroTexture);
+
+    gameView->getWindow()->draw(tbg );
+    gameView->getWindow()->draw(loading);
+    gameView->getWindow()->display();
 
     title = new Menu("Title menu");
     saveGame = new Menu("Save game");
@@ -115,7 +128,7 @@ std::pair<GameState, MenuComponent*> MenuHandler::execute() {
             selectedMenu = loadGame;
         }
 
-     std::pair<GameState, MenuComponent*> p = std::make_pair(GameState::INMENU, selectedMenu);
+        std::pair<GameState, MenuComponent*> p = std::make_pair(GameState::INMENU, selectedMenu);
         return p;
     }
 }

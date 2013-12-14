@@ -415,11 +415,6 @@ void Game::run() {
             screen.saveToFile("screenshots/"+date+".jpg");
         }
 
-        if (event->mouseIsPressed(sf::Mouse::Left)) {
-            eventMouse leftClick(event->mouseInfoPressed(sf::Mouse::Left));
-            std::cout << "Mouse pos : (" << leftClick.x << "; " << leftClick.y << ")" << std::endl;
-        }
-
         if (event->keyIsPressed(sf::Keyboard::G)) {
             girlyMode = !girlyMode;
         }
