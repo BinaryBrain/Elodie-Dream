@@ -42,6 +42,7 @@ private:
     EntitySprite* sprite;
 
     BristleState state;
+    bool charge = false;
 
     std::map< BristleState, std::string > ANIMATIONS;
 };

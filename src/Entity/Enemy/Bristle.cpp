@@ -32,6 +32,7 @@ void Bristle::init(float x, float y) {
     sprite->setPosition(sf::Vector2f(x,y));
     setHitboxes(info, sprite->getPosition());
     soundManager = SoundManager::getInstance();
+    sprite->changeStance(ANIMATIONS[state], sf::seconds(0.05f));
 }
 
 Bristle::~Bristle() {
@@ -66,12 +67,13 @@ void Bristle::checkArea(std::map< std::string, Entity* >& entities) {
     zone.width += BRISTLE_DETECTION;
     zone.height += BRISTLE_DETECTION;
     sf::FloatRect elodie = ((Elodie*)entities["elodie"])->returnCurrentHitbox().getArea();
-    if (zone.intersects(elodie)) {
+    if (zone.intersects(elodie) && !speed.x && !speed.y) {
         if (elodie.left > getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()).getArea().left)
             speed.x = BRISTLE_SPEED_X;
         else
             speed.x = -BRISTLE_SPEED_X;
         speed.y = -BRISTLE_SPEED_Y;
+        charge = true;
     }
 }
 
@@ -92,8 +94,19 @@ void Bristle::doStuff(EventHandler* const& event, std::vector< std::vector<TileS
     Collide collideTiles = collideWithTiles(tiles, &speed, animate.asSeconds(), getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()));
     setDistance(collideTiles);
     move(animate.asSeconds()*(speed.x), animate.asSeconds()*speed.y);
-    //sprite->update(animate);
+    if (speed.x || speed.y) {
+        sprite->update(animate);
+    }
 
+    if (!speed.x && charge) {
+        if (direction == Direction::LEFT) {
+            direction = Direction::RIGHT;
+            speed.x = -BRISTLE_SPEED_X;
+        } else if (direction == Direction::RIGHT) {
+            direction = Direction::LEFT;
+            speed.x = BRISTLE_SPEED_X;
+        }
+    }
     doAttack(entities);
 
     if (damageCD)
