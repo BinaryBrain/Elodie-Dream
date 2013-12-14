@@ -157,6 +157,9 @@ const int SOUND_TYPE_FOOTSTEP_GRASS_MAX = 3;
 const string SOUND_TYPE_BRISTLE = "bristle";
 const int SOUND_TYPE_BRISTLE_MAX = 2;
 
+const string SOUND_TYPE_BOTTLE = "bottle";
+const int SOUND_TYPE_BOTTLE_MAX = 1;
+
 const int PUNCH_VOLUME = 55;
 
 // const string SOUND_TYPE_FOOTSTEP_ROCK = "footstep_rock";

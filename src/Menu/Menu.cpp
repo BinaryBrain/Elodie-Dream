@@ -6,23 +6,6 @@ Menu::Menu(std::string label): MenuComponent(label) {
     selectortexture.loadFromFile(MENU_SELECTOR_PATH, sf::IntRect(102, 16, 120, 30));
     selector.setTexture(selectortexture);
 
-    // Background
-    if(!MENU_PORO_IS_LOADED) {
-        poroIndex = MENU_BACKGROUND_FIRST_FRAME;
-        for(int i = MENU_BACKGROUND_FIRST_FRAME; i <= MENU_BACKGROUND_LAST_FRAME; i++) {
-            sf::Texture* poroTexture = new sf::Texture();
-            std::cout << "loading " << i << std::endl;
-            if(!poroTexture->loadFromFile(MENU_ANIMATED_BACKGROUND_PATH+"/"+Utils::toStringWithLength(i, 4)+".png"))
-                std::cerr << "Unable to load menu background";
-
-            poroTextures.insert(std::make_pair(i, poroTexture));
-        }
-
-        //tbg.setTexture(*poroTextures[45]);
-        tbg.setPosition(0,0);
-        MENU_PORO_IS_LOADED = true;
-    }
-
     background.setOutlineColor(sf::Color::Blue);
     background.setFillColor((sf::Color(0x00, 0x00, 0x00, 0x7f)));
     background.setOutlineThickness(3);
@@ -58,6 +41,21 @@ void Menu::addItem(MenuComponent* item, bool isParent) {
 
 // Draws the everything in the menu
 void Menu::draw(GameView* view, bool inLevel) {
+    // Background
+    if(!MENU_PORO_IS_LOADED) {
+        poroIndex = MENU_BACKGROUND_FIRST_FRAME;
+        for(int i = MENU_BACKGROUND_FIRST_FRAME; i <= MENU_BACKGROUND_LAST_FRAME; i++) {
+            sf::Texture* poroTexture = new sf::Texture();
+            if(!poroTexture->loadFromFile(MENU_ANIMATED_BACKGROUND_PATH+"/"+Utils::toStringWithLength(i, 4)+".png"))
+                std::cerr << "Unable to load menu background";
+
+            poroTextures.insert(std::make_pair(i, poroTexture));
+        }
+
+        //tbg.setTexture(*poroTextures[45]);
+        tbg.setPosition(0,0);
+        MENU_PORO_IS_LOADED = true;
+    }
     if(withBackground) {
         view->addDrawable(ViewLayer::MENU, &tbg);
         tbg.setTexture(*poroTextures[poroIndex]);
@@ -99,7 +97,7 @@ void Menu::draw(GameView* view, bool inLevel) {
 void Menu::incIndex(bool inLevel) {
     if (index == items.size()-1) index = 0;
     else ++index;
-    if(!inLevel && label == "Title menu" && (index == 3 || index == 4)){
+    if(!inLevel && label == "Title menu" && (index == 3 || index == 4)) {
         index = 5;
     }
 }
@@ -107,7 +105,7 @@ void Menu::incIndex(bool inLevel) {
 void Menu::decIndex(bool inLevel) {
     if (index == 0) index = items.size()-1;
     else --index;
-    if(!inLevel && label == "Title menu" && (index == 3 || index == 4)){
+    if(!inLevel && label == "Title menu" && (index == 3 || index == 4)) {
         index = 2;
     }
 }
