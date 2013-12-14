@@ -25,6 +25,7 @@ Game::Game() {
     girly = new Girly(&view);
     immBar = new ImmersionBar(&view);
     soundManager = SoundManager::getInstance();
+    scoreManager = ScoreManager::getInstance();
 
     view.addView(ViewLayer::MENU, menuHandler);
     view.addView(ViewLayer::CONSOLE, console);
@@ -94,7 +95,7 @@ void Game::leaveLevel() {
         delete curLevel;
         curLevel = NULL;
     }
-
+    scoreManager->resetCurrentScore();
 }
 
 void Game::displayLevel(int curLevelNbr, sf::Time time) {
@@ -136,6 +137,7 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
         immBar->setLevel(((Elodie*)curLevel->getEntities()["elodie"])->getImmersionLevel());
 
         if(curLevel->isFinished()) {
+            scoreManager->saveScore(curLevelNbr);
             if(curLevelNbr == 7) {
                 endingScreen = new EndingScreen(&view, mute);
                 view.hide(ViewLayer::LEVEL);
@@ -171,6 +173,7 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
                 curLevel = NULL;
             }
             state = GameState::DEAD;
+            scoreManager->resetCurrentScore();
         }
     }
 }

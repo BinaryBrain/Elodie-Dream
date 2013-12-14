@@ -9,6 +9,7 @@
 #include "../EventHandler/EventHandler.h"
 #include "../Include/EntityInfo.h"
 #include "../Sound/SoundManager.h"
+#include "../Score/ScoreManager.h"
 
 class SoundManager;
 
@@ -189,6 +190,7 @@ private:
     std::map< ElodieState, std::string > ANIMATIONS;
 
     SoundManager* soundManager;
+    ScoreManager* scoreManager;
     sf::Vector2f cameraPos;
     bool buffed = false;
     float buff = 0;

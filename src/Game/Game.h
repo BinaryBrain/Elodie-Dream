@@ -18,6 +18,7 @@
 #include "../Level/Immersionbar.h"
 #include "../Sound/SoundManager.h"
 #include "../Score/Scoreboard.h"
+#include "../Score/ScoreManager.h"
 #include "GameView.h"
 
 class Level;
@@ -64,6 +65,8 @@ private:
     GameState pausePrevState;
 
     SoundManager* soundManager;
+
+    ScoreManager* scoreManager;
 
     Scoreboard* scoreboard = NULL;
     void displayScore();

@@ -41,6 +41,10 @@ Score ScoreManager::getScore(int level) {
     return gameScore[level];
 }
 
+Score ScoreManager::getLastSavedScore() {
+    return lastSavedScore;
+}
+
 Score ScoreManager::getCurrentScore() {
     return currentScore;
 }
@@ -53,12 +57,20 @@ void ScoreManager::addScore(int score) {
     currentScore.score += score;
 }
 
+void ScoreManager::addDamage(int damage) {
+    currentScore.damage += damage;
+}
+
 void ScoreManager::saveScore(int level) {
+    lastSavedScore = currentScore;
     if (gameScore[level].score < currentScore.score) {
         gameScore[level].score = currentScore.score;
     }
     if (gameScore[level].bonus < currentScore.bonus) {
         gameScore[level].bonus = currentScore.bonus;
+    }
+    if (gameScore[level].damage < currentScore.damage) {
+        gameScore[level].damage = currentScore.damage;
     }
     resetCurrentScore();
 }
@@ -66,4 +78,5 @@ void ScoreManager::saveScore(int level) {
 void ScoreManager::resetCurrentScore() {
     currentScore.score = 0;
     currentScore.bonus = 0;
+    currentScore.damage = 0;
 }

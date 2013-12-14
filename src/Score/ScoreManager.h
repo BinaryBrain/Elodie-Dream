@@ -16,8 +16,10 @@ public:
 
     Score getScore(int level);
     Score getCurrentScore();
+    Score getLastSavedScore();
     void takeBonus();
     void addScore(int score);
+    void addDamage(int damage);
     void saveScore(int level);
     void resetCurrentScore();
 protected:
@@ -29,6 +31,7 @@ private:
     ScoreManager& operator= (ScoreManager const&); // Makes operator= private
 
     Score currentScore;
+    Score lastSavedScore;
     std::map< int, Score > gameScore;
 };
 

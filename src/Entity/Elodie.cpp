@@ -34,6 +34,7 @@ void Elodie::init() {
     setEntitySprite(sprite);
 
     soundManager = SoundManager::getInstance();
+    scoreManager = ScoreManager::getInstance();
 }
 
 ElodieSprite* Elodie::getSprite() {
@@ -138,6 +139,7 @@ int Elodie::getNightmareLevel() {
 void Elodie::takeDamage(int damage, bool ignore) {
     if (!damageCD && (state != ElodieState::PUNCHING || ignore)) {
         immersionLevel -= damage;
+        scoreManager->addDamage(damage);
         if (immersionLevel < 0)
             immersionLevel = 0;
         damageCD = DAMAGE_CD;
