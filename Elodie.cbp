@@ -66,6 +66,8 @@
 		<Unit filename="src/Displayable/Displayable.h" />
 		<Unit filename="src/EntityManager/EntityManager.cpp" />
 		<Unit filename="src/EntityManager/EntityManager.h" />
+		<Unit filename="src/Entity/Bonus.cpp" />
+		<Unit filename="src/Entity/Bonus.h" />
 		<Unit filename="src/Entity/Elodie.cpp" />
 		<Unit filename="src/Entity/Elodie.h" />
 		<Unit filename="src/Entity/Enemy/Bristle.cpp" />

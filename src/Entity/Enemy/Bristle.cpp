@@ -14,7 +14,8 @@ Bristle::Bristle(float x, float y) {
 
 void Bristle::init(float x, float y) {
     ANIMATIONS = {
-        {BristleState::STANDING, "standing"}
+        {BristleState::STANDING, "standing"},
+        {BristleState::GRATTING, "gratting"}
     };
 
     damage = BRISTLE_DAMAGE;
@@ -24,15 +25,14 @@ void Bristle::init(float x, float y) {
     info = ToyBox->getEnemyInfo(EntityType::ENEMY, EntityName::BRISTLE);
 
     y -= (info->height - BLOCK_SIZE);
-    state = BristleState::STANDING;
+    state = BristleState::GRATTING;
 
-    sprite = new EntitySprite(info, ENTITIES_JSON_PATH+"/"+ENTITYTYPE_ENEMY+"/"+ENTITYNAME_BRISTLE+".png", "standing");
+    sprite = new EntitySprite(info, ENTITIES_JSON_PATH+"/"+ENTITYTYPE_ENEMY+"/"+ENTITYNAME_BRISTLE+".png", "gratting");
     setEntitySprite(sprite);
 
     sprite->setPosition(sf::Vector2f(x,y));
     setHitboxes(info, sprite->getPosition());
     soundManager = SoundManager::getInstance();
-    sprite->changeStance(ANIMATIONS[state], sf::seconds(0.05f));
 }
 
 Bristle::~Bristle() {
@@ -76,6 +76,9 @@ void Bristle::checkArea(std::map< std::string, Entity* >& entities) {
         else
             speed.x = -BRISTLE_SPEED_X;
         speed.y = -BRISTLE_SPEED_Y;
+
+        state = BristleState::STANDING;
+        sprite->changeStance(ANIMATIONS[state], sf::seconds(0.05f));
         charge = true;
     }
 }
@@ -99,9 +102,7 @@ void Bristle::doStuff(EventHandler* const& event, std::vector< std::vector<TileS
     Collide collideTiles = collideWithTiles(tiles, &speed, animate.asSeconds(), getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()));
     setDistance(collideTiles);
     move(animate.asSeconds()*(speed.x), animate.asSeconds()*speed.y);
-    if (speed.x || speed.y) {
-        sprite->update(animate);
-    }
+    sprite->update(animate);
 
     if (!speed.x && charge) {
         if (direction == Direction::LEFT) {

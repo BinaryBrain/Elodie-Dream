@@ -14,7 +14,7 @@
 
 class SoundManager;
 
-enum class BristleState { STANDING };
+enum class BristleState { STANDING, GRATTING };
 
 class Bristle : public Entity {
 public:

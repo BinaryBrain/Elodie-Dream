@@ -3,6 +3,7 @@
 
 #include <string>
 #include <map>
+#include <iostream>
 #include "SFML/Graphics.hpp"
 #include "Score.h"
 

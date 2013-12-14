@@ -62,7 +62,8 @@ void ScoreManager::addDamage(int damage) {
 }
 
 void ScoreManager::addEnemyKilled() {
-    currentScore.enemyKilled += 1;
+    currentScore.enemiesKilled += 1;
+    std::cout << "Enemy killed" << std::endl;
 }
 
 void ScoreManager::saveScore(int level) {
@@ -76,6 +77,9 @@ void ScoreManager::saveScore(int level) {
     if (gameScore[level].damage < currentScore.damage) {
         gameScore[level].damage = currentScore.damage;
     }
+    if (gameScore[level].enemiesKilled < currentScore.enemiesKilled) {
+        gameScore[level].enemiesKilled = currentScore.enemiesKilled;
+    }
     resetCurrentScore();
 }
 
@@ -83,4 +87,5 @@ void ScoreManager::resetCurrentScore() {
     currentScore.score = 0;
     currentScore.bonus = 0;
     currentScore.damage = 0;
+    currentScore.enemiesKilled = 0;
 }
