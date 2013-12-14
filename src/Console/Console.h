@@ -5,6 +5,7 @@
 
 #include "../env.h"
 #include "../const.h"
+#include "../font.h"
 #include "../Game/GameView.h"
 #include "../Displayable/Displayable.h"
 
@@ -42,7 +43,6 @@ public:
     GameState getNextState();
 
 private:
-    sf::Font* font = new sf::Font();
 
     sf::RectangleShape background;
     std::vector<std::string> lines;

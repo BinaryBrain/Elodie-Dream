@@ -1,10 +1,10 @@
 #include "Console.h"
 
+sf::Font globalFont;
+
 Console::Console(GameView* gameView) : Displayable(gameView) {
     startX = gameView->getWindow()->getSize().x-sizeX;
     startY = gameView->getWindow()->getSize().y-sizeY;
-
-    font->loadFromFile("assets/fonts/pf_tempesta_seven/pf_tempesta_seven.ttf");
 
     // up and down
     float startUpX = startX+sizeX-marginX;
@@ -35,7 +35,7 @@ std::vector<std::string> Console::cutShort(std::string str, std::string sub, int
     std::vector<size_t> indexes = getStringIndexes(str, sub);
     indexes.insert(indexes.begin(), 0);
 
-    sf::Text text("", *font);
+    sf::Text text("", globalFont);
     std::vector<std::string> lines;
     std::string buffer(sub); // tricky temporary sub at the beginning :3
 
@@ -143,7 +143,7 @@ void Console::setCurrentPage(int newPage) {
 void Console::prepareCurrentPage() {
     currentPageText.clear();
 
-    sf::Text newText("", *font);
+    sf::Text newText("", globalFont);
     newText.setColor(sf::Color::White);
 
     // console lines

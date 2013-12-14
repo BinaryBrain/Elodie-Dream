@@ -1,18 +1,12 @@
 #include "MenuComponent.h"
 
 MenuComponent::MenuComponent(std::string label) {
-    font = new sf::Font();
-    font->loadFromFile("assets/fonts/arial.ttf");
-
-    this->text = new sf::Text(label, *font);
+    this->text = new sf::Text(label, globalFont);
     this->label = label;
 }
 
 MenuComponent::~MenuComponent() {
-    if(font) {
-        delete font;
-        font = NULL;
-    }
+
 }
 
 sf::Text* MenuComponent::getText() {

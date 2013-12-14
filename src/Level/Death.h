@@ -5,6 +5,7 @@
 #include "../Game/Game.h"
 #include "../Game/GameView.h"
 #include "../const.h"
+#include "../font.h"
 
 #include <SFML/Audio.hpp>
 
@@ -17,7 +18,6 @@ public:
 
 private:
     sf::RectangleShape rect;
-    sf::Font* font;
     sf::Text* wokeUp;
     sf::Texture texture;
     sf::Sprite elo;

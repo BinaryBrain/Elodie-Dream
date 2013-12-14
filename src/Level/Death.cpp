@@ -8,10 +8,7 @@ Death::Death(GameView * view, bool isMute) : Displayable(view) {
     rect.setFillColor(sf::Color(0x00, 0x00, 0x00, 0xFF));
     rect.setPosition(0, 0);
 
-    font = new sf::Font();
-    font->loadFromFile("assets/fonts/pf_tempesta_seven/pf_tempesta_seven.ttf");
-
-    wokeUp = new sf::Text("You woke up... ", *font);
+    wokeUp = new sf::Text("You woke up... ", globalFont);
     wokeUp->setCharacterSize(30);
 
     float midX = WINDOW_WIDTH/2;
@@ -44,7 +41,6 @@ Death::Death(GameView * view, bool isMute) : Displayable(view) {
 }
 
 Death::~Death() {
-    delete font;
     delete wokeUp;
 }
 

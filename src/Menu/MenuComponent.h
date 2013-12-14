@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "../env.h"
+#include "../font.h"
 
 class MenuComponent {
 public:
@@ -19,7 +20,6 @@ public:
 
 protected:
     std::vector<MenuComponent*> items;
-    sf::Font* font;
     sf::Text* text;
     std::string label;
 

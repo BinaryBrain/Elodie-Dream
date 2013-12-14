@@ -10,6 +10,7 @@
 #include "Game/Game.h"
 #include "Overworld/Overworld.h"
 #include "Utils/Utils.h"
+#include "font.h"
 
 //Here for testing purpose. To remove later on
 #include "EntityManager/EntityManager.h"
@@ -17,7 +18,10 @@
 using std::cout;
 using std::endl;
 
+
 int main() {
+    globalFont.loadFromFile(GLOBALFONT_PATH);
+
     // Map Parsing test
     Game* game = Game::getInstance();
 
