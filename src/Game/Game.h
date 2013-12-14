@@ -19,6 +19,7 @@
 #include "../Sound/SoundManager.h"
 #include "../Score/Scoreboard.h"
 #include "../Score/ScoreManager.h"
+#include "../Menu/TitleScreen.h"
 #include "GameView.h"
 
 class Level;
@@ -105,7 +106,7 @@ private:
     void newGame();
     GameState defaultReturnState;
     void leaveLevel();
-
+    TitleScreen* title = NULL;
     bool showTutoConsole = false;
     bool showCastleConsole = false;
 };

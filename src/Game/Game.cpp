@@ -26,11 +26,12 @@ Game::Game() {
     immBar = new ImmersionBar(&view);
     soundManager = SoundManager::getInstance();
     scoreManager = ScoreManager::getInstance();
-
+    title = new TitleScreen(&view);
     view.addView(ViewLayer::MENU, menuHandler);
     view.addView(ViewLayer::CONSOLE, console);
     view.addView(ViewLayer::GIRLY, girly);
     view.addView(ViewLayer::IMMERSIONBAR, immBar);
+    view.show(ViewLayer::TITLESCREEN);
     menuHandler->setInLevel(false);
 }
 
@@ -62,6 +63,11 @@ Game::~Game() {
     if (immBar) {
         delete immBar;
         girly = NULL;
+    }
+
+    if(title){
+        delete title;
+        title = NULL;
     }
 }
 
@@ -285,10 +291,10 @@ void Game::displayMenu() {
         currentMenuItem = p.second;
         if(state == GameState::INOVERWORLD) {
             Menu* title = menuHandler->getTitleMenu();
-            title->hideBackground();
             leaveLevel();
             view.hide(ViewLayer::MENU);
             overworld->getElodie()->play();
+            view.hide(ViewLayer::TITLESCREEN);
         } else if (state == GameState::INLEVEL) {
             if(curLevel) {
                 state = GameState::INLEVEL;
@@ -338,7 +344,7 @@ void Game::displayConsole() {
             view.hide(ViewLayer::CONSOLE);
             view.hide(ViewLayer::MENU);
             view.show(ViewLayer::OVERWORLD);
-            menuHandler->getTitleMenu()->hideBackground();
+            view.hide(ViewLayer::TITLESCREEN);
         } else if (state == GameState::INLEVEL) {
             if(curLevel) {
                 state = GameState::INLEVEL;
@@ -498,7 +504,7 @@ void Game::newGame() {
     state = GameState::INOVERWORLD;
     view.hide(ViewLayer::MENU);
     view.show(ViewLayer::OVERWORLD);
-    menuHandler->getTitleMenu()->hideBackground();
+    view.hide(ViewLayer::TITLESCREEN);
 }
 
 void Game::load() {

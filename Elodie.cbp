@@ -145,6 +145,8 @@
 		<Unit filename="src/Menu/ResumeItem.h" />
 		<Unit filename="src/Menu/SaveItem.cpp" />
 		<Unit filename="src/Menu/SaveItem.h" />
+		<Unit filename="src/Menu/TitleScreen.cpp" />
+		<Unit filename="src/Menu/TitleScreen.h" />
 		<Unit filename="src/Overworld/Overworld.cpp" />
 		<Unit filename="src/Overworld/Overworld.h" />
 		<Unit filename="src/Score/Score.h" />

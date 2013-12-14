@@ -23,36 +23,21 @@ public:
     void incIndex(bool inLevel);
     void decIndex(bool inLevel);
     int getIndex();
-    void showBackground();
-    void hideBackground();
-
     MenuComponent* getSelectedItem();
 
     std::pair<GameState, MenuComponent*> execute();
-    bool hasBackground();
 
 private:
     sf::Texture selectortexture;
     sf::Sprite selector;
 
-    sf::Texture tbgTexture;
-    sf::Sprite tbg;
-
     sf::RectangleShape background;
-
-    sf::Texture titleTextTexture;
-    sf::Sprite titleText;
 
     std::vector<MenuComponent*> items;
 
     std::vector<bool> isParent;
 
-    std::map< int, sf::Texture* > poroTextures;
-    int poroIndex;
-
     unsigned int index = 0;
-
-    bool withBackground = true;
 };
 
 #endif // MENU_H
