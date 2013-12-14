@@ -22,6 +22,9 @@ public:
     void addScore(int score);
     void addDamage(int damage);
     void addEnemyKilled();
+    void addKilledSheep();
+    void addKilledMagmacube();
+    void addKilledBristle();
     void saveScore(int level);
     void resetCurrentScore();
 protected:

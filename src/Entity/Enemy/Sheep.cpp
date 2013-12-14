@@ -67,6 +67,7 @@ void Sheep::takeDamage(int damage, bool ignore) {
     }
     ScoreManager* score = ScoreManager::getInstance();
     score->addEnemyKilled();
+    score->addKilledSheep();
     score->addScore(this->damage);
 }
 

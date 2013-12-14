@@ -92,6 +92,7 @@ void Bristle::takeDamage(int damage, bool ignore) {
     }
     ScoreManager* score = ScoreManager::getInstance();
     score->addEnemyKilled();
+    score->addKilledBristle();
     score->addScore(this->damage);
 }
 

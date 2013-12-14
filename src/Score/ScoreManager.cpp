@@ -55,7 +55,6 @@ void ScoreManager::takeBonus() {
 
 void ScoreManager::addScore(int score) {
     currentScore.score += score;
-    std::cout << "Score added : " << score << std::endl;
 }
 
 void ScoreManager::addDamage(int damage) {
@@ -64,6 +63,18 @@ void ScoreManager::addDamage(int damage) {
 
 void ScoreManager::addEnemyKilled() {
     currentScore.enemiesKilled += 1;
+}
+
+void ScoreManager::addKilledSheep() {
+    currentScore.sheeps += 1;
+}
+
+void ScoreManager::addKilledMagmacube() {
+    currentScore.magmacubes += 1;
+}
+
+void ScoreManager::addKilledBristle() {
+    currentScore.bristles += 1;
 }
 
 void ScoreManager::saveScore(int level) {
@@ -80,6 +91,15 @@ void ScoreManager::saveScore(int level) {
     if (gameScore[level].enemiesKilled < currentScore.enemiesKilled) {
         gameScore[level].enemiesKilled = currentScore.enemiesKilled;
     }
+    if (gameScore[level].sheeps < currentScore.sheeps) {
+        gameScore[level].sheeps = currentScore.sheeps;
+    }
+    if (gameScore[level].magmacubes < currentScore.magmacubes) {
+        gameScore[level].magmacubes = currentScore.magmacubes;
+    }
+    if (gameScore[level].bristles < currentScore.bristles) {
+        gameScore[level].bristles = currentScore.bristles;
+    }
     resetCurrentScore();
 }
 
@@ -88,4 +108,7 @@ void ScoreManager::resetCurrentScore() {
     currentScore.bonus = 0;
     currentScore.damage = 0;
     currentScore.enemiesKilled = 0;
+    currentScore.sheeps = 0;
+    currentScore.magmacubes = 0;
+    currentScore.bristles = 0;
 }
