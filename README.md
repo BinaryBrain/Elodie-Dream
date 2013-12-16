@@ -22,6 +22,15 @@ Wait a little bit...
 ### MacOS
 Wait a little more...
 
+### Android
+Wait a even more...
+
+### iOs
+Are you fucking kidding me
+
+### Symbian
+THIS IS NOT GONNA HAPPEN.
+
 Controls
 --------
 - Esc : Menu
