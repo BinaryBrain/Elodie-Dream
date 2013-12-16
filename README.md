@@ -12,10 +12,9 @@ Download
 If you are looking for a compiled version of the game, you can download it there:
 
 ### Windows
+- [Magnet Link (Torrent)](http://mgnet.me/.ElodieDream)
 - [Mirror 1](http://protectator.ch/files/Elodie-game.zip)
 - [Mirror 2](http://pecamo.protectator.ch/protectator/Elodie-game.zip)
-- **Magnet Link (Torrent):** magnet:?xt=urn:btih:8B59E706DFBC7AD6C7BEB1A374FB32D6CE05A46A&dn=Elodie-game.zip&tr=udp%3a%2f%2ftracker.openbittorrent.com%3a80%2fannounce&tr=udp%3a%2f%2ftracker.publicbt.com%3a80%2fannounce&tr=udp%3a%2f%2ftracker.ccc.de%3a80%2fannounce  
-_(Sorry, Github has some trouble with this one)_
 
 ### Linux
 Wait a little bit...
