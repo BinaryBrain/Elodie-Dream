@@ -516,6 +516,7 @@ void Game::newGame() {
     view.hide(ViewLayer::MENU);
     view.show(ViewLayer::OVERWORLD);
     view.hide(ViewLayer::TITLESCREEN);
+    autoSave = false;
 }
 
 void Game::load() {
