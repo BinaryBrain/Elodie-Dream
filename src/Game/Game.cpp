@@ -310,6 +310,7 @@ void Game::displayMenu() {
 
         } else if (state == GameState::SAVE) {
             // sets the current slot and name
+            autoSave = true;
             currentSlot = currentMenuItem->getLabel();
             currentSaveName = currentMenuItem->getText();
         }
@@ -398,6 +399,8 @@ void Game::displayScore() {
         view.show(ViewLayer::OVERWORLD);
         overworld->evolve(overworld->getState(), curLevelNbr + 1);
     }
+    if (autoSave)
+        save();
 
 }
 
@@ -519,6 +522,7 @@ void Game::load() {
     std::string path = "save/" + currentMenuItem->getLabel() + ".save";
 
     // Sets the slot and text (for example for the autosave)
+    autoSave = true;
     currentSlot = currentMenuItem->getLabel();
     currentSaveName = currentMenuItem->getText();
 
@@ -610,15 +614,17 @@ void Game::save() {
     sh->save();
     sh->clearStringifier();
 
-    // console confirmation
-    console->clear();
-    console->addParagraph("Successfully saved on " + currentSlot + " (" + date + ").");
-    console->setCurrentPage(0);
-    console->setNextState(GameState::INMENU);
+    // console confirmation and return to menu (only when save() is called from the menu)
+    if (state == GameState::SAVE) {
+        console->clear();
+        console->addParagraph("Successfully saved on " + currentSlot + " (" + date + ").");
+        console->setCurrentPage(0);
+        console->setNextState(GameState::INMENU);
 
-    state = GameState::INCONSOLE;
-    view.show(ViewLayer::MENU);
-    view.show(ViewLayer::CONSOLE);
+        state = GameState::INCONSOLE;
+        view.show(ViewLayer::MENU);
+        view.show(ViewLayer::CONSOLE);
+    }
 
 }
 
