@@ -289,12 +289,14 @@ void Game::displayMenu() {
         std::pair<GameState, MenuComponent*> p = menuHandler->execute();
         state = p.first;
         currentMenuItem = p.second;
+
         if(state == GameState::INOVERWORLD) {
             Menu* title = menuHandler->getTitleMenu();
             leaveLevel();
             view.hide(ViewLayer::MENU);
             overworld->getElodie()->play();
             view.hide(ViewLayer::TITLESCREEN);
+
         } else if (state == GameState::INLEVEL) {
             if(curLevel) {
                 state = GameState::INLEVEL;
@@ -305,7 +307,13 @@ void Game::displayMenu() {
             } else {
                 std::cerr << "Must display level but not initialized." << std::endl;
             }
+
+        } else if (state == GameState::SAVE) {
+            // sets the current slot and name
+            currentSlot = currentMenuItem->getLabel();
+            currentSaveName = currentMenuItem->getText();
         }
+
     } else if(event->keyIsPressed(sf::Keyboard::Escape)) {
         defaultReturnState = state;
         state = menuHandler->getNextState();
@@ -509,6 +517,11 @@ void Game::newGame() {
 
 void Game::load() {
     std::string path = "save/" + currentMenuItem->getLabel() + ".save";
+
+    // Sets the slot and text (for example for the autosave)
+    currentSlot = currentMenuItem->getLabel();
+    currentSaveName = currentMenuItem->getText();
+
     SaveHandler* sh = SaveHandler::getInstance();
     sh->setPath(path);
 
@@ -574,8 +587,8 @@ void Game::save() {
     date += Utils::itos(now->tm_hour) + ":" + Utils::itos(now->tm_min) + ":" + Utils::itos(now->tm_sec);
 
 
-    // creates save
-    std::string path = "save/" + currentMenuItem->getLabel() + ".save";
+    // creates save with current slot and name
+    std::string path = "save/" + currentSlot + ".save";
     SaveHandler* sh = SaveHandler::getInstance();
     sh->setPath(path);
     JsonStringifier* stringifier = sh->getStringifier();
@@ -584,7 +597,7 @@ void Game::save() {
     stringifier->add(keyDate, date);
 
     int LDL = overworld->getState();
-    sf::Text* txt = currentMenuItem->getText();
+    sf::Text* txt = currentSaveName;
     if(LDL == 0) {
         txt->setString("Tutorial");
     } else {
@@ -597,15 +610,16 @@ void Game::save() {
     sh->save();
     sh->clearStringifier();
 
-    // displays on console
+    // console confirmation
     console->clear();
-    console->addParagraph("Successfully saved on " + currentMenuItem->getLabel() + " (" + date + ").");
+    console->addParagraph("Successfully saved on " + currentSlot + " (" + date + ").");
     console->setCurrentPage(0);
     console->setNextState(GameState::INMENU);
 
     state = GameState::INCONSOLE;
     view.show(ViewLayer::MENU);
     view.show(ViewLayer::CONSOLE);
+
 }
 
 void Game::exit() {

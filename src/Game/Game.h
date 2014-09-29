@@ -63,6 +63,11 @@ private:
     GameState state = GameState::INMENU;
     MenuComponent* currentMenuItem;
 
+    std::string currentSlot;
+    sf::Text* currentSaveName;
+    bool autoSave = false;
+
+
     GameState pausePrevState;
 
     SoundManager* soundManager;
