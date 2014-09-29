@@ -399,9 +399,9 @@ void Game::displayScore() {
         view.show(ViewLayer::OVERWORLD);
         overworld->evolve(overworld->getState(), curLevelNbr + 1);
     }
-    if (autoSave)
+    if (autoSave) {
         save();
-
+    }
 }
 
 void Game::run() {
