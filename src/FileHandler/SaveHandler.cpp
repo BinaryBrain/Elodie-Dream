@@ -4,18 +4,14 @@
 SaveHandler* SaveHandler::shInstance = NULL;
 
 SaveHandler::SaveHandler() {
-    stringifier = new JsonStringifier();
-    accessor = new JsonAccessor();
+    buff = "";
 }
 
 SaveHandler::~SaveHandler() {
-    delete stringifier;
-    delete accessor;
-    stringifier = NULL;
-    accessor = NULL;
+
 }
 
-// Gets the instance of the game
+// Gets the instance of the SaveHandler
 SaveHandler* SaveHandler::getInstance() {
     if(!shInstance) shInstance = new SaveHandler();
     return shInstance;
@@ -25,15 +21,9 @@ void SaveHandler::setPath(std::string path) {
     this->path = path;
 }
 
-JsonStringifier* SaveHandler::getStringifier() {
-    return stringifier;
-}
-
 void SaveHandler::save() {
-    std::string stringified(stringifier->getStringifiedDoc());
-
-    // saves the encrypted stringified json to the file
-    std::vector<int> tmp = encrypt(stringified, "key");
+    // saves the encrypted content to the file
+    std::vector<int> tmp = encrypt(buff, "key");
     std::ofstream myfile;
     myfile.open(path);
     for (size_t i = 0; i < tmp.size(); ++i) {
@@ -42,8 +32,8 @@ void SaveHandler::save() {
     myfile.close();
 }
 
-std::string SaveHandler::load() {
-    // loads the file, decrypts the json inside
+void SaveHandler::load() {
+    // loads the file, decrypts the content
     std::vector<int> tmp;
     std::ifstream infile;
     infile.open(path);
@@ -52,20 +42,13 @@ std::string SaveHandler::load() {
         tmp.push_back(acc);
     }
     infile.close();
-    std::string json = decrypt(tmp, "key");
-
-    // in case the file is not here -> no parse error
-    if(json == "") {
-        json = "{}";
-    }
-
-    return json;
+    buff = decrypt(tmp, "key");
 }
 
-void SaveHandler::clearStringifier() {
-    delete stringifier;
-    stringifier = new JsonStringifier();
+void SaveHandler::clearBuff() {
+    buff = "";
 }
+
 
 std::vector<int> SaveHandler::encrypt(std::string p, std::string key) {
     std::vector<int> tmp;
@@ -81,4 +64,39 @@ std::string SaveHandler::decrypt(std::vector<int> tmp, std::string key) {
         p += ((char)tmp[i])^key[i%key.length()];
     }
     return p;
+}
+
+void SaveHandler::add(std::string s) {
+    buff += (s + "\n");
+}
+
+void SaveHandler::add(int a) {
+    buff += (Utils::itos(a) + "\n");
+}
+
+void SaveHandler::add(std::vector<int> v) {
+    for (size_t i(0); i < v.size()-1; ++i) {
+        buff += (Utils::itos(v[i]) + ",");
+    }
+    buff += (Utils::itos(v[v.size()-1]) + "\n");
+}
+
+std::string SaveHandler::readString() {
+    std::pair<std::string,std::string> p = Utils::splitString(buff, "\n");
+    buff = p.second;
+    return p.first;
+}
+
+int SaveHandler::readInt() {
+    std::pair<std::string,std::string> p = Utils::splitString(buff, "\n");
+    int a = Utils::stoi(p.first);
+    return a;
+}
+
+std::vector<int> SaveHandler::readIntVector() {
+    std::vector<int> scores;
+    std::string scoresLine = Utils::splitString(buff, "\n").first;
+    // TODO
+
+    return scores;
 }

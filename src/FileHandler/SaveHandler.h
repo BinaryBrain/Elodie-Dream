@@ -3,13 +3,8 @@
 
 #include <fstream>
 #include <cstdio>
-#include "rapidjson/document.h"		// rapidjson's DOM-style API
-#include "rapidjson/prettywriter.h"	// for stringify JSON
-#include "rapidjson/filestream.h"	// wrapper of C stream for prettywriter as output
 #include "../env.h"
 
-#include "../Json/JsonParser.h"
-#include "../Json/JsonStringifier.h"
 #include "../Json/JsonAccessor.h"
 #include "FileHandler.h"
 
@@ -18,12 +13,20 @@ public:
     static SaveHandler* getInstance();
 
     void setPath(std::string path);
-    JsonStringifier* getStringifier();
 
     void save();
-    std::string load();
+    void load();
+    void clearBuff();
 
-    void clearStringifier();
+    void add(int a);
+    void add(std::string s);
+    void add(std::vector<int> v);
+
+    std::pair<std::string, std::string> read(std::string original, std::string separator);
+
+    int readInt();
+    std::string readString();
+    std::vector<int> readIntVector();
 
 private:
     SaveHandler();
@@ -33,8 +36,8 @@ private:
     SaveHandler& operator= (SaveHandler const&); // Makes operator= private
 
     std::string path;
-    JsonStringifier* stringifier;
-    JsonAccessor* accessor;
+
+    std::string buff;
 
     std::vector<int> encrypt(std::string p, std::string key);
     std::string decrypt(std::vector<int> tmp, std::string key);

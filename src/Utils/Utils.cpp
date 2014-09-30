@@ -10,6 +10,12 @@ std::string Utils::itos(int number) {
     return ss.str();//return a string with the contents of the stream
 }
 
+int Utils::stoi(std::string s) {
+    int ret;
+    std::istringstream(s) >> ret;
+    return ret;
+}
+
 std::string Utils::toStringWithLength(int number, unsigned int length) {
     std::string output = "";
     std::stringstream ss;
@@ -21,4 +27,23 @@ std::string Utils::toStringWithLength(int number, unsigned int length) {
     }
 
     return output;
+}
+
+std::pair<std::string, std::string> Utils::splitString(const std::string& original, const std::string& separator) {
+    size_t pos = original.find(separator);
+    std::string wanted = original.substr(0, pos);
+    std::string newString = original.substr(pos+1);
+
+    return std::make_pair(wanted, newString);
+}
+
+bool Utils::fileExists(const std::string& name) {
+  std::ifstream f(name.c_str());
+    if (f.good()) {
+        f.close();
+        return true;
+    } else {
+        f.close();
+        return false;
+    }
 }

@@ -398,9 +398,10 @@ void Game::displayScore() {
         view.hide(ViewLayer::SCORE);
         view.show(ViewLayer::OVERWORLD);
         overworld->evolve(overworld->getState(), curLevelNbr + 1);
-    }
-    if (autoSave) {
-        save();
+
+        if (autoSave) {
+            save();
+        }
     }
 }
 
@@ -522,29 +523,23 @@ void Game::newGame() {
 void Game::load() {
     std::string path = "save/" + currentMenuItem->getLabel() + ".save";
 
-    // Sets the slot and text (for example for the autosave)
-    autoSave = true;
-    currentSlot = currentMenuItem->getLabel();
-    currentSaveName = currentMenuItem->getText();
+    if (Utils::fileExists(path)) {
 
-    SaveHandler* sh = SaveHandler::getInstance();
-    sh->setPath(path);
+        // Sets the slot and text (for example for the autosave)
+        autoSave = true;
+        currentSlot = currentMenuItem->getLabel();
+        currentSaveName = currentMenuItem->getText();
 
-    std::string json = sh->load();
 
-    // creates a temporary json file for the JsonAccessor
-    std::ofstream tempJsonFile;
-    std::string tempJsonFilePath = "save/temp.json";
+        SaveHandler* sh = SaveHandler::getInstance();
+        sh->setPath(path);
 
-    tempJsonFile.open(tempJsonFilePath);
-    tempJsonFile << json << std::endl;
-    tempJsonFile.close();
+        // loads the save
+        sh->load();
 
-    JsonAccessor accessor;
-    accessor.load(tempJsonFilePath);
-    if(accessor.canTakeElementFrom("date")) {
-        std::string date = accessor.getString("date");
-        int LDL = accessor.getInt("lastdiscoveredlevel");
+        std::string date = sh->readString();
+        int LDL = sh->readInt();
+
         if(curLevel) {
             leaveLevel();
         }
@@ -570,13 +565,6 @@ void Game::load() {
         console->setNextState(GameState::INMENU);
     }
 
-    accessor.close();
-
-    // remove the temporary json
-    if(remove(tempJsonFilePath.c_str()) != 0 ) {
-        std::cerr << "Error deleting temporary json" << std::endl;
-    }
-
     state = GameState::INCONSOLE;
     view.show(ViewLayer::MENU);
     view.show(ViewLayer::CONSOLE);
@@ -594,12 +582,6 @@ void Game::save() {
 
     // creates save with current slot and name
     std::string path = "save/" + currentSlot + ".save";
-    SaveHandler* sh = SaveHandler::getInstance();
-    sh->setPath(path);
-    JsonStringifier* stringifier = sh->getStringifier();
-
-    std::string keyDate("date");
-    stringifier->add(keyDate, date);
 
     int LDL = overworld->getState();
     sf::Text* txt = currentSaveName;
@@ -609,11 +591,15 @@ void Game::save() {
         txt->setString("Level " + Utils::itos(LDL));
     }
 
-    std::string keyLDL("lastdiscoveredlevel");
-    stringifier->add(keyLDL, LDL);
+    SaveHandler* sh = SaveHandler::getInstance();
+
+    sh->setPath(path);
+    sh->clearBuff();
+
+    sh->add(date);
+    sh->add(LDL);
 
     sh->save();
-    sh->clearStringifier();
 
     // console confirmation and return to menu (only when save() is called from the menu)
     if (state == GameState::SAVE) {
