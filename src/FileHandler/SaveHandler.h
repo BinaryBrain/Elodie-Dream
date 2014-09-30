@@ -23,6 +23,9 @@ public:
     void save();
     std::string load();
 
+    bool isSlotFree(std::string slot);
+    std::string nextFreeSlot();
+
     void clearStringifier();
 
 private:

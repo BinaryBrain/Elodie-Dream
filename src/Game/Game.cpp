@@ -179,6 +179,7 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
                 }
                 state = GameState::INSCORE;
             }
+
         } else if (curLevel->mustDie() && !GOD_MODE) {
             death = new Death(&view, mute);
 
@@ -335,7 +336,6 @@ void Game::displayMenu() {
 }
 
 void Game::displayConsole() {
-
     if (event->keyIsPressed(sf::Keyboard::Up)) console->previousPage();
     if (event->keyIsPressed(sf::Keyboard::Down)) console->nextPage();
     if(event->keyIsPressed(sf::Keyboard::Space) || event->keyIsPressed(sf::Keyboard::Return)) {
@@ -389,8 +389,22 @@ void Game::displayScore() {
         view.hide(ViewLayer::SCORE);
         view.show(ViewLayer::OVERWORLD);
         overworld->evolve(overworld->getState(), curLevelNbr + 1);
-    }
 
+        // Auto-save
+        std::cout << "Auto-save";
+        if(loadedSlot == "") {
+            std::string freeSlot = SaveHandler::getInstance()->nextFreeSlot();
+
+            if(freeSlot != "") {
+                save(freeSlot);
+            }
+            else {
+                // TODO Open Menu with save slots
+            }
+        } else {
+            save(loadedSlot);
+        }
+    }
 }
 
 void Game::run() {
@@ -458,7 +472,8 @@ void Game::run() {
             load();
             break;
         case GameState::SAVE:
-            save();
+            std::cout << "GameState::SAVE" << std::endl;
+            save(currentMenuItem->getLabel());
             break;
         case GameState::EXIT:
             exit();
@@ -488,7 +503,6 @@ void Game::run() {
 
         view.draw();
     }
-
 }
 
 void Game::newGame() {
@@ -508,7 +522,9 @@ void Game::newGame() {
 }
 
 void Game::load() {
-    std::string path = "save/" + currentMenuItem->getLabel() + ".save";
+    loadedSlot = currentMenuItem->getLabel();
+    std::string path = "save/" + loadedSlot + ".save";
+
     SaveHandler* sh = SaveHandler::getInstance();
     sh->setPath(path);
 
@@ -564,7 +580,8 @@ void Game::load() {
     view.show(ViewLayer::CONSOLE);
 }
 
-void Game::save() {
+void Game::save(std::string slot) {
+    loadedSlot = slot;
 
     // creates date
     time_t t = time(0);
@@ -575,7 +592,7 @@ void Game::save() {
 
 
     // creates save
-    std::string path = "save/" + currentMenuItem->getLabel() + ".save";
+    std::string path = "save/" + slot + ".save";
     SaveHandler* sh = SaveHandler::getInstance();
     sh->setPath(path);
     JsonStringifier* stringifier = sh->getStringifier();
@@ -599,9 +616,9 @@ void Game::save() {
 
     // displays on console
     console->clear();
-    console->addParagraph("Successfully saved on " + currentMenuItem->getLabel() + " (" + date + ").");
+    console->addParagraph("Successfully saved on " + slot + " (" + date + ").");
     console->setCurrentPage(0);
-    console->setNextState(GameState::INMENU);
+    //console->setNextState(GameState::INMENU);
 
     state = GameState::INCONSOLE;
     view.show(ViewLayer::MENU);

@@ -22,3 +22,14 @@ std::string Utils::toStringWithLength(int number, unsigned int length) {
 
     return output;
 }
+
+bool Utils::fileExists(const std::string& name) {
+  std::ifstream f(name.c_str());
+    if (f.good()) {
+        f.close();
+        return true;
+    } else {
+        f.close();
+        return false;
+    }
+}

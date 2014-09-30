@@ -42,6 +42,20 @@ void SaveHandler::save() {
     myfile.close();
 }
 
+bool SaveHandler::isSlotFree(std::string slot) {
+    return !Utils::fileExists("save/"+slot+".save");
+}
+
+std::string SaveHandler::nextFreeSlot() {
+    for(unsigned int i = 1; i <= 3; i++) { // TODO add 3 as a const
+        if(isSlotFree("Slot "+Utils::itos(i))) {
+            return "Slot "+Utils::itos(i);
+        }
+    }
+
+    return "";
+}
+
 std::string SaveHandler::load() {
     // loads the file, decrypts the json inside
     std::vector<int> tmp;

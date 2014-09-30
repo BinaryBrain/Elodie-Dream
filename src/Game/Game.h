@@ -42,7 +42,7 @@ public:
     void draw();
     void run();
     void load();
-    void save();
+    void save(std::string slot);
     void exit();
 
     GameState getState();
@@ -109,6 +109,8 @@ private:
     TitleScreen* title = NULL;
     bool showTutoConsole = false;
     bool showCastleConsole = false;
+
+    std::string loadedSlot = "";
 };
 
 #endif // GAME_H
