@@ -1,6 +1,10 @@
 var hierarchy =
 [
     [ "Animation", "class_animation.html", null ],
+    [ "Displayable", null, [
+      [ "Level", "class_level.html", null ],
+      [ "Overworld", "class_overworld.html", null ]
+    ] ],
     [ "Entity", "class_entity.html", [
       [ "Elodie", "class_elodie.html", null ]
     ] ],
@@ -10,17 +14,12 @@ var hierarchy =
     [ "FileHandler", "class_file_handler.html", null ],
     [ "Game", "class_game.html", null ],
     [ "GameView", "class_game_view.html", null ],
-    [ "JsonAccessor", "class_json_accessor.html", null ],
-    [ "JsonParser", "class_json_parser.html", null ],
-    [ "Level", "class_level.html", null ],
     [ "Mapper", "class_mapper.html", null ],
-    [ "Overworld", "class_overworld.html", null ],
     [ "SaveHandler", "class_save_handler.html", null ],
     [ "Sprite", null, [
       [ "AnimatedSprite", "class_animated_sprite.html", [
         [ "CharacterSprite", "class_character_sprite.html", [
-          [ "ElodieSprite", "class_elodie_sprite.html", null ],
-          [ "EnemySprite", "class_enemy_sprite.html", null ]
+          [ "ElodieSprite", "class_elodie_sprite.html", null ]
         ] ],
         [ "Interactive", "class_interactive.html", null ]
       ] ],

@@ -2,6 +2,8 @@ var class_event_handler =
 [
     [ "EventHandler", "class_event_handler.html#a515c37eece26a6c74c7dd0b33baf69ab", null ],
     [ "~EventHandler", "class_event_handler.html#a3decb8cd88ba8af2b9b0b0f0f2fcd722", null ],
+    [ "gainedFocus", "class_event_handler.html#adb19bacb3c33297d05fa32316e69c0e0", null ],
+    [ "hasFocus", "class_event_handler.html#a0f71aeae9c3ba0d68468d5c83ea68ceb", null ],
     [ "keyHold", "class_event_handler.html#acc63d463c8d1c86eb2146611e2eafc76", null ],
     [ "keyIsHold", "class_event_handler.html#a2025193107a9b528e9303e765a7f6c0a", null ],
     [ "keyIsHold", "class_event_handler.html#af2531f74bc01878b68f4c0d80b9be6a8", null ],
@@ -12,6 +14,7 @@ var class_event_handler =
     [ "keyPressed", "class_event_handler.html#a7292b3696845484c6c6b148ef448124a", null ],
     [ "keyReleased", "class_event_handler.html#accf34b1fe246556f536466c2ab6373bd", null ],
     [ "listening", "class_event_handler.html#a664a0d6a6eac5e9067cf3f06c4024875", null ],
+    [ "lostFocus", "class_event_handler.html#a05f782511b443584dd20e6c0517532a2", null ],
     [ "mouseInfoHold", "class_event_handler.html#a83d4ae5edd55295d3ad8edf339e41437", null ],
     [ "mouseInfoPressed", "class_event_handler.html#aa4fb5cd4518ba6343189aa8110c4fa9a", null ],
     [ "mouseInfoReleased", "class_event_handler.html#a79b19a1b5a5de09f6913746c34d424c4", null ],

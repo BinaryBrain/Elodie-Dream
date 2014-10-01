@@ -1,6 +1,32 @@
 var class_entity =
 [
     [ "Entity", "class_entity.html#a980f368aa07ce358583982821533a54a", null ],
+    [ "Entity", "class_entity.html#ad127a64c6e6c17441cb8f74c56590ac1", null ],
     [ "~Entity", "class_entity.html#adf6d3f7cb1b2ba029b6b048a395cc8ae", null ],
-    [ "getSprite", "class_entity.html#af683c3b7b9b2f01c783485a988a0b6bb", null ]
+    [ "addHitbox", "class_entity.html#ad65215ab98dc353a546f07ee0ed1f62b", null ],
+    [ "collideWithTiles", "class_entity.html#adc79fae069fb74bcb17f2002d2428d5d", null ],
+    [ "computeGravity", "class_entity.html#aa0519d0c092616eac92ebc8c495bbb0a", null ],
+    [ "doStuff", "class_entity.html#a1daddeb196bd4dfb3458566d055db039", null ],
+    [ "flipToLeft", "class_entity.html#aacbe5b5f6ffc0f619262a24bec708815", null ],
+    [ "flipToRight", "class_entity.html#a574dff3f4c372db9fe0ddcd2422e8239", null ],
+    [ "getCurrentHitbox", "class_entity.html#ae07c3fe173745a2abdd5678a603abb17", null ],
+    [ "getSprite", "class_entity.html#af683c3b7b9b2f01c783485a988a0b6bb", null ],
+    [ "isAlive", "class_entity.html#ab0986ba7a1b24f022b5623781050c0f1", null ],
+    [ "isInFront", "class_entity.html#a125174d78aba52f9ec356334e15cd326", null ],
+    [ "move", "class_entity.html#a222677d76c58bb4937cad04339f16e36", null ],
+    [ "move", "class_entity.html#ab7a2783a6bdd82529ea3e251f7ba0d85", null ],
+    [ "pause", "class_entity.html#af751500bad1137bc60732b10a92c2852", null ],
+    [ "play", "class_entity.html#a3454a19c6f2bdc912f36dac3e3f323d9", null ],
+    [ "removeCurrentHitBox", "class_entity.html#a7ee976a6ebc423aac7a7b33dd2bbf29f", null ],
+    [ "returnCurrentHitbox", "class_entity.html#a78e492bb6254e1c7f501b2cccba4d98b", null ],
+    [ "setDistance", "class_entity.html#a795dbdef064a8764ddaddf9751ab1d2f", null ],
+    [ "setEntitySprite", "class_entity.html#a6824e7f9d88b2babdc82bbf37e67b33e", null ],
+    [ "setHitboxes", "class_entity.html#a96c47ae077de4c70be537e0fe1b72e93", null ],
+    [ "takeDamage", "class_entity.html#a37e133291594286fef1580fc2f27d9b6", null ],
+    [ "damageCD", "class_entity.html#a21132ff3d60b21eba3276fdc16d3f1b7", null ],
+    [ "direction", "class_entity.html#a066f8fde7c810f365e44c4a206e9b14c", null ],
+    [ "info", "class_entity.html#a9000f5121883cd8bbf837cd6200dd497", null ],
+    [ "life", "class_entity.html#ab5a58d961897fb12cfb9a2a34cb80fe4", null ],
+    [ "speed", "class_entity.html#a8d58ad0538befbd1ce19e648356e4b0a", null ],
+    [ "sprite", "class_entity.html#af83f70f8107d85626fb383599cc0f7ae", null ]
 ];

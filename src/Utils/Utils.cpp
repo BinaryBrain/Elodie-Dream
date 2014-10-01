@@ -37,8 +37,8 @@ std::pair<std::string, std::string> Utils::splitString(const std::string& origin
     return std::make_pair(wanted, newString);
 }
 
-bool Utils::fileExists(const std::string& name) {
-  std::ifstream f(name.c_str());
+bool Utils::fileExists(const std::string& path) {
+  std::ifstream f(path.c_str());
     if (f.good()) {
         f.close();
         return true;

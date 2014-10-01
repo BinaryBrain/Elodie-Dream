@@ -533,8 +533,7 @@ void Game::load() {
 
         SaveHandler* sh = SaveHandler::getInstance();
         sh->setPath(path);
-
-        // loads the save
+        sh->clearBuff(); // not necessary right now as the buffer content is replaced when using load()
         sh->load();
 
         std::string date = sh->readString();
@@ -584,6 +583,8 @@ void Game::save() {
     std::string path = "save/" + currentSlot + ".save";
 
     int LDL = overworld->getState();
+
+    // Displays the save name on the menu
     sf::Text* txt = currentSaveName;
     if(LDL == 0) {
         txt->setString("Tutorial");
@@ -591,14 +592,12 @@ void Game::save() {
         txt->setString("Level " + Utils::itos(LDL));
     }
 
+    // saves the datas to the save file
     SaveHandler* sh = SaveHandler::getInstance();
-
     sh->setPath(path);
     sh->clearBuff();
-
     sh->add(date);
     sh->add(LDL);
-
     sh->save();
 
     // console confirmation and return to menu (only when save() is called from the menu)
