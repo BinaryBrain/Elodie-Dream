@@ -35,12 +35,16 @@ void Scoreboard::display() {
     float viewX(WINDOW_WIDTH);
     float viewY(WINDOW_HEIGHT);
 
+    int boni = scoreManager->getCurrentScore().bonus;
     int damages = scoreManager->getLastSavedScore().damage;
 
     int sheeps = scoreManager->getLastSavedScore().sheeps;
     int magmacubes = scoreManager->getLastSavedScore().magmacubes;
     int bristles = scoreManager->getLastSavedScore().bristles;
     int enemiesKilled = scoreManager->getLastSavedScore().enemiesKilled;
+
+    int totalPoints = scoreManager->getLastSavedScore().totalScore;
+
     std::string s("");
     std::string m("");
     std::string b("");
@@ -54,22 +58,16 @@ void Scoreboard::display() {
         b = "\nBristles: " + Utils::itos(bristles) + " => " + Utils::itos(bristles*BRISTLE_DAMAGE) + " pts";
     }
     std::string enemiesString = "Enemies killed: " + Utils::itos(enemiesKilled) + s + m + b;
-    int points = scoreManager->getLastSavedScore().score;
-
-    int boni = scoreManager->getLastSavedScore().bonus;
-
-    points = points-damages+boni*BONUS_POINTS;
 
     std::string p("");
     if(damages == 0) {
         p = "Bonus 0 damages received: "+ Utils::itos(BONUS_NODAMAGES) +" pts !\n";
-        points += BONUS_NODAMAGES;
     }
 
     damagesTakenText.setString("Damages taken: " + Utils::itos(damages));
     enemiesKilledText.setString(enemiesString);
     boniText.setString("Boni collected: "+ Utils::itos(boni)+" => " + Utils::itos(boni*BONUS_POINTS) + " pts");
-    pointsText.setString(p+"Points obtained: " + Utils::itos(points) + " pts");
+    pointsText.setString(p+"Points obtained: " + Utils::itos(totalPoints) + " pts");
 
     damagesTakenText.setPosition(viewX/2-damagesTakenText.getLocalBounds().width/2, SCORES_STARTY);
     enemiesKilledText.setPosition(viewX/2-enemiesKilledText.getLocalBounds().width/2, SCORES_STARTY + damagesTakenText.getLocalBounds().height + SCORES_INTERSPACE);

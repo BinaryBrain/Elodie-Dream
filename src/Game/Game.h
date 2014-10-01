@@ -67,7 +67,6 @@ private:
     sf::Text* currentSaveName;
     bool autoSave = false;
 
-
     GameState pausePrevState;
 
     SoundManager* soundManager;

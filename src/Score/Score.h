@@ -3,8 +3,9 @@
 
 class Score {
 public:
-    int bonus = 0;
     int score = 0;
+    int totalScore = 0;
+    int bonus = 0;
     int damage = 0;
     int enemiesKilled = 0;
     int sheeps = 0;

@@ -90,13 +90,19 @@ std::string SaveHandler::readString() {
 int SaveHandler::readInt() {
     std::pair<std::string,std::string> p = Utils::splitString(buff, "\n");
     int a = Utils::stoi(p.first);
+    buff = p.second;
     return a;
 }
 
 std::vector<int> SaveHandler::readIntVector() {
     std::vector<int> scores;
     std::string scoresLine = Utils::splitString(buff, "\n").first;
-    // TODO
+    size_t nCommas = std::count(scoresLine.begin(), scoresLine.end(), ',');
+    for (std::size_t i(0); i < nCommas+1; ++i) {
+        std::pair<std::string, std::string> p = Utils::splitString(scoresLine, ",");
+        scoresLine = p.second;
+        scores.push_back(Utils::stoi(p.first));
+    }
 
     return scores;
 }

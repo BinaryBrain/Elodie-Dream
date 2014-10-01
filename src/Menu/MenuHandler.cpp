@@ -43,13 +43,15 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
 
     for (std::size_t i(0); i<labels.size(); ++i) {
         std::string path = "save/" + labels[i] + ".save";
-        sh->setPath(path);
-        sh->load();
         lastDiscoveredLevels[i] = labels[i];
 
         if (Utils::fileExists(path)) {
+            sh->setPath(path);
+            sh->load();
+
             std::string date = sh->readString();
             int LDL = sh->readInt();
+
             if(LDL == 0) {
                 lastDiscoveredLevels[i] = "Tutorial";
             } else {

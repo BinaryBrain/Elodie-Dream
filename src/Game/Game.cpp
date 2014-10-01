@@ -155,8 +155,14 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
         immBar->setLevel(((Elodie*)curLevel->getEntities()["elodie"])->getImmersionLevel());
 
         if(curLevel->isFinished()) {
+            scoreManager->computeTotalScore();
             scoreManager->saveScore(curLevelNbr);
-            if(curLevelNbr == 7) {
+
+            if (autoSave) {
+                save();
+            }
+
+            if(curLevelNbr == (NUMLEVELS-1)) {
                 endingScreen = new EndingScreen(&view, mute);
                 view.hide(ViewLayer::LEVEL);
                 view.hide(ViewLayer::SKY);
@@ -398,10 +404,6 @@ void Game::displayScore() {
         view.hide(ViewLayer::SCORE);
         view.show(ViewLayer::OVERWORLD);
         overworld->evolve(overworld->getState(), curLevelNbr + 1);
-
-        if (autoSave) {
-            save();
-        }
     }
 }
 
@@ -518,12 +520,15 @@ void Game::newGame() {
     view.show(ViewLayer::OVERWORLD);
     view.hide(ViewLayer::TITLESCREEN);
     autoSave = false;
+    scoreManager->resetAllScores();
 }
 
 void Game::load() {
     std::string path = "save/" + currentMenuItem->getLabel() + ".save";
 
     if (Utils::fileExists(path)) {
+        // resets the scores
+        scoreManager->resetAllScores();
 
         // Sets the slot and text (for example for the autosave)
         autoSave = true;
@@ -538,6 +543,11 @@ void Game::load() {
 
         std::string date = sh->readString();
         int LDL = sh->readInt();
+        std::vector<int>scores = sh->readIntVector();
+        for (std::size_t i = 0; i < scores.size(); ++i) {
+            std::cout << "Level " << i << ": " << scores[i] << std::endl;
+            scoreManager->setLevelScore(i, scores[i]);
+        }
 
         if(curLevel) {
             leaveLevel();
@@ -592,12 +602,19 @@ void Game::save() {
         txt->setString("Level " + Utils::itos(LDL));
     }
 
+    std::vector<Score> gameScore = scoreManager->getGameScore();
+    std::vector<int> scores;
+    for (std::size_t i = 0; i < gameScore.size(); ++i) {
+        scores.push_back(gameScore[i].totalScore);
+    }
+
     // saves the datas to the save file
     SaveHandler* sh = SaveHandler::getInstance();
     sh->setPath(path);
     sh->clearBuff();
     sh->add(date);
     sh->add(LDL);
+    sh->add(scores);
     sh->save();
 
     // console confirmation and return to menu (only when save() is called from the menu)
