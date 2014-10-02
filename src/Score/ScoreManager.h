@@ -14,19 +14,19 @@ public:
     static void kill();
 
     void takeBonus();
-    void addScore(int score);
+    void addKillPoints(int points);
     void addDamage(int damage);
     void addEnemyKilled();
     void addKilledSheep();
     void addKilledMagmacube();
     void addKilledBristle();
-    void computeTotalScore();
+    void computeTotalPoints();
     /**
     * Save the current score to the corresponding level in the gameScore if it's better than the one in it.
     * \param level The level whose score must be set as the current score if it's better.
     */
     void saveScore(int level);
-    void setLevelScore(int level, int score);
+    void setLevelScore(int level, int totalPoints);
     void resetCurrentScore();
     void resetAllScores();
 

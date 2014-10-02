@@ -155,7 +155,7 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
         immBar->setLevel(((Elodie*)curLevel->getEntities()["elodie"])->getImmersionLevel());
 
         if(curLevel->isFinished()) {
-            scoreManager->computeTotalScore();
+            scoreManager->computeTotalPoints();
             scoreManager->saveScore(curLevelNbr);
 
             if (autoSave) {
@@ -544,6 +544,7 @@ void Game::load() {
         std::string date = sh->readString();
         int LDL = sh->readInt();
         std::vector<int>scores = sh->readIntVector();
+        std::cout << "Loading scores... " << std::endl;
         for (std::size_t i = 0; i < scores.size(); ++i) {
             std::cout << "Level " << i << ": " << scores[i] << std::endl;
             scoreManager->setLevelScore(i, scores[i]);
@@ -604,8 +605,11 @@ void Game::save() {
 
     std::vector<Score> gameScore = scoreManager->getGameScore();
     std::vector<int> scores;
+
+    std::cout << "Saving scores... " << std::endl;
     for (std::size_t i = 0; i < gameScore.size(); ++i) {
-        scores.push_back(gameScore[i].totalScore);
+        scores.push_back(gameScore[i].totalPoints);
+        std::cout << "Level " << i << ": " << scores[i] << std::endl;
     }
 
     // saves the datas to the save file

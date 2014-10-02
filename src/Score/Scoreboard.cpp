@@ -36,14 +36,14 @@ void Scoreboard::display() {
     float viewY(WINDOW_HEIGHT);
 
     int boni = scoreManager->getCurrentScore().bonus;
-    int damages = scoreManager->getLastSavedScore().damage;
+    int damages = scoreManager->getLastSavedScore().damagesTaken;
 
     int sheeps = scoreManager->getLastSavedScore().sheeps;
     int magmacubes = scoreManager->getLastSavedScore().magmacubes;
     int bristles = scoreManager->getLastSavedScore().bristles;
     int enemiesKilled = scoreManager->getLastSavedScore().enemiesKilled;
 
-    int totalPoints = scoreManager->getLastSavedScore().totalScore;
+    int totalPoints = scoreManager->getLastSavedScore().totalPoints;
 
     std::string s("");
     std::string m("");

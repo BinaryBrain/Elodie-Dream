@@ -46,12 +46,12 @@ void ScoreManager::takeBonus() {
     currentScore.bonus += 1;
 }
 
-void ScoreManager::addScore(int score) {
-    currentScore.score += score;
+void ScoreManager::addKillPoints(int points) {
+    currentScore.killPoints += points;
 }
 
 void ScoreManager::addDamage(int damage) {
-    currentScore.damage += damage;
+    currentScore.damagesTaken += damage;
 }
 
 void ScoreManager::addEnemyKilled() {
@@ -70,26 +70,26 @@ void ScoreManager::addKilledBristle() {
     currentScore.bristles += 1;
 }
 
-void ScoreManager::computeTotalScore() {
-    int points = currentScore.score - currentScore.damage + currentScore.bonus*BONUS_POINTS;
+void ScoreManager::computeTotalPoints() {
+    int points = currentScore.killPoints - currentScore.damagesTaken + currentScore.bonus*BONUS_POINTS;
 
-    if(currentScore.damage == 0) {
+    if(currentScore.damagesTaken == 0) {
         points += BONUS_NODAMAGES;
     }
-    currentScore.totalScore = points;
+    currentScore.totalPoints = points;
 }
 
 void ScoreManager::saveScore(int level) {
     lastSavedScore = currentScore;
 
-    std::cout << "Score for level " << level << ": " << currentScore.totalScore << std::endl;
+    std::cout << "Score for level " << level << ": " << currentScore.totalPoints << std::endl;
 
     // if the player has done a better score
-    if (gameScore[level].totalScore < currentScore.totalScore) {
-        gameScore[level].score = currentScore.score;
-        gameScore[level].totalScore = currentScore.totalScore;
+    if (gameScore[level].totalPoints < currentScore.totalPoints) {
+        gameScore[level].killPoints = currentScore.killPoints;
+        gameScore[level].totalPoints = currentScore.totalPoints;
         gameScore[level].bonus = currentScore.bonus;
-        gameScore[level].damage = currentScore.damage;
+        gameScore[level].damagesTaken = currentScore.damagesTaken;
         gameScore[level].enemiesKilled = currentScore.enemiesKilled;
         gameScore[level].sheeps = currentScore.sheeps;
         gameScore[level].magmacubes = currentScore.magmacubes;
@@ -99,15 +99,15 @@ void ScoreManager::saveScore(int level) {
 }
 
 // TODO
-void ScoreManager::setLevelScore(int level, int score) {
-    gameScore[level].score = score;
+void ScoreManager::setLevelScore(int level, int totalPoints) {
+    gameScore[level].totalPoints = totalPoints;
 }
 
 void ScoreManager::resetCurrentScore() {
-    currentScore.score = 0;
-    currentScore.totalScore = 0;
+    currentScore.killPoints = 0;
+    currentScore.totalPoints = 0;
     currentScore.bonus = 0;
-    currentScore.damage = 0;
+    currentScore.damagesTaken = 0;
     currentScore.enemiesKilled = 0;
     currentScore.sheeps = 0;
     currentScore.magmacubes = 0;
@@ -116,10 +116,10 @@ void ScoreManager::resetCurrentScore() {
 
 void ScoreManager::resetAllScores() {
     for (size_t i = 0; i < NUMLEVELS; ++i) {
-        gameScore[i].score = 0;
-        gameScore[i].totalScore = 0;
+        gameScore[i].killPoints = 0;
+        gameScore[i].totalPoints = 0;
         gameScore[i].bonus = 0;
-        gameScore[i].damage = 0;
+        gameScore[i].damagesTaken = 0;
         gameScore[i].enemiesKilled = 0;
         gameScore[i].sheeps = 0;
         gameScore[i].magmacubes = 0;

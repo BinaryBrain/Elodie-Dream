@@ -3,10 +3,10 @@
 
 class Score {
 public:
-    int score = 0;
-    int totalScore = 0;
+    int killPoints = 0;
+    int totalPoints = 0;
     int bonus = 0;
-    int damage = 0;
+    int damagesTaken = 0;
     int enemiesKilled = 0;
     int sheeps = 0;
     int magmacubes = 0;
