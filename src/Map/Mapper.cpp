@@ -140,7 +140,7 @@ void Mapper::beautify(TileMap& tiles) {
 }
 
 // Print the map in the console for testing purpose
-void Mapper::print(TileMap& tiles, EntityMap& entities) {
+void Mapper::print(TileMap& tiles) {
 
     std::string out = "";
     for (TileMap::iterator col = tiles.begin(); col != tiles.end(); ++col) {

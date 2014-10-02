@@ -110,10 +110,10 @@ void GameView::draw() {
 }
 
 bool GameView::isPointOutsideView(ViewLayer layer, sf::Vector2f point) {
-    isPointOutsideView(layer, point.x, point.y);
+    return isPointOutsideView(layer, point.x, point.y);
 }
 
-bool GameView::isPointOutsideView(ViewLayer layer, float x, float y) {
+bool GameView::isPointOutsideView(ViewLayer, float x, float y) {
     float zoom = zooms[ViewLayer::LEVEL];
 
     sf::Vector2u windowSize = window->getSize();

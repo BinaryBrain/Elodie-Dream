@@ -1,8 +1,6 @@
 #include "Scoreboard.h"
 
 Scoreboard::Scoreboard(GameView* view) : Displayable(view) {
-    ScoreManager* scoreManager = ScoreManager::getInstance();
-
     float viewX(WINDOW_WIDTH);
     float viewY(WINDOW_HEIGHT);
 
@@ -41,7 +39,6 @@ void Scoreboard::display() {
 void Scoreboard::prepareText() {
     ScoreManager* scoreManager = ScoreManager::getInstance();
     float viewX(WINDOW_WIDTH);
-    float viewY(WINDOW_HEIGHT);
 
     int boni = scoreManager->getCurrentScore().getBoni();
     int damages = scoreManager->getCurrentScore().getDamagesTaken();

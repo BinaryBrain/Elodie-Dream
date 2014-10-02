@@ -85,7 +85,7 @@ void Bristle::checkArea(std::map< std::string, Entity* >& entities) {
     }
 }
 
-void Bristle::takeDamage(int damage, bool ignore) {
+void Bristle::takeDamage(int damage, bool) {
     if (!damageCD && damage > 0) {
         life = 0;
         damageCD = DAMAGE_CD;
@@ -97,7 +97,7 @@ void Bristle::takeDamage(int damage, bool ignore) {
     score->addKillPoints(this->damage);
 }
 
-void Bristle::doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) {
+void Bristle::doStuff(EventHandler* const&, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) {
     checkArea(entities);
 
     //Compute the gravity

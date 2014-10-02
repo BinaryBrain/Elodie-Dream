@@ -69,11 +69,11 @@ Hitbox Spikes::returnCurrentHitbox() {
     return getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame());
 }
 
-void  Spikes::takeDamage(int damage, bool ignore) {
+void  Spikes::takeDamage(int, bool) {
     //SPIKES ARE IMMORTAL BITCHES
 }
 
-void Spikes::doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) {
+void Spikes::doStuff(EventHandler* const&, std::vector< std::vector<TileSprite*> > const&, std::map< std::string, Entity* >& entities, sf::Time animate) {
     doAttack(entities);
 
     if (state == SpikesState::ACTIVATED && sprite->getCurrentFrame() == 3) {

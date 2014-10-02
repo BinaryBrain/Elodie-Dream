@@ -3,7 +3,6 @@
 MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
     NewGameItem* newGame = new NewGameItem("New game");
     QuitItem* quit = new QuitItem("Quit game");
-    EnglishItem* english = new EnglishItem("English");
 
     ResumeItem* resume = new ResumeItem("Resume");
     BackOverWorldItem* backToOv = new BackOverWorldItem("Leave level");

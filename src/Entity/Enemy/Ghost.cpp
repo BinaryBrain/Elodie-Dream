@@ -60,11 +60,11 @@ Hitbox Ghost::returnCurrentHitbox() {
     return getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame());
 }
 
-void  Ghost::takeDamage(int damage, bool ignore) {
+void  Ghost::takeDamage(int, bool) {
     //GHOSTS ARE IMMORTAL BITCHES
 }
 
-void Ghost::doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) {
+void Ghost::doStuff(EventHandler* const&, std::vector< std::vector<TileSprite*> > const&, std::map< std::string, Entity* >& entities, sf::Time animate) {
     move(animate.asSeconds()*(speed.x), animate.asSeconds()*speed.y);
     sprite->update(animate);
 

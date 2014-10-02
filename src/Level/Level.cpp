@@ -118,7 +118,6 @@ void Level::display() {
 
 void Level::live(EventHandler* const& event, sf::Time animate) {
     std::vector< std::string > toDelete;
-    Elodie* elodie = dynamic_cast<Elodie*>(entities["elodie"]);
     sf::FloatRect scope(0, 0, LIVE_SCOPE, LIVE_SCOPE);
     scope.top = ((Elodie*)entities["elodie"])->getPosition().y - LIVE_SCOPE / 2;
     scope.left = ((Elodie*)entities["elodie"])->getPosition().x - LIVE_SCOPE / 2;

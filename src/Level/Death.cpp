@@ -19,7 +19,6 @@ Death::Death(GameView * view, bool isMute) : Displayable(view) {
 
     float midEloX = (elo.getLocalBounds().width)/2;
     float midEloY = (elo.getLocalBounds().height)/2;
-    float topElo = midY - midEloY;
     float botElo = midY + midEloY;
     elo.setPosition(midX - midEloX, midY - midEloY);
 

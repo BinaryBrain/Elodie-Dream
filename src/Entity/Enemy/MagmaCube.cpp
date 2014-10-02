@@ -59,7 +59,7 @@ Hitbox MagmaCube::returnCurrentHitbox() {
     return getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame());
 }
 
-void MagmaCube::takeDamage(int damage, bool ignore) {
+void MagmaCube::takeDamage(int damage, bool) {
     if (!damageCD && damage > 0) {
         life = 0;
         damageCD = DAMAGE_CD;
@@ -92,7 +92,7 @@ void MagmaCube::jump() {
     }
 }
 
-void MagmaCube::doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) {
+void MagmaCube::doStuff(EventHandler* const&, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) {
     //Compute the gravity
     computeGravity(animate);
 

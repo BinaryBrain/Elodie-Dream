@@ -248,6 +248,8 @@ int Overworld::whichOverworld() {
     case states::FRELJORD2:
         return 3;
     default:
+        std::cerr << "No matching state for the current state." << std::endl;
+        return 0;
         break;
     }
 }

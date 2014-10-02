@@ -26,10 +26,6 @@ Sky::Sky(GameView* gameView, LevelEnv env, int tilesNumber, sf::Vector2f* camera
     skyTexture.loadFromFile(filename);
     skyTexture.setRepeated(true);
 
-    float viewX(gameView->getWindow()->getSize().x);
-
-    float dimX(viewX);
-
     //sky.scale(sf::Vector2f(dimX, 1));
     sky.setTexture(skyTexture);
     sky.setTextureRect(sf::IntRect(0,0, tilesNumber*32*slow + WINDOW_WIDTH+100,WINDOW_HEIGHT));

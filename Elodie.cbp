@@ -13,9 +13,11 @@
 				<Option compiler="gcc" />
 				<Option use_console_runner="0" />
 				<Compiler>
+					<Add option="-Wmain" />
+					<Add option="-pedantic" />
 					<Add option="-std=c++11" />
 					<Add option="-Wextra" />
-					<Add option="-g" />
+					<Add option="-Wall" />
 					<Add option="-fexceptions -Werror" />
 					<Add directory="rapidjson/include" />
 					<Add directory="sfml/include" />
@@ -57,6 +59,14 @@
 				</Linker>
 			</Target>
 		</Build>
+		<Compiler>
+			<Add option="-Wmain" />
+			<Add option="-pedantic-errors" />
+			<Add option="-pedantic" />
+			<Add option="-std=c++11" />
+			<Add option="-Wextra" />
+			<Add option="-Wall" />
+		</Compiler>
 		<Unit filename="resource.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>
@@ -109,8 +119,6 @@
 		<Unit filename="src/Json/JsonAccessor.h" />
 		<Unit filename="src/Json/JsonParser.cpp" />
 		<Unit filename="src/Json/JsonParser.h" />
-		<Unit filename="src/Json/JsonStringifier.cpp" />
-		<Unit filename="src/Json/JsonStringifier.h" />
 		<Unit filename="src/LanguageHandler/LanguageHandler.cpp" />
 		<Unit filename="src/LanguageHandler/LanguageHandler.h" />
 		<Unit filename="src/Level/Death.cpp" />

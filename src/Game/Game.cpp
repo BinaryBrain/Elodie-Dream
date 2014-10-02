@@ -302,7 +302,6 @@ void Game::displayMenu() {
         currentMenuItem = p.second;
 
         if(state == GameState::INOVERWORLD) {
-            Menu* title = menuHandler->getTitleMenu();
             leaveLevel();
             view.hide(ViewLayer::MENU);
             overworld->getElodie()->play();

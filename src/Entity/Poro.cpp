@@ -78,7 +78,7 @@ Hitbox Poro::returnCurrentHitbox() {
     return getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame());
 }
 
-void  Poro::takeDamage(int damage, bool ignore) {
+void  Poro::takeDamage(int damage, bool) {
     if (!damageCD && damage > 0) {
         life = 0;
         damageCD = DAMAGE_CD;
@@ -86,7 +86,7 @@ void  Poro::takeDamage(int damage, bool ignore) {
     }
 }
 
-void Poro::doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) {
+void Poro::doStuff(EventHandler* const&, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) {
     checkArea(entities);
 
     //Compute the gravity

@@ -53,11 +53,11 @@ Hitbox Portal::returnCurrentHitbox() {
     return getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame());
 }
 
-void  Portal::takeDamage(int damage, bool ignore) {
+void  Portal::takeDamage(int, bool) {
     // nothing here lol
 }
 
-void Portal::doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) {
+void Portal::doStuff(EventHandler* const&, std::vector< std::vector<TileSprite*> > const&, std::map< std::string, Entity* >&, sf::Time animate) {
     sprite->update(animate);
 }
 
