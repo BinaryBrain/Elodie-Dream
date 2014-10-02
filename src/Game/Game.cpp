@@ -613,7 +613,7 @@ void Game::save() {
 
     std::cout << "Saving scores... " << std::endl;
     for (std::size_t i = 0; i < gameScore.size(); ++i) {
-        scores.push_back(gameScore[i].totalPoints);
+        scores.push_back(gameScore[i].getTotalPoints());
         std::cout << "Level " << i << ": " << scores[i] << std::endl;
     }
 

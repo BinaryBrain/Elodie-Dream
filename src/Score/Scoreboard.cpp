@@ -43,15 +43,15 @@ void Scoreboard::prepareText() {
     float viewX(WINDOW_WIDTH);
     float viewY(WINDOW_HEIGHT);
 
-    int boni = scoreManager->getCurrentScore().bonus;
-    int damages = scoreManager->getCurrentScore().damagesTaken;
-    int sheeps = scoreManager->getCurrentScore().sheeps;
-    int magmacubes = scoreManager->getCurrentScore().magmacubes;
-    int bristles = scoreManager->getCurrentScore().bristles;
-    int enemiesKilled = scoreManager->getCurrentScore().enemiesKilled;
-    int totalPoints = scoreManager->getCurrentScore().totalPoints;
-    int levelId = scoreManager->getCurrentScore().levelId;
-    int bestScore = scoreManager->getGameScore()[levelId].totalPoints;
+    int boni = scoreManager->getCurrentScore().getBoni();
+    int damages = scoreManager->getCurrentScore().getDamagesTaken();
+    int sheeps = scoreManager->getCurrentScore().getSheeps();
+    int magmaCubes = scoreManager->getCurrentScore().getMagmaCubes();
+    int bristles = scoreManager->getCurrentScore().getBristles();
+    int enemiesKilled = scoreManager->getCurrentScore().getEnemiesKilled();
+    int totalPoints = scoreManager->getCurrentScore().getTotalPoints();
+    int levelId = scoreManager->getCurrentScore().getLevelId();
+    int bestScore = scoreManager->getGameScore()[levelId].getTotalPoints();
 
     std::string s("");
     std::string m("");
@@ -59,8 +59,8 @@ void Scoreboard::prepareText() {
     if(sheeps > 0) {
         s = "\nSheeps: " + Utils::itos(sheeps) + " => " + Utils::itos(sheeps*SHEEP_DAMAGE) + " pts";
     }
-    if(magmacubes > 0) {
-        m = "\nMagma cubes: " + Utils::itos(magmacubes) + " => " + Utils::itos(magmacubes*MAGMACUBE_DAMAGE) + " pts";
+    if(magmaCubes > 0) {
+        m = "\nMagma cubes: " + Utils::itos(magmaCubes) + " => " + Utils::itos(magmaCubes*MAGMACUBE_DAMAGE) + " pts";
     }
     if(bristles > 0) {
         b = "\nBristles: " + Utils::itos(bristles) + " => " + Utils::itos(bristles*BRISTLE_DAMAGE) + " pts";

@@ -149,6 +149,7 @@
 		<Unit filename="src/Menu/TitleScreen.h" />
 		<Unit filename="src/Overworld/Overworld.cpp" />
 		<Unit filename="src/Overworld/Overworld.h" />
+		<Unit filename="src/Score/Score.cpp" />
 		<Unit filename="src/Score/Score.h" />
 		<Unit filename="src/Score/ScoreManager.cpp" />
 		<Unit filename="src/Score/ScoreManager.h" />
