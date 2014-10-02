@@ -22,10 +22,9 @@ public:
     void addKilledBristle();
     void computeTotalPoints();
     /**
-    * Save the current score to the corresponding level in the gameScore if it's better than the one in it.
-    * \param level The level whose score must be set as the current score if it's better.
+    * Save the current score to the gameScore if  the total points are better than the ones in it.
     */
-    void saveScore(int level);
+    void saveCurrentScore();
     void setLevelScore(int level, int totalPoints);
     void resetCurrentScore();
     void resetAllScores();
@@ -34,6 +33,8 @@ public:
     std::vector<Score> getGameScore();
     Score getCurrentScore();
     Score getLastSavedScore();
+
+    void setLevel(int level);
 
 protected:
 private:

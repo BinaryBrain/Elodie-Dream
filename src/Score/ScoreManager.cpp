@@ -42,6 +42,10 @@ Score ScoreManager::getCurrentScore() {
     return currentScore;
 }
 
+void ScoreManager::setLevel(int level) {
+    currentScore.levelId = level;
+}
+
 void ScoreManager::takeBonus() {
     currentScore.bonus += 1;
 }
@@ -79,10 +83,9 @@ void ScoreManager::computeTotalPoints() {
     currentScore.totalPoints = points;
 }
 
-void ScoreManager::saveScore(int level) {
+void ScoreManager::saveCurrentScore() {
+    int level = currentScore.levelId;
     lastSavedScore = currentScore;
-
-    std::cout << "Score for level " << level << ": " << currentScore.totalPoints << std::endl;
 
     // if the player has done a better score
     if (gameScore[level].totalPoints < currentScore.totalPoints) {
@@ -104,6 +107,7 @@ void ScoreManager::setLevelScore(int level, int totalPoints) {
 }
 
 void ScoreManager::resetCurrentScore() {
+    currentScore.levelId = 0;
     currentScore.killPoints = 0;
     currentScore.totalPoints = 0;
     currentScore.bonus = 0;
@@ -116,6 +120,7 @@ void ScoreManager::resetCurrentScore() {
 
 void ScoreManager::resetAllScores() {
     for (size_t i = 0; i < NUMLEVELS; ++i) {
+        gameScore[i].levelId = 0;
         gameScore[i].killPoints = 0;
         gameScore[i].totalPoints = 0;
         gameScore[i].bonus = 0;

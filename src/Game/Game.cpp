@@ -154,14 +154,12 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
         curLevel->live(event, time);
         immBar->setLevel(((Elodie*)curLevel->getEntities()["elodie"])->getImmersionLevel());
 
+        // end of level
         if(curLevel->isFinished()) {
+            scoreManager->setLevel(curLevelNbr);
             scoreManager->computeTotalPoints();
-            scoreManager->saveScore(curLevelNbr);
 
-            if (autoSave) {
-                save();
-            }
-
+            // end of game
             if(curLevelNbr == (NUMLEVELS-1)) {
                 endingScreen = new EndingScreen(&view, mute);
                 view.hide(ViewLayer::LEVEL);
@@ -174,6 +172,8 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
                 }
                 state = GameState::ENDINGSCREEN;
             } else {
+                scoreboard->prepareText();
+
                 view.hide(ViewLayer::LEVEL);
                 view.hide(ViewLayer::SKY);
                 view.hide(ViewLayer::EARTH);
@@ -184,6 +184,12 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
                     curLevel = NULL;
                 }
                 state = GameState::INSCORE;
+
+                scoreManager->saveCurrentScore();
+                scoreManager->resetCurrentScore();
+                if (autoSave) {
+                    save();
+                }
             }
         } else if (curLevel->mustDie() && !GOD_MODE) {
             death = new Death(&view, mute);
@@ -197,7 +203,6 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
                 curLevel = NULL;
             }
             state = GameState::DEAD;
-            scoreManager->resetCurrentScore();
         }
     }
 }

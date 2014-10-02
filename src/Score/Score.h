@@ -3,6 +3,7 @@
 
 class Score {
 public:
+    int levelId = 0;
     int killPoints = 0;
     int totalPoints = 0;
     int bonus = 0;

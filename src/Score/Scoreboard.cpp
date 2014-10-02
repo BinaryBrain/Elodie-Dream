@@ -31,19 +31,27 @@ Scoreboard::~Scoreboard() {
 }
 
 void Scoreboard::display() {
+    gameView->addDrawable(ViewLayer::SCORE, &rect);
+    gameView->addDrawable(ViewLayer::SCORE, &damagesTakenText);
+    gameView->addDrawable(ViewLayer::SCORE, &enemiesKilledText);
+    gameView->addDrawable(ViewLayer::SCORE, &boniText);
+    gameView->addDrawable(ViewLayer::SCORE, &pointsText);
+}
+
+void Scoreboard::prepareText() {
     ScoreManager* scoreManager = ScoreManager::getInstance();
     float viewX(WINDOW_WIDTH);
     float viewY(WINDOW_HEIGHT);
 
     int boni = scoreManager->getCurrentScore().bonus;
-    int damages = scoreManager->getLastSavedScore().damagesTaken;
-
-    int sheeps = scoreManager->getLastSavedScore().sheeps;
-    int magmacubes = scoreManager->getLastSavedScore().magmacubes;
-    int bristles = scoreManager->getLastSavedScore().bristles;
-    int enemiesKilled = scoreManager->getLastSavedScore().enemiesKilled;
-
-    int totalPoints = scoreManager->getLastSavedScore().totalPoints;
+    int damages = scoreManager->getCurrentScore().damagesTaken;
+    int sheeps = scoreManager->getCurrentScore().sheeps;
+    int magmacubes = scoreManager->getCurrentScore().magmacubes;
+    int bristles = scoreManager->getCurrentScore().bristles;
+    int enemiesKilled = scoreManager->getCurrentScore().enemiesKilled;
+    int totalPoints = scoreManager->getCurrentScore().totalPoints;
+    int levelId = scoreManager->getCurrentScore().levelId;
+    int bestScore = scoreManager->getGameScore()[levelId].totalPoints;
 
     std::string s("");
     std::string m("");
@@ -64,19 +72,21 @@ void Scoreboard::display() {
         p = "Bonus 0 damages received: "+ Utils::itos(BONUS_NODAMAGES) +" pts !\n";
     }
 
+    p += "Points obtained: " + Utils::itos(totalPoints) + " pts";
+
+    if (totalPoints > bestScore) {
+        p += " (new record! :3)";
+    } else {
+        p += " (best score: " + Utils::itos(bestScore) + ")";
+    }
+
     damagesTakenText.setString("Damages taken: " + Utils::itos(damages));
     enemiesKilledText.setString(enemiesString);
     boniText.setString("Boni collected: "+ Utils::itos(boni)+" => " + Utils::itos(boni*BONUS_POINTS) + " pts");
-    pointsText.setString(p+"Points obtained: " + Utils::itos(totalPoints) + " pts");
+    pointsText.setString(p);
 
     damagesTakenText.setPosition(viewX/2-damagesTakenText.getLocalBounds().width/2, SCORES_STARTY);
     enemiesKilledText.setPosition(viewX/2-enemiesKilledText.getLocalBounds().width/2, SCORES_STARTY + damagesTakenText.getLocalBounds().height + SCORES_INTERSPACE);
     boniText.setPosition(viewX/2-boniText.getLocalBounds().width/2, SCORES_STARTY + damagesTakenText.getLocalBounds().height + enemiesKilledText.getLocalBounds().height + 2*SCORES_INTERSPACE);
     pointsText.setPosition(viewX/2-pointsText.getLocalBounds().width/2, SCORES_STARTY + damagesTakenText.getLocalBounds().height + enemiesKilledText.getLocalBounds().height + boniText.getLocalBounds().height +3*SCORES_INTERSPACE);
-
-    gameView->addDrawable(ViewLayer::SCORE, &rect);
-    gameView->addDrawable(ViewLayer::SCORE, &damagesTakenText);
-    gameView->addDrawable(ViewLayer::SCORE, &enemiesKilledText);
-    gameView->addDrawable(ViewLayer::SCORE, &boniText);
-    gameView->addDrawable(ViewLayer::SCORE, &pointsText);
 }

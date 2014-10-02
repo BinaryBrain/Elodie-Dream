@@ -17,6 +17,7 @@ public:
     virtual ~Scoreboard();
 
     void display();
+    void prepareText();
 
 private:
     sf::RectangleShape rect;
