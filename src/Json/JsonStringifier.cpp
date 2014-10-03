@@ -21,15 +21,13 @@ void JsonStringifier::add(std::string key, std::string s) {
 }
 
 void JsonStringifier::add(std::string key, std::vector<int> v) {
-    /*rapidjson::Value a;	// This time we uses non-const reference.
-    for (unsigned int i(0); i <v.size(); ++i){
-        a.PushBack(i, values.GetAllocator());	// May look a bit strange, allocator is needed for potentially realloc. We normally uses the document's.
+    rapidjson::Value newValue;
+    newValue.SetArray();
+
+    for (std::size_t i = 0; i < v.size(); ++i) {
+        newValue.PushBack(i, values.GetAllocator());
     }
-    values.AddMember(key.c_str(), a, values.GetAllocator());*/
-}
-
-void JsonStringifier::add(std::string key, std::vector<std::vector<int> > v) {
-
+    values.AddMember(key.c_str(), newValue, values.GetAllocator());
 }
 
 std::string JsonStringifier::getStringifiedDoc() {
