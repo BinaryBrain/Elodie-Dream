@@ -184,13 +184,11 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
                     curLevel = NULL;
                 }
                 state = GameState::INSCORE;
-
-                scoreManager->saveCurrentScore();
-                scoreManager->resetCurrentScore();
-                if (autoSave) {
-                    save();
-                }
             }
+
+            scoreManager->saveCurrentScore();
+            scoreManager->resetCurrentScore();
+
         } else if (curLevel->mustDie() && !GOD_MODE) {
             death = new Death(&view, mute);
 
@@ -408,6 +406,10 @@ void Game::displayScore() {
         view.hide(ViewLayer::SCORE);
         view.show(ViewLayer::OVERWORLD);
         overworld->evolve(overworld->getState(), curLevelNbr + 1);
+
+        if (autoSave) {
+            save();
+        }
     }
 }
 
@@ -579,7 +581,7 @@ void Game::load() {
                 view.addView(ViewLayer::OVERWORLD, overworld);
             }
             overworld->setState(LDL);
-            overworld->setPosInPath(0);
+            overworld->setPosInPath(LDL); // TODO
             overworld->resetPos();
 
             scoreManager->setAllDatas(scoreDatas);
