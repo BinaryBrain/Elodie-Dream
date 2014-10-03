@@ -560,18 +560,26 @@ void Game::load() {
         accessor.load(tempJsonFilePath);
 
         // if the save is valid
-        if(accessor.canTakeElementFrom("date")) {
+        if (accessor.canTakeElementFrom("date") && accessor.canTakeElementFrom("lastdiscoveredlevel")) {
             std::string date = accessor.getString("date");
             int LDL = accessor.getInt("lastdiscoveredlevel");
-            std::vector< std::vector<int>* > datas = *(accessor.getInt2DVector("scoresdatas"));
-            std::vector< std::vector<int> > scoreDatas;
 
-            std::cout << "Loading... " << std::endl;
-            for (size_t i = 0; i < datas.size(); ++i) {
-                std::vector<int> score = *(datas[i]);
-                std::cout << "Level " << Utils::itos(i) << ": " << Utils::itos(score[2]) << std::endl;
-                scoreDatas.push_back(score);
+            if (accessor.canTakeElementFrom("scoresdatas")) {
+                std::vector< std::vector<int>* > datas = *(accessor.getInt2DVector("scoresdatas"));
+                std::vector< std::vector<int> > scoreDatas;
+
+                std::cout << "Loading... " << std::endl;
+                for (size_t i = 0; i < datas.size(); ++i) {
+                    std::vector<int> score = *(datas[i]);
+                    std::cout << "Level " << Utils::itos(i) << ": " << Utils::itos(score[2]) << std::endl;
+                    scoreDatas.push_back(score);
+                }
+
+                scoreManager->setAllDatas(scoreDatas);
+            } else {
+                scoreManager->resetAllScores();
             }
+
 
             if(curLevel) {
                 leaveLevel();
@@ -583,8 +591,6 @@ void Game::load() {
             overworld->setState(LDL);
             overworld->setPosInPath(LDL); // TODO
             overworld->resetPos();
-
-            scoreManager->setAllDatas(scoreDatas);
 
             console->clear();
             console->setNextState(GameState::INOVERWORLD);
