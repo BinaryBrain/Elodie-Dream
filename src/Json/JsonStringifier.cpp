@@ -34,13 +34,13 @@ void JsonStringifier::add(std::string key, std::vector< std::vector<int> > v2d) 
     rapidjson::Value arr;
     rapidjson::Value arr2;
 
-    arr2.SetArray();
+    arr.SetArray();
 
     for (std::size_t i = 0; i < v2d.size(); ++i) {
         arr2.SetArray();
 
-        for (std::size_t j = 0; v2d[i].size(); ++j) {
-            arr2.PushBack(i, values.GetAllocator());
+        for (std::size_t j = 0; j < v2d[i].size(); ++j) {
+            arr2.PushBack(v2d[i][j], values.GetAllocator());
         }
         arr.PushBack(arr2, values.GetAllocator());
     }

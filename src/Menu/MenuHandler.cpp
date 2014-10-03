@@ -40,17 +40,28 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
 
     SaveHandler* sh = SaveHandler::getInstance();
 
-    for (std::size_t i(0); i<labels.size(); ++i) {
+    for (std::size_t i = 0; i<labels.size(); ++i) {
         std::string path = "save/" + labels[i] + ".save";
+        sh->setPath(path);
+
+        std::string json = sh->load();
+
+        // creates a temporary json file for the JsonAccessor
+        std::ofstream tempJsonFile;
+        std::string tempJsonFilePath = "save/temp.json";
+
+        tempJsonFile.open(tempJsonFilePath);
+        tempJsonFile << json << std::endl;
+        tempJsonFile.close();
+
+        JsonAccessor accessor;
+        accessor.load(tempJsonFilePath);
+
         lastDiscoveredLevels[i] = labels[i];
+        std::string key = "lastdiscoveredlevel";
 
-        if (Utils::fileExists(path)) {
-            sh->setPath(path);
-            sh->load();
-
-            std::string date = sh->readString();
-            int LDL = sh->readInt();
-
+        if(accessor.canTakeElementFrom(key)) {
+            int LDL = accessor.getInt(key);
             if(LDL == 0) {
                 lastDiscoveredLevels[i] = "Tutorial";
             } else {
@@ -66,6 +77,13 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
         LoadItem* load = new LoadItem(labels[i]);
         load->setText(t);
         loadGame->addItem(load);
+
+        accessor.close();
+
+        // remove the temporary json
+        if(remove(tempJsonFilePath.c_str()) != 0 ) {
+            std::cerr << "Error deleting temporary json" << std::endl;
+        }
     }
 
     saveGame->addItem(title, true);

@@ -38,6 +38,8 @@ public:
     * \return A vector of vector of int containing each value of a Score, in the same order as in Score.h.
     */
     std::vector< std::vector<int> > getAllDatas();
+    void setAllDatas(std::vector< std::vector<int> > datas);
+
     Score getCurrentScore();
     Score getLastSavedScore();
 

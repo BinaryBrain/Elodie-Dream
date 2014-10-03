@@ -55,6 +55,20 @@ std::vector< std::vector<int> > ScoreManager::getAllDatas() {
     return datas;
 }
 
+void ScoreManager::setAllDatas(std::vector< std::vector<int> > datas) {
+    for (size_t i = 0; i < datas.size(); ++i) {
+        gameScore[i].setLevelId(datas[i][0]);
+        gameScore[i].setKillPoints(datas[i][1]);
+        gameScore[i].setTotalPoints(datas[i][2]);
+        gameScore[i].setBoni(datas[i][3]);
+        gameScore[i].setDamagesTaken(datas[i][4]);
+        gameScore[i].setEnemiesKilled(datas[i][5]);
+        gameScore[i].setSheeps(datas[i][6]);
+        gameScore[i].setMagmaCubes(datas[i][7]);
+        gameScore[i].setBristles(datas[i][7]);
+    }
+}
+
 Score ScoreManager::getLastSavedScore() {
     return lastSavedScore;
 }

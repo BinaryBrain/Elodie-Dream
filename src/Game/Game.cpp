@@ -542,35 +542,68 @@ void Game::load() {
 
         SaveHandler* sh = SaveHandler::getInstance();
         sh->setPath(path);
-        sh->clearBuff(); // not necessary right now as the buffer content is replaced when using load()
-        sh->load();
+        std::string json = sh->load();
 
-        std::string date = sh->readString();
-        int LDL = sh->readInt();
-        std::vector<int>scores = sh->readIntVector();
-        std::cout << "Loading scores... " << std::endl;
-        for (std::size_t i = 0; i < scores.size(); ++i) {
-            std::cout << "Level " << i << ": " << scores[i] << std::endl;
-            scoreManager->setLevelScore(i, scores[i]);
+        // creates a temporary json file for the JsonAccessor
+        std::ofstream tempJsonFile;
+        std::string tempJsonFilePath = "save/temp.json";
+
+        tempJsonFile.open(tempJsonFilePath);
+        tempJsonFile << json << std::endl;
+        tempJsonFile.close();
+
+
+        // retrieves the saved values
+        JsonAccessor accessor;
+        accessor.load(tempJsonFilePath);
+
+        // if the save is valid
+        if(accessor.canTakeElementFrom("date")) {
+            std::string date = accessor.getString("date");
+            int LDL = accessor.getInt("lastdiscoveredlevel");
+            std::vector< std::vector<int>* > datas = *(accessor.getInt2DVector("scoresdatas"));
+            std::vector< std::vector<int> > scoreDatas;
+
+            std::cout << "Loading... " << std::endl;
+            for (size_t i = 0; i < datas.size(); ++i) {
+                std::vector<int> score = *(datas[i]);
+                std::cout << "Level " << Utils::itos(i) << ": " << Utils::itos(score[2]) << std::endl;
+                scoreDatas.push_back(score);
+            }
+
+            if(curLevel) {
+                leaveLevel();
+            }
+            if(!overworld) {
+                overworld = new Overworld(&view, mute);
+                view.addView(ViewLayer::OVERWORLD, overworld);
+            }
+            overworld->setState(LDL);
+            overworld->setPosInPath(0);
+            overworld->resetPos();
+
+            scoreManager->setAllDatas(scoreDatas);
+
+            console->clear();
+            console->setNextState(GameState::INOVERWORLD);
+            console->addParagraph("Successfully loaded " + currentMenuItem->getLabel() + ", from " + date);
+            console->setCurrentPage(0);
+            overworld->getElodie()->play();
+
+        } else {
+            console->clear();
+            console->setNextState(defaultReturnState);
+            console->addParagraph("Save corrupted.");
+            console->setCurrentPage(0);
+            console->setNextState(GameState::INMENU);
         }
 
-        if(curLevel) {
-            leaveLevel();
-        }
-        if(!overworld) {
-            overworld = new Overworld(&view, mute);
-            view.addView(ViewLayer::OVERWORLD, overworld);
-        }
-        overworld->setState(LDL);
-        overworld->setPosInPath(0);
-        overworld->resetPos();
+        accessor.close();
 
-        console->clear();
-        console->setNextState(GameState::INOVERWORLD);
-        console->addParagraph("Successfully loaded " + currentMenuItem->getLabel() + ", from " + date);
-        console->setCurrentPage(0);
-        overworld->getElodie()->play();
-
+        // remove the temporary json
+        if(remove(tempJsonFilePath.c_str()) != 0 ) {
+            std::cerr << "Error deleting temporary json" << std::endl;
+        }
     } else {
         console->clear();
         console->setNextState(defaultReturnState);
@@ -607,6 +640,7 @@ void Game::save() {
         txt->setString("Level " + Utils::itos(LDL));
     }
 
+    // TEST
     std::vector< std::vector<int> > scoresDatas = scoreManager->getAllDatas();
     std::vector<int> totalPoints;
 
@@ -615,15 +649,25 @@ void Game::save() {
         totalPoints.push_back(scoresDatas[i][2]);
         std::cout << "Level " << i << ": " << totalPoints[i] << std::endl;
     }
+    //
 
     // saves the datas to the save file
     SaveHandler* sh = SaveHandler::getInstance();
+    JsonStringifier* stringifier = sh->getStringifier();
+
     sh->setPath(path);
-    sh->clearBuff();
-    sh->add(date);
-    sh->add(LDL);
-    sh->add(totalPoints);
+
+    std::string keyDate = "date";
+    stringifier->add(keyDate, date);
+
+    std::string keyLDL = "lastdiscoveredlevel";
+    stringifier->add(keyLDL, LDL);
+
+    std::string keyScoresDatas = "scoresdatas";
+    stringifier->add(keyScoresDatas, scoresDatas);
+
     sh->save();
+    sh->clearStringifier();
 
     // console confirmation and return to menu (only when save() is called from the menu)
     if (state == GameState::SAVE) {
