@@ -11,6 +11,7 @@ ScoreManager::ScoreManager() {
 }
 
 ScoreManager::~ScoreManager() {
+
 }
 
 // Gets the instance of the entityManger
@@ -32,6 +33,26 @@ Score ScoreManager::getScore(int level) {
 
 std::vector<Score> ScoreManager::getGameScore() {
     return gameScore;
+}
+
+std::vector< std::vector<int> > ScoreManager::getAllDatas() {
+    std::vector< std::vector<int> > datas;
+
+    for (size_t i = 0; i < gameScore.size(); ++i) {
+        std::vector<int> score;
+        score.push_back(gameScore[i].getLevelId());
+        score.push_back(gameScore[i].getKillPoints());
+        score.push_back(gameScore[i].getTotalPoints());
+        score.push_back(gameScore[i].getBoni());
+        score.push_back(gameScore[i].getDamagesTaken());
+        score.push_back(gameScore[i].getEnemiesKilled());
+        score.push_back(gameScore[i].getSheeps());
+        score.push_back(gameScore[i].getMagmaCubes());
+        score.push_back(gameScore[i].getBristles());
+        datas.push_back(score);
+    }
+
+    return datas;
 }
 
 Score ScoreManager::getLastSavedScore() {

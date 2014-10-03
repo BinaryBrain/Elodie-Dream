@@ -66,7 +66,7 @@ void Scoreboard::prepareText() {
 
     std::string p("");
     if(damages == 0) {
-        p = "Bonus 0 damages received: "+ Utils::itos(BONUS_NODAMAGES) +" pts !\n";
+        p = "Bonus 0 damages taken: "+ Utils::itos(BONUS_NODAMAGES) +" pts !\n";
     }
 
     p += "Points obtained: " + Utils::itos(totalPoints) + " pts";

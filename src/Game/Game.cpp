@@ -607,13 +607,13 @@ void Game::save() {
         txt->setString("Level " + Utils::itos(LDL));
     }
 
-    std::vector<Score> gameScore = scoreManager->getGameScore();
-    std::vector<int> scores;
+    std::vector< std::vector<int> > scoresDatas = scoreManager->getAllDatas();
+    std::vector<int> totalPoints;
 
     std::cout << "Saving scores... " << std::endl;
-    for (std::size_t i = 0; i < gameScore.size(); ++i) {
-        scores.push_back(gameScore[i].getTotalPoints());
-        std::cout << "Level " << i << ": " << scores[i] << std::endl;
+    for (std::size_t i = 0; i < scoresDatas.size(); ++i) {
+        totalPoints.push_back(scoresDatas[i][2]);
+        std::cout << "Level " << i << ": " << totalPoints[i] << std::endl;
     }
 
     // saves the datas to the save file
@@ -622,7 +622,7 @@ void Game::save() {
     sh->clearBuff();
     sh->add(date);
     sh->add(LDL);
-    sh->add(scores);
+    sh->add(totalPoints);
     sh->save();
 
     // console confirmation and return to menu (only when save() is called from the menu)

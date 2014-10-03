@@ -21,8 +21,9 @@ public:
     void addKilledMagmacube();
     void addKilledBristle();
     void computeTotalPoints();
+
     /**
-    * Save the current score to the gameScore if  the total points are better than the ones in it.
+    * \brief Save the current score to the gameScore if  the total points are better than the ones in it.
     */
     void saveCurrentScore();
     void setLevelScore(int level, int totalPoints);
@@ -31,6 +32,12 @@ public:
 
     Score getScore(int level);
     std::vector<Score> getGameScore();
+
+    /**
+    * \brief Returns in a vector of vector of int all the values in the Scores. Used to prepare datas for the save.
+    * \return A vector of vector of int containing each value of a Score, in the same order as in Score.h.
+    */
+    std::vector< std::vector<int> > getAllDatas();
     Score getCurrentScore();
     Score getLastSavedScore();
 
