@@ -55,12 +55,12 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
         tempJsonFile.close();
 
         JsonAccessor accessor;
-        accessor.load(tempJsonFilePath);
+        bool jsonReady = accessor.load(tempJsonFilePath);
 
         lastDiscoveredLevels[i] = labels[i];
         std::string key = "lastdiscoveredlevel";
 
-        if(accessor.canTakeElementFrom(key)) {
+        if(accessor.canTakeElementFrom(key) && jsonReady) {
             int LDL = accessor.getInt(key);
             if(LDL == 0) {
                 lastDiscoveredLevels[i] = "Tutorial";
@@ -68,6 +68,8 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
                 lastDiscoveredLevels[i] = "Level "+ Utils::itos(LDL);
             }
         }
+
+        accessor.close();
 
         SaveItem* save = new SaveItem(labels[i]);
         sf::Text* t = save->getText();
@@ -77,8 +79,6 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
         LoadItem* load = new LoadItem(labels[i]);
         load->setText(t);
         loadGame->addItem(load);
-
-        accessor.close();
 
         // remove the temporary json
         if(remove(tempJsonFilePath.c_str()) != 0 ) {

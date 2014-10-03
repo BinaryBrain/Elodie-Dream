@@ -557,10 +557,10 @@ void Game::load() {
 
         // retrieves the saved values
         JsonAccessor accessor;
-        accessor.load(tempJsonFilePath);
+        bool jsonReady = accessor.load(tempJsonFilePath);
 
         // if the save is valid
-        if (accessor.canTakeElementFrom("date") && accessor.canTakeElementFrom("lastdiscoveredlevel")) {
+        if (accessor.canTakeElementFrom("date") && accessor.canTakeElementFrom("lastdiscoveredlevel") && jsonReady) {
             std::string date = accessor.getString("date");
             int LDL = accessor.getInt("lastdiscoveredlevel");
 

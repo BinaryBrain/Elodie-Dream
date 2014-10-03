@@ -129,7 +129,9 @@ bool JsonAccessor::load(string file) {
         pFile = fopen(file.c_str() , "r");
         rapidjson::FileStream is(pFile);
         if(values.ParseStream<0>(is).HasParseError()) {
-            cerr << "Parse Error" << endl;
+            cerr << "Parse error when loading json" << endl;
+            loaded = true; // the file is loaded, even with non-valid json
+            return false;
         }
         loaded = true;
         return true;

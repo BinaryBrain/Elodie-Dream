@@ -5,8 +5,11 @@
 #include <iterator>
 #include <string>
 #include <vector>
+#include "rapidjson/document.h"		// rapidjson's DOM-style API
+#include "rapidjson/prettywriter.h"	// for stringify JSON
+#include "rapidjson/filestream.h"	// wrapper of C stream for prettywriter as output<w>
+#include "rapidjson/stringbuffer.h"
 
-#include "../Json/JsonParser.h"
 #include "../Utils/Utils.h"
 #include "../Include/EntityInfo.h"
 
