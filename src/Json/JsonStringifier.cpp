@@ -21,13 +21,30 @@ void JsonStringifier::add(std::string key, std::string s) {
 }
 
 void JsonStringifier::add(std::string key, std::vector<int> v) {
-    rapidjson::Value newValue;
-    newValue.SetArray();
+    rapidjson::Value arr;
+    arr.SetArray();
 
     for (std::size_t i = 0; i < v.size(); ++i) {
-        newValue.PushBack(i, values.GetAllocator());
+        arr.PushBack(i, values.GetAllocator());
     }
-    values.AddMember(key.c_str(), newValue, values.GetAllocator());
+    values.AddMember(key.c_str(), arr, values.GetAllocator());
+}
+
+void JsonStringifier::add(std::string key, std::vector< std::vector<int> > v2d) {
+    rapidjson::Value arr;
+    rapidjson::Value arr2;
+
+    arr2.SetArray();
+
+    for (std::size_t i = 0; i < v2d.size(); ++i) {
+        arr2.SetArray();
+
+        for (std::size_t j = 0; v2d[i].size(); ++j) {
+            arr2.PushBack(i, values.GetAllocator());
+        }
+        arr.PushBack(arr2, values.GetAllocator());
+    }
+    values.AddMember(key.c_str(), arr, values.GetAllocator());
 }
 
 std::string JsonStringifier::getStringifiedDoc() {
