@@ -24,8 +24,11 @@ Game::Game() {
     menuHandler = new MenuHandler(&view);
     girly = new Girly(&view);
     immBar = new ImmersionBar(&view);
+
+    saveHandler = SaveHandler::getInstance();
     soundManager = SoundManager::getInstance();
     scoreManager = ScoreManager::getInstance();
+
     title = new TitleScreen(&view);
     view.addView(ViewLayer::MENU, menuHandler);
     view.addView(ViewLayer::CONSOLE, console);
@@ -541,10 +544,8 @@ void Game::load() {
         currentSlot = currentMenuItem->getLabel();
         currentSaveName = currentMenuItem->getText();
 
-
-        SaveHandler* sh = SaveHandler::getInstance();
-        sh->setPath(path);
-        std::string json = sh->load();
+        saveHandler->setPath(path);
+        std::string json = saveHandler->load();
 
         // creates a temporary json file for the JsonAccessor
         std::ofstream tempJsonFile;
@@ -660,10 +661,8 @@ void Game::save() {
     //
 
     // saves the datas to the save file
-    SaveHandler* sh = SaveHandler::getInstance();
-    JsonStringifier* stringifier = sh->getStringifier();
-
-    sh->setPath(path);
+    JsonStringifier* stringifier = saveHandler->getStringifier();
+    saveHandler->setPath(path);
 
     std::string keyDate = "date";
     stringifier->add(keyDate, date);
@@ -674,8 +673,8 @@ void Game::save() {
     std::string keyScoresDatas = "scoresdatas";
     stringifier->add(keyScoresDatas, scoresDatas);
 
-    sh->save();
-    sh->clearStringifier();
+    saveHandler->save();
+    saveHandler->clearStringifier();
 
     // console confirmation and return to menu (only when save() is called from the menu)
     if (state == GameState::SAVE) {

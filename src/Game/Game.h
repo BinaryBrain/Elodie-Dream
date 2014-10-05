@@ -69,8 +69,8 @@ private:
 
     GameState pausePrevState;
 
+    SaveHandler* saveHandler;
     SoundManager* soundManager;
-
     ScoreManager* scoreManager;
 
     Scoreboard* scoreboard = NULL;

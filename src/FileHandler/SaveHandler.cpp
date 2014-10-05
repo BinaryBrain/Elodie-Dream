@@ -62,6 +62,20 @@ std::string SaveHandler::load() {
     return json;
 }
 
+bool SaveHandler::isSlotFree(std::string slot) {
+    return !Utils::fileExists("save/" + slot + ".save");
+}
+
+std::string SaveHandler::nextFreeSlot() {
+    for(unsigned int i = 1; i <= NUMSLOTS; i++) {
+        if(isSlotFree("Slot " + Utils::itos(i))) {
+            return "Slot " + Utils::itos(i);
+        }
+    }
+
+    return "";
+}
+
 void SaveHandler::clearStringifier() {
     delete stringifier;
     stringifier = new JsonStringifier();

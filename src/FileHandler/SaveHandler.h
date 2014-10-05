@@ -19,6 +19,9 @@ public:
     void setPath(std::string path);
     JsonStringifier* getStringifier();
 
+    bool isSlotFree(std::string slot);
+    std::string nextFreeSlot();
+
     void save();
     std::string load();
 

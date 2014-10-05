@@ -207,4 +207,7 @@ const float SCORES_STARTY = 100;
 const int BONUS_POINTS = 50;
 const int BONUS_NODAMAGES = 1000;
 
+// Saves
+const int NUMSLOTS = 3;
+
 #endif // CONST_H_INCLUDED
