@@ -24,6 +24,8 @@ public:
     void incIndex();
     void decIndex();
     MenuComponent* getCurrentMenuComponent();
+    void addCompToMenu(MenuComponent* comp, Menu* menu, bool isParent = false);
+    MenuComponent* getMenuComponentFromKey(std::string key);
 
     void setNextState(GameState state);
     GameState getNextState();
@@ -43,6 +45,8 @@ private:
     sf::Sprite tbg;
 
     bool inLevel;
+
+    std::map<std::string, MenuComponent*> compPointers;
 
     GameState nextState = GameState::INOVERWORLD;
 };

@@ -29,18 +29,16 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
     saveGame = new Menu("Save game", GameState::INMENU);
     loadGame = new Menu("Load game", GameState::INMENU);
 
-    title->addItem(newGame);
-    title->addItem(saveGame);
-    title->addItem(loadGame);
-
-    title->addItem(resume);
-    title->addItem(backToOv);
-
-    title->addItem(quit);
+    addCompToMenu(newGame, title);
+    addCompToMenu(saveGame, title);
+    addCompToMenu(loadGame, title);
+    addCompToMenu(resume, title);
+    addCompToMenu(backToOv, title);
+    addCompToMenu(quit, title);
 
     SaveHandler* sh = SaveHandler::getInstance();
 
-    for (std::size_t i = 0; i<labels.size(); ++i) {
+    for (std::size_t i = 0; i < labels.size(); ++i) {
         std::string path = "save/" + labels[i] + ".save";
         sh->setPath(path);
 
@@ -74,11 +72,11 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
         MenuComponent* save = new MenuComponent(labels[i], GameState::SAVE);
         sf::Text* t = save->getText();
         t->setString(lastDiscoveredLevels[i]);
-        saveGame->addItem(save);
+        addCompToMenu(save, saveGame);
 
         MenuComponent* load = new MenuComponent(labels[i], GameState::LOAD);
         load->setText(t);
-        loadGame->addItem(load);
+        addCompToMenu(load, loadGame);
 
         // remove the temporary json
         if(remove(tempJsonFilePath.c_str()) != 0 ) {
@@ -86,9 +84,8 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
         }
     }
 
-    saveGame->addItem(title, true);
-    loadGame->addItem(title, true);
-
+    addCompToMenu(title, saveGame, true);
+    addCompToMenu(title, loadGame, true);
 
     selectedMenu = title;
 }
@@ -131,6 +128,20 @@ MenuComponent* MenuHandler::getCurrentMenuComponent() {
     }
 }
 
+void MenuHandler::addCompToMenu(MenuComponent* comp, Menu* menu, bool isParent) {
+    menu->addItem(comp, isParent);
+    compPointers.insert(std::pair<std::string, MenuComponent*>(comp->getLabel(), comp));
+}
+
+MenuComponent* MenuHandler::getMenuComponentFromKey(std::string key) {
+    try {
+        return compPointers.at(key);
+    }
+    catch (const std::out_of_range& oor) {
+        std::cerr << "Could not find " << key<< " in compPointers" << std::endl;
+        return compPointers[0];
+    }
+}
 
 void MenuHandler::setNextState(GameState state) {
     this->nextState = state;

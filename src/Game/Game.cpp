@@ -321,8 +321,7 @@ void Game::displayMenu() {
         } else if (state == GameState::SAVE) {
             // sets the current slot and name
             autoSave = true;
-            currentSlot = currentMenuComponent->getLabel();
-            currentSaveName = currentMenuComponent->getText();
+            currentMenuSave = currentMenuComponent;
         }
 
     } else if(event->keyIsPressed(sf::Keyboard::Escape)) {
@@ -527,8 +526,19 @@ void Game::newGame() {
     view.hide(ViewLayer::MENU);
     view.show(ViewLayer::OVERWORLD);
     view.hide(ViewLayer::TITLESCREEN);
-    autoSave = false;
     scoreManager->resetAllScores();
+
+    // if there is a free slot, save on it
+    std::string nextFreeSlot = saveHandler->nextFreeSlot();
+
+    if (nextFreeSlot != "") {
+        currentMenuSave = menuHandler->getMenuComponentFromKey(nextFreeSlot);
+        save();
+        std::cout << "Saving on " << currentMenuSave->getLabel() << std::endl;
+        autoSave = true;
+    } else {
+        autoSave = false;
+    }
 }
 
 void Game::load() {
@@ -540,8 +550,7 @@ void Game::load() {
 
         // Sets the slot and text (for example for the autosave)
         autoSave = true;
-        currentSlot = currentMenuComponent->getLabel();
-        currentSaveName = currentMenuComponent->getText();
+        currentMenuSave = currentMenuComponent;
 
         saveHandler->setPath(path);
         std::string json = saveHandler->load();
@@ -636,16 +645,15 @@ void Game::save() {
 
 
     // creates save with current slot and name
-    std::string path = "save/" + currentSlot + ".save";
+    std::string path = "save/" + currentMenuSave->getLabel() + ".save";
 
     int LDL = overworld->getState();
 
     // Displays the save name on the menu
-    sf::Text* txt = currentSaveName;
     if(LDL == 0) {
-        txt->setString("Tutorial");
+        currentMenuSave->getText()->setString("Tutorial");
     } else {
-        txt->setString("Level " + Utils::itos(LDL));
+        currentMenuSave->getText()->setString("Level " + Utils::itos(LDL));
     }
 
     // TEST
@@ -678,7 +686,7 @@ void Game::save() {
     // console confirmation and return to menu (only when save() is called from the menu)
     if (state == GameState::SAVE) {
         console->clear();
-        console->addParagraph("Successfully saved on " + currentSlot + " (" + date + ").");
+        console->addParagraph("Successfully saved on " + currentMenuSave->getLabel() + " (" + date + ").");
         console->setCurrentPage(0);
         console->setNextState(GameState::INMENU);
 

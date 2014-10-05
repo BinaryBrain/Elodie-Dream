@@ -18,8 +18,8 @@ Menu::~Menu() {
         text = NULL;
     }
 
-    for(unsigned int i(0); i<items.size(); ++i) {
-        if(items[i] && !isParent[i]) {
+    for (std::size_t i = 0; i < items.size(); ++i) {
+        if (items[i] && !isParent[i]) {
             delete items[i];
             items[i] = NULL;
         }
@@ -70,16 +70,24 @@ void Menu::draw(GameView* view, bool inLevel) {
 }
 
 void Menu::incIndex(bool inLevel) {
-    if (index == items.size()-1) index = 0;
-    else ++index;
-    if(!inLevel && label == "Title menu" && (index == 3 || index == 4)) {
+    if (index == items.size()-1) {
+        index = 0;
+    } else {
+        ++index;
+    }
+
+    if (!inLevel && label == "Title menu" && (index == 3 || index == 4)) {
         index = 5;
     }
 }
 
 void Menu::decIndex(bool inLevel) {
-    if (index == 0) index = items.size()-1;
-    else --index;
+    if (index == 0) {
+        index = items.size()-1;
+    } else {
+        --index;
+    }
+
     if(!inLevel && label == "Title menu" && (index == 3 || index == 4)) {
         index = 2;
     }

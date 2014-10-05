@@ -63,9 +63,8 @@ private:
     GameView view;
     GameState state = GameState::INMENU;
     MenuComponent* currentMenuComponent;
+    MenuComponent* currentMenuSave;
 
-    std::string currentSlot;
-    sf::Text* currentSaveName;
     bool autoSave = false;
 
     GameState pausePrevState;
