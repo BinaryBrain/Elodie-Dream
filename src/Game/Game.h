@@ -52,6 +52,7 @@ public:
 
     bool isMute();
     void toggleMute();
+
 private:
     Game();
     ~Game();
@@ -61,7 +62,7 @@ private:
 
     GameView view;
     GameState state = GameState::INMENU;
-    MenuComponent* currentMenuItem;
+    MenuComponent* currentMenuComponent;
 
     std::string currentSlot;
     sf::Text* currentSaveName;

@@ -1,6 +1,6 @@
 #include "Menu.h"
 
-Menu::Menu(std::string label): MenuComponent(label) {
+Menu::Menu(std::string label, GameState state): MenuComponent(label, state) {
     selectortexture.loadFromFile(MENU_SELECTOR_PATH, sf::IntRect(102, 16, 120, 30));
     selector.setTexture(selectortexture);
 
@@ -93,6 +93,6 @@ MenuComponent* Menu::getSelectedItem() {
     return items[index];
 }
 
-std::pair<GameState, MenuComponent*> Menu::execute() {
-    return items[index]->execute();
+MenuComponent* Menu::getCurrentMenuComponent() {
+    return items[index];
 }

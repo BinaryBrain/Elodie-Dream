@@ -298,9 +298,8 @@ void Game::displayMenu() {
     if (event->keyIsPressed(sf::Keyboard::Down)) menuHandler->incIndex();
     if (event->keyIsPressed(sf::Keyboard::Up)) menuHandler->decIndex();
     if (event->keyIsPressed(sf::Keyboard::Return)) {
-        std::pair<GameState, MenuComponent*> p = menuHandler->execute();
-        state = p.first;
-        currentMenuItem = p.second;
+        currentMenuComponent = menuHandler->getCurrentMenuComponent();
+        state = currentMenuComponent->getState();
 
         if(state == GameState::INOVERWORLD) {
             leaveLevel();
@@ -322,8 +321,8 @@ void Game::displayMenu() {
         } else if (state == GameState::SAVE) {
             // sets the current slot and name
             autoSave = true;
-            currentSlot = currentMenuItem->getLabel();
-            currentSaveName = currentMenuItem->getText();
+            currentSlot = currentMenuComponent->getLabel();
+            currentSaveName = currentMenuComponent->getText();
         }
 
     } else if(event->keyIsPressed(sf::Keyboard::Escape)) {
@@ -533,7 +532,7 @@ void Game::newGame() {
 }
 
 void Game::load() {
-    std::string path = "save/" + currentMenuItem->getLabel() + ".save";
+    std::string path = "save/" + currentMenuComponent->getLabel() + ".save";
 
     if (Utils::fileExists(path)) {
         // resets the scores
@@ -541,8 +540,8 @@ void Game::load() {
 
         // Sets the slot and text (for example for the autosave)
         autoSave = true;
-        currentSlot = currentMenuItem->getLabel();
-        currentSaveName = currentMenuItem->getText();
+        currentSlot = currentMenuComponent->getLabel();
+        currentSaveName = currentMenuComponent->getText();
 
         saveHandler->setPath(path);
         std::string json = saveHandler->load();
@@ -595,7 +594,7 @@ void Game::load() {
 
             console->clear();
             console->setNextState(GameState::INOVERWORLD);
-            console->addParagraph("Successfully loaded " + currentMenuItem->getLabel() + ", from " + date);
+            console->addParagraph("Successfully loaded " + currentMenuComponent->getLabel() + ", from " + date);
             console->setCurrentPage(0);
             overworld->getElodie()->play();
 

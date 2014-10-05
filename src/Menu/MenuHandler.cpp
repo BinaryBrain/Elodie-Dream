@@ -1,11 +1,11 @@
 #include "MenuHandler.h"
 
 MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
-    NewGameItem* newGame = new NewGameItem("New game");
-    QuitItem* quit = new QuitItem("Quit game");
+    MenuComponent* newGame = new MenuComponent("New game", GameState::NEWGAME);
+    MenuComponent* quit = new MenuComponent("Quit game", GameState::EXIT);
 
-    ResumeItem* resume = new ResumeItem("Resume");
-    BackOverWorldItem* backToOv = new BackOverWorldItem("Leave level");
+    MenuComponent* resume = new MenuComponent("Resume", GameState::INLEVEL);
+    MenuComponent* backToOv = new MenuComponent("Leave level", GameState::INOVERWORLD);
 
     std::vector<std::string> lastDiscoveredLevels = {"Level 0","Level 0","Level 0"};
     std::vector<std::string> labels = {"Slot 1", "Slot 2", "Slot 3"};
@@ -25,9 +25,9 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
     gameView->getWindow()->draw(loading);
     gameView->getWindow()->display();
 
-    title = new Menu("Title menu");
-    saveGame = new Menu("Save game");
-    loadGame = new Menu("Load game");
+    title = new Menu("Title menu", GameState::INMENU);
+    saveGame = new Menu("Save game", GameState::INMENU);
+    loadGame = new Menu("Load game", GameState::INMENU);
 
     title->addItem(newGame);
     title->addItem(saveGame);
@@ -71,12 +71,12 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
 
         accessor.close();
 
-        SaveItem* save = new SaveItem(labels[i]);
+        MenuComponent* save = new MenuComponent(labels[i], GameState::SAVE);
         sf::Text* t = save->getText();
         t->setString(lastDiscoveredLevels[i]);
         saveGame->addItem(save);
 
-        LoadItem* load = new LoadItem(labels[i]);
+        MenuComponent* load = new MenuComponent(labels[i], GameState::LOAD);
         load->setText(t);
         loadGame->addItem(load);
 
@@ -113,10 +113,10 @@ void MenuHandler::decIndex() {
     selectedMenu->decIndex(inLevel);
 }
 
-std::pair<GameState, MenuComponent*> MenuHandler::execute() {
+MenuComponent* MenuHandler::getCurrentMenuComponent() {
 
     if (!selectedMenu->getSelectedItem()->isAMenu()) {
-        return selectedMenu->execute();
+        return selectedMenu->getCurrentMenuComponent();
     } else {
         std::string label = selectedMenu->getSelectedItem()->getText()->getString();
         if (label == "Title menu") {
@@ -127,8 +127,7 @@ std::pair<GameState, MenuComponent*> MenuHandler::execute() {
             selectedMenu = loadGame;
         }
 
-        std::pair<GameState, MenuComponent*> p = std::make_pair(GameState::INMENU, selectedMenu);
-        return p;
+        return selectedMenu;
     }
 }
 

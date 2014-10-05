@@ -5,7 +5,7 @@
 
 class MenuItem : public MenuComponent {
 public:
-    MenuItem(std::string label);
+    MenuItem(std::string label, GameState state);
     virtual ~MenuItem();
 private:
 };

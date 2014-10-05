@@ -1,8 +1,9 @@
 #include "MenuComponent.h"
 
-MenuComponent::MenuComponent(std::string label) {
+MenuComponent::MenuComponent(std::string label, GameState state) {
     this->text = new sf::Text(label, globalFont);
     this->label = label;
+    this->state = state;
 }
 
 MenuComponent::~MenuComponent() {
@@ -23,6 +24,14 @@ std::string MenuComponent::getLabel() {
 
 void MenuComponent::setLabel(std::string label) {
     this->label = label;
+}
+
+GameState MenuComponent::getState() {
+    return state;
+}
+
+void MenuComponent::setState(GameState state) {
+    this->state = state;
 }
 
 bool MenuComponent::isAMenu() {

@@ -9,15 +9,7 @@
 
 #include "MenuComponent.h"
 #include "Menu.h"
-#include "MenuItem.h"
 
-#include "NewGameItem.h"
-#include "QuitItem.h"
-#include "EnglishItem.h"
-#include "SaveItem.h"
-#include "LoadItem.h"
-#include "ResumeItem.h"
-#include "BackOverworldItem.h"
 #include "../Displayable/Displayable.h"
 #include "../FileHandler/SaveHandler.h"
 #include "../Json/JsonAccessor.h"
@@ -31,7 +23,7 @@ public:
     void display();
     void incIndex();
     void decIndex();
-    std::pair<GameState, MenuComponent*> execute();
+    MenuComponent* getCurrentMenuComponent();
 
     void setNextState(GameState state);
     GameState getNextState();

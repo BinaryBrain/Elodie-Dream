@@ -8,14 +8,12 @@
 #include "../Game/GameView.h"
 #include "../Utils/Utils.h"
 #include "MenuComponent.h"
-#include "MenuItem.h"
-#include "SaveItem.h"
-#include "LoadItem.h"
+
 
 class Menu : public MenuComponent {
 
 public:
-    Menu(std::string label);
+    Menu(std::string label, GameState state);
     virtual ~Menu();
 
     void addItem(MenuComponent* item, bool isParent = false);
@@ -25,7 +23,7 @@ public:
     int getIndex();
     MenuComponent* getSelectedItem();
 
-    std::pair<GameState, MenuComponent*> execute();
+    MenuComponent* getCurrentMenuComponent();
 
 private:
     sf::Texture selectortexture;

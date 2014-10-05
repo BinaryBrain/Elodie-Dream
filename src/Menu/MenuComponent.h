@@ -7,21 +7,25 @@
 
 class MenuComponent {
 public:
-    MenuComponent(std::string label);
+    MenuComponent(std::string label, GameState state);
     virtual ~MenuComponent();
 
     sf::Text* getText();
     void setText(sf::Text* text);
+
     std::string getLabel();
     void setLabel(std::string label);
 
-    virtual std::pair<GameState, MenuComponent*> execute() = 0;
+    GameState getState();
+    void setState(GameState state);
+
     bool isAMenu();
 
 protected:
     std::vector<MenuComponent*> items;
     sf::Text* text;
     std::string label;
+    GameState state;
 
     bool isMenu = false;
 };
