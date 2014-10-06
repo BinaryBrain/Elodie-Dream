@@ -7,8 +7,13 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
     MenuComponent* resume = new MenuComponent("Resume", GameState::INLEVEL);
     MenuComponent* backToOv = new MenuComponent("Leave level", GameState::INOVERWORLD);
 
-    std::vector<std::string> lastDiscoveredLevels = {"Level 0","Level 0","Level 0"};
-    std::vector<std::string> labels = {"Slot 1", "Slot 2", "Slot 3"};
+    std::vector<std::string> lastDiscoveredLevels;
+    std::vector<std::string> labels;
+
+    for (int i = 1; i <= NUMSLOTS; ++i) {
+        lastDiscoveredLevels.push_back("Level 0"); // to know if not initialized later
+        labels.push_back("Slot " + Utils::itos(i));
+    }
 
     loading.setFont(globalFont);
     loading.setCharacterSize(SCORES_CHAR_SIZE);
@@ -38,7 +43,7 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
 
     SaveHandler* sh = SaveHandler::getInstance();
 
-    for (std::size_t i = 0; i < labels.size(); ++i) {
+    for (std::size_t i = 0; i < NUMSLOTS; ++i) {
         std::string path = "save/" + labels[i] + ".save";
         sh->setPath(path);
 
@@ -60,11 +65,7 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
 
         if(accessor.canTakeElementFrom(key) && jsonReady) {
             int LDL = accessor.getInt(key);
-            if(LDL == 0) {
-                lastDiscoveredLevels[i] = "Tutorial";
-            } else {
-                lastDiscoveredLevels[i] = "Level "+ Utils::itos(LDL);
-            }
+            lastDiscoveredLevels[i] = sh->computeLDLName(LDL);
         }
 
         accessor.close();
@@ -79,7 +80,7 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
         addCompToMenu(load, loadGame);
 
         // remove the temporary json
-        if(remove(tempJsonFilePath.c_str()) != 0 ) {
+        if (remove(tempJsonFilePath.c_str()) != 0 ) {
             std::cerr << "Error deleting temporary json" << std::endl;
         }
     }

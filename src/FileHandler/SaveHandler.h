@@ -26,6 +26,7 @@ public:
     std::string load();
 
     void clearStringifier();
+    std::string computeLDLName(int LDL);
 
 private:
     SaveHandler();

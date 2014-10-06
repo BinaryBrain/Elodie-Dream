@@ -97,3 +97,11 @@ std::string SaveHandler::decrypt(std::vector<int> tmp, std::string key) {
     }
     return p;
 }
+
+std::string SaveHandler::computeLDLName(int LDL) {
+    if(LDL == 0) {
+        return "Tutorial";
+    } else {
+        return "Level " + Utils::itos(LDL);
+    }
+}

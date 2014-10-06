@@ -446,12 +446,9 @@ void Game::run() {
         if (event->keyIsPressed(sf::Keyboard::F12)) {
             sf::Image screen = window->capture();
 
-            // creates date
-            time_t t = time(0);
-            struct tm* now = localtime(&t);
-            std::string date("");
-            date += Utils::itos(now->tm_mday) + "-" + Utils::itos(now->tm_mon + 1) + "-" + Utils::itos(now->tm_year + 1900) + " ";
-            date += Utils::itos(now->tm_hour) + "-" + Utils::itos(now->tm_min) + "-" + Utils::itos(now->tm_sec);
+            std::string date = "";
+            date += now.getDay() + "-" + now.getMonth() + "-" + now.getYear() + " ";
+            date += now.getHour() + "-" + now.getMin() + "-" + now.getSec();
 
             screen.saveToFile("screenshots/"+date+".jpg");
         }
@@ -637,11 +634,9 @@ void Game::load() {
 void Game::save() {
 
     // creates date
-    time_t t = time(0);
-    struct tm* now = localtime(&t);
-    std::string date("the ");
-    date += Utils::itos(now->tm_mday) + "/" + Utils::itos(now->tm_mon + 1) + "/" + Utils::itos(now->tm_year + 1900) + ", at ";
-    date += Utils::itos(now->tm_hour) + ":" + Utils::itos(now->tm_min) + ":" + Utils::itos(now->tm_sec);
+    std::string date = "the ";
+    date += now.getDay() + "/" + now.getMonth() + "/" + now.getYear() + ", at ";
+    date += now.getHour() + ":" + now.getMin() + ":" + now.getSec();
 
 
     // creates save with current slot and name
@@ -650,11 +645,7 @@ void Game::save() {
     int LDL = overworld->getState();
 
     // Displays the save name on the menu
-    if(LDL == 0) {
-        currentMenuSave->getText()->setString("Tutorial");
-    } else {
-        currentMenuSave->getText()->setString("Level " + Utils::itos(LDL));
-    }
+    currentMenuSave->getText()->setString(saveHandler->computeLDLName(LDL));
 
     // TEST
     std::vector< std::vector<int> > scoresDatas = scoreManager->getAllDatas();

@@ -1,7 +1,3 @@
-#include <SFML/Graphics.hpp>
-#include <vector>
-#include <time.h>
-#include <iostream>
 #include "EventHandler.h"
 
 using std::vector;

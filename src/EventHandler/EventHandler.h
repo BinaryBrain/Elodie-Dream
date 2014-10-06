@@ -2,6 +2,7 @@
 #define EVENT_H_INCLUDED
 
 #include <SFML/Graphics.hpp>
+#include <iostream>
 #include <vector>
 #include <time.h>
 

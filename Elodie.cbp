@@ -171,6 +171,8 @@
 		<Unit filename="src/Sprite/TileSprite.h" />
 		<Unit filename="src/TextureManager/TextureManager.cpp" />
 		<Unit filename="src/TextureManager/TextureManager.h" />
+		<Unit filename="src/Utils/Date.cpp" />
+		<Unit filename="src/Utils/Date.h" />
 		<Unit filename="src/Utils/Utils.cpp" />
 		<Unit filename="src/Utils/Utils.h" />
 		<Unit filename="src/const.h" />

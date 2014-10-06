@@ -20,6 +20,7 @@
 #include "../Score/Scoreboard.h"
 #include "../Score/ScoreManager.h"
 #include "../Menu/TitleScreen.h"
+#include "../Utils/Date.h"
 #include "GameView.h"
 
 class Level;
@@ -72,6 +73,8 @@ private:
     SaveHandler* saveHandler;
     SoundManager* soundManager;
     ScoreManager* scoreManager;
+
+    Date now;
 
     Scoreboard* scoreboard = NULL;
     void displayScore();
