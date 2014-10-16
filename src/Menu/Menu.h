@@ -9,7 +9,6 @@
 #include "../Utils/Utils.h"
 #include "MenuComponent.h"
 
-
 class Menu : public MenuComponent {
 
 public:
@@ -17,21 +16,25 @@ public:
     virtual ~Menu();
 
     void addItem(MenuComponent* item, bool isParent = false);
-    void draw(GameView* view, bool inLevel);
-    void incIndex(bool inLevel);
-    void decIndex(bool inLevel);
+    void draw(GameView* view);
+    void incIndex();
+    void decIndex();
     int getIndex();
     MenuComponent* getSelectedItem();
-
     MenuComponent* getCurrentMenuComponent();
+    /**
+    * \brief Essential to prepare what's going to be displayed. Should be used after changes in the items's visibility.
+    */
+    void prepareVisibles();
 
-private:
+protected:
     sf::Texture selectortexture;
     sf::Sprite selector;
 
     sf::RectangleShape background;
 
     std::vector<MenuComponent*> items;
+    std::vector<MenuComponent*> visibles;
 
     std::vector<bool> isParent;
 

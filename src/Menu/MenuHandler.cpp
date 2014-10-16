@@ -2,10 +2,9 @@
 
 MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
     MenuComponent* newGame = new MenuComponent("New game", GameState::NEWGAME);
-    MenuComponent* quit = new MenuComponent("Quit game", GameState::EXIT);
-
     MenuComponent* resume = new MenuComponent("Resume", GameState::INLEVEL);
     MenuComponent* backToOv = new MenuComponent("Leave level", GameState::INOVERWORLD);
+    MenuComponent* quit = new MenuComponent("Quit game", GameState::EXIT);
 
     std::vector<std::string> lastDiscoveredLevels;
     std::vector<std::string> labels;
@@ -30,7 +29,7 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
     gameView->getWindow()->draw(loading);
     gameView->getWindow()->display();
 
-    title = new Menu("Title menu", GameState::INMENU);
+    title = new TitleMenu("Title menu", GameState::INMENU);
     saveGame = new Menu("Save game", GameState::INMENU);
     loadGame = new Menu("Load game", GameState::INMENU);
 
@@ -89,6 +88,10 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
     addCompToMenu(title, loadGame, true);
 
     selectedMenu = title;
+
+    saveGame->prepareVisibles();
+    loadGame->prepareVisibles();
+    title->toNormalMenu();
 }
 
 MenuHandler::~MenuHandler() {
@@ -100,21 +103,21 @@ MenuHandler::~MenuHandler() {
 }
 
 void MenuHandler::display() {
-    selectedMenu->draw(gameView, inLevel);
+    selectedMenu->draw(gameView);
 }
 
 void MenuHandler::incIndex() {
-    selectedMenu->incIndex(inLevel);
+    selectedMenu->incIndex();
 }
 
 void MenuHandler::decIndex() {
-    selectedMenu->decIndex(inLevel);
+    selectedMenu->decIndex();
 }
 
 MenuComponent* MenuHandler::getCurrentMenuComponent() {
 
     if (!selectedMenu->getSelectedItem()->isAMenu()) {
-        return selectedMenu->getCurrentMenuComponent();
+        return selectedMenu->getSelectedItem();
     } else {
         std::string label = selectedMenu->getSelectedItem()->getText()->getString();
         if (label == "Title menu") {
@@ -152,7 +155,7 @@ GameState MenuHandler::getNextState() {
     return this->nextState;
 }
 
-Menu* MenuHandler::getTitleMenu() {
+TitleMenu* MenuHandler::getTitleMenu() {
     return title;
 }
 

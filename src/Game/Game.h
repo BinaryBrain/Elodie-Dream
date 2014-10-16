@@ -19,6 +19,7 @@
 #include "../Sound/SoundManager.h"
 #include "../Score/Scoreboard.h"
 #include "../Score/ScoreManager.h"
+#include "../Score/StatsBoard.h"
 #include "../Menu/TitleScreen.h"
 #include "../Utils/Date.h"
 #include "GameView.h"
@@ -78,6 +79,9 @@ private:
 
     Scoreboard* scoreboard = NULL;
     void displayScore();
+
+    StatsBoard* statsBoard = NULL;
+    void displayStats();
 
     EventHandler* event = NULL;
     Overworld* overworld = NULL;

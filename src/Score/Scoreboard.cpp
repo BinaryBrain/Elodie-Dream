@@ -50,9 +50,9 @@ void Scoreboard::prepareText() {
     int levelId = scoreManager->getCurrentScore().getLevelId();
     int bestScore = scoreManager->getGameScore()[levelId].getTotalPoints();
 
-    std::string s("");
-    std::string m("");
-    std::string b("");
+    std::string s = "";
+    std::string m = "";
+    std::string b = "";
     if(sheeps > 0) {
         s = "\nSheeps: " + Utils::itos(sheeps) + " => " + Utils::itos(sheeps*SHEEP_DAMAGE) + " pts";
     }
@@ -64,7 +64,7 @@ void Scoreboard::prepareText() {
     }
     std::string enemiesString = "Enemies killed: " + Utils::itos(enemiesKilled) + s + m + b;
 
-    std::string p("");
+    std::string p = "";
     if(damages == 0) {
         p = "Bonus 0 damages taken: "+ Utils::itos(BONUS_NODAMAGES) +" pts !\n";
     }

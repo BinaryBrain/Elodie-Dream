@@ -37,3 +37,11 @@ void MenuComponent::setState(GameState state) {
 bool MenuComponent::isAMenu() {
     return isMenu;
 }
+
+bool MenuComponent::isVisible() {
+    return visible;
+}
+
+void MenuComponent::setVisibility(bool visible) {
+    this->visible = visible;
+}

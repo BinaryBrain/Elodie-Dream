@@ -9,6 +9,7 @@
 
 #include "MenuComponent.h"
 #include "Menu.h"
+#include "TitleMenu.h"
 
 #include "../Displayable/Displayable.h"
 #include "../FileHandler/SaveHandler.h"
@@ -29,13 +30,13 @@ public:
 
     void setNextState(GameState state);
     GameState getNextState();
-    Menu* getTitleMenu();
+    TitleMenu* getTitleMenu();
     void resetMenu();
 
     void setInLevel(bool inLevel);
 
 private:
-    Menu* title;
+    TitleMenu* title;
     Menu* saveGame;
     Menu* loadGame;
 

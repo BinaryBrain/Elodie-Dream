@@ -21,6 +21,7 @@
 					<Add option="-fexceptions -Werror" />
 					<Add directory="rapidjson/include" />
 					<Add directory="sfml/include" />
+					<Add directory="src/Menu" />
 				</Compiler>
 				<Linker>
 					<Add library="sfml\lib\libsfml-graphics-d.a" />
@@ -45,6 +46,7 @@
 					<Add option="-fexceptions -Werror" />
 					<Add directory="rapidjson/include" />
 					<Add directory="sfml/include" />
+					<Add directory="src/Menu" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -137,6 +139,8 @@
 		<Unit filename="src/Menu/MenuComponent.h" />
 		<Unit filename="src/Menu/MenuHandler.cpp" />
 		<Unit filename="src/Menu/MenuHandler.h" />
+		<Unit filename="src/Menu/TitleMenu.cpp" />
+		<Unit filename="src/Menu/TitleMenu.h" />
 		<Unit filename="src/Menu/TitleScreen.cpp" />
 		<Unit filename="src/Menu/TitleScreen.h" />
 		<Unit filename="src/Overworld/Overworld.cpp" />
@@ -147,6 +151,8 @@
 		<Unit filename="src/Score/ScoreManager.h" />
 		<Unit filename="src/Score/Scoreboard.cpp" />
 		<Unit filename="src/Score/Scoreboard.h" />
+		<Unit filename="src/Score/StatsBoard.cpp" />
+		<Unit filename="src/Score/StatsBoard.h" />
 		<Unit filename="src/Sky/Earth.cpp" />
 		<Unit filename="src/Sky/Earth.h" />
 		<Unit filename="src/Sky/Sky.cpp" />

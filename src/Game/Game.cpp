@@ -19,6 +19,9 @@ Game::Game() {
     scoreboard = new Scoreboard(&view);
     view.addView(ViewLayer::SCORE, scoreboard);
 
+    statsBoard = new StatsBoard(&view);
+    view.addView(ViewLayer::STATS, statsBoard);
+
     console = new Console(&view);
     event = new EventHandler(view.getWindow());
     menuHandler = new MenuHandler(&view);
@@ -106,6 +109,7 @@ void Game::leaveLevel() {
         curLevel = NULL;
     }
     scoreManager->resetCurrentScore();
+    menuHandler->getTitleMenu()->toNormalMenu();
 }
 
 void Game::displayLevel(int curLevelNbr, sf::Time time) {
@@ -244,6 +248,7 @@ void Game::loadLevel(int levelNbr) {
         break;
     }
     curLevel = new Level(&view, "assets/levels/level"+Utils::itos(curLevelNbr)+".txt", env, overworld->getElodie());
+    menuHandler->getTitleMenu()->toLevelMenu();
 }
 
 void Game::handleOverworld(sf::Time time) {
@@ -402,15 +407,24 @@ void Game::displayEnd() {
 }
 
 void Game::displayScore() {
-    if (event->keyIsPressed(sf::Keyboard::Return)|| event->keyIsPressed(sf::Keyboard::Space)) {
+    if (event->keyIsPressed(sf::Keyboard::Return) || event->keyIsPressed(sf::Keyboard::Space)) {
         leaveLevel();
         view.hide(ViewLayer::SCORE);
         view.show(ViewLayer::OVERWORLD);
         overworld->evolve(overworld->getState(), curLevelNbr + 1);
+        menuHandler->getTitleMenu()->toNormalMenu();
 
         if (autoSave) {
             save();
         }
+    }
+}
+
+void Game::displayStats() {
+    if (event->keyIsPressed(sf::Keyboard::Return) || event->keyIsPressed(sf::Keyboard::Escape)) {
+        view.hide(ViewLayer::STATS);
+        view.show(ViewLayer::MENU);
+        state = GameState::INMENU;
     }
 }
 
@@ -492,6 +506,9 @@ void Game::run() {
             break;
         case GameState::INSCORE:
             displayScore();
+            break;
+        case GameState::INSTATS:
+            displayStats();
             break;
         default :
             std::cerr << "Error: unknown state" << std::endl;

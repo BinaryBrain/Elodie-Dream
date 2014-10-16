@@ -21,6 +21,9 @@ public:
 
     bool isAMenu();
 
+    void setVisibility(bool visible);
+    bool isVisible();
+
 protected:
     std::vector<MenuComponent*> items;
     sf::Text* text;
@@ -28,6 +31,7 @@ protected:
     GameState state;
 
     bool isMenu = false;
+    bool visible = true;
 };
 
 #endif // MENUCOMPONENT_H
