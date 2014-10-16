@@ -2,6 +2,7 @@
 
 MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
     MenuComponent* newGame = new MenuComponent("New game", GameState::NEWGAME);
+    MenuComponent* stats = new MenuComponent("Stats", GameState::INSTATS);
     MenuComponent* resume = new MenuComponent("Resume", GameState::INLEVEL);
     MenuComponent* backToOv = new MenuComponent("Leave level", GameState::INOVERWORLD);
     MenuComponent* quit = new MenuComponent("Quit game", GameState::EXIT);
@@ -36,6 +37,7 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
     addCompToMenu(newGame, title);
     addCompToMenu(saveGame, title);
     addCompToMenu(loadGame, title);
+    addCompToMenu(stats, title);
     addCompToMenu(resume, title);
     addCompToMenu(backToOv, title);
     addCompToMenu(quit, title);

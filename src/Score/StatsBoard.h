@@ -8,7 +8,7 @@
 
 class StatsBoard : public Displayable {
 public:
-    StatsBoard(GameView* view);
+    StatsBoard(GameView* gameView);
     virtual ~StatsBoard();
 
     void display();

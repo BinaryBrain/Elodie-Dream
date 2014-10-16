@@ -1,6 +1,6 @@
 #include "Scoreboard.h"
 
-Scoreboard::Scoreboard(GameView* view) : Displayable(view) {
+Scoreboard::Scoreboard(GameView* gameView) : Displayable(gameView) {
     float viewX(WINDOW_WIDTH);
     float viewY(WINDOW_HEIGHT);
 
@@ -21,7 +21,7 @@ Scoreboard::Scoreboard(GameView* view) : Displayable(view) {
     pointsText.setCharacterSize(SCORES_CHAR_SIZE);
 
 
-    view->addView(ViewLayer::SCORE, this);
+    gameView->addView(ViewLayer::SCORE, this);
 }
 
 Scoreboard::~Scoreboard() {

@@ -327,6 +327,9 @@ void Game::displayMenu() {
             // sets the current slot and name
             autoSave = true;
             currentMenuSave = currentMenuComponent;
+        } else if (state == GameState::INSTATS) {
+            view.hide(ViewLayer::MENU);
+            view.show(ViewLayer::STATS);
         }
 
     } else if(event->keyIsPressed(sf::Keyboard::Escape)) {
