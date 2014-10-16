@@ -328,6 +328,7 @@ void Game::displayMenu() {
             autoSave = true;
             currentMenuSave = currentMenuComponent;
         } else if (state == GameState::INSTATS) {
+            statsBoard->prepareText();
             view.hide(ViewLayer::MENU);
             view.show(ViewLayer::STATS);
         }

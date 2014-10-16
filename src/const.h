@@ -207,6 +207,11 @@ const float SCORES_STARTY = 100;
 const int BONUS_POINTS = 50;
 const int BONUS_NODAMAGES = 1000;
 
+// Stats board
+const float STATS_MARGIN = 50;
+const float STATS_WIDTH_CATEGORY = 100;
+const int STATS_CHAR_SIZE = 15;
+
 // Saves
 const int NUMSLOTS = 3;
 
