@@ -68,8 +68,9 @@ bool SaveHandler::isSlotFree(std::string slot) {
 
 std::string SaveHandler::nextFreeSlot() {
     for(unsigned int i = 1; i <= NUMSLOTS; i++) {
-        if(isSlotFree("Slot " + Utils::itos(i))) {
-            return "Slot " + Utils::itos(i);
+        std::string slot = MENU_SLOT_PREFIX_LABEL + Utils::itos(i);
+        if(isSlotFree(slot)) {
+            return slot;
         }
     }
 

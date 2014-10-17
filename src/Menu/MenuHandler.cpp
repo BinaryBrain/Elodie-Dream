@@ -1,18 +1,18 @@
 #include "MenuHandler.h"
 
 MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
-    MenuComponent* newGame = new MenuComponent("New game", GameState::NEWGAME);
-    MenuComponent* stats = new MenuComponent("Stats", GameState::INSTATS);
-    MenuComponent* resume = new MenuComponent("Resume", GameState::INLEVEL);
-    MenuComponent* backToOv = new MenuComponent("Leave level", GameState::INOVERWORLD);
-    MenuComponent* quit = new MenuComponent("Quit game", GameState::EXIT);
+    MenuComponent* newGame = new MenuComponent(MENU_NEWGAME_LABEL, GameState::NEWGAME);
+    MenuComponent* stats = new MenuComponent(MENU_STATS_LABEL, GameState::INSTATS);
+    MenuComponent* resume = new MenuComponent(MENU_RESUME_LABEL, GameState::INLEVEL);
+    MenuComponent* backToOv = new MenuComponent(MENU_LEAVELEVEL_LABEL, GameState::INOVERWORLD);
+    MenuComponent* quit = new MenuComponent(MENU_QUITGAME_LABEL, GameState::EXIT);
 
     std::vector<std::string> lastDiscoveredLevels;
     std::vector<std::string> labels;
 
     for (int i = 1; i <= NUMSLOTS; ++i) {
         lastDiscoveredLevels.push_back("Level 0"); // to know if not initialized later
-        labels.push_back("Slot " + Utils::itos(i));
+        labels.push_back(MENU_SLOT_PREFIX_LABEL + Utils::itos(i));
     }
 
     loading.setFont(globalFont);
@@ -30,9 +30,9 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
     gameView->getWindow()->draw(loading);
     gameView->getWindow()->display();
 
-    title = new TitleMenu("Title menu", GameState::INMENU);
-    saveGame = new Menu("Save game", GameState::INMENU);
-    loadGame = new Menu("Load game", GameState::INMENU);
+    title = new TitleMenu(MENU_TITLEMENU_LABEL, GameState::INMENU);
+    saveGame = new Menu(MENU_SAVEGAME_LABEL, GameState::INMENU);
+    loadGame = new Menu(MENU_LOADGAME_LABEL, GameState::INMENU);
 
     addCompToMenu(newGame, title);
     addCompToMenu(saveGame, title);
@@ -122,11 +122,11 @@ MenuComponent* MenuHandler::getCurrentMenuComponent() {
         return selectedMenu->getSelectedItem();
     } else {
         std::string label = selectedMenu->getSelectedItem()->getText()->getString();
-        if (label == "Title menu") {
+        if (label == MENU_TITLEMENU_LABEL) {
             selectedMenu = title;
-        } else if (label == "Save game") {
+        } else if (label == MENU_SAVEGAME_LABEL) {
             selectedMenu = saveGame;
-        } else if (label == "Load game") {
+        } else if (label == MENU_LOADGAME_LABEL) {
             selectedMenu = loadGame;
         }
 

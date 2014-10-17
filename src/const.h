@@ -180,6 +180,16 @@ const string MENU_BACKGROUND_PATH = "assets/img/sprites/menu/background.png";
 const string MENU_ANIMATED_BACKGROUND_PATH = "assets/img/sprites/title/poro";
 const string MENU_TITLE_TEXT = "assets/img/sprites/title/title.png";
 
+const string MENU_NEWGAME_LABEL = "New game";
+const string MENU_STATS_LABEL = "Stats";
+const string MENU_RESUME_LABEL = "Resume";
+const string MENU_LEAVELEVEL_LABEL = "Leave level";
+const string MENU_QUITGAME_LABEL = "Quit game";
+const string MENU_TITLEMENU_LABEL = "Title menu";
+const string MENU_SAVEGAME_LABEL = "Save game";
+const string MENU_LOADGAME_LABEL = "Load game";
+const string MENU_SLOT_PREFIX_LABEL = "Slot ";
+
 const int MENU_TITLE_TEXT_LEFT = 150;
 const int MENU_TITLE_TEXT_TOP = 20;
 const float MENU_X = 200;
