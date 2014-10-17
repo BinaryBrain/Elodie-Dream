@@ -416,6 +416,8 @@ void Game::displayScore() {
         view.hide(ViewLayer::SCORE);
         view.show(ViewLayer::OVERWORLD);
         overworld->evolve(overworld->getState(), curLevelNbr + 1);
+        overworld->setToLevel(curLevelNbr + 1);
+        overworld->resetPos();
         menuHandler->getTitleMenu()->toNormalMenu();
 
         if (autoSave) {
@@ -552,7 +554,6 @@ void Game::newGame() {
     if (nextFreeSlot != "") {
         currentMenuSave = menuHandler->getMenuComponentFromKey(nextFreeSlot);
         save();
-        std::cout << "Saving on " << currentMenuSave->getLabel() << std::endl;
         autoSave = true;
     } else {
         autoSave = false;
@@ -595,10 +596,8 @@ void Game::load() {
                 std::vector< std::vector<int>* > datas = *(accessor.getInt2DVector("scoresdatas"));
                 std::vector< std::vector<int> > scoreDatas;
 
-                std::cout << "Loading... " << std::endl;
                 for (size_t i = 0; i < datas.size(); ++i) {
                     std::vector<int> score = *(datas[i]);
-                    std::cout << "Level " << Utils::itos(i) << ": " << Utils::itos(score[2]) << std::endl;
                     scoreDatas.push_back(score);
                 }
 
@@ -616,7 +615,7 @@ void Game::load() {
                 view.addView(ViewLayer::OVERWORLD, overworld);
             }
             overworld->setState(LDL);
-            overworld->setPosInPath(LDL); // TODO
+            overworld->setToLevel(LDL);
             overworld->resetPos();
 
             console->clear();
@@ -668,16 +667,7 @@ void Game::save() {
     // Displays the save name on the menu
     currentMenuSave->getText()->setString(saveHandler->computeLDLName(LDL));
 
-    // TEST
     std::vector< std::vector<int> > scoresDatas = scoreManager->getAllDatas();
-    std::vector<int> totalPoints;
-
-    std::cout << "Saving scores... " << std::endl;
-    for (std::size_t i = 0; i < scoresDatas.size(); ++i) {
-        totalPoints.push_back(scoresDatas[i][2]);
-        std::cout << "Level " << i << ": " << totalPoints[i] << std::endl;
-    }
-    //
 
     // saves the datas to the save file
     JsonStringifier* stringifier = saveHandler->getStringifier();

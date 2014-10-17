@@ -136,7 +136,6 @@ void ScoreManager::saveCurrentScore() {
     resetCurrentScore();
 }
 
-// TODO
 void ScoreManager::setLevelScore(int level, int totalPoints) {
     gameScore[level].setTotalPoints(totalPoints);
 }

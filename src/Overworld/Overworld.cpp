@@ -295,3 +295,34 @@ int Overworld::getState() {
 void Overworld::setState(int state) {
     this->currentState = static_cast<states>(state);
 }
+
+void Overworld::setToLevel(int level) {
+    switch(level) {
+    case 0:
+        curPosInPath = 0;
+        break;
+    case 1:
+        curPosInPath = 1;
+        break;
+    case 2:
+        curPosInPath = 3;
+        break;
+    case 3:
+        curPosInPath = 4;
+        break;
+    case 4:
+        curPosInPath = 5;
+        break;
+    case 5:
+        curPosInPath = 7;
+        break;
+    case 6:
+        curPosInPath = 8;
+        break;
+    case 7:
+        curPosInPath = 10;
+        break;
+    default:
+        curPosInPath = 0;
+    }
+}
