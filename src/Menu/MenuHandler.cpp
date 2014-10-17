@@ -93,7 +93,7 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
 
     saveGame->prepareVisibles();
     loadGame->prepareVisibles();
-    title->toNormalMenu();
+    title->toTitleMenu();
 }
 
 MenuHandler::~MenuHandler() {

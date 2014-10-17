@@ -9,8 +9,9 @@ public:
     TitleMenu(std::string label, GameState state);
     virtual ~TitleMenu();
 
-    void toNormalMenu();
     void toLevelMenu();
+    void toNormalMenu();
+    void toTitleMenu();
 
 private:
 };

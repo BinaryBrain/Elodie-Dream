@@ -161,13 +161,13 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
         curLevel->live(event, time);
         immBar->setLevel(((Elodie*)curLevel->getEntities()["elodie"])->getImmersionLevel());
 
-        // end of level
-        if(curLevel->isFinished()) {
+        // level finished
+        if (curLevel->isFinished()) {
             scoreManager->setLevel(curLevelNbr);
             scoreManager->computeTotalPoints();
 
             // end of game
-            if(curLevelNbr == (NUMLEVELS-1)) {
+            if (curLevelNbr == (NUMLEVELS-1)) {
                 endingScreen = new EndingScreen(&view, mute);
                 view.hide(ViewLayer::LEVEL);
                 view.hide(ViewLayer::SKY);
@@ -195,7 +195,9 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
 
             scoreManager->saveCurrentScore();
             scoreManager->resetCurrentScore();
+            menuHandler->getTitleMenu()->toNormalMenu();
 
+        // wake up
         } else if (curLevel->mustDie() && !GOD_MODE) {
             death = new Death(&view, mute);
 
@@ -547,6 +549,7 @@ void Game::newGame() {
     view.show(ViewLayer::OVERWORLD);
     view.hide(ViewLayer::TITLESCREEN);
     scoreManager->resetAllScores();
+    menuHandler->getTitleMenu()->toNormalMenu();
 
     // if there is a free slot, save on it
     std::string nextFreeSlot = saveHandler->nextFreeSlot();
@@ -623,6 +626,8 @@ void Game::load() {
             console->addParagraph("Successfully loaded " + currentMenuComponent->getLabel() + ", from " + date);
             console->setCurrentPage(0);
             overworld->getElodie()->play();
+
+            menuHandler->getTitleMenu()->toNormalMenu();
 
         } else {
             console->clear();

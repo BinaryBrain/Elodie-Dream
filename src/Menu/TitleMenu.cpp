@@ -11,7 +11,8 @@ TitleMenu::~TitleMenu() {
 void TitleMenu::toLevelMenu() {
     index = 0;
     for (std::size_t i = 0; i < items.size(); ++i) {
-        if (items[i]->getLabel() == "Resume" || items[i]->getLabel() == "Leave level") {
+        std::string itemLabel = items[i]->getLabel();
+        if (itemLabel == "Resume" || itemLabel == "Leave level" || itemLabel == "Stats") {
             items[i]->setVisibility(true);
         }
     }
@@ -21,7 +22,21 @@ void TitleMenu::toLevelMenu() {
 void TitleMenu::toNormalMenu() {
     index = 0;
     for (std::size_t i = 0; i < items.size(); ++i) {
-        if (items[i]->getLabel() == "Resume" || items[i]->getLabel() == "Leave level") {
+        std::string itemLabel = items[i]->getLabel();
+        if (itemLabel == "Resume" || itemLabel == "Leave level") {
+            items[i]->setVisibility(false);
+        } else if (itemLabel == "Stats") {
+            items[i]->setVisibility(true);
+        }
+    }
+    prepareVisibles();
+}
+
+void TitleMenu::toTitleMenu() {
+    index = 0;
+    for (std::size_t i = 0; i < items.size(); ++i) {
+        std::string itemLabel = items[i]->getLabel();
+        if (itemLabel == "Resume" || itemLabel == "Leave level" || itemLabel == "Stats") {
             items[i]->setVisibility(false);
         }
     }
