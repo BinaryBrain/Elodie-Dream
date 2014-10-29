@@ -16,6 +16,7 @@ const int WINDOW_HEIGHT = 720;
 const int FPS = 60;
 const int LIVE_SCOPE = 2000;
 const float MAX_TIME_FRAME = 1.0/10.0;
+const double GAME_VERSION = 1.1;
 
 // -- ELODIE -- //
 const int DAMAGE_CD = 25;

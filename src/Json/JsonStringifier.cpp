@@ -16,6 +16,10 @@ void JsonStringifier::add(std::string key, int i) {
     values.AddMember(key.c_str(), i, values.GetAllocator());
 }
 
+void JsonStringifier::add(std::string key, double d) {
+    values.AddMember(key.c_str(), d, values.GetAllocator());
+}
+
 void JsonStringifier::add(std::string key, std::string s) {
     values.AddMember(key.c_str(), s.c_str(), values.GetAllocator());
 }

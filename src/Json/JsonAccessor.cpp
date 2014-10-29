@@ -49,6 +49,16 @@ int JsonAccessor::getInt(string key) {
     }
 }
 
+double JsonAccessor::getDouble(string key) {
+    if(!this->loaded) {
+        cerr << "Not loaded yet" << endl;
+        return 0;
+    } else {
+        const rapidjson::Value& a = getAskedObject(key);
+        return a.GetDouble();
+    }
+}
+
 std::vector<int>* JsonAccessor::getIntVector(string key) {
     if(!this->loaded) {
         cerr << "Not loaded yet" << endl;

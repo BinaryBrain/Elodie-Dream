@@ -595,7 +595,8 @@ void Game::load() {
             std::string date = accessor.getString("date");
             int LDL = accessor.getInt("lastdiscoveredlevel");
 
-            if (accessor.canTakeElementFrom("scoresdatas")) {
+            // if the version number exists
+            if (accessor.canTakeElementFrom("version")) {
                 std::vector< std::vector<int>* > datas = *(accessor.getInt2DVector("scoresdatas"));
                 std::vector< std::vector<int> > scoreDatas;
 
@@ -605,7 +606,10 @@ void Game::load() {
                 }
 
                 scoreManager->setAllDatas(scoreDatas);
+                std::cout << "Save from version " << accessor.getDouble("version") << std::endl;
+
             } else {
+                std::cout << "Save from version prior to 1.1" << std::endl;
                 scoreManager->resetAllScores();
             }
 
@@ -677,6 +681,9 @@ void Game::save() {
     // saves the datas to the save file
     JsonStringifier* stringifier = saveHandler->getStringifier();
     saveHandler->setPath(path);
+
+    std::string keyVersion = "version";
+    stringifier->add(keyVersion, GAME_VERSION);
 
     std::string keyDate = "date";
     stringifier->add(keyDate, date);

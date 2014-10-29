@@ -21,6 +21,7 @@ public:
     virtual ~JsonAccessor();
     string getString(string key);
     int getInt(string key);
+    double getDouble(string key);
     std::vector<int>* getIntVector(string key);
     std::vector< std::vector<int>* >* getInt2DVector(string key);
     EntityInfo* getEntityInfo();
