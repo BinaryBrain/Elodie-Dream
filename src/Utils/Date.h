@@ -18,6 +18,8 @@ public:
 
 private:
     struct tm* now;
+
+    std::string onTwoDigits(int a);
 };
 
 #endif
