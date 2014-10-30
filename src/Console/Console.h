@@ -18,6 +18,7 @@ public:
     Console(GameView* view);
     virtual ~Console();
 
+    void clearAndWrite(std::string m);
     void addParagraph(std::string paragraph);
 
     // Cuts a string in multiple strings if the string's text is longer than maxWidth

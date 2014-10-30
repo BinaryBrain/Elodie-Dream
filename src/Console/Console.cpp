@@ -26,6 +26,13 @@ Console::~Console() {
     //dtor
 }
 
+void Console::clearAndWrite(std::string m) {
+    clear();
+    addParagraph(m);
+    setCurrentPage(0);
+}
+
+
 void Console::addParagraph(std::string paragraph) {
     pushAll(makePages(cutShort(paragraph, " ", sizeX-3*marginX), CONSOLE_NLINES), pages);
     totalPages = pages.size();

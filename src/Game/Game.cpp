@@ -121,27 +121,22 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
         state = GameState::INCONSOLE;
         curLevel->pause();
         view.show(ViewLayer::CONSOLE);
-        console->clear();
         const char *tutorial = "You learned the existence of a legendary poro land, where you can find all the poros. More than interested, you begin your long journey to find this mysterious country...\n"
                                "As you progress, you will surely come across some animals or monsters, like this sheep there.\n"
                                "You can press 'A' to kill them or just jump over them with the space bar.\n"
                                "Well, good luck, you might need it! :3\n"
                                "   Alia";
-        console->addParagraph(tutorial);
-        console->setCurrentPage(0);
+        console->clearAndWrite(tutorial);
         console->setNextState(GameState::INLEVEL);
         showTutoConsole = false;
     } else if (showCastleConsole) {
         state = GameState::INCONSOLE;
         curLevel->pause();
         view.show(ViewLayer::CONSOLE);
-
-        console->clear();
         const char *castle = "It is such a dark and scary place for a pretty girl like you, isn't it ? Press G to make it better <3\n"
                                "Good luck again, pretty ! :3\n"
                                "   Alia";
-        console->addParagraph(castle);
-        console->setCurrentPage(0);
+        console->clearAndWrite(castle);
         console->setNextState(GameState::INLEVEL);
         showCastleConsole = false;
     }
@@ -634,20 +629,15 @@ void Game::load() {
             overworld->setState(LDL);
             overworld->setToLevel(LDL);
             overworld->resetPos();
-
-            console->clear();
-            console->setNextState(GameState::INOVERWORLD);
-            console->addParagraph("Successfully loaded " + currentMenuComponent->getLabel() + ", from " + date);
-            console->setCurrentPage(0);
             overworld->getElodie()->play();
+
+            console->clearAndWrite("Successfully loaded " + currentMenuComponent->getLabel() + ", from " + date + ".");
+            console->setNextState(GameState::INOVERWORLD);
 
             menuHandler->getTitleMenu()->toNormalMenu();
 
         } else {
-            console->clear();
-            console->setNextState(defaultReturnState);
-            console->addParagraph("Save corrupted.");
-            console->setCurrentPage(0);
+            console->clearAndWrite("Save corrupted.");
             console->setNextState(GameState::INMENU);
         }
 
@@ -657,11 +647,9 @@ void Game::load() {
         if(remove(tempJsonFilePath.c_str()) != 0 ) {
             std::cerr << "Error deleting temporary json" << std::endl;
         }
+
     } else {
-        console->clear();
-        console->setNextState(defaultReturnState);
-        console->addParagraph("Save doesn't exist.");
-        console->setCurrentPage(0);
+        console->clearAndWrite("Save doesn't exist.");
         console->setNextState(GameState::INMENU);
     }
 
@@ -695,29 +683,34 @@ void Game::save() {
     saveHandler->setPath(path);
 
     std::string keyVersion = "version";
-    stringifier->add(keyVersion, GAME_VERSION);
-
     std::string keyDate = "date";
-    stringifier->add(keyDate, date);
-
     std::string keyLDL = "lastdiscoveredlevel";
-    stringifier->add(keyLDL, LDL);
-
     std::string keyScoresDatas = "scoresdatas";
+
+    stringifier->add(keyVersion, GAME_VERSION);
+    stringifier->add(keyDate, date);
+    stringifier->add(keyLDL, LDL);
     stringifier->add(keyScoresDatas, scoresDatas);
 
     saveHandler->save();
     saveHandler->clearStringifier();
 
-    // console confirmation and return to menu (only when save() is called from the menu)
+    // console confirmation
+    // save() called from the menu
     if (state == GameState::SAVE) {
-        console->clear();
-        console->addParagraph("Successfully saved on " + currentMenuSave->getLabel() + " (" + date + ").");
-        console->setCurrentPage(0);
+        console->clearAndWrite("Successfully saved on " + currentMenuSave->getLabel() + " (" + date + ").");
         console->setNextState(GameState::INMENU);
 
         state = GameState::INCONSOLE;
         view.show(ViewLayer::MENU);
+        view.show(ViewLayer::CONSOLE);
+    // if autosave
+    } else if (state == GameState::INOVERWORLD) {
+        console->clearAndWrite("Progress saved on " + currentMenuSave->getLabel() + ".");
+        console->setNextState(GameState::INOVERWORLD);
+
+        state = GameState::INCONSOLE;
+        view.show(ViewLayer::OVERWORLD);
         view.show(ViewLayer::CONSOLE);
     }
 
