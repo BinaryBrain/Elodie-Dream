@@ -15,6 +15,7 @@ public:
     std::string getDay();
     std::string getMonth();
     std::string getYear();
+    void refreshTime();
 
 private:
     struct tm* now;

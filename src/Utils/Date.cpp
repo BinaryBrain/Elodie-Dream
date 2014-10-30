@@ -1,8 +1,7 @@
 #include "Date.h"
 
 Date::Date() {
-    time_t t = time(0);
-    now = localtime(&t);
+    refreshTime();
 }
 
 Date::~Date() {
@@ -31,6 +30,11 @@ std::string Date::getMonth() {
 
 std::string Date::getYear() {
     return onTwoDigits(now->tm_year + 1900);
+}
+
+void Date::refreshTime() {
+    time_t t = time(0);
+    now = localtime(&t);
 }
 
 std::string Date::onTwoDigits(int a) {

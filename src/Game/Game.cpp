@@ -471,6 +471,7 @@ void Game::run() {
 
         if (event->keyIsPressed(sf::Keyboard::F12)) {
             sf::Image screen = window->capture();
+            now.refreshTime();
 
             std::string date = "";
             date += now.getDay() + "-" + now.getMonth() + "-" + now.getYear() + " ";
@@ -672,6 +673,8 @@ void Game::load() {
 void Game::save() {
 
     // creates date
+    now.refreshTime();
+
     std::string date = "the ";
     date += now.getDay() + "/" + now.getMonth() + "/" + now.getYear() + ", at ";
     date += now.getHour() + ":" + now.getMin() + ":" + now.getSec();
