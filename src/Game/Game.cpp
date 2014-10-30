@@ -113,12 +113,14 @@ void Game::leaveLevel() {
 }
 
 void Game::displayLevel(int curLevelNbr, sf::Time time) {
-    // tutorial
+    //double ypos = ((Elodie*)curLevel->getEntities()["elodie"])->getPosition().y;
+    //if (  ypos < miny) {
+    //    miny = ypos;
+    //}
     if (showTutoConsole) {
         state = GameState::INCONSOLE;
         curLevel->pause();
         view.show(ViewLayer::CONSOLE);
-
         console->clear();
         const char *tutorial = "You learned the existence of a legendary poro land, where you can find all the poros. More than interested, you begin your long journey to find this mysterious country...\n"
                                "As you progress, you will surely come across some animals or monsters, like this sheep there.\n"
@@ -444,10 +446,12 @@ void Game::run() {
     window->setIcon(icon.width, icon.height, icon.pixel_data);
 
     while (window->isOpen()) {
-        sf::Time sfTime = frameClock.restart();
-        if (sfTime.asSeconds() > MAX_TIME_FRAME)
-            sfTime = sf::seconds(MAX_TIME_FRAME);
+        sf::Time sfTime = sf::seconds(1.0/FPS);//frameClock.restart();
+        //if (sfTime.asSeconds() > MAX_TIME_FRAME)
+        //    sfTime = sf::seconds(MAX_TIME_FRAME);
         //std::cout << 1.0/sfTime.asSeconds() << std::endl;
+        //totframe++;
+        //frametime += sfTime.asSeconds();
         event->listening();
 
         if (event->lostFocus()) {
@@ -532,6 +536,11 @@ void Game::run() {
         view.draw();
     }
 
+    //double result = frametime/totframe;
+
+    //std::cout << "Res :" << miny << std::endl;
+    //char hihi;
+    //std::cin >> hihi;
 }
 
 void Game::newGame() {

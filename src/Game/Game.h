@@ -120,6 +120,9 @@ private:
     TitleScreen* title = NULL;
     bool showTutoConsole = false;
     bool showCastleConsole = false;
+    //double miny = 200;
+    //int totframe = 0;
+    //double frametime = 0;
 };
 
 #endif // GAME_H
