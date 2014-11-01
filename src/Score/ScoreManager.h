@@ -14,14 +14,13 @@ public:
     static void kill();
 
     void takeBonus();
-    void addKillPoints(int points);
+    void addToLevelPoints(int points);
     void addDamage(int damage);
     void addEnemyKilled();
     void addKilledSheep();
     void addKilledMagmacube();
     void addKilledBristle();
-    int computeLevelPoints();
-    int computeTotalPoints();
+    void computeTotalPoints();
 
     /**
     * \brief Save the current score to the gameScore if  the total points are better than the ones in it.

@@ -69,7 +69,7 @@ void Sheep::takeDamage(int damage, bool) {
     ScoreManager* score = ScoreManager::getInstance();
     score->addEnemyKilled();
     score->addKilledSheep();
-    score->addKillPoints(this->damage);
+    score->addToLevelPoints(this->damage);
 }
 
 void Sheep::doStuff(EventHandler* const&, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) {

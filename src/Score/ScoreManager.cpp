@@ -41,7 +41,7 @@ std::vector< std::vector<int> > ScoreManager::getAllDatas() {
     for (size_t i = 0; i < gameScore.size(); ++i) {
         std::vector<int> score;
         score.push_back(gameScore[i].getLevelId());
-        score.push_back(gameScore[i].getKillPoints());
+        score.push_back(gameScore[i].getLevelPoints());
         score.push_back(gameScore[i].getTotalPoints());
         score.push_back(gameScore[i].getBoni());
         score.push_back(gameScore[i].getDamagesTaken());
@@ -58,7 +58,7 @@ std::vector< std::vector<int> > ScoreManager::getAllDatas() {
 void ScoreManager::setAllDatas(std::vector< std::vector<int> > datas) {
     for (size_t i = 0; i < datas.size(); ++i) {
         gameScore[i].setLevelId(datas[i][0]);
-        gameScore[i].setKillPoints(datas[i][1]);
+        gameScore[i].setLevelPoints(datas[i][1]);
         gameScore[i].setTotalPoints(datas[i][2]);
         gameScore[i].setBoni(datas[i][3]);
         gameScore[i].setDamagesTaken(datas[i][4]);
@@ -85,8 +85,8 @@ void ScoreManager::takeBonus() {
     currentScore.setBoni(currentScore.getBoni() + 1);
 }
 
-void ScoreManager::addKillPoints(int points) {
-    currentScore.setTotalPoints(currentScore.getTotalPoints() + points);
+void ScoreManager::addToLevelPoints(int points) {
+    currentScore.setLevelPoints(currentScore.getLevelPoints() + points);
 }
 
 void ScoreManager::addDamage(int damage) {
@@ -109,20 +109,13 @@ void ScoreManager::addKilledBristle() {
     currentScore.setBristles(currentScore.getBristles() + 1);
 }
 
-int ScoreManager::computeLevelPoints() {
-    int score = currentScore.getKillPoints() - currentScore.getDamagesTaken() + currentScore.getBoni()*BONUS_POINTS;
-    score += currentScore.getSheeps()*SHEEP_DAMAGE + currentScore.getMagmaCubes()*MAGMACUBE_DAMAGE + currentScore.getBristles()*BRISTLE_DAMAGE;
-    return score;
-}
-
-int ScoreManager::computeTotalPoints() {
-    int points = computeLevelPoints();
+void ScoreManager::computeTotalPoints() {
+    int points = currentScore.getLevelPoints();
 
     if(currentScore.getDamagesTaken() == 0) {
         points += BONUS_NODAMAGES;
     }
     currentScore.setTotalPoints(points);
-    return points;
 }
 
 void ScoreManager::saveCurrentScore() {
@@ -131,7 +124,7 @@ void ScoreManager::saveCurrentScore() {
 
     // if the player has done a better score
     if (gameScore[level].getTotalPoints() < currentScore.getTotalPoints()) {
-        gameScore[level].setKillPoints(currentScore.getKillPoints());
+        gameScore[level].setLevelPoints(currentScore.getLevelPoints());
         gameScore[level].setTotalPoints(currentScore.getTotalPoints());
         gameScore[level].setBoni(currentScore.getBoni());
         gameScore[level].setDamagesTaken(currentScore.getDamagesTaken());

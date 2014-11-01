@@ -7,7 +7,7 @@ public:
     ~Score();
 
     int getLevelId();
-    int getKillPoints();
+    int getLevelPoints();
     int getTotalPoints();
     int getBoni();
     int getDamagesTaken();
@@ -17,7 +17,7 @@ public:
     int getBristles();
 
     void setLevelId(int levelId);
-    void setKillPoints(int killPoints);
+    void setLevelPoints(int killPoints);
     void setTotalPoints(int totalPoints);
     void setBoni(int boni);
     void setDamagesTaken(int damagesTaken);
@@ -30,7 +30,7 @@ public:
 
 private:
     int levelId = 0;
-    int killPoints = 0;
+    int levelPoints = 0;
     int totalPoints = 0;
     int boni = 0;
     int damagesTaken = 0;

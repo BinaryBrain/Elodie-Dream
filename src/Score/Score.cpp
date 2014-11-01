@@ -12,8 +12,8 @@ int Score::getLevelId() {
     return levelId;
 }
 
-int Score::getKillPoints() {
-    return killPoints;
+int Score::getLevelPoints() {
+    return levelPoints;
 }
 
 int Score::getTotalPoints() {
@@ -47,12 +47,14 @@ int Score::getBristles() {
 void Score::setLevelId(int levelId) {
     this->levelId = levelId;
 }
-void Score::setKillPoints(int killPoints) {
-    this->killPoints = killPoints;
+void Score::setLevelPoints(int points) {
+    this->levelPoints = points;
 }
+
 void Score::setTotalPoints(int totalPoints) {
     this->totalPoints = totalPoints;
 }
+
 void Score::setBoni(int boni) {
     this->boni = boni;
 }
@@ -79,7 +81,7 @@ void Score::setBristles(int bristles) {
 
 void Score::reset() {
     levelId = 0;
-    killPoints = 0;
+    levelPoints = 0;
     totalPoints = 0;
     boni = 0;
     damagesTaken = 0;
