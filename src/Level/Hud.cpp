@@ -1,6 +1,6 @@
-#include "Immersionbar.h"
+#include "Hud.h"
 
-ImmersionBar::ImmersionBar(GameView* gameView) : Displayable(gameView) {
+Hud::Hud(GameView* gameView) : Displayable(gameView) {
     xRatioBg = IMMERSION_BG_W/IMMERSION_IMAGE_W;
     yRatioBg = IMMERSION_BG_H/IMMERSION_IMAGE_H;
     xRatioBar = (IMMERSION_BAR_W)/IMMERSION_IMAGE_W;
@@ -19,7 +19,7 @@ ImmersionBar::ImmersionBar(GameView* gameView) : Displayable(gameView) {
     barHeight = barSprite->getTextureRect().height;
 }
 
-ImmersionBar::~ImmersionBar() {
+Hud::~Hud() {
     if (bgSprite) {
         delete bgSprite;
         bgSprite = NULL;
@@ -41,12 +41,12 @@ ImmersionBar::~ImmersionBar() {
     }
 }
 
-void ImmersionBar::display() {
+void Hud::display() {
     barSprite->setTextureRect(sf::IntRect(0,0,barWidth*level/100,barHeight));
-    gameView->addDrawable(ViewLayer::IMMERSIONBAR, bgSprite);
-    gameView->addDrawable(ViewLayer::IMMERSIONBAR, barSprite);
+    gameView->addDrawable(ViewLayer::HUD, bgSprite);
+    gameView->addDrawable(ViewLayer::HUD, barSprite);
 }
 
-void ImmersionBar::setLevel(int level) {
+void Hud::setLevel(int level) {
     this->level = level;
 }

@@ -15,7 +15,7 @@
 #include "../EventHandler/EventHandler.h"
 #include "../Menu/MenuHandler.h"
 #include "../Fnu/Girly.h"
-#include "../Level/Immersionbar.h"
+#include "../Level/Hud.h"
 #include "../Sound/SoundManager.h"
 #include "../Score/Scoreboard.h"
 #include "../Score/ScoreManager.h"
@@ -106,7 +106,7 @@ private:
 
     bool mute;
 
-    ImmersionBar* immBar = NULL;
+    Hud* hud = NULL;
 
     Death* death = NULL;
     void dead();

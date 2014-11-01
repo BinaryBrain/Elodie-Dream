@@ -1,18 +1,18 @@
-#ifndef IMMERSIONBAR_H
-#define IMMERSIONBAR_H
+#ifndef HUD_H
+#define HUD_H
 
 #include "../const.h"
 #include "../env.h"
 #include "../Displayable/Displayable.h"
 #include "../Game/GameView.h"
 
-class ImmersionBar : public Displayable {
+class Hud : public Displayable {
 public:
-    ImmersionBar(GameView* view);
-    virtual ~ImmersionBar();
+    Hud(GameView* view);
+    virtual ~Hud();
     void display();
     void setLevel(int level);
-protected:
+
 private:
     sf::Sprite* bgSprite = NULL;
     sf::Texture* bgTexture = NULL;
@@ -27,4 +27,4 @@ private:
     int barHeight = 0;
 };
 
-#endif // IMMERSIONBAR_H
+#endif // HUD_H

@@ -26,7 +26,7 @@ Game::Game() {
     event = new EventHandler(view.getWindow());
     menuHandler = new MenuHandler(&view);
     girly = new Girly(&view);
-    immBar = new ImmersionBar(&view);
+    hud = new Hud(&view);
 
     saveHandler = SaveHandler::getInstance();
     soundManager = SoundManager::getInstance();
@@ -36,7 +36,7 @@ Game::Game() {
     view.addView(ViewLayer::MENU, menuHandler);
     view.addView(ViewLayer::CONSOLE, console);
     view.addView(ViewLayer::GIRLY, girly);
-    view.addView(ViewLayer::IMMERSIONBAR, immBar);
+    view.addView(ViewLayer::HUD, hud);
     view.show(ViewLayer::TITLESCREEN);
     menuHandler->setInLevel(false);
 }
@@ -66,8 +66,8 @@ Game::~Game() {
         girly = NULL;
     }
 
-    if (immBar) {
-        delete immBar;
+    if (hud) {
+        delete hud;
         girly = NULL;
     }
 
@@ -95,7 +95,7 @@ void Game::leaveLevel() {
     view.hide(ViewLayer::SKY);
     view.hide(ViewLayer::EARTH);
     view.hide(ViewLayer::LEVEL);
-    view.hide(ViewLayer::IMMERSIONBAR);
+    view.hide(ViewLayer::HUD);
     view.hide(ViewLayer::CONSOLE);
     view.show(ViewLayer::OVERWORLD);
     if(!isMute() && overworld->getMusic()->getStatus() != sf::Music::Status::Playing) {
@@ -156,7 +156,7 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
         // the level
     } else {
         curLevel->live(event, time);
-        immBar->setLevel(((Elodie*)curLevel->getEntities()["elodie"])->getImmersionLevel());
+        hud->setLevel(((Elodie*)curLevel->getEntities()["elodie"])->getImmersionLevel());
 
         // level finished
         if (curLevel->isFinished()) {
@@ -281,7 +281,7 @@ void Game::handleOverworld(sf::Time time) {
             view.show(ViewLayer::SKY);
             view.show(ViewLayer::EARTH);
             view.show(ViewLayer::LEVEL);
-            view.show(ViewLayer::IMMERSIONBAR);
+            view.show(ViewLayer::HUD);
         }
     } else if (event->keyIsPressed(sf::Keyboard::Escape)) {
         menuHandler->resetMenu();
@@ -316,7 +316,7 @@ void Game::displayMenu() {
                 state = GameState::INLEVEL;
                 view.hide(ViewLayer::MENU);
                 view.show(ViewLayer::LEVEL);
-                view.show(ViewLayer::IMMERSIONBAR);
+                view.show(ViewLayer::HUD);
                 curLevel->play(&frameClock);
             } else {
                 std::cerr << "Must display level but not initialized." << std::endl;
@@ -349,7 +349,7 @@ void Game::displayMenu() {
                 state = GameState::INLEVEL;
                 view.hide(ViewLayer::MENU);
                 view.show(ViewLayer::LEVEL);
-                view.show(ViewLayer::IMMERSIONBAR);
+                view.show(ViewLayer::HUD);
                 curLevel->play(&frameClock);
             } else {
                 std::cerr << "Must display level but not initialized." << std::endl;
