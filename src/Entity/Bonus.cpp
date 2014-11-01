@@ -62,9 +62,9 @@ void Bonus::getTaken(std::map< std::string, Entity* >& entities) {
     sf::FloatRect zone = getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()).getArea();
     sf::FloatRect elodie = ((Elodie*)entities["elodie"])->returnCurrentHitbox().getArea();
     if (zone.intersects(elodie)) {
-        ScoreManager* scoreManager = ScoreManager::getInstance();
-        scoreManager->takeBonus();
-        scoreManager->addToLevelPoints(BONUS_POINTS);
+        ScoreManager* sm = ScoreManager::getInstance();
+        sm->takeBonus();
+        sm->addToLevelPoints(BONUS_POINTS);
         life = 0;
         soundManager->play(SoundType::BOTTLE);
     }

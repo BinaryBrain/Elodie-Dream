@@ -66,10 +66,10 @@ void Sheep::takeDamage(int damage, bool) {
         soundManager->play(SoundType::SHEEP);
     }
     soundManager->play(SoundType::PUNCH);
-    ScoreManager* score = ScoreManager::getInstance();
-    score->addEnemyKilled();
-    score->addKilledSheep();
-    score->addToLevelPoints(this->damage);
+    ScoreManager* sm = ScoreManager::getInstance();
+    sm->addEnemyKilled();
+    sm->addKilledSheep();
+    sm->addToLevelPoints(this->damage);
 }
 
 void Sheep::doStuff(EventHandler* const&, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) {

@@ -140,6 +140,7 @@ void Elodie::takeDamage(int damage, bool ignore) {
     if (!damageCD && (state != ElodieState::PUNCHING || ignore)) {
         immersionLevel -= damage;
         scoreManager->addDamage(damage);
+        scoreManager->addToLevelPoints((-1)*damage);
         if (immersionLevel < 0)
             immersionLevel = 0;
         damageCD = DAMAGE_CD;

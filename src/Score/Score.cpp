@@ -47,8 +47,8 @@ int Score::getBristles() {
 void Score::setLevelId(int levelId) {
     this->levelId = levelId;
 }
-void Score::setLevelPoints(int points) {
-    this->levelPoints = points;
+void Score::setLevelPoints(int levelPoints) {
+    this->levelPoints = levelPoints;
 }
 
 void Score::setTotalPoints(int totalPoints) {

@@ -17,7 +17,7 @@ public:
     int getBristles();
 
     void setLevelId(int levelId);
-    void setLevelPoints(int killPoints);
+    void setLevelPoints(int levelPoints);
     void setTotalPoints(int totalPoints);
     void setBoni(int boni);
     void setDamagesTaken(int damagesTaken);

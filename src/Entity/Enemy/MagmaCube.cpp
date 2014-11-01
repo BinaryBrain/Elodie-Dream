@@ -65,10 +65,10 @@ void MagmaCube::takeDamage(int damage, bool) {
         damageCD = DAMAGE_CD;
     }
     soundManager->play(SoundType::PUNCH);
-    ScoreManager* score = ScoreManager::getInstance();
-    score->addEnemyKilled();
-    score->addKilledMagmacube();
-    score->addToLevelPoints(this->damage);
+    ScoreManager* sm = ScoreManager::getInstance();
+    sm->addEnemyKilled();
+    sm->addKilledMagmacube();
+    sm->addToLevelPoints(this->damage);
 }
 
 void MagmaCube::jump() {

@@ -91,10 +91,10 @@ void Bristle::takeDamage(int damage, bool) {
         damageCD = DAMAGE_CD;
     }
     soundManager->play(SoundType::PUNCH);
-    ScoreManager* score = ScoreManager::getInstance();
-    score->addEnemyKilled();
-    score->addKilledBristle();
-    score->addToLevelPoints(this->damage);
+    ScoreManager* sm = ScoreManager::getInstance();
+    sm->addEnemyKilled();
+    sm->addKilledBristle();
+    sm->addToLevelPoints(this->damage);
 }
 
 void Bristle::doStuff(EventHandler* const&, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) {
