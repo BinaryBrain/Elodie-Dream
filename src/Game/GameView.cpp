@@ -16,6 +16,14 @@ sf::RenderWindow* GameView::getWindow() {
     return window;
 }
 
+float GameView::getSizeX() {
+    return window->getSize().x;
+}
+
+float GameView::getSizeY() {
+    return window->getSize().y;
+}
+
 void GameView::addDrawable(ViewLayer viewKey, sf::Drawable* drawable) {
     drawableMap[viewKey].push_back(drawable);
 }

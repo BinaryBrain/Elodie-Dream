@@ -109,13 +109,20 @@ void ScoreManager::addKilledBristle() {
     currentScore.setBristles(currentScore.getBristles() + 1);
 }
 
-void ScoreManager::computeTotalPoints() {
-    int points = currentScore.getKillPoints() - currentScore.getDamagesTaken() + currentScore.getBoni()*BONUS_POINTS;
+int ScoreManager::computeLevelPoints() {
+    int score = currentScore.getKillPoints() - currentScore.getDamagesTaken() + currentScore.getBoni()*BONUS_POINTS;
+    score += currentScore.getSheeps()*SHEEP_DAMAGE + currentScore.getMagmaCubes()*MAGMACUBE_DAMAGE + currentScore.getBristles()*BRISTLE_DAMAGE;
+    return score;
+}
+
+int ScoreManager::computeTotalPoints() {
+    int points = computeLevelPoints();
 
     if(currentScore.getDamagesTaken() == 0) {
         points += BONUS_NODAMAGES;
     }
     currentScore.setTotalPoints(points);
+    return points;
 }
 
 void ScoreManager::saveCurrentScore() {

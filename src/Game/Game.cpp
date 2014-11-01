@@ -153,6 +153,7 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
     } else {
         curLevel->live(event, time);
         hud->setLevel(((Elodie*)curLevel->getEntities()["elodie"])->getImmersionLevel());
+        hud->setScore(scoreManager->computeLevelPoints());
 
         // level finished
         if (curLevel->isFinished()) {

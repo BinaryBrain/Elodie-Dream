@@ -20,7 +20,8 @@ public:
     void addKilledSheep();
     void addKilledMagmacube();
     void addKilledBristle();
-    void computeTotalPoints();
+    int computeLevelPoints();
+    int computeTotalPoints();
 
     /**
     * \brief Save the current score to the gameScore if  the total points are better than the ones in it.
