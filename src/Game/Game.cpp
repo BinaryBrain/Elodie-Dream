@@ -14,14 +14,8 @@ Game::Game() {
     mute = DEFAULT_MUTE;
 
     overworld = new Overworld(&view, DEFAULT_MUTE);
-    view.addView(ViewLayer::OVERWORLD, overworld);
-
     scoreboard = new Scoreboard(&view);
-    view.addView(ViewLayer::SCORE, scoreboard);
-
     statsBoard = new StatsBoard(&view);
-    view.addView(ViewLayer::STATS, statsBoard);
-
     console = new Console(&view);
     event = new EventHandler(view.getWindow());
     menuHandler = new MenuHandler(&view);
@@ -79,7 +73,9 @@ Game::~Game() {
 
 // Gets the instance of the game
 Game* Game::getInstance() {
-    if(!gameInstance) gameInstance = new Game();
+    if(!gameInstance) {
+        gameInstance = new Game();
+    }
     return gameInstance;
 }
 

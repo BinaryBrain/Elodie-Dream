@@ -53,23 +53,6 @@ const int HORIZONTAL_DISPLAY_MARGIN = WINDOW_WIDTH/(2*ZOOM_LEVEL) + 2*BLOCK_SIZE
 const int VERTICAL_DISPLAY_MARGIN = WINDOW_HEIGHT/(2*ZOOM_LEVEL) + 2*BLOCK_SIZE;
 const int NUMLEVELS = 8;
 
-// Immersion Bar
-const float IMMERSION_BAR_X = 540;
-const float IMMERSION_BAR_DELTA_X = 2;
-const float IMMERSION_BAR_Y = 50;
-const float IMMERSION_BAR_DELTA_Y = 1;
-const float IMMERSION_BAR_W = 204;
-const float IMMERSION_BAR_H = 19;
-const float IMMERSION_BG_W = 202;
-const float IMMERSION_BG_H = 18;
-const float IMMERSION_IMAGE_W = 406;
-const float IMMERSION_IMAGE_H = 38;
-
-const float IMMERSION_BAR_OUTLINE_THICKNESS = 2;
-
-const sf::Color IMMERSION_BAR_FILL = sf::Color(0x73, 0xC8, 0xA9, 0xFF);
-const sf::Color IMMERSION_BAR_OUTLINE = sf::Color(0x31, 0x55, 0x48, 0xFF);
-
 // -- SCORE -- //
 const float SCORE_OVERWORLD_SPRITE_SIZE = 40;
 const float SCORE_LEVEL_SPRITE_SIZE = 20;

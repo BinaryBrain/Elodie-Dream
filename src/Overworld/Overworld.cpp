@@ -73,6 +73,8 @@ Overworld::Overworld(GameView* gameView, bool muted) : Displayable(gameView) {
             music.play();
         }
     }
+
+    gameView->addView(ViewLayer::OVERWORLD, this);
 }
 
 
