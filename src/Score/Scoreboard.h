@@ -11,10 +11,10 @@
 
 #include <SFML/Audio.hpp>
 
-class Scoreboard : public Displayable {
+class ScoreBoard : public Displayable {
 public:
-    Scoreboard(GameView* gameView);
-    virtual ~Scoreboard();
+    ScoreBoard(GameView* gameView);
+    virtual ~ScoreBoard();
 
     void display();
     void prepareText();

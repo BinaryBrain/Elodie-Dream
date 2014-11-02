@@ -36,7 +36,7 @@ void StatsBoard::prepareText() {
 
     std::string levels = "\nTutorial\n";
 
-    for (std::size_t i = 1; i < allDatas.size(); ++i) {
+    for (int i = 1; i <= LDL; ++i) {
         levels += "Level " + Utils::itos(i) + "\n";
     }
 
@@ -59,7 +59,7 @@ void StatsBoard::prepareText() {
     }
 
     // for each level, store in the right category its values
-    for (std::size_t i = 0; i < allDatas.size(); ++i) {
+    for (int i = 0; i <= LDL; ++i) {
         for (std::size_t j = 0; j < titles.size(); ++j) {
             categories[j].push_back(allDatas[i][j+2]);
         }
@@ -95,4 +95,6 @@ std::pair<sf::Text, sf::Text> StatsBoard::createCategoryText(float x, float y, s
     return std::make_pair(titleText, valuesText);
 }
 
-
+void StatsBoard::setLDL(int LDL) {
+    this->LDL = LDL;
+}

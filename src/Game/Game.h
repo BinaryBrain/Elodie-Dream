@@ -17,7 +17,7 @@
 #include "../Fnu/Girly.h"
 #include "../Level/Hud.h"
 #include "../Sound/SoundManager.h"
-#include "../Score/Scoreboard.h"
+#include "../Score/ScoreBoard.h"
 #include "../Score/ScoreManager.h"
 #include "../Score/StatsBoard.h"
 #include "../Menu/TitleScreen.h"
@@ -27,7 +27,7 @@
 class Level;
 class Overworld;
 class Death;
-class Scoreboard;
+class ScoreBoard;
 class SoundManager;
 class EndingScreen;
 
@@ -77,7 +77,7 @@ private:
 
     Date now;
 
-    Scoreboard* scoreboard = NULL;
+    ScoreBoard* scoreBoard = NULL;
     void displayScore();
 
     StatsBoard* statsBoard = NULL;

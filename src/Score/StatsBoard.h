@@ -16,10 +16,13 @@ public:
 
     void display();
     void prepareText();
+    void setLDL(int LDL);
 
 private:
     sf::RectangleShape background;
     sf::Text levelsText;
+
+    int LDL = 0;
 
     std::vector< std::pair<sf::Text, sf::Text> > categoriesText;
 

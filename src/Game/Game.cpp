@@ -14,7 +14,7 @@ Game::Game() {
     mute = DEFAULT_MUTE;
 
     overworld = new Overworld(&view, DEFAULT_MUTE);
-    scoreboard = new Scoreboard(&view);
+    scoreBoard = new ScoreBoard(&view);
     statsBoard = new StatsBoard(&view);
     console = new Console(&view);
     event = new EventHandler(view.getWindow());
@@ -173,7 +173,7 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
                 }
                 state = GameState::ENDINGSCREEN;
             } else {
-                scoreboard->prepareText();
+                scoreBoard->prepareText();
 
                 view.hide(ViewLayer::LEVEL);
                 view.hide(ViewLayer::SKY);
@@ -415,6 +415,7 @@ void Game::displayScore() {
         overworld->setToLevel(curLevelNbr + 1);
         overworld->resetPos();
         menuHandler->getTitleMenu()->toNormalMenu();
+        statsBoard->setLDL(overworld->getState());
 
         if (autoSave) {
             save();
@@ -551,6 +552,7 @@ void Game::newGame() {
     view.show(ViewLayer::OVERWORLD);
     view.hide(ViewLayer::TITLESCREEN);
     scoreManager->resetAllScores();
+    statsBoard->setLDL(overworld->getState());
     menuHandler->getTitleMenu()->toNormalMenu();
 
     // if there is a free slot, save on it
@@ -627,6 +629,8 @@ void Game::load() {
             overworld->setToLevel(LDL);
             overworld->resetPos();
             overworld->getElodie()->play();
+
+            statsBoard->setLDL(LDL);
 
             console->clearAndWrite("Successfully loaded " + currentMenuComponent->getLabel() + ", from " + date + ".");
             console->setNextState(GameState::INOVERWORLD);

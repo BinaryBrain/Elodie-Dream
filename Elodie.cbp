@@ -147,10 +147,10 @@
 		<Unit filename="src/Overworld/Overworld.h" />
 		<Unit filename="src/Score/Score.cpp" />
 		<Unit filename="src/Score/Score.h" />
+		<Unit filename="src/Score/ScoreBoard.cpp" />
+		<Unit filename="src/Score/ScoreBoard.h" />
 		<Unit filename="src/Score/ScoreManager.cpp" />
 		<Unit filename="src/Score/ScoreManager.h" />
-		<Unit filename="src/Score/Scoreboard.cpp" />
-		<Unit filename="src/Score/Scoreboard.h" />
 		<Unit filename="src/Score/StatsBoard.cpp" />
 		<Unit filename="src/Score/StatsBoard.h" />
 		<Unit filename="src/Sky/Earth.cpp" />

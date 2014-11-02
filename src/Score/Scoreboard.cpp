@@ -1,6 +1,6 @@
-#include "Scoreboard.h"
+#include "ScoreBoard.h"
 
-Scoreboard::Scoreboard(GameView* gameView) : Displayable(gameView) {
+ScoreBoard::ScoreBoard(GameView* gameView) : Displayable(gameView) {
     float viewX(WINDOW_WIDTH);
     float viewY(WINDOW_HEIGHT);
 
@@ -24,11 +24,11 @@ Scoreboard::Scoreboard(GameView* gameView) : Displayable(gameView) {
     gameView->addView(ViewLayer::SCORE, this);
 }
 
-Scoreboard::~Scoreboard() {
+ScoreBoard::~ScoreBoard() {
 
 }
 
-void Scoreboard::display() {
+void ScoreBoard::display() {
     gameView->addDrawable(ViewLayer::SCORE, &rect);
     gameView->addDrawable(ViewLayer::SCORE, &damagesTakenText);
     gameView->addDrawable(ViewLayer::SCORE, &enemiesKilledText);
@@ -36,7 +36,7 @@ void Scoreboard::display() {
     gameView->addDrawable(ViewLayer::SCORE, &pointsText);
 }
 
-void Scoreboard::prepareText() {
+void ScoreBoard::prepareText() {
     ScoreManager* scoreManager = ScoreManager::getInstance();
     float viewX(WINDOW_WIDTH);
 
