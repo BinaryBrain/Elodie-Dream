@@ -3,7 +3,6 @@
 
 #include "../icon.h"
 #include "../env.h"
-#include <windows.h>
 #include "../Level/EndingScreen.h"
 #include "../Level/Death.h"
 #include "../Json/JsonStringifier.h"

@@ -4,12 +4,7 @@
 Game* Game::gameInstance = NULL;
 
 Game::Game() {
-    std::string savePath("save");
-    if (CreateDirectory(savePath.c_str(), NULL) || ERROR_ALREADY_EXISTS == GetLastError()) {
-        // do nothing because it's k
-    } else {
-        std::cerr << "Could not create save folder." << std::endl;
-    }
+    FileHandler::createDirIfNotExisting("save");
 
     mute = DEFAULT_MUTE;
 
@@ -475,7 +470,10 @@ void Game::run() {
             now.refreshTime();
 
             std::string date = now.getDMY("-") + "_" + now.getHMS("-");
-            screen.saveToFile("screenshots/"+date+".jpg");
+            std::string screensDirPath = "screenshots";
+
+            FileHandler::createDirIfNotExisting(screensDirPath);
+            screen.saveToFile(screensDirPath+"/"+date+".jpg");
         }
 
         if (event->keyIsPressed(sf::Keyboard::G)) {

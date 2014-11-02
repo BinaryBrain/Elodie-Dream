@@ -2,6 +2,7 @@
 #define FILEHANDLER_H
 
 #include <string>
+#include <windows.h>
 
 /**
 * The class handling files.
@@ -23,24 +24,30 @@ public:
     * \param path The path to the file.
     * \return A string, the content of the file.
     */
-    static std::string getContent(std::string path);
+    static std::string getContent(const std::string& path);
     /**
     * \brief Writes a string to a file.
     * \param path The path to the file.
     * \param toWrite The string to write.
     */
-    static void writeContent(std::string path, std::string toWrite);
+    static bool writeContent(const std::string &path, const std::string& toWrite);
     /**
     * \brief Deletes a file.
     * \param path The path to the file.
     */
-    static void deleteFile(std::string path);
+    static bool deleteFile(const std::string& path);
     /**
     * \brief Checks if a file exists.
-    * \param path A string, the path to the file.
+    * \param path The path to the file.
     * \return A bool, whether the file exists.
     */
     static bool fileExists(const std::string& path);
+    /**
+    * \brief Creates a directory if it does not exist.
+    * \param path The path to the directory.
+    * \return A bool, whether the directory could be created.
+    */
+    static bool createDirIfNotExisting(const std::string& path);
 
 private:
 
