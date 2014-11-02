@@ -46,11 +46,6 @@ public:
     * \return A pair of string, the part before the separator and the part after.
     */
     static std::pair<std::string, std::string> splitString(const std::string& original, const std::string& separator);
-    /**
-    * Checks if a file exists.
-    * \param name A string, the path to the file.
-    */
-    static bool fileExists(const std::string& path);
 };
 
 #endif // UTILS_H_INCLUDED

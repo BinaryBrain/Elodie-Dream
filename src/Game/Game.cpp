@@ -474,10 +474,7 @@ void Game::run() {
             sf::Image screen = window->capture();
             now.refreshTime();
 
-            std::string date = "";
-            date += now.getDay() + "-" + now.getMonth() + "-" + now.getYear() + " ";
-            date += now.getHour() + "-" + now.getMin() + "-" + now.getSec();
-
+            std::string date = now.getDMY("-") + "_" + now.getHMS("-");
             screen.saveToFile("screenshots/"+date+".jpg");
         }
 
@@ -577,8 +574,9 @@ void Game::newGame() {
 
 void Game::load() {
     std::string path = "save/" + currentMenuComponent->getLabel() + ".save";
+    std::string tempJsonFilePath = "save/temp.json";
 
-    if (Utils::fileExists(path)) {
+    if (FileHandler::fileExists(path)) {
         // resets the scores
         scoreManager->resetAllScores();
 
@@ -587,9 +585,7 @@ void Game::load() {
         currentMenuSave = currentMenuComponent;
 
         saveHandler->setPath(path);
-
-        std::string tempJsonFilePath = "save/temp.json";
-        saveHandler->createTempJson(tempJsonFilePath);
+        FileHandler::writeContent(tempJsonFilePath, saveHandler->load());
 
         // retrieves the saved values
         JsonAccessor accessor;
@@ -646,9 +642,7 @@ void Game::load() {
         accessor.close();
 
         // remove the temporary json
-        if (remove(tempJsonFilePath.c_str()) != 0 ) {
-            std::cerr << "Error deleting temporary json" << std::endl;
-        }
+        FileHandler::deleteFile(tempJsonFilePath);
 
     } else {
         console->clearAndWrite("Save doesn't exist.");
@@ -664,11 +658,7 @@ void Game::save() {
 
     // creates date
     now.refreshTime();
-
-    std::string date = "the ";
-    date += now.getDay() + "/" + now.getMonth() + "/" + now.getYear() + ", at ";
-    date += now.getHour() + ":" + now.getMin() + ":" + now.getSec();
-
+    std::string date = "the " + now.getDMY("/") + ", at " + now.getHMS(":");
 
     // creates save with current slot and name
     std::string path = "save/" + currentMenuSave->getLabel() + ".save";
@@ -681,19 +671,18 @@ void Game::save() {
     std::vector< std::vector<int> > scoresDatas = scoreManager->getAllDatas();
 
     // saves the datas to the save file
-    JsonStringifier* stringifier = saveHandler->getStringifier();
-    saveHandler->setPath(path);
-
     std::string keyVersion = "version";
     std::string keyDate = "date";
     std::string keyLDL = "lastdiscoveredlevel";
     std::string keyScoresDatas = "scoresdatas";
 
+    JsonStringifier* stringifier = saveHandler->getStringifier();
     stringifier->add(keyVersion, GAME_VERSION);
     stringifier->add(keyDate, date);
     stringifier->add(keyLDL, LDL);
     stringifier->add(keyScoresDatas, scoresDatas);
 
+    saveHandler->setPath(path);
     saveHandler->save();
     saveHandler->clearStringifier();
 

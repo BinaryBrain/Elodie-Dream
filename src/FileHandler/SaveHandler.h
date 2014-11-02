@@ -27,7 +27,6 @@ public:
 
     void clearStringifier();
     std::string computeLDLName(int LDL);
-    void createTempJson(std::string path);
 
 private:
     SaveHandler();

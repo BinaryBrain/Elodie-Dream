@@ -48,7 +48,7 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
         std::string path = "save/" + labels[i] + ".save";
         sh->setPath(path);
         std::string tempJsonFilePath = "save/temp.json";
-        sh->createTempJson(tempJsonFilePath);
+        FileHandler::writeContent(tempJsonFilePath, sh->load());
 
         JsonAccessor accessor;
         bool jsonReady = accessor.load(tempJsonFilePath);
@@ -73,9 +73,7 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
         addCompToMenu(load, loadGame);
 
         // remove the temporary json
-        if (remove(tempJsonFilePath.c_str()) != 0 ) {
-            std::cerr << "Error deleting temporary json" << std::endl;
-        }
+        FileHandler::deleteFile(tempJsonFilePath);
     }
 
     addCompToMenu(title, saveGame, true);

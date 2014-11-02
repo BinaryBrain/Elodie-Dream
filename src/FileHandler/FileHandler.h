@@ -20,13 +20,28 @@ public:
 
     /**
     * \brief Gets the contents of a file.
-    *
-    * \param[in] file name The name of the file.
+    * \param path The path to the file.
     * \return A string, the content of the file.
     */
     static std::string getContent(std::string path);
+    /**
+    * \brief Writes a string to a file.
+    * \param path The path to the file.
+    * \param toWrite The string to write.
+    */
     static void writeContent(std::string path, std::string toWrite);
-protected:
+    /**
+    * \brief Deletes a file.
+    * \param path The path to the file.
+    */
+    static void deleteFile(std::string path);
+    /**
+    * \brief Checks if a file exists.
+    * \param path A string, the path to the file.
+    * \return A bool, whether the file exists.
+    */
+    static bool fileExists(const std::string& path);
+
 private:
 
 };

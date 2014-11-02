@@ -30,6 +30,23 @@ void FileHandler::writeContent(std::string path, std::string toWrite) {
         stream.close();
     }
     else {
-        std::cerr << "An unexpected error occurred. Can't write content to " << path << "." << std::endl;
+        std::cerr << "An error occurred: could not write to " << path << "." << std::endl;
+    }
+}
+
+void FileHandler::deleteFile(std::string path) {
+    if (remove(path.c_str()) != 0 ) {
+        std::cerr << "An error occurred: could not delete " << path << "." << std::endl;
+    }
+}
+
+bool FileHandler::fileExists(const std::string& path) {
+  std::ifstream f(path.c_str());
+    if (f.good()) {
+        f.close();
+        return true;
+    } else {
+        f.close();
+        return false;
     }
 }

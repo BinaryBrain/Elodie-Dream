@@ -32,6 +32,14 @@ std::string Date::getYear() {
     return onTwoDigits(now->tm_year + 1900);
 }
 
+std::string Date::getHMS(std::string separator) {
+    return getHour() + separator + getMin() + separator + getSec();
+}
+
+std::string Date::getDMY(std::string separator) {
+    return getDay() + separator + getMonth() + separator + getYear();
+}
+
 void Date::refreshTime() {
     time_t t = time(0);
     now = localtime(&t);

@@ -63,7 +63,7 @@ std::string SaveHandler::load() {
 }
 
 bool SaveHandler::isSlotFree(std::string slot) {
-    return !Utils::fileExists("save/" + slot + ".save");
+    return !FileHandler::fileExists("save/" + slot + ".save");
 }
 
 std::string SaveHandler::nextFreeSlot() {
@@ -105,8 +105,4 @@ std::string SaveHandler::computeLDLName(int LDL) {
     } else {
         return "Level " + Utils::itos(LDL);
     }
-}
-
-void SaveHandler::createTempJson(std::string path) {
-    FileHandler::writeContent(path, load());
 }
