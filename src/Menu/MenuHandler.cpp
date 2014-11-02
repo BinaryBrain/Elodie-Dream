@@ -47,16 +47,8 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
     for (std::size_t i = 0; i < NUMSLOTS; ++i) {
         std::string path = "save/" + labels[i] + ".save";
         sh->setPath(path);
-
-        std::string json = sh->load();
-
-        // creates a temporary json file for the JsonAccessor
-        std::ofstream tempJsonFile;
         std::string tempJsonFilePath = "save/temp.json";
-
-        tempJsonFile.open(tempJsonFilePath);
-        tempJsonFile << json << std::endl;
-        tempJsonFile.close();
+        sh->createTempJson(tempJsonFilePath);
 
         JsonAccessor accessor;
         bool jsonReady = accessor.load(tempJsonFilePath);

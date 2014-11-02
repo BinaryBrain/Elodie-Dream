@@ -178,7 +178,6 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
                 view.hide(ViewLayer::LEVEL);
                 view.hide(ViewLayer::SKY);
                 view.hide(ViewLayer::EARTH);
-                view.hide(ViewLayer::SCORE);
                 view.show(ViewLayer::SCORE);
                 if(curLevel) {
                     delete curLevel;
@@ -588,16 +587,9 @@ void Game::load() {
         currentMenuSave = currentMenuComponent;
 
         saveHandler->setPath(path);
-        std::string json = saveHandler->load();
 
-        // creates a temporary json file for the JsonAccessor
-        std::ofstream tempJsonFile;
         std::string tempJsonFilePath = "save/temp.json";
-
-        tempJsonFile.open(tempJsonFilePath);
-        tempJsonFile << json << std::endl;
-        tempJsonFile.close();
-
+        saveHandler->createTempJson(tempJsonFilePath);
 
         // retrieves the saved values
         JsonAccessor accessor;

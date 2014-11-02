@@ -106,3 +106,7 @@ std::string SaveHandler::computeLDLName(int LDL) {
         return "Level " + Utils::itos(LDL);
     }
 }
+
+void SaveHandler::createTempJson(std::string path) {
+    FileHandler::writeContent(path, load());
+}

@@ -30,6 +30,6 @@ void FileHandler::writeContent(std::string path, std::string toWrite) {
         stream.close();
     }
     else {
-        std::cerr << "An unexpected error occured. Is the file available ?" << std::endl;
+        std::cerr << "An unexpected error occurred. Can't write content to " << path << "." << std::endl;
     }
 }
