@@ -7,7 +7,9 @@ Displayable::Displayable(GameView* gameView) {
 }
 
 Displayable::~Displayable() {
-    delete view;
+    if (view) {
+        delete view;
+    }
 }
 
 sf::View* Displayable::getView() {

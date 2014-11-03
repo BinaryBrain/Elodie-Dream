@@ -5,7 +5,7 @@ Entity::Entity() {
 }
 
 Entity::~Entity() {
-    if(sprite) {
+    if (sprite) {
         delete sprite;
     }
 }

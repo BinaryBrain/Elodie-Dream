@@ -33,36 +33,24 @@ Game::Game() {
 Game::~Game() {
     if (event) {
         delete event;
-        event = NULL;
     }
     if (menuHandler) {
         delete menuHandler;
-        menuHandler = NULL;
     }
-
     if (overworld) {
         delete overworld;
-        overworld = NULL;
     }
-
-    if(console) {
+    if (console) {
         delete console;
-        console = NULL;
     }
-
     if (girly) {
         delete girly;
-        girly = NULL;
     }
-
     if (hud) {
         delete hud;
-        girly = NULL;
     }
-
-    if (title){
+    if (title) {
         delete title;
-        title = NULL;
     }
 }
 
