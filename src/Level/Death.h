@@ -11,6 +11,11 @@
 
 class Death : public Displayable {
 public:
+    static const int CHAR_SIZE;
+    static const float INTERSPACE;
+    static const std::string MUSIC;
+    static const std::string DREAMOVER;
+
     Death(GameView* view, bool isMute);
     virtual ~Death();
 
@@ -18,7 +23,7 @@ public:
 
 private:
     sf::RectangleShape rect;
-    sf::Text* wokeUp;
+    sf::Text wokeUp;
     sf::Texture texture;
     sf::Sprite elo;
     sf::Music music;

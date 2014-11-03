@@ -155,7 +155,6 @@ const int WOOSH_VOLUME = 50;
 const string MUSIC_PATH = "assets/music";
 const string OVERWORLD_MUSIC = "overworld.ogg";
 const string LEVEL_MUSIC = "level.ogg";
-const string DEATH_MUSIC = "death.ogg";
 const string END_MUSIC = "end.ogg";
 
 //Menu
@@ -187,9 +186,6 @@ const int MENU_BACKGROUND_FIRST_FRAME = 69;
 const int MENU_BACKGROUND_LAST_FRAME = 100;
 const int MENU_LOADING_X = 1100;
 const int MENU_LOADING_Y = 660;
-
-//Game over
-const float GAMEOVER_INTERSPACE = 50;
 
 //Console
 const int CONSOLE_NLINES = 6;
