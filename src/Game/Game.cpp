@@ -8,29 +8,30 @@ Game::Game() {
 
     mute = DEFAULT_MUTE;
 
+    title = new TitleScreen(&view);
     overworld = new Overworld(&view, DEFAULT_MUTE);
     scoreBoard = new ScoreBoard(&view);
     statsBoard = new StatsBoard(&view);
     console = new Console(&view);
-    event = new EventHandler(view.getWindow());
     menuHandler = new MenuHandler(&view);
     girly = new Girly(&view);
     hud = new Hud(&view);
+    death = new Death(&view);
 
     saveHandler = SaveHandler::getInstance();
     soundManager = SoundManager::getInstance();
     scoreManager = ScoreManager::getInstance();
 
-    title = new TitleScreen(&view);
-    view.addView(ViewLayer::MENU, menuHandler);
-    view.addView(ViewLayer::CONSOLE, console);
-    view.addView(ViewLayer::GIRLY, girly);
-    view.addView(ViewLayer::HUD, hud);
-    view.show(ViewLayer::TITLESCREEN);
+    event = new EventHandler(view.getWindow());
+
     menuHandler->setInLevel(false);
+    view.show(ViewLayer::TITLESCREEN);
 }
 
 Game::~Game() {
+    if (title) {
+        delete title;
+    }
     if (event) {
         delete event;
     }
@@ -49,8 +50,8 @@ Game::~Game() {
     if (hud) {
         delete hud;
     }
-    if (title) {
-        delete title;
+    if (death) {
+        delete death;
     }
 }
 
@@ -175,8 +176,9 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
 
         // wake up
         } else if (curLevel->mustDie() && !GOD_MODE) {
-            death = new Death(&view, mute);
-
+            if (!isMute() && death->getMusic()->getStatus() != sf::Music::Status::Playing) {
+                death->getMusic()->play();
+            }
             view.hide(ViewLayer::LEVEL);
             view.hide(ViewLayer::SKY);
             view.hide(ViewLayer::EARTH);
@@ -379,10 +381,9 @@ void Game::dead() {
     if (event->keyIsPressed(sf::Keyboard::Return) || event->keyIsPressed(sf::Keyboard::Space) ) {
         leaveLevel();
         view.hide(ViewLayer::DEATH);
-        if (death) {
-            delete death;
-            death = NULL;
-        }
+        death->getMusic()->stop();
+    } else if (event->keyIsPressed(sf::Keyboard::M)) {
+        toggleMute();
     }
 }
 
@@ -717,13 +718,19 @@ void Game::toggleMute() {
     mute = !mute;
 
     if (state == GameState::INLEVEL && curLevel) {
-        if(mute) {
+        if (mute) {
             curLevel->getMusic()->pause();
         } else {
             curLevel->getMusic()->play();
         }
+    } else if (state == GameState::DEAD) {
+        if (mute) {
+            death->getMusic()->pause();
+        } else {
+            death->getMusic()->play();
+        }
     } else {
-        if(mute) {
+        if (mute) {
             overworld->getMusic()->pause();
         } else {
             overworld->getMusic()->play();

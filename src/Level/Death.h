@@ -16,10 +16,11 @@ public:
     static const std::string MUSIC;
     static const std::string DREAMOVER;
 
-    Death(GameView* view, bool isMute);
+    Death(GameView* view);
     virtual ~Death();
 
     void display();
+    sf::Music* getMusic();
 
 private:
     sf::RectangleShape rect;

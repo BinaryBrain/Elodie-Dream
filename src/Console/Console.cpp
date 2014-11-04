@@ -20,6 +20,8 @@ Console::Console(GameView* gameView) : Displayable(gameView) {
     down.setPoint(0, sf::Vector2f(startDownX, startDownY));
     down.setPoint(1, sf::Vector2f(startDownX-5, startDownY-11));
     down.setPoint(2, sf::Vector2f(startDownX+5, startDownY-11));
+
+    gameView->addView(ViewLayer::CONSOLE, this);
 }
 
 Console::~Console() {

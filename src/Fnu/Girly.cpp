@@ -1,7 +1,7 @@
 #include "Girly.h"
 
 Girly::Girly(GameView* gameView) : Displayable(gameView) {
-    //ctor
+    gameView->addView(ViewLayer::GIRLY, this);
 }
 
 Girly::~Girly() {

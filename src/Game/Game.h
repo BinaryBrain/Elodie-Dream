@@ -63,62 +63,51 @@ private:
 
     GameView view;
     GameState state = GameState::INMENU;
+    GameState pausePrevState;
+    GameState defaultReturnState;
+
     MenuComponent* currentMenuComponent;
     MenuComponent* currentMenuSave;
+    MenuHandler* menuHandler;
 
+    Date now;
+    sf::Clock frameClock;
+
+    int curLevelNbr = 0;
     bool autoSave = false;
-
-    GameState pausePrevState;
+    bool mute;
+    bool showTutoConsole = false;
+    bool showCastleConsole = false;
 
     SaveHandler* saveHandler;
     SoundManager* soundManager;
     ScoreManager* scoreManager;
 
-    Date now;
-
-    ScoreBoard* scoreBoard = NULL;
-    void displayScore();
-
-    StatsBoard* statsBoard = NULL;
-    void displayStats();
-
-    EventHandler* event = NULL;
+    TitleScreen* title = NULL;
     Overworld* overworld = NULL;
-
-    void handleOverworld(sf::Time time);
-
-    sf::Clock frameClock;
-
-    MenuHandler* menuHandler;
-    void displayMenu();
-
+    ScoreBoard* scoreBoard = NULL;
+    StatsBoard* statsBoard = NULL;
     Console* console = NULL;
-    void displayConsole();
-
-    int curLevelNbr = 0;
+    Girly* girly = NULL;
+    Hud* hud = NULL;
+    Death* death = NULL;
+    EventHandler* event = NULL;
+    EndingScreen* endingScreen = NULL;
     Level* curLevel = NULL;
+
+
+    void displayScore();
+    void displayStats();
+    void handleOverworld(sf::Time time);
+    void displayMenu();
+    void displayConsole();
     void displayLevel(int curLevel, sf::Time time);
     void loadLevel(int levelNbr);
-
-    Girly* girly = NULL;
     bool girlyMode = false;
-
-    bool mute;
-
-    Hud* hud = NULL;
-
-    Death* death = NULL;
     void dead();
-
-    EndingScreen* endingScreen = NULL;
     void displayEnd();
-
     void newGame();
-    GameState defaultReturnState;
     void leaveLevel();
-    TitleScreen* title = NULL;
-    bool showTutoConsole = false;
-    bool showCastleConsole = false;
     //double miny = 200;
     //int totframe = 0;
     //double frametime = 0;

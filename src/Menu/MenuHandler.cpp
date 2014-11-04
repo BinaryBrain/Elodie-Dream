@@ -84,6 +84,7 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
     saveGame->prepareVisibles();
     loadGame->prepareVisibles();
     title->toTitleMenu();
+    gameView->addView(ViewLayer::MENU, this);
 }
 
 MenuHandler::~MenuHandler() {
