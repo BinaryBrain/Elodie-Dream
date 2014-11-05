@@ -5,14 +5,10 @@ SaveHandler* SaveHandler::shInstance = NULL;
 
 SaveHandler::SaveHandler() {
     stringifier = new JsonStringifier();
-    accessor = new JsonAccessor();
 }
 
 SaveHandler::~SaveHandler() {
     delete stringifier;
-    delete accessor;
-    stringifier = NULL;
-    accessor = NULL;
 }
 
 // Gets the instance of the SaveHandler
@@ -21,7 +17,7 @@ SaveHandler* SaveHandler::getInstance() {
     return shInstance;
 }
 
-void SaveHandler::setPath(std::string path) {
+void SaveHandler::setPath(const std::string& path) {
     this->path = path;
 }
 
@@ -48,7 +44,7 @@ std::string SaveHandler::load() {
     std::ifstream infile;
     infile.open(path);
     int acc;
-    while(infile>>acc) {
+    while (infile >> acc) {
         tmp.push_back(acc);
     }
     infile.close();
@@ -62,12 +58,12 @@ std::string SaveHandler::load() {
     return json;
 }
 
-bool SaveHandler::isSlotFree(std::string slot) {
+bool SaveHandler::isSlotFree(const std::string& slot) {
     return !FileHandler::fileExists("save/" + slot + ".save");
 }
 
 std::string SaveHandler::nextFreeSlot() {
-    for(unsigned int i = 1; i <= NUMSLOTS; i++) {
+    for (int i = 1; i <= NUMSLOTS; i++) {
         std::string slot = MENU_SLOT_PREFIX_LABEL + Utils::itos(i);
         if(isSlotFree(slot)) {
             return slot;
@@ -83,17 +79,17 @@ void SaveHandler::clearStringifier() {
 }
 
 
-std::vector<int> SaveHandler::encrypt(std::string p, std::string key) {
+std::vector<int> SaveHandler::encrypt(const std::string& p, const std::string& key) {
     std::vector<int> tmp;
-    for(size_t i = 0; i < p.length(); ++i) {
+    for (size_t i = 0; i < p.length(); ++i) {
         tmp.push_back((int)p[i]^key[i%key.length()]);
     }
     return tmp;
 }
 
-std::string SaveHandler::decrypt(std::vector<int> tmp, std::string key) {
+std::string SaveHandler::decrypt(std::vector<int> tmp, const std::string& key) {
     std::string p = "";
-    for(size_t i = 0; i < tmp.size(); ++i) {
+    for (std::size_t i = 0; i < tmp.size(); ++i) {
         p += ((char)tmp[i])^key[i%key.length()];
     }
     return p;

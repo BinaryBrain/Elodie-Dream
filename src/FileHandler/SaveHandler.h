@@ -9,17 +9,16 @@
 #include "../env.h"
 
 #include "../Json/JsonStringifier.h"
-#include "../Json/JsonAccessor.h"
 #include "FileHandler.h"
 
 class SaveHandler {
 public:
     static SaveHandler* getInstance();
 
-    void setPath(std::string path);
+    void setPath(const std::string& path);
     JsonStringifier* getStringifier();
 
-    bool isSlotFree(std::string slot);
+    bool isSlotFree(const std::string& slot);
     std::string nextFreeSlot();
 
     void save();
@@ -41,18 +40,17 @@ private:
     * \param key The key used to encrypt.
     * \return An int vector, the string encrypted.
     */
-    std::vector<int> encrypt(std::string p, std::string key);
+    std::vector<int> encrypt(const std::string& p, const std::string& key);
     /**
     * \brief Decrypts a string from a vector of int, using a key.
     * \param tmp The string to decrypt.
     * \param key The key used to decrypt.
     * \return A string, the int vector decrypted.
     */
-    std::string decrypt(std::vector<int> tmp, std::string key);
+    std::string decrypt(std::vector<int> tmp, const std::string& key);
 
     std::string path;
     JsonStringifier* stringifier;
-    JsonAccessor* accessor;
 };
 
 #endif // SAVEHANDLER_H
