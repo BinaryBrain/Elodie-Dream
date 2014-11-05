@@ -2,7 +2,6 @@
 #define DEATH_H
 
 #include "../Displayable/Displayable.h"
-#include "../Game/Game.h"
 #include "../Game/GameView.h"
 #include "../const.h"
 #include "../font.h"

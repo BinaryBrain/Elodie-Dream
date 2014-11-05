@@ -2,7 +2,6 @@
 #define SCOREBOARD_H
 
 #include "../Displayable/Displayable.h"
-#include "../Game/Game.h"
 #include "../Game/GameView.h"
 #include "../Score/ScoreManager.h"
 #include "../Utils/Utils.h"

@@ -10,20 +10,12 @@ Game::Game() {
 
     title = new TitleScreen(&view);
     overworld = new Overworld(&view, DEFAULT_MUTE);
-    scoreBoard = new ScoreBoard(&view);
-    statsBoard = new StatsBoard(&view);
-    console = new Console(&view);
-    menuHandler = new MenuHandler(&view);
-    girly = new Girly(&view);
-    hud = new Hud(&view);
 
     saveHandler = SaveHandler::getInstance();
     soundManager = SoundManager::getInstance();
     scoreManager = ScoreManager::getInstance();
 
-    event = new EventHandler(view.getWindow());
-
-    menuHandler->setInLevel(false);
+    menuHandler.setInLevel(false);
     view.show(ViewLayer::TITLESCREEN);
 }
 
@@ -31,23 +23,8 @@ Game::~Game() {
     if (title) {
         delete title;
     }
-    if (event) {
-        delete event;
-    }
-    if (menuHandler) {
-        delete menuHandler;
-    }
     if (overworld) {
         delete overworld;
-    }
-    if (console) {
-        delete console;
-    }
-    if (girly) {
-        delete girly;
-    }
-    if (hud) {
-        delete hud;
     }
 }
 
@@ -85,7 +62,7 @@ void Game::leaveLevel() {
         curLevel = NULL;
     }
     scoreManager->resetCurrentScore();
-    menuHandler->getTitleMenu()->toNormalMenu();
+    menuHandler.getTitleMenu()->toNormalMenu();
 }
 
 void Game::displayLevel(int curLevelNbr, sf::Time time) {
@@ -102,8 +79,8 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
                                "You can press 'A' to kill them or just jump over them with the space bar.\n"
                                "Well, good luck, you might need it! :3\n"
                                "   Alia";
-        console->clearAndWrite(tutorial);
-        console->setNextState(GameState::INLEVEL);
+        console.clearAndWrite(tutorial);
+        console.setNextState(GameState::INLEVEL);
         showTutoConsole = false;
 
     } else if (showCastleConsole) {
@@ -113,27 +90,27 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
         const char *castle = "It is such a dark and scary place for a pretty girl like you, isn't it ? Press G to make it better <3\n"
                                "Good luck again, pretty ! :3\n"
                                "   Alia";
-        console->clearAndWrite(castle);
-        console->setNextState(GameState::INLEVEL);
+        console.clearAndWrite(castle);
+        console.setNextState(GameState::INLEVEL);
         showCastleConsole = false;
     }
     // leave level
-    if (event->keyIsPressed(sf::Keyboard::Escape)) {
+    if (event.keyIsPressed(sf::Keyboard::Escape)) {
         defaultReturnState = state;
         state = GameState::INMENU;
         curLevel->pause();
-        menuHandler->setNextState(GameState::INLEVEL);
-        menuHandler->resetMenu();
+        menuHandler.setNextState(GameState::INLEVEL);
+        menuHandler.resetMenu();
         view.show(ViewLayer::MENU);
-        menuHandler->setInLevel(true);
+        menuHandler.setInLevel(true);
         // toggle sound
-    } else if(event->keyIsPressed(sf::Keyboard::M)) {
+    } else if(event.keyIsPressed(sf::Keyboard::M)) {
         toggleMute();
         // the level
     } else {
-        curLevel->live(event, time);
-        hud->setLevel(((Elodie*)curLevel->getEntities()["elodie"])->getImmersionLevel());
-        hud->setScore(scoreManager->getCurrentScore().getLevelPoints());
+        curLevel->live(&event, time);
+        hud.setLevel(((Elodie*)curLevel->getEntities()["elodie"])->getImmersionLevel());
+        hud.setScore(scoreManager->getCurrentScore().getLevelPoints());
 
         // level finished
         if (curLevel->isFinished()) {
@@ -147,19 +124,19 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
                 view.hide(ViewLayer::SKY);
                 view.hide(ViewLayer::EARTH);
                 view.show(ViewLayer::ENDINGSCREEN);
-                if(curLevel) {
+                if (curLevel) {
                     delete curLevel;
                     curLevel = NULL;
                 }
                 state = GameState::ENDINGSCREEN;
             } else {
-                scoreBoard->prepareText();
+                scoreBoard.prepareText();
 
                 view.hide(ViewLayer::LEVEL);
                 view.hide(ViewLayer::SKY);
                 view.hide(ViewLayer::EARTH);
                 view.show(ViewLayer::SCORE);
-                if(curLevel) {
+                if (curLevel) {
                     delete curLevel;
                     curLevel = NULL;
                 }
@@ -168,7 +145,7 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
 
             scoreManager->saveCurrentScore();
             scoreManager->resetCurrentScore();
-            menuHandler->getTitleMenu()->toNormalMenu();
+            menuHandler.getTitleMenu()->toNormalMenu();
 
         // wake up
         } else if (curLevel->mustDie() && !GOD_MODE) {
@@ -222,7 +199,7 @@ void Game::loadLevel(int levelNbr) {
             break;
     }
     curLevel = new Level(&view, "assets/levels/level"+Utils::itos(curLevelNbr)+".txt", env, overworld->getElodie());
-    menuHandler->getTitleMenu()->toLevelMenu();
+    menuHandler.getTitleMenu()->toLevelMenu();
 }
 
 void Game::handleOverworld(sf::Time time) {
@@ -230,27 +207,27 @@ void Game::handleOverworld(sf::Time time) {
 
     if (elo->isMoving()) {
         elo->overworldMove(time.asSeconds());
-    } else if (event->keyIsHold(sf::Keyboard::Down)) {
+    } else if (event.keyIsHold(sf::Keyboard::Down)) {
         elo->setDistanceToMove(overworld->moveDown());
         if (elo->hasToMove()) {
             elo->setWalkDown();
         }
-    } else if (event->keyIsHold(sf::Keyboard::Up)) {
+    } else if (event.keyIsHold(sf::Keyboard::Up)) {
         elo->setDistanceToMove(overworld->moveUp());
         if (elo->hasToMove()) {
             elo->setWalkUp();
         }
-    } else if (event->keyIsHold(sf::Keyboard::Left)) {
+    } else if (event.keyIsHold(sf::Keyboard::Left)) {
         elo->setDistanceToMove(overworld->moveLeft());
         if (elo->hasToMove()) {
             elo->setWalkLeft();
         }
-    } else if (event->keyIsHold(sf::Keyboard::Right)) {
+    } else if (event.keyIsHold(sf::Keyboard::Right)) {
         elo->setDistanceToMove(overworld->moveRight());
         if (elo->hasToMove()) {
             elo->setWalkRight();
         }
-    } else if (event->keyIsPressed(sf::Keyboard::Return) || event->keyIsPressed(sf::Keyboard::Space)) {
+    } else if (event.keyIsPressed(sf::Keyboard::Return) || event.keyIsPressed(sf::Keyboard::Space)) {
         if (overworld->getLevelToLoad() >= 0) {
             loadLevel(overworld->getLevelToLoad());
             view.hide(ViewLayer::OVERWORLD);
@@ -260,15 +237,15 @@ void Game::handleOverworld(sf::Time time) {
             view.show(ViewLayer::LEVEL);
             view.show(ViewLayer::HUD);
         }
-    } else if (event->keyIsPressed(sf::Keyboard::Escape)) {
-        menuHandler->resetMenu();
+    } else if (event.keyIsPressed(sf::Keyboard::Escape)) {
+        menuHandler.resetMenu();
         defaultReturnState = state;
         state = GameState::INMENU;
-        menuHandler->setNextState(GameState::INOVERWORLD);
+        menuHandler.setNextState(GameState::INOVERWORLD);
         view.show(ViewLayer::MENU);
-        menuHandler->setInLevel(false);
+        menuHandler.setInLevel(false);
         // testing purposes
-    } else if (event->keyIsPressed(sf::Keyboard::M)) {
+    } else if (event.keyIsPressed(sf::Keyboard::M)) {
         toggleMute();
         // testing purposes
     }
@@ -276,14 +253,14 @@ void Game::handleOverworld(sf::Time time) {
 }
 
 void Game::displayMenu() {
-    if (event->keyIsPressed(sf::Keyboard::Down)) {
-        menuHandler->incIndex();
+    if (event.keyIsPressed(sf::Keyboard::Down)) {
+        menuHandler.incIndex();
     }
-    if (event->keyIsPressed(sf::Keyboard::Up)) {
-        menuHandler->decIndex();
+    if (event.keyIsPressed(sf::Keyboard::Up)) {
+        menuHandler.decIndex();
     }
-    if (event->keyIsPressed(sf::Keyboard::Return)) {
-        currentMenuComponent = menuHandler->getCurrentMenuComponent();
+    if (event.keyIsPressed(sf::Keyboard::Return)) {
+        currentMenuComponent = menuHandler.getCurrentMenuComponent();
         state = currentMenuComponent->getState();
 
         if (state == GameState::INOVERWORLD) {
@@ -308,14 +285,14 @@ void Game::displayMenu() {
             autoSave = true;
             currentMenuSave = currentMenuComponent;
         } else if (state == GameState::INSTATS) {
-            statsBoard->prepareText();
+            statsBoard.prepareText();
             view.hide(ViewLayer::MENU);
             view.show(ViewLayer::STATS);
         }
 
-    } else if (event->keyIsPressed(sf::Keyboard::Escape)) {
+    } else if (event.keyIsPressed(sf::Keyboard::Escape)) {
         defaultReturnState = state;
-        state = menuHandler->getNextState();
+        state = menuHandler.getNextState();
         if (state == GameState::INOVERWORLD) {
             view.hide(ViewLayer::MENU);
             view.show(ViewLayer::OVERWORLD);
@@ -336,20 +313,20 @@ void Game::displayMenu() {
                 std::cerr << "Must display level but not initialized." << std::endl;
             }
         }
-    } else if (event->keyIsPressed(sf::Keyboard::M)) {
+    } else if (event.keyIsPressed(sf::Keyboard::M)) {
         toggleMute();
     }
 }
 
 void Game::displayConsole() {
-    if (event->keyIsPressed(sf::Keyboard::Up)) {
-        console->previousPage();
+    if (event.keyIsPressed(sf::Keyboard::Up)) {
+        console.previousPage();
     }
-    if (event->keyIsPressed(sf::Keyboard::Down)) {
-        console->nextPage();
+    if (event.keyIsPressed(sf::Keyboard::Down)) {
+        console.nextPage();
     }
-    if (event->keyIsPressed(sf::Keyboard::Space) || event->keyIsPressed(sf::Keyboard::Return)) {
-        state = console->getNextState();
+    if (event.keyIsPressed(sf::Keyboard::Space) || event.keyIsPressed(sf::Keyboard::Return)) {
+        state = console.getNextState();
         if (state == GameState::INOVERWORLD) {
             view.hide(ViewLayer::CONSOLE);
             view.hide(ViewLayer::MENU);
@@ -372,20 +349,20 @@ void Game::displayConsole() {
 }
 
 void Game::dead() {
-    if (event->keyIsPressed(sf::Keyboard::Return) || event->keyIsPressed(sf::Keyboard::Space) ) {
+    if (event.keyIsPressed(sf::Keyboard::Return) || event.keyIsPressed(sf::Keyboard::Space) ) {
         leaveLevel();
         view.hide(ViewLayer::DEATH);
         if (death) {
             delete death;
             death = NULL;
         }
-    } else if (event->keyIsPressed(sf::Keyboard::M)) {
+    } else if (event.keyIsPressed(sf::Keyboard::M)) {
         toggleMute();
     }
 }
 
 void Game::displayEnd() {
-    if (event->keyIsPressed(sf::Keyboard::Return) || event->keyIsPressed(sf::Keyboard::Space)) {
+    if (event.keyIsPressed(sf::Keyboard::Return) || event.keyIsPressed(sf::Keyboard::Space)) {
         leaveLevel();
         view.hide(ViewLayer::ENDINGSCREEN);
         if (endingScreen) {
@@ -396,15 +373,15 @@ void Game::displayEnd() {
 }
 
 void Game::displayScore() {
-    if (event->keyIsPressed(sf::Keyboard::Return) || event->keyIsPressed(sf::Keyboard::Space)) {
+    if (event.keyIsPressed(sf::Keyboard::Return) || event.keyIsPressed(sf::Keyboard::Space)) {
         leaveLevel();
         view.hide(ViewLayer::SCORE);
         view.show(ViewLayer::OVERWORLD);
         overworld->evolve(overworld->getState(), curLevelNbr + 1);
         overworld->setToLevel(curLevelNbr + 1);
         overworld->resetPos();
-        menuHandler->getTitleMenu()->toNormalMenu();
-        statsBoard->setLDL(overworld->getState());
+        menuHandler.getTitleMenu()->toNormalMenu();
+        statsBoard.setLDL(overworld->getState());
 
         if (autoSave) {
             save();
@@ -413,7 +390,7 @@ void Game::displayScore() {
 }
 
 void Game::displayStats() {
-    if (event->keyIsPressed(sf::Keyboard::Return) || event->keyIsPressed(sf::Keyboard::Escape)) {
+    if (event.keyIsPressed(sf::Keyboard::Return) || event.keyIsPressed(sf::Keyboard::Escape)) {
         view.hide(ViewLayer::STATS);
         view.show(ViewLayer::MENU);
         state = GameState::INMENU;
@@ -434,9 +411,9 @@ void Game::run() {
         //std::cout << 1.0/sfTime.asSeconds() << std::endl;
         //totframe++;
         //frametime += sfTime.asSeconds();
-        event->listening();
+        event.listening();
 
-        if (event->lostFocus()) {
+        if (event.lostFocus()) {
             if (curLevel) {
                 pausePrevState = state;
                 state = GameState::PAUSE;
@@ -444,14 +421,14 @@ void Game::run() {
             }
         }
 
-        if (event->gainedFocus()) {
+        if (event.gainedFocus()) {
             if (curLevel) {
                 state = pausePrevState;
                 curLevel->play(&frameClock);
             }
         }
 
-        if (event->keyIsPressed(sf::Keyboard::F12)) {
+        if (event.keyIsPressed(sf::Keyboard::F12)) {
             sf::Image screen = window->capture();
             now.refreshTime();
 
@@ -462,7 +439,7 @@ void Game::run() {
             screen.saveToFile(screensDirPath+"/"+date+".jpg");
         }
 
-        if (event->keyIsPressed(sf::Keyboard::G)) {
+        if (event.keyIsPressed(sf::Keyboard::G)) {
             girlyMode = !girlyMode;
         }
 
@@ -541,14 +518,14 @@ void Game::newGame() {
     view.show(ViewLayer::OVERWORLD);
     view.hide(ViewLayer::TITLESCREEN);
     scoreManager->resetAllScores();
-    statsBoard->setLDL(0);
-    menuHandler->getTitleMenu()->toNormalMenu();
+    statsBoard.setLDL(0);
+    menuHandler.getTitleMenu()->toNormalMenu();
 
     // if there is a free slot, save on it
     std::string nextFreeSlot = saveHandler->nextFreeSlot();
 
     if (nextFreeSlot != "") {
-        currentMenuSave = menuHandler->getMenuComponentFromKey(nextFreeSlot);
+        currentMenuSave = menuHandler.getMenuComponentFromKey(nextFreeSlot);
         save();
         autoSave = true;
     } else {
@@ -611,16 +588,16 @@ void Game::load() {
             overworld->resetPos();
             overworld->getElodie()->play();
 
-            statsBoard->setLDL(LDL);
+            statsBoard.setLDL(LDL);
 
-            console->clearAndWrite("Successfully loaded " + currentMenuComponent->getLabel() + ", from " + date + ".");
-            console->setNextState(GameState::INOVERWORLD);
+            console.clearAndWrite("Successfully loaded " + currentMenuComponent->getLabel() + ", from " + date + ".");
+            console.setNextState(GameState::INOVERWORLD);
 
-            menuHandler->getTitleMenu()->toNormalMenu();
+            menuHandler.getTitleMenu()->toNormalMenu();
 
         } else {
-            console->clearAndWrite("Save corrupted.");
-            console->setNextState(GameState::INMENU);
+            console.clearAndWrite("Save corrupted.");
+            console.setNextState(GameState::INMENU);
         }
 
         accessor.close();
@@ -629,8 +606,8 @@ void Game::load() {
         FileHandler::deleteFile(tempJsonFilePath);
 
     } else {
-        console->clearAndWrite("Save doesn't exist.");
-        console->setNextState(GameState::INMENU);
+        console.clearAndWrite("Save doesn't exist.");
+        console.setNextState(GameState::INMENU);
     }
 
     state = GameState::INCONSOLE;
@@ -673,16 +650,16 @@ void Game::save() {
     // console confirmation
     // save() called from the menu
     if (state == GameState::SAVE) {
-        console->clearAndWrite("Successfully saved on " + currentMenuSave->getLabel() + " (" + date + ").");
-        console->setNextState(GameState::INMENU);
+        console.clearAndWrite("Successfully saved on " + currentMenuSave->getLabel() + " (" + date + ").");
+        console.setNextState(GameState::INMENU);
 
         state = GameState::INCONSOLE;
         view.show(ViewLayer::MENU);
         view.show(ViewLayer::CONSOLE);
     // if autosave
     } else if (state == GameState::INOVERWORLD) {
-        console->clearAndWrite("Progress saved on " + currentMenuSave->getLabel() + ".");
-        console->setNextState(GameState::INOVERWORLD);
+        console.clearAndWrite("Progress saved on " + currentMenuSave->getLabel() + ".");
+        console.setNextState(GameState::INOVERWORLD);
 
         state = GameState::INCONSOLE;
         view.show(ViewLayer::OVERWORLD);
@@ -708,7 +685,7 @@ Overworld* Game::getOverworld() {
 }
 
 Console* Game::getConsole() {
-    return console;
+    return &console;
 }
 
 void Game::toggleMute() {

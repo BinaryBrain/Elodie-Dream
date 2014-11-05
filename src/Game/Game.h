@@ -25,10 +25,7 @@
 
 class Level;
 class Overworld;
-class Death;
-class ScoreBoard;
 class SoundManager;
-class EndingScreen;
 
 /**
 * The class representing the game.
@@ -61,39 +58,41 @@ private:
     static Game* gameInstance;
     Game& operator= (Game const&);
 
-    GameView view;
-    GameState state = GameState::INMENU;
-    GameState pausePrevState;
-    GameState defaultReturnState;
-
-    MenuComponent* currentMenuComponent;
-    MenuComponent* currentMenuSave;
-    MenuHandler* menuHandler;
-
-    Date now;
-    sf::Clock frameClock;
-
     int curLevelNbr = 0;
     bool autoSave = false;
     bool mute;
     bool showTutoConsole = false;
     bool showCastleConsole = false;
 
+    GameView view;
+    GameState state = GameState::INMENU;
+    GameState pausePrevState;
+    GameState defaultReturnState;
+
+    Date now;
+    sf::Clock frameClock;
+
+    MenuComponent* currentMenuComponent;
+    MenuComponent* currentMenuSave;
+    MenuHandler menuHandler = MenuHandler(&view);
+
     SaveHandler* saveHandler;
     SoundManager* soundManager;
     ScoreManager* scoreManager;
 
     TitleScreen* title = NULL;
+    ScoreBoard scoreBoard = ScoreBoard(&view);
+    StatsBoard statsBoard = StatsBoard(&view);
+    Console console = Console(&view);
+    Girly girly = Girly(&view);
+    Hud hud = Hud(&view);
+
     Overworld* overworld = NULL;
-    ScoreBoard* scoreBoard = NULL;
-    StatsBoard* statsBoard = NULL;
-    Console* console = NULL;
-    Girly* girly = NULL;
-    Hud* hud = NULL;
     Death* death = NULL;
-    EventHandler* event = NULL;
     EndingScreen* endingScreen = NULL;
     Level* curLevel = NULL;
+
+    EventHandler event = EventHandler(view.getWindow());
 
 
     void displayScore();
