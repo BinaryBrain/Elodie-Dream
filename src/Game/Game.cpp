@@ -105,7 +105,7 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
         menuHandler.setInLevel(true);
         // toggle sound
     } else if(event.keyIsPressed(sf::Keyboard::M)) {
-        toggleMute();
+        toggleMute(curLevel->getMusic());
 
         // the level
     } else {
@@ -219,7 +219,7 @@ void Game::handleOverworld(sf::Time time) {
         menuHandler.setInLevel(false);
         // testing purposes
     } else if (event.keyIsPressed(sf::Keyboard::M)) {
-        toggleMute();
+        toggleMute(overworld->getMusic());
         // testing purposes
     }
     elo->update(time);
@@ -287,7 +287,7 @@ void Game::displayMenu() {
             }
         }
     } else if (event.keyIsPressed(sf::Keyboard::M)) {
-        toggleMute();
+        toggleMute(overworld->getMusic());
     }
 }
 
@@ -330,7 +330,7 @@ void Game::dead() {
         }
         leaveLevel();
     } else if (event.keyIsPressed(sf::Keyboard::M)) {
-        toggleMute();
+        toggleMute(death->getMusic());
     }
 }
 
@@ -342,6 +342,8 @@ void Game::displayEnd() {
             endingScreen = NULL;
         }
         leaveLevel();
+    } else if (event.keyIsPressed(sf::Keyboard::M)) {
+        toggleMute(endingScreen->getMusic());
     }
 }
 
@@ -666,21 +668,9 @@ Console* Game::getConsole() {
     return &console;
 }
 
-void Game::toggleMute() {
+void Game::toggleMute(sf::Music& music) {
     mute = !mute;
 
-    if (state == GameState::INLEVEL && curLevel) {
-        pauseIfMute(curLevel->getMusic());
-    } else if (state == GameState::DEAD && death) {
-        pauseIfMute(death->getMusic());
-    } else if (state == GameState::ENDINGSCREEN && endingScreen) {
-        pauseIfMute(endingScreen->getMusic());
-    } else {
-        pauseIfMute(overworld->getMusic());
-    }
-}
-
-void Game::pauseIfMute(sf::Music& music) {
     if (mute) {
         music.pause();
     } else {

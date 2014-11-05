@@ -49,8 +49,7 @@ public:
     Console* getConsole();
 
     bool isMute();
-    void toggleMute();
-    void pauseIfMute(sf::Music& music);
+    void toggleMute(sf::Music& music);
 
 private:
     Game();
