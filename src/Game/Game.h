@@ -50,6 +50,7 @@ public:
 
     bool isMute();
     void toggleMute();
+    void pauseIfMute(sf::Music& music);
 
 private:
     Game();

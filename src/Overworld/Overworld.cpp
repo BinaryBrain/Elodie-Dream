@@ -264,8 +264,8 @@ int Overworld::getCurrentEnv() {
     return (int)currentState;
 }
 
-sf::Music* Overworld::getMusic() {
-    return &music;
+sf::Music& Overworld::getMusic() {
+    return music;
 }
 
 int Overworld::getLevelToLoad() {

@@ -165,8 +165,8 @@ void Level::play(sf::Clock *frameClock) {
     frameClock->restart();
 }
 
-sf::Music* Level::getMusic() {
-    return &music;
+sf::Music& Level::getMusic() {
+    return music;
 }
 
 bool Level::isDead() {

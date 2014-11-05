@@ -52,6 +52,6 @@ void Death::display() {
     gameView->addDrawable(ViewLayer::DEATH, &wokeUp);
 }
 
-sf::Music* Death::getMusic() {
-    return &music;
+sf::Music& Death::getMusic() {
+    return music;
 }

@@ -19,7 +19,7 @@ public:
     virtual ~Death();
 
     void display();
-    sf::Music* getMusic();
+    sf::Music& getMusic();
 
 private:
     sf::RectangleShape rect;

@@ -51,8 +51,8 @@ void Game::leaveLevel() {
     view.hide(ViewLayer::HUD);
     view.hide(ViewLayer::CONSOLE);
     view.show(ViewLayer::OVERWORLD);
-    if (!isMute() && overworld->getMusic()->getStatus() != sf::Music::Status::Playing) {
-        overworld->getMusic()->play();
+    if (!isMute() && overworld->getMusic().getStatus() != sf::Music::Status::Playing) {
+        overworld->getMusic().play();
     }
     overworld->getElodie()->stand();
     overworld->resetPos();
@@ -131,6 +131,7 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
                 view.show(ViewLayer::DEATH);
                 state = GameState::DEAD;
             }
+            curLevel->getMusic().stop();
         }
     }
 }
@@ -203,7 +204,7 @@ void Game::handleOverworld(sf::Time time) {
         if (overworld->getLevelToLoad() >= 0) {
             loadLevel(overworld->getLevelToLoad());
             view.hide(ViewLayer::OVERWORLD);
-            overworld->getMusic()->stop();
+            overworld->getMusic().stop();
             view.show(ViewLayer::SKY);
             view.show(ViewLayer::EARTH);
             view.show(ViewLayer::LEVEL);
@@ -236,17 +237,17 @@ void Game::displayMenu() {
         state = currentMenuComponent->getState();
 
         if (state == GameState::INOVERWORLD) {
-            leaveLevel();
             view.hide(ViewLayer::MENU);
-            overworld->getElodie()->play();
             view.hide(ViewLayer::TITLESCREEN);
+            leaveLevel();
+            overworld->getElodie()->play();
 
         } else if (state == GameState::INLEVEL) {
             if (curLevel) {
-                state = GameState::INLEVEL;
                 view.hide(ViewLayer::MENU);
                 view.show(ViewLayer::LEVEL);
                 view.show(ViewLayer::HUD);
+                state = GameState::INLEVEL;
                 curLevel->play(&frameClock);
             } else {
                 std::cerr << "Must display level but not initialized." << std::endl;
@@ -539,7 +540,7 @@ void Game::load() {
                 std::vector< std::vector<int>* > datas = *(accessor.getInt2DVector("scoresdatas"));
                 std::vector< std::vector<int> > scoreDatas;
 
-                for (size_t i = 0; i < datas.size(); ++i) {
+                for (std::size_t i = 0; i < datas.size(); ++i) {
                     std::vector<int> score = *(datas[i]);
                     scoreDatas.push_back(score);
                 }
@@ -669,23 +670,21 @@ void Game::toggleMute() {
     mute = !mute;
 
     if (state == GameState::INLEVEL && curLevel) {
-        if (mute) {
-            curLevel->getMusic()->pause();
-        } else {
-            curLevel->getMusic()->play();
-        }
-    } else if (state == GameState::DEAD) {
-        if (mute) {
-            death->getMusic()->pause();
-        } else {
-            death->getMusic()->play();
-        }
+        pauseIfMute(curLevel->getMusic());
+    } else if (state == GameState::DEAD && death) {
+        pauseIfMute(death->getMusic());
+    } else if (state == GameState::ENDINGSCREEN && endingScreen) {
+        pauseIfMute(endingScreen->getMusic());
     } else {
-        if (mute) {
-            overworld->getMusic()->pause();
-        } else {
-            overworld->getMusic()->play();
-        }
+        pauseIfMute(overworld->getMusic());
+    }
+}
+
+void Game::pauseIfMute(sf::Music& music) {
+    if (mute) {
+        music.pause();
+    } else {
+        music.play();
     }
 }
 

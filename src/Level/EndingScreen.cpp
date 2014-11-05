@@ -25,3 +25,7 @@ EndingScreen::~EndingScreen() {
 void EndingScreen::display() {
     gameView->addDrawable(ViewLayer::ENDINGSCREEN, &endingImage);
 }
+
+sf::Music& EndingScreen::getMusic() {
+    return music;
+}

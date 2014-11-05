@@ -14,6 +14,7 @@ public:
     virtual ~EndingScreen();
 
     void display();
+    sf::Music& getMusic();
 
 private:
     sf::Texture texture;

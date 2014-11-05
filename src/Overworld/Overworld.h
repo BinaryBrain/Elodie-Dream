@@ -36,7 +36,7 @@ public:
     void setState(int state);
     void setPosInPath(int pos = 0);
     void setToLevel(int level);
-    sf::Music* getMusic();
+    sf::Music& getMusic();
 
 protected:
 private:

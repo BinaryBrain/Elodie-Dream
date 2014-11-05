@@ -36,7 +36,7 @@ public:
     void pause();
     void play(sf::Clock *frameClock);
 
-    sf::Music* getMusic();
+    sf::Music& getMusic();
     bool isDead();
     bool isCleared();
     bool mustLeave();
