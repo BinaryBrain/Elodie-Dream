@@ -8,7 +8,8 @@
 
 class Hud : public Displayable {
 public:
-    // Immersion Bar
+    static const std::string IMMERSION_BAR_IMG;
+    static const std::string IMMERSION_BAR_BG_IMG;
     static const float IMMERSION_BAR_X;
     static const float IMMERSION_BAR_DELTA_X;
     static const float IMMERSION_BAR_Y;
@@ -38,10 +39,10 @@ public:
     void setScore(int score);
 
 private:
-    sf::Texture* barBgTexture = NULL;
-    sf::Sprite* barBgSprite = NULL;
-    sf::Texture* barTexture = NULL;
-    sf::Sprite* barSprite = NULL;
+    sf::Texture barBgTexture;
+    sf::Sprite barBgSprite;
+    sf::Texture barTexture;
+    sf::Sprite barSprite;
 
     sf::RectangleShape bgScore;
     sf::Text scoreText;

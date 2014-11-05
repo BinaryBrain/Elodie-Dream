@@ -1,5 +1,8 @@
 #include "Hud.h"
 
+const std::string Hud::IMMERSION_BAR_IMG = "assets/img/immersion/immersion_bar.png";
+const std::string Hud::IMMERSION_BAR_BG_IMG = "assets/img/immersion/immersion_bar_bg.png";
+
 const float Hud::IMMERSION_BAR_X = 540;
 const float Hud::IMMERSION_BAR_DELTA_X = 2;
 const float Hud::IMMERSION_BAR_Y = 50;
@@ -27,25 +30,22 @@ Hud::Hud(GameView* gameView) : Displayable(gameView) {
 
     xRatioBg = IMMERSION_BG_W/IMMERSION_IMAGE_W;
     yRatioBg = IMMERSION_BG_H/IMMERSION_IMAGE_H;
-    xRatioBar = (IMMERSION_BAR_W)/IMMERSION_IMAGE_W;
-    yRatioBar = (IMMERSION_BAR_H)/IMMERSION_IMAGE_H;
+    xRatioBar = IMMERSION_BAR_W/IMMERSION_IMAGE_W;
+    yRatioBar = IMMERSION_BAR_H/IMMERSION_IMAGE_H;
 
-    barBgTexture = new sf::Texture;
-    barBgTexture->loadFromFile("assets/img/immersion/immersion_bar_bg.png");
+    barBgTexture.loadFromFile(IMMERSION_BAR_BG_IMG);
+    barTexture.loadFromFile(IMMERSION_BAR_IMG);
 
-    barBgSprite = new sf::Sprite(*barBgTexture);
-    barBgSprite->setPosition(IMMERSION_BAR_X, IMMERSION_BAR_Y);
-    barBgSprite->setScale(xRatioBg, yRatioBg);
+    barBgSprite.setTexture(barBgTexture);
+    barBgSprite.setPosition(IMMERSION_BAR_X, IMMERSION_BAR_Y);
+    barBgSprite.setScale(xRatioBg, yRatioBg);
 
-    barTexture = new sf::Texture;
-    barTexture->loadFromFile("assets/img/immersion/immersion_bar.png");
+    barSprite.setTexture(barTexture);
+    barSprite.setPosition(IMMERSION_BAR_X+IMMERSION_BAR_DELTA_X-1, IMMERSION_BAR_Y+IMMERSION_BAR_DELTA_Y);
+    barSprite.setScale(xRatioBar, yRatioBar);
 
-    barSprite = new sf::Sprite(*barTexture);
-    barSprite->setPosition(IMMERSION_BAR_X+IMMERSION_BAR_DELTA_X-1, IMMERSION_BAR_Y+IMMERSION_BAR_DELTA_Y);
-    barSprite->setScale(xRatioBar, yRatioBar);
-
-    barWidth = barSprite->getTextureRect().width;
-    barHeight = barSprite->getTextureRect().height;
+    barWidth = barSprite.getTextureRect().width;
+    barHeight = barSprite.getTextureRect().height;
 
     bgScore.setSize(sf::Vector2f(SCORE_BG_W, SCORE_BG_H));
     bgScore.setFillColor(sf::Color(0x00, 0x00, 0x00, 0xE0));
@@ -60,33 +60,15 @@ Hud::Hud(GameView* gameView) : Displayable(gameView) {
 }
 
 Hud::~Hud() {
-    if (barBgSprite) {
-        delete barBgSprite;
-        barBgSprite = NULL;
-    }
 
-    if (barBgTexture) {
-        delete barBgTexture;
-        barBgTexture = NULL;
-    }
-
-    if (barSprite) {
-        delete barSprite;
-        barSprite = NULL;
-    }
-
-    if (barTexture) {
-        delete barTexture;
-        barTexture = NULL;
-    }
 }
 
 void Hud::display() {
-    barSprite->setTextureRect(sf::IntRect(0,0,barWidth*level/100,barHeight));
+    barSprite.setTextureRect(sf::IntRect(0,0,barWidth*level/100,barHeight));
     scoreText.setString(Utils::itos(score));
 
-    gameView->addDrawable(ViewLayer::HUD, barBgSprite);
-    gameView->addDrawable(ViewLayer::HUD, barSprite);
+    gameView->addDrawable(ViewLayer::HUD, &barBgSprite);
+    gameView->addDrawable(ViewLayer::HUD, &barSprite);
     gameView->addDrawable(ViewLayer::HUD, &bgScore);
     gameView->addDrawable(ViewLayer::HUD, &scoreText);
 }
