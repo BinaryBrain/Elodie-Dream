@@ -169,7 +169,7 @@ sf::Music* Level::getMusic() {
     return &music;
 }
 
-bool Level::mustDie() {
+bool Level::isDead() {
     Elodie* elodie = dynamic_cast<Elodie*>(entities["elodie"]);
     bool outOfCam = gameView->isPointOutsideView(ViewLayer::LEVEL, elodie->getPosition().x, elodie->getPosition().y);
     bool noMoreImmersion = elodie->getImmersionLevel() <= 0;
@@ -177,10 +177,14 @@ bool Level::mustDie() {
     return outOfCam || noMoreImmersion || fellInTheDepths;
 }
 
-bool Level::isFinished() {
+bool Level::isCleared() {
     Elodie* elodie = dynamic_cast<Elodie*>(entities["elodie"]);
     Portal* portal = dynamic_cast<Portal*>(entities["portal"]);
     return portal->returnCurrentHitbox().getArea().intersects(elodie->returnCurrentHitbox().getArea());
+}
+
+bool Level::mustLeave() {
+    return isDead() || isCleared();
 }
 
 std::pair <float,float> Level::getSlowVariables(LevelEnv env) {

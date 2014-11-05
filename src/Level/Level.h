@@ -37,9 +37,10 @@ public:
     void play(sf::Clock *frameClock);
 
     sf::Music* getMusic();
-    bool mustDie();
-    bool isFinished();
-protected:
+    bool isDead();
+    bool isCleared();
+    bool mustLeave();
+
 private:
     std::pair <float,float> getSlowVariables(LevelEnv env);
     TileMap tiles;

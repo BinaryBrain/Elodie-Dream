@@ -106,59 +106,31 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
         // toggle sound
     } else if(event.keyIsPressed(sf::Keyboard::M)) {
         toggleMute();
+
         // the level
     } else {
         curLevel->live(&event, time);
         hud.setLevel(((Elodie*)curLevel->getEntities()["elodie"])->getImmersionLevel());
         hud.setScore(scoreManager->getCurrentScore().getLevelPoints());
 
-        // level finished
-        if (curLevel->isFinished()) {
-            scoreManager->setLevel(curLevelNbr);
-            scoreManager->computeTotalPoints();
-
-            // end of game
-            if (curLevelNbr == (NUMLEVELS-1)) {
-                endingScreen = new EndingScreen(&view, mute);
-                view.hide(ViewLayer::LEVEL);
-                view.hide(ViewLayer::SKY);
-                view.hide(ViewLayer::EARTH);
-                view.show(ViewLayer::ENDINGSCREEN);
-                if (curLevel) {
-                    delete curLevel;
-                    curLevel = NULL;
-                }
-                state = GameState::ENDINGSCREEN;
-            } else {
+        // level leaving
+        if (curLevel->mustLeave()) {
+            // level cleared
+            if (curLevel->isCleared()) {
+                scoreManager->setLevel(curLevelNbr);
+                scoreManager->computeTotalPoints();
                 scoreBoard.prepareText();
+                scoreManager->saveCurrentScore();
 
-                view.hide(ViewLayer::LEVEL);
-                view.hide(ViewLayer::SKY);
-                view.hide(ViewLayer::EARTH);
                 view.show(ViewLayer::SCORE);
-                if (curLevel) {
-                    delete curLevel;
-                    curLevel = NULL;
-                }
                 state = GameState::INSCORE;
-            }
 
-            scoreManager->saveCurrentScore();
-            scoreManager->resetCurrentScore();
-            menuHandler.getTitleMenu()->toNormalMenu();
-
-        // wake up
-        } else if (curLevel->mustDie() && !GOD_MODE) {
-            death = new Death(&view, mute);
-            view.hide(ViewLayer::LEVEL);
-            view.hide(ViewLayer::SKY);
-            view.hide(ViewLayer::EARTH);
-            view.show(ViewLayer::DEATH);
-            if (curLevel) {
-                delete curLevel;
-                curLevel = NULL;
+            // death
+            } else if (curLevel->isDead() && !GOD_MODE) {
+                death = new Death(&view, mute);
+                view.show(ViewLayer::DEATH);
+                state = GameState::DEAD;
             }
-            state = GameState::DEAD;
         }
     }
 }
@@ -350,12 +322,12 @@ void Game::displayConsole() {
 
 void Game::dead() {
     if (event.keyIsPressed(sf::Keyboard::Return) || event.keyIsPressed(sf::Keyboard::Space) ) {
-        leaveLevel();
         view.hide(ViewLayer::DEATH);
         if (death) {
             delete death;
             death = NULL;
         }
+        leaveLevel();
     } else if (event.keyIsPressed(sf::Keyboard::M)) {
         toggleMute();
     }
@@ -363,28 +335,33 @@ void Game::dead() {
 
 void Game::displayEnd() {
     if (event.keyIsPressed(sf::Keyboard::Return) || event.keyIsPressed(sf::Keyboard::Space)) {
-        leaveLevel();
         view.hide(ViewLayer::ENDINGSCREEN);
         if (endingScreen) {
             delete endingScreen;
             endingScreen = NULL;
         }
+        leaveLevel();
     }
 }
 
 void Game::displayScore() {
     if (event.keyIsPressed(sf::Keyboard::Return) || event.keyIsPressed(sf::Keyboard::Space)) {
-        leaveLevel();
-        view.hide(ViewLayer::SCORE);
-        view.show(ViewLayer::OVERWORLD);
-        overworld->evolve(overworld->getState(), curLevelNbr + 1);
-        overworld->setToLevel(curLevelNbr + 1);
-        overworld->resetPos();
-        menuHandler.getTitleMenu()->toNormalMenu();
-        statsBoard.setLDL(overworld->getState());
-
         if (autoSave) {
             save();
+        }
+
+        view.hide(ViewLayer::SCORE);
+
+        // end of game
+        if (curLevelNbr == (NUMLEVELS-1)) {
+            endingScreen = new EndingScreen(&view, mute);
+            view.show(ViewLayer::ENDINGSCREEN);
+            state = GameState::ENDINGSCREEN;
+        } else {
+            overworld->evolve(overworld->getState(), curLevelNbr + 1);
+            overworld->setToLevel(curLevelNbr + 1);
+            statsBoard.setLDL(overworld->getState());
+            leaveLevel();
         }
     }
 }
