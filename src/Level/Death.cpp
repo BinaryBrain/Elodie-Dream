@@ -5,7 +5,7 @@ const float Death::INTERSPACE = 50;
 const std::string Death::MUSIC = "death.ogg";
 const std::string Death::DREAMOVER = "assets/img/sprites/dreamover.png";
 
-Death::Death(GameView* view) : Displayable(view) {
+Death::Death(GameView* view, bool isMute) : Displayable(view) {
     float viewX = gameView->getSizeX();
     float viewY = gameView->getSizeY();
 
@@ -34,6 +34,9 @@ Death::Death(GameView* view) : Displayable(view) {
         // TODO Handle error
     } else {
         music.setLoop(true);
+        if (!isMute) {
+            music.play();
+        }
     }
 
     view->addView(ViewLayer::DEATH, this);

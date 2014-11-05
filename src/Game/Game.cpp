@@ -16,7 +16,6 @@ Game::Game() {
     menuHandler = new MenuHandler(&view);
     girly = new Girly(&view);
     hud = new Hud(&view);
-    death = new Death(&view);
 
     saveHandler = SaveHandler::getInstance();
     soundManager = SoundManager::getInstance();
@@ -49,9 +48,6 @@ Game::~Game() {
     }
     if (hud) {
         delete hud;
-    }
-    if (death) {
-        delete death;
     }
 }
 
@@ -176,9 +172,7 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
 
         // wake up
         } else if (curLevel->mustDie() && !GOD_MODE) {
-            if (!isMute() && death->getMusic()->getStatus() != sf::Music::Status::Playing) {
-                death->getMusic()->play();
-            }
+            death = new Death(&view, mute);
             view.hide(ViewLayer::LEVEL);
             view.hide(ViewLayer::SKY);
             view.hide(ViewLayer::EARTH);
@@ -381,7 +375,10 @@ void Game::dead() {
     if (event->keyIsPressed(sf::Keyboard::Return) || event->keyIsPressed(sf::Keyboard::Space) ) {
         leaveLevel();
         view.hide(ViewLayer::DEATH);
-        death->getMusic()->stop();
+        if (death) {
+            delete death;
+            death = NULL;
+        }
     } else if (event->keyIsPressed(sf::Keyboard::M)) {
         toggleMute();
     }
