@@ -56,10 +56,21 @@ bool FileHandler::fileExists(const std::string& path) {
 }
 
 bool FileHandler::createDirIfNotExisting(const std::string& path) {
-    if (CreateDirectory(path.c_str(), NULL) || ERROR_ALREADY_EXISTS == GetLastError()) {
-        return true;
+    struct stat info;
+
+    if (stat(path.c_str(), &info) == 0 && S_ISDIR(info.st_mode)) {
+        // The directory already exists, so nothing to do
     } else {
-        std::cerr << "Could not create save folder." << std::endl;
-        return false;
+        int mkdirRes = 0;
+#ifdef _WIN32
+        mkdirRes = mkdir(path.c_str());
+#else
+        mkdirRes = mkdir(path.c_str(), 0777);
+#endif
+        if (mkdirRes == -1) {  // Creates the directory
+            std::cerr << "Error: can't create " << path << std::endl;
+            return false;
+        }
     }
+    return true;
 }

@@ -2,7 +2,9 @@
 #define FILEHANDLER_H
 
 #include <string>
-#include <windows.h>
+#include <direct.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 /**
 * The class handling files.
