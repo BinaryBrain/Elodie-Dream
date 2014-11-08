@@ -8,7 +8,6 @@
 
 /**
 * The class handling files.
-* Doesn't do much yet.
 */
 class FileHandler {
 public:

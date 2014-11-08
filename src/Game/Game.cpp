@@ -5,6 +5,7 @@ Game* Game::gameInstance = NULL;
 
 Game::Game() {
     FileHandler::createDirIfNotExisting("save");
+    configManager.load(SETTINGS_PATH + "/settings.json");
 
     mute = DEFAULT_MUTE;
 
@@ -70,29 +71,26 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
     //if (  ypos < miny) {
     //    miny = ypos;
     //}
-    if (showTutoConsole) {
-        state = GameState::INCONSOLE;
-        curLevel->pause();
-        view.show(ViewLayer::CONSOLE);
-        const char *tutorial = "You learned the existence of a legendary poro land, where you can find all the poros. More than interested, you begin your long journey to find this mysterious country...\n"
-                               "As you progress, you will surely come across some animals or monsters, like this sheep there.\n"
-                               "You can press 'A' to kill them or just jump over them with the space bar.\n"
-                               "Well, good luck, you might need it! :3\n"
-                               "   Alia";
-        console.clearAndWrite(tutorial);
-        console.setNextState(GameState::INLEVEL);
+    if (showTutoConsole || showCastleConsole) {
+        std::string key;
+        if (showTutoConsole) {
+            key = "tutorial";
+            showTutoConsole = false;
+        } else if (showCastleConsole) {
+            key = "castle";
+            showCastleConsole = false;
+        }
+        jsonAccessor.load(LANGUAGES_PATH + "/" + configManager.getLanguage() + ".lang");
+        if (jsonAccessor.canTakeElementFrom(key)) {
+            curLevel->pause();
+            state = GameState::INCONSOLE;
+            view.show(ViewLayer::CONSOLE);
+            console.clearAndWrite(jsonAccessor.getString(key));
+            console.setNextState(GameState::INLEVEL);
+        }
+        jsonAccessor.close();
         showTutoConsole = false;
 
-    } else if (showCastleConsole) {
-        state = GameState::INCONSOLE;
-        curLevel->pause();
-        view.show(ViewLayer::CONSOLE);
-        const char *castle = "It is such a dark and scary place for a pretty girl like you, isn't it ? Press G to make it better <3\n"
-                               "Good luck again, pretty ! :3\n"
-                               "   Alia";
-        console.clearAndWrite(castle);
-        console.setNextState(GameState::INLEVEL);
-        showCastleConsole = false;
     }
     // leave level
     if (event.keyIsPressed(sf::Keyboard::Escape)) {
@@ -101,8 +99,8 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
         curLevel->pause();
         menuHandler.setNextState(GameState::INLEVEL);
         menuHandler.resetMenu();
-        view.show(ViewLayer::MENU);
         menuHandler.setInLevel(true);
+        view.show(ViewLayer::MENU);
         // toggle sound
     } else if(event.keyIsPressed(sf::Keyboard::M)) {
         toggleMute(curLevel->getMusic());

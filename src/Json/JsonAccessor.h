@@ -13,27 +13,25 @@
 #include "../Utils/Utils.h"
 #include "../Include/EntityInfo.h"
 
-using std::string;
-
 class JsonAccessor {
 public:
     JsonAccessor();
     virtual ~JsonAccessor();
-    string getString(string key);
-    int getInt(string key);
-    double getDouble(string key);
-    std::vector<int>* getIntVector(string key);
-    std::vector< std::vector<int>* >* getInt2DVector(string key);
+    std::string getString(const std::string& key);
+    int getInt(const std::string& key);
+    double getDouble(const std::string& key);
+    std::vector<int>* getIntVector(const std::string& key);
+    std::vector< std::vector<int>* >* getInt2DVector(const std::string& key);
     EntityInfo* getEntityInfo();
-    bool load(string file);
-    bool canTakeElementFrom(std::string key);
+    bool load(const std::string& pathToFile);
+    bool canTakeElementFrom(const std::string& key);
     bool close();
-    bool createJsonIfNotExisting(std::string file);
+    bool createJsonIfNotExisting(const std::string& file);
 
 private:
     rapidjson::Document values;
-    rapidjson::Value& getAskedObject(string key);
-    FILE * pFile;
+    rapidjson::Value& getAskedObject(std::string key);
+    FILE* pFile;
     std::string pathToFile;
     bool loaded = false;
 };

@@ -37,7 +37,7 @@ bool FileHandler::writeContent(const std::string& path, const std::string& toWri
 }
 
 bool FileHandler::deleteFile(const std::string& path) {
-    if (remove(path.c_str()) != 0 ) {
+    if (std::remove(path.c_str()) != 0 ) {
         std::cerr << "An error occurred: could not delete " << path << "." << std::endl;
         return false;
     }

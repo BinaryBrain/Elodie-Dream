@@ -6,6 +6,7 @@
 #include "../Level/EndingScreen.h"
 #include "../Level/Death.h"
 #include "../Json/JsonStringifier.h"
+#include "../FileHandler/ConfigManager.h"
 #include "../FileHandler/SaveHandler.h"
 #include "../Console/Console.h"
 #include "../Level/Level.h"
@@ -76,6 +77,8 @@ private:
     MenuComponent* currentMenuSave;
     MenuHandler menuHandler = MenuHandler(&view);
 
+    ConfigManager configManager;
+    JsonAccessor jsonAccessor;
     SaveHandler* saveHandler;
     SoundManager* soundManager;
     ScoreManager* scoreManager;

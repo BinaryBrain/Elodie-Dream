@@ -22,6 +22,7 @@
 					<Add directory="rapidjson/include" />
 					<Add directory="sfml/include" />
 					<Add directory="src/Menu" />
+					<Add directory="src/FileHandler" />
 				</Compiler>
 				<Linker>
 					<Add library="sfml\lib\libsfml-graphics-d.a" />
@@ -47,6 +48,7 @@
 					<Add directory="rapidjson/include" />
 					<Add directory="sfml/include" />
 					<Add directory="src/Menu" />
+					<Add directory="src/FileHandler" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -102,6 +104,8 @@
 		<Unit filename="src/Entity/Portal.h" />
 		<Unit filename="src/EventHandler/EventHandler.cpp" />
 		<Unit filename="src/EventHandler/EventHandler.h" />
+		<Unit filename="src/FileHandler/ConfigManager.cpp" />
+		<Unit filename="src/FileHandler/ConfigManager.h" />
 		<Unit filename="src/FileHandler/FileHandler.cpp" />
 		<Unit filename="src/FileHandler/FileHandler.h" />
 		<Unit filename="src/FileHandler/SaveHandler.cpp" />
@@ -121,8 +125,6 @@
 		<Unit filename="src/Json/JsonAccessor.h" />
 		<Unit filename="src/Json/JsonStringifier.cpp" />
 		<Unit filename="src/Json/JsonStringifier.h" />
-		<Unit filename="src/LanguageHandler/LanguageHandler.cpp" />
-		<Unit filename="src/LanguageHandler/LanguageHandler.h" />
 		<Unit filename="src/Level/Death.cpp" />
 		<Unit filename="src/Level/Death.h" />
 		<Unit filename="src/Level/EndingScreen.cpp" />

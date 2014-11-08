@@ -85,6 +85,8 @@ static const char MAP_NULL2 = '.';
 // -- PATHS -- //
 // Global path
 const string GLOBALFONT_PATH = "assets/fonts/pf_tempesta_seven/pf_tempesta_seven.ttf";
+const string LANGUAGES_PATH = "assets/config/languages";
+const string SETTINGS_PATH = "settings";
 
 // Tiles
 const string TILES_TEXTURES_PATH = "assets/img/sprites/tiles/extended";

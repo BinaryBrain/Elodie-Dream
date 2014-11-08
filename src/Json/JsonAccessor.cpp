@@ -1,37 +1,34 @@
 #include "JsonAccessor.h"
 
-using std::cerr;
-using std::endl;
-
 JsonAccessor::JsonAccessor() {
-    //ctor
+
 }
 
 JsonAccessor::~JsonAccessor() {
-    if(loaded)
+    if (loaded) {
         fclose(pFile);
+    }
     delete pFile;
 }
 
-rapidjson::Value& JsonAccessor::getAskedObject(string key) {
-    using namespace std;
-    string delimiter = " ";
-    replace(key.begin(), key.end(), '.', ' ');
-    istringstream iss(key);
-    vector<std::string> tokens;
-    copy(istream_iterator<string>(iss),
-         istream_iterator<string>(),
-         back_inserter<vector<string> >(tokens));
+rapidjson::Value& JsonAccessor::getAskedObject(std::string key) {
+    std::string delimiter = " ";
+    std::replace(key.begin(), key.end(), '.', ' ');
+    std::istringstream iss(key);
+    std::vector<std::string> tokens;
+    std::copy(std::istream_iterator<std::string>(iss),
+         std::istream_iterator<std::string>(),
+         std::back_inserter<std::vector<std::string> >(tokens));
     rapidjson::Value* obj = &values;
-    for (size_t i = 0; i < tokens.size(); ++i) {
+    for (std::size_t i = 0; i < tokens.size(); ++i) {
         obj = &(*obj)[tokens[i].c_str()];
     }
     return *obj;
 }
 
-string JsonAccessor::getString(string key) {
-    if(!loaded) {
-        cerr << "Not loaded yet" << endl;
+std::string JsonAccessor::getString(const std::string& key) {
+    if (!loaded) {
+        std::cerr << "Not loaded yet" << std::endl;
         return "";
     } else {
         const rapidjson::Value& a = getAskedObject(key);
@@ -39,9 +36,9 @@ string JsonAccessor::getString(string key) {
     }
 }
 
-int JsonAccessor::getInt(string key) {
-    if(!this->loaded) {
-        cerr << "Not loaded yet" << endl;
+int JsonAccessor::getInt(const std::string& key) {
+    if (!this->loaded) {
+        std::cerr << "Not loaded yet" << std::endl;
         return 0;
     } else {
         const rapidjson::Value& a = getAskedObject(key);
@@ -49,9 +46,9 @@ int JsonAccessor::getInt(string key) {
     }
 }
 
-double JsonAccessor::getDouble(string key) {
-    if(!this->loaded) {
-        cerr << "Not loaded yet" << endl;
+double JsonAccessor::getDouble(const std::string& key) {
+    if (!this->loaded) {
+        std::cerr << "Not loaded yet" << std::endl;
         return 0;
     } else {
         const rapidjson::Value& a = getAskedObject(key);
@@ -59,9 +56,9 @@ double JsonAccessor::getDouble(string key) {
     }
 }
 
-std::vector<int>* JsonAccessor::getIntVector(string key) {
-    if(!this->loaded) {
-        cerr << "Not loaded yet" << endl;
+std::vector<int>* JsonAccessor::getIntVector(const std::string& key) {
+    if (!this->loaded) {
+        std::cerr << "Not loaded yet" << std::endl;
         return 0;
     } else {
         std::vector<int>* vec = new std::vector<int>();
@@ -75,9 +72,9 @@ std::vector<int>* JsonAccessor::getIntVector(string key) {
     }
 }
 
-std::vector< std::vector<int>* >* JsonAccessor::getInt2DVector(string key) {
-    if(!this->loaded) {
-        cerr << "Not loaded yet" << endl;
+std::vector< std::vector<int>* >* JsonAccessor::getInt2DVector(const std::string& key) {
+    if (!this->loaded) {
+        std::cerr << "Not loaded yet" << std::endl;
         return 0;
     } else {
         std::vector< std::vector<int>* >* vec = new std::vector< std::vector<int>* >();
@@ -97,8 +94,8 @@ std::vector< std::vector<int>* >* JsonAccessor::getInt2DVector(string key) {
 }
 
 EntityInfo* JsonAccessor::getEntityInfo() {
-    if(!this->loaded) {
-        cerr << "Not loaded yet" << endl;
+    if (!this->loaded) {
+        std::cerr << "Not loaded yet" << std::endl;
         return 0;
     } else {
         EntityInfo* entity = new EntityInfo();
@@ -130,16 +127,16 @@ EntityInfo* JsonAccessor::getEntityInfo() {
     }
 }
 
-bool JsonAccessor::load(string file) {
-    if(!this->loaded) {
-        pathToFile = file;
+bool JsonAccessor::load(const std::string& pathToFile) {
+    if (!this->loaded) {
+        this->pathToFile = pathToFile;
 
-        createJsonIfNotExisting(file);
+        createJsonIfNotExisting(pathToFile);
 
-        pFile = fopen(file.c_str() , "r");
+        pFile = fopen(pathToFile.c_str() , "r");
         rapidjson::FileStream is(pFile);
-        if(values.ParseStream<0>(is).HasParseError()) {
-            cerr << "Parse error when loading json" << endl;
+        if (values.ParseStream<0>(is).HasParseError()) {
+            std::cerr << "Parse error when loading json" << std::endl;
             loaded = true; // the file is loaded, even with non-valid json
             return false;
         }
@@ -147,13 +144,13 @@ bool JsonAccessor::load(string file) {
         return true;
 
     } else {
-        cerr << "Already loaded" << endl;
+        std::cerr << "Already loaded" << std::endl;
         return false;
     }
 }
 
-bool JsonAccessor::canTakeElementFrom(std::string key) {
-    if(pFile) {
+bool JsonAccessor::canTakeElementFrom(const std::string& key) {
+    if (pFile) {
         std::string contents;
         std::fseek(pFile, 0, SEEK_END);
         contents.resize(std::ftell(pFile));
@@ -164,20 +161,22 @@ bool JsonAccessor::canTakeElementFrom(std::string key) {
             return true;
         }
     }
+    std::cerr << "Error: could not get item from key \"" << key << "\"." << std::endl;
     return false;
 }
 
 bool JsonAccessor::close() {
-    if(loaded) {
+    if (loaded) {
         fclose(pFile);
+        loaded = false;
         return true;
     } else {
-        cerr << "Nothing to close" << endl;
+        std::cerr << "Nothing to close" << std::endl;
         return false;
     }
 }
 
-bool JsonAccessor::createJsonIfNotExisting(std::string file) {
+bool JsonAccessor::createJsonIfNotExisting(const std::string& file) {
     if (FILE * f = fopen(file.c_str(), "r")) {
         fclose(f);
         return true;
@@ -188,7 +187,7 @@ bool JsonAccessor::createJsonIfNotExisting(std::string file) {
             return true;
         }
         else {
-            cerr << "Could not create " << file << endl;
+            std::cerr << "Could not create " << file << std::endl;
             return false;
         }
     }
