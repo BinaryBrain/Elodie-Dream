@@ -23,6 +23,7 @@ public:
     std::vector<int>* getIntVector(const std::string& key);
     std::vector< std::vector<int>* >* getInt2DVector(const std::string& key);
     EntityInfo* getEntityInfo();
+    std::string getStringWithDefault(const std::string& key, const std::string& defaultValue);
     bool load(const std::string& pathToFile);
     bool canTakeElementFrom(const std::string& key);
     bool close();

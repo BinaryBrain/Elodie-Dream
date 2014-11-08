@@ -6,6 +6,9 @@
 
 class ConfigManager {
 public:
+    static const std::string LANGUAGE_KEY;
+    static const std::string DEFAULT_LANGUAGE;
+
     ConfigManager();
      ~ConfigManager();
     void load(const std::string& configPath);

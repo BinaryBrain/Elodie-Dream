@@ -127,6 +127,15 @@ EntityInfo* JsonAccessor::getEntityInfo() {
     }
 }
 
+std::string JsonAccessor::getStringWithDefault(const std::string& key, const std::string& defaultValue) {
+    if (canTakeElementFrom(key)) {
+        return getString(key);
+    } else {
+        return defaultValue;
+        std::cerr << "Error: could not find " << key << " in " << pathToFile << " Using default value." << std::endl;
+    }
+}
+
 bool JsonAccessor::load(const std::string& pathToFile) {
     if (!this->loaded) {
         this->pathToFile = pathToFile;
