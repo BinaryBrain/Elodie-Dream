@@ -6,7 +6,7 @@
 #include "../Entity/Enemy/Bristle.h"
 #include "../Entity/Portal.h"
 #include "../Entity/Enemy/Spikes.h"
-#include "../Entity/poro.h"
+#include "../Entity/Poro.h"
 #include "../Entity/Bonus.h"
 
 std::map< std::string, int > Mapper::freshIds;

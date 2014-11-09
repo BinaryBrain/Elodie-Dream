@@ -2,7 +2,9 @@
 #define FILEHANDLER_H
 
 #include <string>
+#ifdef _WIN32
 #include <direct.h>
+#endif
 #include <sys/types.h>
 #include <sys/stat.h>
 
