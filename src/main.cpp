@@ -4,7 +4,6 @@
 #include "env.h"
 #include "Sprite/AnimatedSprite.h"
 #include "EventHandler/EventHandler.h"
-#include "Json/JsonAccessor.h"
 #include "Game/Game.h"
 #include "Overworld/Overworld.h"
 #include "Utils/Utils.h"
@@ -18,33 +17,9 @@ using std::endl;
 
 
 int main() {
+    FileHandler::createDirIfNotExisting("save");
     globalFont.loadFromFile(GLOBALFONT_PATH);
     Game* game = Game::getInstance();
-
-    if (false) {
-        // Conf test
-        JsonAccessor language = JsonAccessor();
-        language.load("assets/config/languages/FR.lang");
-
-        // Strings test
-        cout << language.getString("Intro") << endl;
-        cout << language.getString("Dev") << endl;
-        cout << language.getString("End") << endl;
-
-        JsonAccessor sheep = JsonAccessor();
-        sheep.load("assets/img/sprites/enemies/sheep.json");
-
-        std::vector< std::vector<int>* >* tab = sheep.getInt2DVector("anim.hitbox");
-        for (unsigned int i = 0; i < tab->size(); ++i) {
-            for (unsigned int j = 0; j < (*tab)[i]->size(); ++j) {
-                cout << (*(*tab)[i])[j] << endl;
-            }
-        }
-        cout << sheep.getString("anim name") << endl;
-        cout << sheep.getString("anim name") << endl;
-        cout << sheep.getString("anim name") << endl;
-        cout << sheep.getString("anim name") << endl;
-    }
 
     if (false) {
         EntityManager* ToyBox = EntityManager::getInstance();

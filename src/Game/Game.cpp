@@ -4,7 +4,6 @@
 Game* Game::gameInstance = NULL;
 
 Game::Game() {
-    FileHandler::createDirIfNotExisting("save");
     configManager.load(SETTINGS_PATH + "/settings.json");
 
     mute = DEFAULT_MUTE;

@@ -169,6 +169,7 @@ bool JsonAccessor::canTakeElementFrom(const std::string& key) {
         if (contents.find(key) != std::string::npos) {
             return true;
         }
+        return false;
     }
     std::cerr << "Error: could not get item from key \"" << key << "\"." << std::endl;
     return false;
