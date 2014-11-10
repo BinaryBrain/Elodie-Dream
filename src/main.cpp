@@ -18,13 +18,14 @@ using std::endl;
 
 
 int main() {
+    FileHandler::createDirIfNotExisting("save");
     globalFont.loadFromFile(GLOBALFONT_PATH);
     Game* game = Game::getInstance();
 
     if (false) {
         // Conf test
         JsonAccessor language = JsonAccessor();
-        language.load("assets/config/languages/FR.lang");
+        language.loadJsonFrom("assets/config/languages/FR.lang");
 
         // Strings test
         cout << language.getString("Intro") << endl;
@@ -32,7 +33,7 @@ int main() {
         cout << language.getString("End") << endl;
 
         JsonAccessor sheep = JsonAccessor();
-        sheep.load("assets/img/sprites/enemies/sheep.json");
+        sheep.loadJsonFrom("assets/img/sprites/enemies/sheep.json");
 
         std::vector< std::vector<int>* >* tab = sheep.getInt2DVector("anim.hitbox");
         for (unsigned int i = 0; i < tab->size(); ++i) {

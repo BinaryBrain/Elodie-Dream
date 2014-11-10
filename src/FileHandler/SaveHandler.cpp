@@ -17,15 +17,11 @@ SaveHandler* SaveHandler::getInstance() {
     return shInstance;
 }
 
-void SaveHandler::setPath(const std::string& path) {
-    this->path = path;
-}
-
 JsonStringifier* SaveHandler::getStringifier() {
     return stringifier;
 }
 
-void SaveHandler::save() {
+void SaveHandler::saveEncryptedContentTo(const std::string& path) {
     std::string stringified(stringifier->getStringifiedDoc());
 
     // saves the encrypted content to the file
@@ -38,7 +34,7 @@ void SaveHandler::save() {
     myfile.close();
 }
 
-std::string SaveHandler::load() {
+std::string SaveHandler::getDecryptedContentFrom(const std::string& path) {
     // loads the file, decrypts the content
     std::vector<int> tmp;
     std::ifstream infile;
@@ -51,7 +47,7 @@ std::string SaveHandler::load() {
     std::string json = decrypt(tmp, "key");
 
     // in case the file is not here -> no parse error
-    if(json == "") {
+    if (json == "") {
         json = "{}";
     }
 

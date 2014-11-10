@@ -8,18 +8,18 @@ Overworld::Overworld(GameView* gameView, bool muted) : Displayable(gameView) {
         overworldSprites.push_back(new sf::Sprite(*overworld));
     }
 
-    JsonAccessor lvlPos = JsonAccessor();
-    lvlPos.load("assets/config/levels/levelPos.lvl");
+    JsonAccessor accessor;
+    accessor.loadJsonFrom("assets/config/levels/levelPos.lvl");
 
     //levelPos.push_back(lvlPos.getIntVector(LEVELENV_FIELD));
-    levelPos.push_back(lvlPos.getIntVector(LEVELENV_UNIL + "1"));
-    levelPos.push_back(lvlPos.getIntVector(LEVELENV_UNIL + "2"));
-    levelPos.push_back(lvlPos.getIntVector(LEVELENV_CASTLE + "1"));
-    levelPos.push_back(lvlPos.getIntVector(LEVELENV_CASTLE + "2"));
-    levelPos.push_back(lvlPos.getIntVector(LEVELENV_VOLCANO + "1"));
-    levelPos.push_back(lvlPos.getIntVector(LEVELENV_VOLCANO + "2"));
-    levelPos.push_back(lvlPos.getIntVector(LEVELENV_FRELJORD + "1"));
-    levelPos.push_back(lvlPos.getIntVector(LEVELENV_FRELJORD + "2"));
+    levelPos.push_back(accessor.getIntVector(LEVELENV_UNIL + "1"));
+    levelPos.push_back(accessor.getIntVector(LEVELENV_UNIL + "2"));
+    levelPos.push_back(accessor.getIntVector(LEVELENV_CASTLE + "1"));
+    levelPos.push_back(accessor.getIntVector(LEVELENV_CASTLE + "2"));
+    levelPos.push_back(accessor.getIntVector(LEVELENV_VOLCANO + "1"));
+    levelPos.push_back(accessor.getIntVector(LEVELENV_VOLCANO + "2"));
+    levelPos.push_back(accessor.getIntVector(LEVELENV_FRELJORD + "1"));
+    levelPos.push_back(accessor.getIntVector(LEVELENV_FRELJORD + "2"));
 
     for (size_t i = 0; i < 8; ++i) {
         sf::Texture* spotTexture = new sf::Texture;
@@ -37,8 +37,7 @@ Overworld::Overworld(GameView* gameView, bool muted) : Displayable(gameView) {
         pathSprites.push_back(pathSprite);
     }
 
-    JsonAccessor lvlPaths;
-    lvlPaths.load("assets/config/levels/levelPaths.lvl");
+    accessor.loadJsonFrom("assets/config/levels/levelPaths.lvl");
 
     for(size_t i = 0; i < levelPos.size(); i++) {
         int curPos = -1;
@@ -48,7 +47,7 @@ Overworld::Overworld(GameView* gameView, bool muted) : Displayable(gameView) {
 
         do {
             curPos ++;
-            std::vector<int>* tmp = lvlPaths.getIntVector(Utils::itos(curPos));
+            std::vector<int>* tmp = accessor.getIntVector(Utils::itos(curPos));
             vec = new sf::Vector2f((*tmp)[0], (*tmp)[1]);
             mem->push_back(vec);
         } while ((*vec).x != (*levelPos[i])[0] or (*vec).y != (*levelPos[i])[1]);

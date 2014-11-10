@@ -50,7 +50,7 @@ void EntityManager::kill() {
 EntityInfo* EntityManager::getEnemyInfo(EntityType type, EntityName name) {
     if(!enemies[type][name]) {
         JsonAccessor newEntity = JsonAccessor();
-        newEntity.load(getPath(type, name));
+        newEntity.loadJsonFrom(getPath(type, name));
         enemies[type][name] = newEntity.getEntityInfo();
     }
 

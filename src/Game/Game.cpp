@@ -4,7 +4,6 @@
 Game* Game::gameInstance = NULL;
 
 Game::Game() {
-    FileHandler::createDirIfNotExisting("save");
     configManager.load(SETTINGS_PATH + "/settings.json");
 
     mute = DEFAULT_MUTE;
@@ -80,7 +79,7 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
             key = "castle";
             showCastleConsole = false;
         }
-        jsonAccessor.load(LANGUAGES_PATH + "/" + configManager.getLanguage() + ".lang");
+        jsonAccessor.loadJsonFrom(LANGUAGES_PATH + "/" + configManager.getLanguage() + ".lang");
         if (jsonAccessor.canTakeElementFrom(key)) {
             curLevel->pause();
             state = GameState::INCONSOLE;
@@ -88,7 +87,6 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
             console.clearAndWrite(jsonAccessor.getString(key));
             console.setNextState(GameState::INLEVEL);
         }
-        jsonAccessor.close();
         showTutoConsole = false;
 
     }
@@ -523,15 +521,12 @@ void Game::load() {
         autoSave = true;
         currentMenuSave = currentMenuComponent;
 
-        saveHandler->setPath(path);
-        FileHandler::writeContent(tempJsonFilePath, saveHandler->load());
-
         // retrieves the saved values
         JsonAccessor accessor;
-        bool jsonReady = accessor.load(tempJsonFilePath);
+        bool jsonOk = accessor.setJson(saveHandler->getDecryptedContentFrom(path));
 
         // if the save is valid
-        if (accessor.canTakeElementFrom("date") && accessor.canTakeElementFrom("lastdiscoveredlevel") && jsonReady) {
+        if (jsonOk && accessor.canTakeElementFrom("date") && accessor.canTakeElementFrom("lastdiscoveredlevel")) {
             std::string date = accessor.getString("date");
             int LDL = accessor.getInt("lastdiscoveredlevel");
 
@@ -578,8 +573,6 @@ void Game::load() {
             console.setNextState(GameState::INMENU);
         }
 
-        accessor.close();
-
         // remove the temporary json
         FileHandler::deleteFile(tempJsonFilePath);
 
@@ -621,8 +614,7 @@ void Game::save() {
     stringifier->add(keyLDL, LDL);
     stringifier->add(keyScoresDatas, scoresDatas);
 
-    saveHandler->setPath(path);
-    saveHandler->save();
+    saveHandler->saveEncryptedContentTo(path);
     saveHandler->clearStringifier();
 
     // console confirmation

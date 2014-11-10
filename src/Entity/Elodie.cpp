@@ -23,9 +23,9 @@ void Elodie::init() {
         {ElodieState::JUMPING, "jumping"}
     };
 
-    JsonAccessor json = JsonAccessor();
-    json.load(ENTITIES_JSON_PATH+"/"+ENTITYNAME_ELODIE+".json");
-    info = json.getEntityInfo();
+    JsonAccessor accessor = JsonAccessor();
+    accessor.loadJsonFrom(ENTITIES_JSON_PATH+"/"+ENTITYNAME_ELODIE+".json");
+    info = accessor.getEntityInfo();
 
     state = ElodieState::STANDING;
     speed.x = ELODIE_SPEED;

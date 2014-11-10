@@ -46,22 +46,13 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
 
     for (std::size_t i = 0; i < NUMSLOTS; ++i) {
         std::string path = "save/" + labels[i] + ".save";
-        sh->setPath(path);
-        std::string tempJsonFilePath = "save/temp.json";
-        FileHandler::writeContent(tempJsonFilePath, sh->load());
 
         JsonAccessor accessor;
-        bool jsonReady = accessor.load(tempJsonFilePath);
+        accessor.setJson(sh->getDecryptedContentFrom(path));
 
-        lastDiscoveredLevels[i] = labels[i];
-        std::string key = "lastdiscoveredlevel";
-
-        if(accessor.canTakeElementFrom(key) && jsonReady) {
-            int LDL = accessor.getInt(key);
-            lastDiscoveredLevels[i] = sh->computeLDLName(LDL);
-        }
-
-        accessor.close();
+        int LDL = accessor.getIntWithDefault("lastdiscoveredlevel", 0);
+        std::cout << LDL << std::endl;
+        lastDiscoveredLevels[i] = sh->computeLDLName(LDL);
 
         MenuComponent* save = new MenuComponent(labels[i], GameState::SAVE);
         sf::Text* t = save->getText();
@@ -71,9 +62,6 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
         MenuComponent* load = new MenuComponent(labels[i], GameState::LOAD);
         load->setText(t);
         addCompToMenu(load, loadGame);
-
-        // remove the temporary json
-        FileHandler::deleteFile(tempJsonFilePath);
     }
 
     addCompToMenu(title, saveGame, true);
