@@ -25,20 +25,20 @@ std::string FileHandler::getContent(const std::string& path) {
 
 bool FileHandler::writeContent(const std::string& path, const std::string& toWrite) {
     std::ofstream stream(path.c_str());
-    if(stream) {
+    if (stream) {
         stream << toWrite << std::endl;
         stream.close();
         return true;
     }
     else {
-        std::cerr << "An error occurred: could not write to " << path << "." << std::endl;
+        std::cerr << "Error: could not write to " << path << "." << std::endl;
         return false;
     }
 }
 
 bool FileHandler::deleteFile(const std::string& path) {
     if (std::remove(path.c_str()) != 0 ) {
-        std::cerr << "An error occurred: could not delete " << path << "." << std::endl;
+        std::cerr << "Error: could not delete " << path << "." << std::endl;
         return false;
     }
     return true;
@@ -53,6 +53,21 @@ bool FileHandler::fileExists(const std::string& path) {
         f.close();
         return false;
     }
+}
+
+bool FileHandler::createFileIfNotExisting(const std::string& path, const std::string& content) {
+    if (!fileExists(path)) {
+        if (FILE* f = fopen(path.c_str(), "w")) {
+            fputs(content.c_str(), f);
+            fclose(f);
+            return true;
+        }
+        else {
+            std::cerr << "Error: could not create " << path << "." << std::endl;
+            return false;
+        }
+    }
+    return true;
 }
 
 bool FileHandler::createDirIfNotExisting(const std::string& path) {

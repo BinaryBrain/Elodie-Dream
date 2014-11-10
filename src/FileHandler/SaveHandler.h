@@ -21,8 +21,8 @@ public:
     bool isSlotFree(const std::string& slot);
     std::string nextFreeSlot();
 
-    void save();
-    std::string load();
+    void saveEncryptedContentTo(const std::string& path);
+    std::string getDecryptedContentFrom(const std::string& path);
 
     void clearStringifier();
     std::string computeLDLName(int LDL);
@@ -49,7 +49,6 @@ private:
     */
     std::string decrypt(std::vector<int> tmp, const std::string& key);
 
-    std::string path;
     JsonStringifier* stringifier;
 };
 

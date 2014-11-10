@@ -46,6 +46,12 @@ public:
     */
     static bool fileExists(const std::string& path);
     /**
+    * \brief Creates a file if it does not exist.
+    * \param path The path to the file.
+    * \return A bool, whether the file could be created.
+    */
+    static bool createFileIfNotExisting(const std::string& path, const std::string& content = "");
+    /**
     * \brief Creates a directory if it does not exist.
     * \param path The path to the directory.
     * \return A bool, whether the directory could be created.

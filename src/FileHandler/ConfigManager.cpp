@@ -12,9 +12,8 @@ ConfigManager::~ConfigManager() {
 }
 
 void ConfigManager::load(const std::string& configPath) {
-    accessor.load(configPath);
+    accessor.loadJsonFrom(configPath);
     language = accessor.getStringWithDefault(LANGUAGE_KEY, DEFAULT_LANGUAGE);
-    accessor.close();
 }
 
 const std::string& ConfigManager::getLanguage() {

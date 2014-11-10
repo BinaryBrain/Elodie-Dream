@@ -12,29 +12,33 @@
 
 #include "../Utils/Utils.h"
 #include "../Include/EntityInfo.h"
+#include "FileHandler.h"
 
 class JsonAccessor {
 public:
     JsonAccessor();
-    virtual ~JsonAccessor();
+    ~JsonAccessor();
     std::string getString(const std::string& key);
     int getInt(const std::string& key);
     double getDouble(const std::string& key);
     std::vector<int>* getIntVector(const std::string& key);
     std::vector< std::vector<int>* >* getInt2DVector(const std::string& key);
     EntityInfo* getEntityInfo();
+
     std::string getStringWithDefault(const std::string& key, const std::string& defaultValue);
-    bool load(const std::string& pathToFile);
+    int getIntWithDefault(const std::string& key, int defaultValue);
+
+    bool loadJsonFrom(const std::string& pathToFile);
+    bool setJson(const std::string& json);
     bool canTakeElementFrom(const std::string& key);
-    bool close();
-    bool createJsonIfNotExisting(const std::string& file);
+    std::string getCurrentJson();
+    void reset();
 
 private:
-    rapidjson::Document values;
+    rapidjson::Document doc;
     rapidjson::Value& getAskedObject(std::string key);
-    FILE* pFile;
     std::string pathToFile;
-    bool loaded = false;
+    char* buffer = NULL;
 };
 
 #endif // JSONACCESSOR_H
