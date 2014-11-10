@@ -1,6 +1,10 @@
 # Exe
 *.exe
 
+#Linux executables
+Elodie-debug
+Elodie-release
+
 # Compiled Object files
 obj/*
 *.slo
