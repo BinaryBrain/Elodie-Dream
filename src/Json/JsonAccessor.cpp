@@ -5,7 +5,9 @@ JsonAccessor::JsonAccessor() {
 }
 
 JsonAccessor::~JsonAccessor() {
-    delete buffer;
+    if (buffer) {
+        delete buffer;
+    }
 }
 
 rapidjson::Value& JsonAccessor::getAskedObject(std::string key) {
