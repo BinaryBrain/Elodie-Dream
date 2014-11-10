@@ -18,7 +18,7 @@ LIB =
 LDFLAGS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lsfml-network
 
 INC_DEBUG = $(INC) -Irapidjson/include -Isfml/include -Isrc/Menu -Isrc/FileHandler
-CFLAGS_DEBUG = $(CFLAGS) -Wmain -pedantic -std=c++11 -Wextra -Wall -fexceptions -Werror
+CFLAGS_DEBUG = $(CFLAGS) -g -Wmain -pedantic -std=c++11 -Wextra -Wall -fexceptions -Werror
 RESINC_DEBUG = $(RESINC)
 RCFLAGS_DEBUG = $(RCFLAGS)
 LIBDIR_DEBUG = $(LIBDIR) 
