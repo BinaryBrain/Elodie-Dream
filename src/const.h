@@ -51,7 +51,7 @@ const int CAMERA_TOL = 50;
 const bool GOD_MODE = false; // TODO set to false
 const int HORIZONTAL_DISPLAY_MARGIN = WINDOW_WIDTH/(2*ZOOM_LEVEL) + 2*BLOCK_SIZE;
 const int VERTICAL_DISPLAY_MARGIN = WINDOW_HEIGHT/(2*ZOOM_LEVEL) + 2*BLOCK_SIZE;
-const int NUMLEVELS = 8;
+const size_t NUMLEVELS = 8;
 
 // -- SCORE -- //
 const float SCORE_OVERWORLD_SPRITE_SIZE = 40;
@@ -205,6 +205,6 @@ const float STATS_WIDTH_CATEGORY = 100;
 const int STATS_CHAR_SIZE = 15;
 
 // Saves
-const int NUMSLOTS = 3;
+const size_t NUMSLOTS = 3;
 
 #endif // CONST_H_INCLUDED

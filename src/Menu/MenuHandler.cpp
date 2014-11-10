@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include "MenuHandler.h"
 
 MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
@@ -10,7 +11,7 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
     std::vector<std::string> lastDiscoveredLevels;
     std::vector<std::string> labels;
 
-    for (int i = 1; i <= NUMSLOTS; ++i) {
+    for (size_t i = 1; i <= NUMSLOTS; ++i) {
         lastDiscoveredLevels.push_back("Level 0"); // to know if not initialized later
         labels.push_back(MENU_SLOT_PREFIX_LABEL + Utils::itos(i));
     }
