@@ -50,9 +50,12 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
         JsonAccessor accessor;
         accessor.setJson(sh->getDecryptedContentFrom(path));
 
-        int LDL = accessor.getIntWithDefault("lastdiscoveredlevel", 0);
-        std::cout << LDL << std::endl;
-        lastDiscoveredLevels[i] = sh->computeLDLName(LDL);
+        if (FileHandler::fileExists(path)) {
+            int LDL = accessor.getIntWithDefault("lastdiscoveredlevel", 0);
+            lastDiscoveredLevels[i] = sh->computeLDLName(LDL);
+        } else {
+            lastDiscoveredLevels[i] = labels[i];
+        }
 
         MenuComponent* save = new MenuComponent(labels[i], GameState::SAVE);
         sf::Text* t = save->getText();

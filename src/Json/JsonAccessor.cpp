@@ -5,7 +5,7 @@ JsonAccessor::JsonAccessor() {
 }
 
 JsonAccessor::~JsonAccessor() {
-
+    delete buffer;
 }
 
 rapidjson::Value& JsonAccessor::getAskedObject(std::string key) {
@@ -121,24 +121,18 @@ bool JsonAccessor::loadJsonFrom(const std::string& pathToFile) {
 }
 
 bool JsonAccessor::setJson(const std::string& json) {
-    doc.SetObject(); // resets doc
-
-    char* buffer = new char [json.size() + 1];
+    reset();
+    buffer = new char [json.size() + 1];
     memcpy(buffer, json.c_str(), json.size() + 1);
     if (doc.ParseInsitu<0>(buffer).HasParseError()) {
         std::cout << "Error: could not parse json:\n" << std::endl;
-        doc.SetObject();
-        delete buffer;
+        reset();
         return false;
     }
-    delete buffer;
     return true;
 }
 
 bool JsonAccessor::canTakeElementFrom(const std::string& key) {
-    //std::cout << "Current json: " << getCurrentJson() << std::endl;
-    std::cout << "key: " << key << std::endl;
-    std::cout << "hasMember: " << doc.HasMember(key.c_str()) << std::endl;
     return doc.HasMember(key.c_str());
 }
 
@@ -147,4 +141,12 @@ std::string JsonAccessor::getCurrentJson() {
     rapidjson::PrettyWriter<rapidjson::StringBuffer> jsonWriter(jsonOutput);
     doc.Accept(jsonWriter);
     return jsonOutput.GetString();
+}
+
+void JsonAccessor::reset() {
+    doc.SetObject();
+    if (buffer) {
+        delete buffer;
+        buffer = NULL;
+    }
 }

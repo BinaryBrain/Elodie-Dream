@@ -32,11 +32,13 @@ public:
     bool setJson(const std::string& json);
     bool canTakeElementFrom(const std::string& key);
     std::string getCurrentJson();
+    void reset();
 
 private:
     rapidjson::Document doc;
     rapidjson::Value& getAskedObject(std::string key);
     std::string pathToFile;
+    char* buffer = NULL;
 };
 
 #endif // JSONACCESSOR_H

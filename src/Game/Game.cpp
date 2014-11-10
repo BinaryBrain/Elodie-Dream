@@ -573,9 +573,6 @@ void Game::load() {
             console.setNextState(GameState::INMENU);
         }
 
-        // remove the temporary json
-        FileHandler::deleteFile(tempJsonFilePath);
-
     } else {
         console.clearAndWrite("Save doesn't exist.");
         console.setNextState(GameState::INMENU);
