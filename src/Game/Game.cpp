@@ -345,10 +345,6 @@ void Game::displayEnd() {
 
 void Game::displayScore() {
     if (event.keyIsPressed(sf::Keyboard::Return) || event.keyIsPressed(sf::Keyboard::Space)) {
-        if (autoSave) {
-            save();
-        }
-
         view.hide(ViewLayer::SCORE);
 
         // end of game
@@ -361,6 +357,9 @@ void Game::displayScore() {
             overworld->setToLevel(curLevelNbr + 1);
             statsBoard.setLDL(overworld->getState());
             leaveLevel();
+        }
+        if (autoSave) {
+            save();
         }
     }
 }
@@ -541,7 +540,7 @@ void Game::load() {
                 }
 
                 scoreManager->setAllDatas(scoreDatas);
-                std::cout << "Save from version " << accessor.getDouble("version") << std::endl;
+                //std::cout << "Save from version " << accessor.getDouble("version") << std::endl;
 
             } else {
                 std::cout << "Save from version prior to 1.1" << std::endl;
@@ -619,20 +618,16 @@ void Game::save() {
     if (state == GameState::SAVE) {
         console.clearAndWrite("Successfully saved on " + currentMenuSave->getLabel() + " (" + date + ").");
         console.setNextState(GameState::INMENU);
-
-        state = GameState::INCONSOLE;
         view.show(ViewLayer::MENU);
-        view.show(ViewLayer::CONSOLE);
     // if autosave
     } else if (state == GameState::INOVERWORLD) {
         console.clearAndWrite("Progress saved on " + currentMenuSave->getLabel() + ".");
         console.setNextState(GameState::INOVERWORLD);
-
-        state = GameState::INCONSOLE;
         view.show(ViewLayer::OVERWORLD);
-        view.show(ViewLayer::CONSOLE);
     }
 
+    state = GameState::INCONSOLE;
+    view.show(ViewLayer::CONSOLE);
 }
 
 void Game::exit() {
