@@ -1,3 +1,5 @@
+#include "../../Score/ScoreManager.h"
+#include "../../Sound/SoundManager.h"
 #include "MagmaCube.h"
 
 MagmaCube::MagmaCube() {
@@ -20,8 +22,7 @@ void MagmaCube::init(float x, float y) {
     damage = MAGMACUBE_DAMAGE;
     life = 1;
 
-    EntityManager* ToyBox = EntityManager::getInstance();
-    info = ToyBox->getEnemyInfo(EntityType::ENEMY, EntityName::MAGMACUBE);
+    info = EntityManager::getInstance().getEnemyInfo(EntityType::ENEMY, EntityName::MAGMACUBE);
 
     y -= (info->height - BLOCK_SIZE);
     state = MagmaCubeState::STANDING;
@@ -31,7 +32,6 @@ void MagmaCube::init(float x, float y) {
 
     sprite->setPosition(sf::Vector2f(x,y));
     setHitboxes(info, sprite->getPosition());
-    soundManager = SoundManager::getInstance();
 }
 
 MagmaCube::~MagmaCube() {
@@ -64,11 +64,11 @@ void MagmaCube::takeDamage(int damage, bool) {
         life = 0;
         damageCD = DAMAGE_CD;
     }
-    soundManager->play(SoundType::PUNCH);
-    ScoreManager* sm = ScoreManager::getInstance();
-    sm->addEnemyKilled();
-    sm->addKilledMagmacube();
-    sm->addToLevelPoints(this->damage);
+    SoundManager::getInstance().play(SoundType::PUNCH);
+    ScoreManager& sm = ScoreManager::getInstance();
+    sm.addEnemyKilled();
+    sm.addKilledMagmacube();
+    sm.addToLevelPoints(this->damage);
 }
 
 void MagmaCube::jump() {
@@ -76,7 +76,7 @@ void MagmaCube::jump() {
         speed.x = -MAGMACUBE_MOVE_X;
         speed.y = -MAGMACUBE_MOVE_Y;
     } else if (speed.y == 0 && !jumpCD) {
-        soundManager->play(SoundType::MAGMACUBE);
+        SoundManager::getInstance().play(SoundType::MAGMACUBE);
         speed.x = 0;
         jumpCD = MAGMACUBE_JUMP_CD;
     } else if (!speed.x && speed.y) {

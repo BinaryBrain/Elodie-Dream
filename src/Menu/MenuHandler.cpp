@@ -43,17 +43,17 @@ MenuHandler::MenuHandler(GameView& gameView) : Displayable(gameView) {
     addCompToMenu(backToOv, title);
     addCompToMenu(quit, title);
 
-    SaveHandler* sh = SaveHandler::getInstance();
+    SaveHandler& sh = SaveHandler::getInstance();
 
     for (size_t i = 0; i < NUMSLOTS; ++i) {
         std::string path = "save/" + labels[i] + ".save";
 
         JsonAccessor accessor;
-        accessor.setJson(sh->getDecryptedContentFrom(path));
+        accessor.setJson(sh.getDecryptedContentFrom(path));
 
         if (FileHandler::fileExists(path)) {
             int LDL = accessor.getIntWithDefault("lastdiscoveredlevel", 0);
-            lastDiscoveredLevels[i] = sh->computeLDLName(LDL);
+            lastDiscoveredLevels[i] = sh.computeLDLName(LDL);
         } else {
             lastDiscoveredLevels[i] = labels[i];
         }

@@ -21,8 +21,7 @@ void Ghost::init(float x, float y) {
     life = 1;
     speed.x = -GHOST_SPEED_X;
 
-    EntityManager* ToyBox = EntityManager::getInstance();
-    info = ToyBox->getEnemyInfo(EntityType::ENEMY, EntityName::GHOST);
+    info = EntityManager::getInstance().getEnemyInfo(EntityType::ENEMY, EntityName::GHOST);
 
     y -= (info->height - BLOCK_SIZE);
     state = GhostState::STANDING;
@@ -32,7 +31,6 @@ void Ghost::init(float x, float y) {
 
     sprite->setPosition(sf::Vector2f(x,y));
     setHitboxes(info, sprite->getPosition());
-    soundManager = SoundManager::getInstance();
 }
 
 Ghost::~Ghost() {

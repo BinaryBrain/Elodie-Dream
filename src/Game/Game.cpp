@@ -1,19 +1,16 @@
 #include "Game.h"
 
-// Initialisation of the singleton to NULL
-Game* Game::gameInstance = NULL;
-
-Game::Game() {
+Game::Game() :
+  saveHandler(SaveHandler::getInstance()),
+  soundManager(SoundManager::getInstance()),
+  scoreManager(ScoreManager::getInstance())
+{
     configManager.load(SETTINGS_PATH + "/settings.json");
 
     mute = DEFAULT_MUTE;
 
     title = new TitleScreen(view);
     overworld = new Overworld(view, DEFAULT_MUTE);
-
-    saveHandler = SaveHandler::getInstance();
-    soundManager = SoundManager::getInstance();
-    scoreManager = ScoreManager::getInstance();
 
     menuHandler.setInLevel(false);
     view.show(ViewLayer::TITLESCREEN);
@@ -29,18 +26,10 @@ Game::~Game() {
 }
 
 // Gets the instance of the game
-Game* Game::getInstance() {
-    if (!gameInstance) {
-        gameInstance = new Game();
-    }
-    return gameInstance;
-}
-
-void Game::kill() {
-    if (gameInstance) {
-        delete gameInstance;
-        gameInstance = NULL;
-    }
+Game& Game::getInstance()
+{
+  static Game instance;
+  return instance;
 }
 
 void Game::leaveLevel() {
@@ -61,7 +50,7 @@ void Game::leaveLevel() {
         delete curLevel;
         curLevel = NULL;
     }
-    scoreManager->resetCurrentScore();
+    scoreManager.resetCurrentScore();
     menuHandler.getTitleMenu()->toNormalMenu();
 }
 
@@ -107,16 +96,16 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
     } else {
         curLevel->live(&event, time);
         hud.setLevel(((Elodie*)curLevel->getEntities()["elodie"])->getImmersionLevel());
-        hud.setScore(scoreManager->getCurrentScore().getLevelPoints());
+        hud.setScore(scoreManager.getCurrentScore().getLevelPoints());
 
         // level leaving
         if (curLevel->mustLeave()) {
             // level cleared
             if (curLevel->isCleared()) {
-                scoreManager->setLevel(curLevelNbr);
-                scoreManager->computeTotalPoints();
+                scoreManager.setLevel(curLevelNbr);
+                scoreManager.computeTotalPoints();
                 scoreBoard.prepareText();
-                scoreManager->saveCurrentScore();
+                scoreManager.saveCurrentScore();
 
                 view.show(ViewLayer::SCORE);
                 state = GameState::INSCORE;
@@ -492,12 +481,12 @@ void Game::newGame() {
     view.hide(ViewLayer::MENU);
     view.show(ViewLayer::OVERWORLD);
     view.hide(ViewLayer::TITLESCREEN);
-    scoreManager->resetAllScores();
+    scoreManager.resetAllScores();
     statsBoard.setLDL(0);
     menuHandler.getTitleMenu()->toNormalMenu();
 
     // if there is a free slot, save on it
-    std::string nextFreeSlot = saveHandler->nextFreeSlot();
+    std::string nextFreeSlot = saveHandler.nextFreeSlot();
 
     if (nextFreeSlot != "") {
         currentMenuSave = menuHandler.getMenuComponentFromKey(nextFreeSlot);
@@ -514,7 +503,7 @@ void Game::load() {
 
     if (FileHandler::fileExists(path)) {
         // resets the scores
-        scoreManager->resetAllScores();
+        scoreManager.resetAllScores();
 
         // Sets the slot and text (for example for the autosave)
         autoSave = true;
@@ -522,7 +511,7 @@ void Game::load() {
 
         // retrieves the saved values
         JsonAccessor accessor;
-        bool jsonOk = accessor.setJson(saveHandler->getDecryptedContentFrom(path));
+        bool jsonOk = accessor.setJson(saveHandler.getDecryptedContentFrom(path));
 
         // if the save is valid
         if (jsonOk && accessor.canTakeElementFrom("date") && accessor.canTakeElementFrom("lastdiscoveredlevel")) {
@@ -539,12 +528,12 @@ void Game::load() {
                     scoreDatas.push_back(score);
                 }
 
-                scoreManager->setAllDatas(scoreDatas);
+                scoreManager.setAllDatas(scoreDatas);
                 //std::cout << "Save from version " << accessor.getDouble("version") << std::endl;
 
             } else {
                 std::cout << "Save from version prior to 1.1" << std::endl;
-                scoreManager->resetAllScores();
+                scoreManager.resetAllScores();
             }
 
 
@@ -594,9 +583,9 @@ void Game::save() {
     int LDL = overworld->getState();
 
     // Displays the save name on the menu
-    currentMenuSave->getText()->setString(saveHandler->computeLDLName(LDL));
+    currentMenuSave->getText()->setString(saveHandler.computeLDLName(LDL));
 
-    std::vector< std::vector<int> > scoresDatas = scoreManager->getAllDatas();
+    std::vector< std::vector<int> > scoresDatas = scoreManager.getAllDatas();
 
     // saves the datas to the save file
     std::string keyVersion = "version";
@@ -604,14 +593,14 @@ void Game::save() {
     std::string keyLDL = "lastdiscoveredlevel";
     std::string keyScoresDatas = "scoresdatas";
 
-    JsonStringifier* stringifier = saveHandler->getStringifier();
+    JsonStringifier* stringifier = saveHandler.getStringifier();
     stringifier->add(keyVersion, GAME_VERSION);
     stringifier->add(keyDate, date);
     stringifier->add(keyLDL, LDL);
     stringifier->add(keyScoresDatas, scoresDatas);
 
-    saveHandler->saveEncryptedContentTo(path);
-    saveHandler->clearStringifier();
+    saveHandler.saveEncryptedContentTo(path);
+    saveHandler.clearStringifier();
 
     // console confirmation
     // save() called from the menu

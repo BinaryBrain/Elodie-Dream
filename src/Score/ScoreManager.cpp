@@ -1,8 +1,5 @@
 #include "ScoreManager.h"
 
-// Initialisation of the singleton to NULL
-ScoreManager* ScoreManager::managerInstance = NULL;
-
 ScoreManager::ScoreManager() {
     for (size_t i = 0; i < NUMLEVELS; ++i) {
         Score score;
@@ -11,20 +8,13 @@ ScoreManager::ScoreManager() {
 }
 
 ScoreManager::~ScoreManager() {
-
 }
 
 // Gets the instance of the entityManger
-ScoreManager* ScoreManager::getInstance() {
-    if(!managerInstance) managerInstance = new ScoreManager();
-    return managerInstance;
-}
-
-void ScoreManager::kill() {
-    if(managerInstance) {
-        delete managerInstance;
-        managerInstance = NULL;
-    }
+ScoreManager& ScoreManager::getInstance()
+{
+  static ScoreManager instance;
+  return instance;
 }
 
 Score ScoreManager::getScore(int level) {

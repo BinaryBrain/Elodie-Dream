@@ -35,8 +35,7 @@ class SoundManager;
 */
 class Game {
 public:
-    static Game* getInstance();
-    static void kill();
+    static Game& getInstance();
 
     void draw();
     void run();
@@ -56,7 +55,7 @@ private:
     Game();
     ~Game();
 
-    static Game* gameInstance;
+    Game(const Game&);
     Game& operator= (Game const&);
 
     int curLevelNbr = 0;
@@ -79,9 +78,9 @@ private:
 
     ConfigManager configManager;
     JsonAccessor jsonAccessor;
-    SaveHandler* saveHandler;
-    SoundManager* soundManager;
-    ScoreManager* scoreManager;
+    SaveHandler& saveHandler;
+    SoundManager& soundManager;
+    ScoreManager& scoreManager;
 
     TitleScreen* title = NULL;
     ScoreBoard scoreBoard = ScoreBoard(view);

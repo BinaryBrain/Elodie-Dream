@@ -1,3 +1,4 @@
+#include "../../Sound/SoundManager.h"
 #include "Spikes.h"
 
 Spikes::Spikes() {
@@ -22,8 +23,7 @@ void Spikes::init(float x, float y) {
     damage = SPIKES_DAMAGE;
     life = 1;
 
-    EntityManager* ToyBox = EntityManager::getInstance();
-    info = ToyBox->getEnemyInfo(EntityType::ENEMY, EntityName::SPIKES);
+    info = EntityManager::getInstance().getEnemyInfo(EntityType::ENEMY, EntityName::SPIKES);
 
     state = SpikesState::WAITING;
     speed.x = 0;
@@ -60,8 +60,7 @@ void Spikes::doAttack(std::map< std::string, Entity* >& entities) {
         sprite->changeStance(ANIMATIONS[state], sf::seconds(0.02f));
         activated = true;
 
-        SoundManager* sounds = SoundManager::getInstance();
-        sounds->play(SoundType::SPIKES);
+        SoundManager::getInstance().play(SoundType::SPIKES);
     }
 }
 

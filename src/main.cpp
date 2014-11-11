@@ -19,11 +19,10 @@ using std::endl;
 int main() {
     FileHandler::createDirIfNotExisting("save");
     globalFont.loadFromFile(GLOBALFONT_PATH);
-    Game* game = Game::getInstance();
 
     if (false) {
-        EntityManager* ToyBox = EntityManager::getInstance();
-        EntityInfo* sheep = ToyBox->getEnemyInfo(EntityType::ENEMY, EntityName::SHEEP);
+        EntityManager& ToyBox = EntityManager::getInstance();
+        EntityInfo* sheep = ToyBox.getEnemyInfo(EntityType::ENEMY, EntityName::SHEEP);
         std::cout << std::endl << "sheep" << std::endl;
         std::cout << "height: " << sheep->height << std::endl;
         std::cout << "width: " << sheep->width << std::endl;
@@ -35,10 +34,8 @@ int main() {
             }
         }
         delete sheep;
-        ToyBox->kill();
     }
-    game->run();
-    game->kill();
+    Game::getInstance().run();
 
     return 0;
 }

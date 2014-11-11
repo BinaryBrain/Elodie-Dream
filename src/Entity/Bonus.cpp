@@ -1,3 +1,5 @@
+#include "../Score/ScoreManager.h"
+#include "../Sound/SoundManager.h"
 #include "Bonus.h"
 
 Bonus::Bonus() {
@@ -20,8 +22,7 @@ void Bonus::init(float x, float y) {
     damage = 0;
     life = 1;
 
-    EntityManager* ToyBox = EntityManager::getInstance();
-    info = ToyBox->getEnemyInfo(EntityType::BONUS, EntityName::SPRITE);
+    info = EntityManager::getInstance().getEnemyInfo(EntityType::BONUS, EntityName::SPRITE);
 
     y -= (info->height - BLOCK_SIZE);
     state = BonusState::STANDING;
@@ -33,7 +34,6 @@ void Bonus::init(float x, float y) {
 
     sprite->setPosition(sf::Vector2f(x,y));
     setHitboxes(info, sprite->getPosition());
-    soundManager = SoundManager::getInstance();
 }
 
 Bonus::~Bonus() {
@@ -62,11 +62,11 @@ void Bonus::getTaken(std::map< std::string, Entity* >& entities) {
     sf::FloatRect zone = getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()).getArea();
     sf::FloatRect elodie = ((Elodie*)entities["elodie"])->returnCurrentHitbox().getArea();
     if (zone.intersects(elodie)) {
-        ScoreManager* sm = ScoreManager::getInstance();
-        sm->takeBonus();
-        sm->addToLevelPoints(BONUS_POINTS);
+        ScoreManager& sm = ScoreManager::getInstance();
+        sm.takeBonus();
+        sm.addToLevelPoints(BONUS_POINTS);
         life = 0;
-        soundManager->play(SoundType::BOTTLE);
+	SoundManager::getInstance().play(SoundType::BOTTLE);
     }
 }
 

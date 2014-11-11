@@ -1,3 +1,4 @@
+#include "../Sound/SoundManager.h"
 #include "Poro.h"
 
 Poro::Poro() {
@@ -20,8 +21,7 @@ void Poro::init(float x, float y) {
     damage = 0;
     life = 1;
 
-    EntityManager* ToyBox = EntityManager::getInstance();
-    info = ToyBox->getEnemyInfo(EntityType::ELODIE, EntityName::PORO);
+    info = EntityManager::getInstance().getEnemyInfo(EntityType::ELODIE, EntityName::PORO);
 
     y -= (info->height - BLOCK_SIZE);
     state = PoroState::RUNNING;
@@ -31,7 +31,6 @@ void Poro::init(float x, float y) {
 
     sprite->setPosition(sf::Vector2f(x,y));
     setHitboxes(info, sprite->getPosition());
-    soundManager = SoundManager::getInstance();
 }
 
 Poro::~Poro() {
@@ -82,7 +81,7 @@ void  Poro::takeDamage(int damage, bool) {
     if (!damageCD && damage > 0) {
         life = 0;
         damageCD = DAMAGE_CD;
-        soundManager->play(SoundType::SHEEP);
+	SoundManager::getInstance().play(SoundType::SHEEP);
     }
 }
 

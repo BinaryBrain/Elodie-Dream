@@ -30,9 +30,8 @@ void StatsBoard::display() {
 
 void StatsBoard::prepareText() {
     categoriesText.clear();
-    ScoreManager* scoreManager = ScoreManager::getInstance();
 
-    std::vector< std::vector<int> > allDatas = scoreManager->getAllDatas();
+    std::vector< std::vector<int> > allDatas = ScoreManager::getInstance().getAllDatas();
 
     std::string levels = "\nTutorial\n";
 

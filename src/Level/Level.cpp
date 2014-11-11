@@ -20,9 +20,7 @@ Level::Level(GameView& gameView, std::string filename, LevelEnv env, Elodie& elo
     } else {
         music.setLoop(true);
 
-	//TODO: Make the singletons return reference to themself instead of pointers
-        Game* game = Game::getInstance();
-        if(!game->isMute()) {
+        if(!Game::getInstance().isMute()) {
             music.play();
         }
     }

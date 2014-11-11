@@ -1,8 +1,5 @@
 #include "EntityManager.h"
 
-// Initialisation of the singleton to NULL
-EntityManager* EntityManager::managerInstance = NULL;
-
 EntityManager::EntityManager() {
     ENTITY_NAME = {
         {EntityName::ELODIE, ENTITYNAME_ELODIE},
@@ -35,16 +32,10 @@ EntityManager::~EntityManager() {
 }
 
 // Gets the instance of the entityManger
-EntityManager* EntityManager::getInstance() {
-    if(!managerInstance) managerInstance = new EntityManager();
-    return managerInstance;
-}
-
-void EntityManager::kill() {
-    if(managerInstance) {
-        delete managerInstance;
-        managerInstance = NULL;
-    }
+EntityManager& EntityManager::getInstance()
+{
+  static EntityManager instance;
+  return instance;
 }
 
 EntityInfo* EntityManager::getEnemyInfo(EntityType type, EntityName name) {

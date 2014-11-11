@@ -1,7 +1,5 @@
 #include "SoundManager.h"
 
-SoundManager* SoundManager::soundManagerInstance = NULL;
-
 SoundManager::SoundManager() {
     SOUND_TYPE = {
         { SoundType::PUNCH, { SOUND_TYPE_PUNCH, SOUND_TYPE_PUNCH_MAX } }, // The int is the number after the max file (2 => punch2.wav)
@@ -28,16 +26,10 @@ SoundManager::~SoundManager() {
 }
 
 // Gets the instance of the game
-SoundManager* SoundManager::getInstance() {
-    if(!soundManagerInstance) soundManagerInstance = new SoundManager();
-    return soundManagerInstance;
-}
-
-void SoundManager::kill() {
-    if(soundManagerInstance) {
-        delete soundManagerInstance;
-        soundManagerInstance = NULL;
-    }
+SoundManager& SoundManager::getInstance()
+{
+  static SoundManager instance;
+  return instance;
 }
 
 sf::SoundBuffer* SoundManager::getRandomSoundBuffer(SoundType type) {
@@ -67,9 +59,7 @@ std::string SoundManager::getPath(SoundType type, int n) {
 }
 
 void SoundManager::play(sf::SoundBuffer* buffer, int volume) {
-    Game* game = Game::getInstance();
-
-    if(!game->isMute()) {
+    if(!Game::getInstance().isMute()) {
         sf::Sound* sound = new sf::Sound();
         sound->setBuffer(*buffer);
         sound->setVolume(volume);

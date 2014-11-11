@@ -1,3 +1,5 @@
+#include "../../Score/ScoreManager.h"
+#include "../../Sound/SoundManager.h"
 #include "Sheep.h"
 
 Sheep::Sheep() {
@@ -20,8 +22,7 @@ void Sheep::init(float x, float y) {
     damage = SHEEP_DAMAGE;
     life = 1;
 
-    EntityManager* ToyBox = EntityManager::getInstance();
-    info = ToyBox->getEnemyInfo(EntityType::ENEMY, EntityName::SHEEP);
+    info = EntityManager::getInstance().getEnemyInfo(EntityType::ENEMY, EntityName::SHEEP);
 
     y -= (info->height - BLOCK_SIZE);
     state = SheepState::STANDING;
@@ -31,7 +32,6 @@ void Sheep::init(float x, float y) {
 
     sprite->setPosition(sf::Vector2f(x,y));
     setHitboxes(info, sprite->getPosition());
-    soundManager = SoundManager::getInstance();
 }
 
 Sheep::~Sheep() {
@@ -63,13 +63,13 @@ void Sheep::takeDamage(int damage, bool) {
     if (!damageCD && damage > 0) {
         life = 0;
         damageCD = DAMAGE_CD;
-        soundManager->play(SoundType::SHEEP);
+	SoundManager::getInstance().play(SoundType::SHEEP);
     }
-    soundManager->play(SoundType::PUNCH);
-    ScoreManager* sm = ScoreManager::getInstance();
-    sm->addEnemyKilled();
-    sm->addKilledSheep();
-    sm->addToLevelPoints(this->damage);
+    SoundManager::getInstance().play(SoundType::PUNCH);
+    ScoreManager& sm = ScoreManager::getInstance();
+    sm.addEnemyKilled();
+    sm.addKilledSheep();
+    sm.addToLevelPoints(this->damage);
 }
 
 void Sheep::doStuff(EventHandler* const&, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) {

@@ -1,3 +1,5 @@
+#include "../Score/ScoreManager.h"
+#include "../Sound/SoundManager.h"
 #include "Elodie.h"
 
 Elodie::Elodie() {
@@ -32,9 +34,6 @@ void Elodie::init() {
 
     sprite = new ElodieSprite(info);
     setEntitySprite(sprite);
-
-    soundManager = SoundManager::getInstance();
-    scoreManager = ScoreManager::getInstance();
 }
 
 ElodieSprite* Elodie::getSprite() {
@@ -139,8 +138,9 @@ int Elodie::getNightmareLevel() {
 void Elodie::takeDamage(int damage, bool ignore) {
     if (!damageCD && (state != ElodieState::PUNCHING || ignore)) {
         immersionLevel -= damage;
-        scoreManager->addDamage(damage);
-        scoreManager->addToLevelPoints((-1)*damage);
+	ScoreManager& sm = ScoreManager::getInstance();
+        sm.addDamage(damage);
+        sm.addToLevelPoints((-1)*damage);
         if (immersionLevel < 0) {
             immersionLevel = 0;
         }
@@ -193,7 +193,7 @@ void Elodie::changeAnimation(Collide collideTiles) {
             changeState(ElodieState::WALKING);
         }
         if (state == ElodieState::WALKING && curFrame == 1 && sprite->getPreviousFrame() != curFrame) {
-            soundManager->play(SoundType::FOOTSTEP_GROUND);
+	  SoundManager::getInstance().play(SoundType::FOOTSTEP_GROUND);
         }
     } else if (state != ElodieState::PUNCHING) {
         if (speed.y > 0) {
@@ -277,14 +277,14 @@ void Elodie::changeState(ElodieState to) {
         speed.y = ELODIE_JUMP;
         sprite->changeStance(ANIMATIONS[state], sf::seconds(0.1f));
     } else if(from == ElodieState::FALLING && to == ElodieState::WALKING) {
-        soundManager->play(SoundType::FOOTSTEP_GROUND);
+      SoundManager::getInstance().play(SoundType::FOOTSTEP_GROUND);
     } else if(from == ElodieState::JUMPING && to == ElodieState::WALKING) {
-        soundManager->play(SoundType::FOOTSTEP_GROUND);
+        SoundManager::getInstance().play(SoundType::FOOTSTEP_GROUND);
     }
 
     if(to == ElodieState::PUNCHING) {
         sprite->changeStance(ANIMATIONS[state], sf::seconds(0.05f));
-        soundManager->play(SoundType::WOOSH);
+        SoundManager::getInstance().play(SoundType::WOOSH);
     }
 }
 

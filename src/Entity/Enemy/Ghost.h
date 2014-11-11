@@ -9,9 +9,6 @@
 #include "../../EventHandler/EventHandler.h"
 #include "../../EntityManager/EntityManager.h"
 #include "../Elodie.h"
-#include "../../Sound/SoundManager.h"
-
-class SoundManager;
 
 enum class GhostState { STANDING };
 
@@ -36,7 +33,6 @@ protected:
 private:
     void init(float x, float y);
     int damage = 0;
-    SoundManager* soundManager;
 
     EntitySprite* sprite;
     int limitSpeed = GHOST_LIMIT_Y;

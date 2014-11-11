@@ -1,8 +1,5 @@
 #include "SaveHandler.h"
 
-// Initialisation of the singleton to NULL
-SaveHandler* SaveHandler::shInstance = NULL;
-
 SaveHandler::SaveHandler() {
     stringifier = new JsonStringifier();
 }
@@ -12,9 +9,10 @@ SaveHandler::~SaveHandler() {
 }
 
 // Gets the instance of the SaveHandler
-SaveHandler* SaveHandler::getInstance() {
-    if(!shInstance) shInstance = new SaveHandler();
-    return shInstance;
+SaveHandler& SaveHandler::getInstance()
+{
+  static SaveHandler instance;
+  return instance;
 }
 
 JsonStringifier* SaveHandler::getStringifier() {

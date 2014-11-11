@@ -20,8 +20,7 @@ void Portal::init(float x, float y) {
     damage = 0;
     life = 1;
 
-    EntityManager* ToyBox = EntityManager::getInstance();
-    info = ToyBox->getEnemyInfo(EntityType::MISC, EntityName::PORTAL);
+    info = EntityManager::getInstance().getEnemyInfo(EntityType::MISC, EntityName::PORTAL);
 
     y -= (info->height - BLOCK_SIZE);
     state = PortalState::STANDING;
@@ -32,7 +31,6 @@ void Portal::init(float x, float y) {
 
     sprite->setPosition(sf::Vector2f(x,y));
     setHitboxes(info, sprite->getPosition());
-    soundManager = SoundManager::getInstance();
 }
 
 Portal::~Portal() {

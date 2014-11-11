@@ -10,8 +10,7 @@
 
 class ScoreManager {
 public:
-    static ScoreManager* getInstance();
-    static void kill();
+    static ScoreManager& getInstance();
 
     void takeBonus();
     void addToLevelPoints(int points);
@@ -50,7 +49,7 @@ private:
     ScoreManager();
     virtual ~ScoreManager();
 
-    static ScoreManager* managerInstance;
+    ScoreManager(const ScoreManager&);
     ScoreManager& operator= (ScoreManager const&); // Makes operator= private
 
     Score currentScore;

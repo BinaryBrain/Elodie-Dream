@@ -20,20 +20,19 @@ typedef std::map< EntityType, std::map< EntityName, EntityInfo* > > EntityBox;
 
 class EntityManager {
 public:
-    static EntityManager* getInstance();
-    static void kill();
+    static EntityManager& getInstance();
     EntityInfo* getEnemyInfo(EntityType type, EntityName name);
-protected:
+
 private:
     EntityManager();
     virtual ~EntityManager();
 
-    static EntityManager* managerInstance;
+    EntityManager(const EntityManager&);
     EntityManager& operator= (EntityManager const&); // Makes operator= private
 
     std::string getPath(EntityType type, EntityName name);
 
-     EntityBox enemies;
+    EntityBox enemies;
 
     std::map< EntityName, std::string > ENTITY_NAME;
     std::map< EntityType, std::string > ENTITY_TYPE;

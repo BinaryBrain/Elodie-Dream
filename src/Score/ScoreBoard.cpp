@@ -37,18 +37,18 @@ void ScoreBoard::display() {
 }
 
 void ScoreBoard::prepareText() {
-    ScoreManager* scoreManager = ScoreManager::getInstance();
+    ScoreManager& scoreManager = ScoreManager::getInstance();
     float viewX(WINDOW_WIDTH);
 
-    int boni = scoreManager->getCurrentScore().getBoni();
-    int damages = scoreManager->getCurrentScore().getDamagesTaken();
-    int sheeps = scoreManager->getCurrentScore().getSheeps();
-    int magmaCubes = scoreManager->getCurrentScore().getMagmaCubes();
-    int bristles = scoreManager->getCurrentScore().getBristles();
-    int enemiesKilled = scoreManager->getCurrentScore().getEnemiesKilled();
-    int totalPoints = scoreManager->getCurrentScore().getTotalPoints();
-    int levelId = scoreManager->getCurrentScore().getLevelId();
-    int bestScore = scoreManager->getGameScore()[levelId].getTotalPoints();
+    int boni = scoreManager.getCurrentScore().getBoni();
+    int damages = scoreManager.getCurrentScore().getDamagesTaken();
+    int sheeps = scoreManager.getCurrentScore().getSheeps();
+    int magmaCubes = scoreManager.getCurrentScore().getMagmaCubes();
+    int bristles = scoreManager.getCurrentScore().getBristles();
+    int enemiesKilled = scoreManager.getCurrentScore().getEnemiesKilled();
+    int totalPoints = scoreManager.getCurrentScore().getTotalPoints();
+    int levelId = scoreManager.getCurrentScore().getLevelId();
+    int bestScore = scoreManager.getGameScore()[levelId].getTotalPoints();
 
     std::string s = "";
     std::string m = "";

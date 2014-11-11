@@ -13,7 +13,7 @@
 
 class SaveHandler {
 public:
-    static SaveHandler* getInstance();
+    static SaveHandler& getInstance();
 
     void setPath(const std::string& path);
     JsonStringifier* getStringifier();

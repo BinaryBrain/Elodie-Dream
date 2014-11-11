@@ -9,10 +9,6 @@
 #include "../../EventHandler/EventHandler.h"
 #include "../../EntityManager/EntityManager.h"
 #include "../Elodie.h"
-#include "../../Sound/SoundManager.h"
-#include "../../Score/ScoreManager.h"
-
-class SoundManager;
 
 enum class BristleState { STANDING, GRATTING };
 
@@ -38,7 +34,6 @@ protected:
 private:
     void init(float x, float y);
     int damage = 0;
-    SoundManager* soundManager;
 
     EntitySprite* sprite;
 
