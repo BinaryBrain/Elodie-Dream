@@ -373,13 +373,13 @@ void Game::displayStats() {
 }
 
 void Game::run() {
-    sf::RenderWindow* window = view.getWindow();
+    sf::RenderWindow& window = view.getWindow();
     view.show(ViewLayer::MENU);
 
-    window->setFramerateLimit(FPS);
-    window->setIcon(icon.width, icon.height, icon.pixel_data);
+    window.setFramerateLimit(FPS);
+    window.setIcon(icon.width, icon.height, icon.pixel_data);
 
-    while (window->isOpen()) {
+    while (window.isOpen()) {
         sf::Time sfTime = sf::seconds(1.0/FPS);//frameClock.restart();
         //if (sfTime.asSeconds() > MAX_TIME_FRAME)
         //    sfTime = sf::seconds(MAX_TIME_FRAME);
@@ -404,7 +404,7 @@ void Game::run() {
         }
 
         if (event.keyIsPressed(sf::Keyboard::F12)) {
-            sf::Image screen = window->capture();
+            sf::Image screen = window.capture();
             now.refreshTime();
 
             std::string date = now.getDMY("-") + "_" + now.getHMS("-");
@@ -631,7 +631,7 @@ void Game::save() {
 }
 
 void Game::exit() {
-    view.getWindow()->close();
+    view.getWindow().close();
 }
 
 GameState Game::getState() {

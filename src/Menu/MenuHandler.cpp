@@ -27,9 +27,9 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
 
     tbg.setTexture(*poroTexture);
 
-    gameView->getWindow()->draw(tbg);
-    gameView->getWindow()->draw(loading);
-    gameView->getWindow()->display();
+    gameView->getWindow().draw(tbg);
+    gameView->getWindow().draw(loading);
+    gameView->getWindow().display();
 
     title = new TitleMenu(MENU_TITLEMENU_LABEL, GameState::INMENU);
     saveGame = new Menu(MENU_SAVEGAME_LABEL, GameState::INMENU);

@@ -22,7 +22,7 @@ public:
     void draw();
     void addDrawable(ViewLayer viewKey, sf::Drawable*);
 
-    sf::RenderWindow* getWindow();
+    sf::RenderWindow& getWindow();
     float getSizeX();
     float getSizeY();
 

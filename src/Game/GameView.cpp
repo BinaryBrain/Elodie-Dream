@@ -12,8 +12,8 @@ GameView::~GameView() {
     delete window;
 }
 
-sf::RenderWindow* GameView::getWindow() {
-    return window;
+sf::RenderWindow& GameView::getWindow() {
+    return *window;
 }
 
 float GameView::getSizeX() {
