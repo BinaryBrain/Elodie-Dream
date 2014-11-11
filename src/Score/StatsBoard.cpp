@@ -22,7 +22,7 @@ void StatsBoard::display() {
     gameView->addDrawable(ViewLayer::STATS, &background);
     gameView->addDrawable(ViewLayer::STATS, &levelsText);
 
-    for (std::size_t i = 0; i < categoriesText.size(); ++i) {
+    for (size_t i = 0; i < categoriesText.size(); ++i) {
         gameView->addDrawable(ViewLayer::STATS, &(categoriesText[i].first));
         gameView->addDrawable(ViewLayer::STATS, &(categoriesText[i].second));
     }
@@ -53,20 +53,20 @@ void StatsBoard::prepareText() {
     titles.push_back("Bristles");
 
     std::vector< std::vector<int> > categories;
-    for (std::size_t i = 0; i < titles.size(); ++i) {
+    for (size_t i = 0; i < titles.size(); ++i) {
         std::vector<int> tmp;
         categories.push_back(tmp);
     }
 
     // for each level, store in the right category its values
     for (int i = 0; i <= LDL; ++i) {
-        for (std::size_t j = 0; j < titles.size(); ++j) {
+        for (size_t j = 0; j < titles.size(); ++j) {
             categories[j].push_back(allDatas[i][j+2]);
         }
     }
 
     float startX = STATS_MARGIN*2 + levelsText.getLocalBounds().width;
-    for (std::size_t i = 0; i < titles.size(); ++i) {
+    for (size_t i = 0; i < titles.size(); ++i) {
         categoriesText.push_back(createCategoryText(startX + STATS_MARGIN*i +  STATS_WIDTH_CATEGORY*i, STATS_MARGIN, titles[i], categories[i]));
     }
 }
@@ -78,7 +78,7 @@ std::pair<sf::Text, sf::Text> StatsBoard::createCategoryText(float x, float y, s
 
     std::string values = "\n";
 
-    for (std::size_t i = 0; i < datas.size(); ++i) {
+    for (size_t i = 0; i < datas.size(); ++i) {
         values += Utils::itos(datas[i]) + "\n";
     }
 

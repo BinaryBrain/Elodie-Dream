@@ -85,7 +85,7 @@ std::vector<int> SaveHandler::encrypt(const std::string& p, const std::string& k
 
 std::string SaveHandler::decrypt(std::vector<int> tmp, const std::string& key) {
     std::string p = "";
-    for (std::size_t i = 0; i < tmp.size(); ++i) {
+    for (size_t i = 0; i < tmp.size(); ++i) {
         p += ((char)tmp[i])^key[i%key.length()];
     }
     return p;

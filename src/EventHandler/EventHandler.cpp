@@ -12,27 +12,31 @@ EventHandler::~EventHandler() {
 }
 
 void EventHandler::pushAll(vector<eventInput> const& tabFrom, vector<eventInput>& tabTo) {
-    for (unsigned int i(0); i < tabFrom.size(); ++i)
+    for (size_t i = 0; i < tabFrom.size(); ++i) {
         tabTo.push_back(tabFrom[i]);
+    }
 }
 
 void EventHandler::pushAll(vector<eventMouse> const& tabFrom, vector<eventMouse>& tabTo) {
-    for (unsigned int i(0); i < tabFrom.size(); ++i)
+    for (size_t i = 0; i < tabFrom.size(); ++i) {
         tabTo.push_back(tabFrom[i]);
+    }
 }
 
 int EventHandler::inVector(vector<eventInput> const& tab, int code) {
-    for (int i(0); i < (int)tab.size(); ++i) {
-        if (tab[i].code == code)
+    for (size_t i = 0; i < tab.size(); ++i) {
+        if (tab[i].code == code) {
             return i;
+        }
     }
     return -1;
 }
 
 int EventHandler::inVector(vector<eventMouse> const& tab, int code) {
-    for (int i(0); i < (int)tab.size(); ++i) {
-        if (tab[i].code == code)
+    for (size_t i = 0; i < tab.size(); ++i) {
+        if (tab[i].code == code) {
             return i;
+        }
     }
     return -1;
 }
@@ -47,7 +51,7 @@ int EventHandler::inVector(vector<eventMouse> const& tab, int code) {
 }*/
 
 void EventHandler::extractByCode(vector<eventInput>& tab, int code) {
-    for (int i(0); i < (int)tab.size(); ++i) {
+    for (size_t i = 0; i < tab.size(); ++i) {
         if (tab[i].code == code) {
             tab.erase(tab.begin() + i);
             return ;
@@ -56,7 +60,7 @@ void EventHandler::extractByCode(vector<eventInput>& tab, int code) {
 }
 
 void EventHandler::extractByCode(vector<eventMouse>& tab, int code) {
-    for (int i(0); i < (int)tab.size(); ++i) {
+    for (size_t i = 0; i < tab.size(); ++i) {
         if (tab[i].code == code) {
             tab.erase(tab.begin() + i);
             return ;
@@ -66,19 +70,19 @@ void EventHandler::extractByCode(vector<eventMouse>& tab, int code) {
 
 vector<int> EventHandler::codeContent(vector<eventInput> const& tab) {
     vector<int> ret;
-
-    for(unsigned int i(0); i < tab.size(); ++i)
+    for (size_t i = 0; i < tab.size(); ++i) {
         ret.push_back(tab[i].code);
-
+    }
     return ret;
 }
 
 eventMouse EventHandler::getInfoByCode(vector<eventMouse> const &tab, int code) {
     eventMouse emptyStruct;
 
-    for(unsigned int i(0); i < tab.size(); ++i) {
-        if (tab[i].code == code)
+    for (size_t i = 0; i < tab.size(); ++i) {
+        if (tab[i].code == code) {
             return tab[i];
+        }
     }
     return emptyStruct;
 }
@@ -88,7 +92,7 @@ bool EventHandler::checkIn(vector<eventInput> const& tab, int code) {
 }
 
 bool EventHandler::checkIn(vector<eventInput> const& tab, vector<int> codes) {
-    for (int i(0); i < (int)codes.size(); ++i) {
+    for (size_t i = 0; i < tab.size(); ++i) {
         if (inVector(tab, codes[i]) >= 0)
             return true;
     }

@@ -39,10 +39,10 @@ const sf::Texture* Animation::getSpriteSheet() const {
     return texture;
 }
 
-std::size_t Animation::getSize() const {
+size_t Animation::getSize() const {
     return frames.size();
 }
 
-const sf::IntRect& Animation::getFrame(std::size_t n) const {
+const sf::IntRect& Animation::getFrame(size_t n) const {
     return frames[n];
 }

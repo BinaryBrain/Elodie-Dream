@@ -534,7 +534,7 @@ void Game::load() {
                 std::vector< std::vector<int>* > datas = *(accessor.getInt2DVector("scoresdatas"));
                 std::vector< std::vector<int> > scoreDatas;
 
-                for (std::size_t i = 0; i < datas.size(); ++i) {
+                for (size_t i = 0; i < datas.size(); ++i) {
                     std::vector<int> score = *(datas[i]);
                     scoreDatas.push_back(score);
                 }
