@@ -30,7 +30,7 @@ int main() {
         for(std::map< std::string, HitboxInfo >::iterator it = sheep->anim.begin(); it != sheep->anim.end(); ++it) {
             std::cout << it->first << std::endl;
             std::cout << it->second.row << std::endl;
-            for (unsigned int i = 0; i < it->second.hitboxes.size(); ++i) {
+            for (size_t i = 0; i < it->second.hitboxes.size(); ++i) {
                 std::cout << it->second.hitboxes[i].left << " " << it->second.hitboxes[i].top << " " << it->second.hitboxes[i].width << " " << it->second.hitboxes[i].height << std::endl;
             }
         }

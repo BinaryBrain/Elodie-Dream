@@ -54,7 +54,7 @@ std::vector<std::string> Console::cutShort(std::string str, std::string sub, int
     std::vector<std::string> lines;
     std::string buffer(sub); // tricky temporary sub at the beginning :3
 
-    for (std::size_t i = 0; i < indexes.size(); ++i) {
+    for (size_t i = 0; i < indexes.size(); ++i) {
         int length(indexes[i+1] - indexes[i]);
         buffer += str.substr(indexes[i], length);
         text.setString(buffer);
@@ -68,7 +68,7 @@ std::vector<std::string> Console::cutShort(std::string str, std::string sub, int
     lines.push_back(buffer);
 
     // removing sub at the beginning of each line \o/
-    for (std::size_t i = 0; i < lines.size(); ++i) {
+    for (size_t i = 0; i < lines.size(); ++i) {
         lines[i].erase(0,sub.length());
     }
 
@@ -80,11 +80,11 @@ std::vector<std::string> Console::rearrange(std::vector<std::string> lines) {
     std::vector<std::string> cutShorted;
     std::vector<std::string> toReturn;
 
-    for (std::size_t i = 0; i < lines.size(); ++i) {
+    for (size_t i = 0; i < lines.size(); ++i) {
         splited = split(lines[i], '\n');
-        for (std::size_t j = 0; j < splited.size(); ++j) {
+        for (size_t j = 0; j < splited.size(); ++j) {
             cutShorted = cutShort(splited[j], " ", sizeX-marginX);
-            for (std::size_t k = 0; k < cutShorted.size(); ++k) {
+            for (size_t k = 0; k < cutShorted.size(); ++k) {
                 toReturn.push_back(cutShorted[k]);
             }
         }
@@ -100,7 +100,7 @@ std::vector<std::vector<std::string> > Console::makePages(std::vector<std::strin
     int counter = 0;
     int pageNum = 0;
 
-    for (std::size_t i = 0; i < lines.size(); ++i) {
+    for (size_t i = 0; i < lines.size(); ++i) {
         if (counter < linesPerPage) {
             ++counter;
         } else {
@@ -161,7 +161,7 @@ void Console::prepareCurrentPage() {
     newText.setColor(sf::Color::White);
 
     // console lines
-    for (std::size_t i = 0; i < pages[currentPage].size(); ++i) {
+    for (size_t i = 0; i < pages[currentPage].size(); ++i) {
         newText.setString(pages[currentPage][i]);
         newText.setCharacterSize(15);
         newText.setPosition(startX+marginX, startY+marginY+20*i);
@@ -184,7 +184,7 @@ void Console::prepareCurrentPage() {
 void Console::display() {
     gameView->addDrawable(ViewLayer::CONSOLE, &background);
 
-    for(std::size_t i = 0; i < currentPageText.size(); ++i) {
+    for(size_t i = 0; i < currentPageText.size(); ++i) {
         gameView->addDrawable(ViewLayer::CONSOLE, &(currentPageText[i]));
     }
 
@@ -231,7 +231,7 @@ std::string Console::toString(int n) {
 }
 
 void Console::pushAll(std::vector<std::vector<std::string> > const& tabFrom, std::vector<std::vector<std::string> >& tabTo) {
-    for (std::size_t i = 0; i < tabFrom.size(); ++i) {
+    for (size_t i = 0; i < tabFrom.size(); ++i) {
         tabTo.push_back(tabFrom[i]);
     }
 }

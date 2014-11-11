@@ -97,12 +97,12 @@ eventMouse EventHandler::getInfoByCode(const std::vector<eventMouse>& tab, int c
 {
   eventMouse emptyStruct;
 
-  for(unsigned int i = 0; i < tab.size(); ++i)
+  for (unsigned int i = 0; i < tab.size(); ++i)
     {
       if (tab[i].code == code)
 	{
 	  return (tab[i]);
-	}
+        }
     }
   return (emptyStruct);
 }

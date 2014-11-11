@@ -10,7 +10,7 @@ TitleMenu::~TitleMenu() {
 
 void TitleMenu::toLevelMenu() {
     index = 0;
-    for (std::size_t i = 0; i < items.size(); ++i) {
+    for (size_t i = 0; i < items.size(); ++i) {
         std::string itemLabel = items[i]->getLabel();
         if (itemLabel == MENU_RESUME_LABEL || itemLabel == MENU_LEAVELEVEL_LABEL || itemLabel == MENU_STATS_LABEL) {
             items[i]->setVisibility(true);
@@ -21,7 +21,7 @@ void TitleMenu::toLevelMenu() {
 
 void TitleMenu::toNormalMenu() {
     index = 0;
-    for (std::size_t i = 0; i < items.size(); ++i) {
+    for (size_t i = 0; i < items.size(); ++i) {
         std::string itemLabel = items[i]->getLabel();
         if (itemLabel == MENU_RESUME_LABEL || itemLabel == MENU_LEAVELEVEL_LABEL) {
             items[i]->setVisibility(false);
@@ -34,7 +34,7 @@ void TitleMenu::toNormalMenu() {
 
 void TitleMenu::toTitleMenu() {
     index = 0;
-    for (std::size_t i = 0; i < items.size(); ++i) {
+    for (size_t i = 0; i < items.size(); ++i) {
         std::string itemLabel = items[i]->getLabel();
         if (itemLabel == MENU_RESUME_LABEL || itemLabel == MENU_LEAVELEVEL_LABEL || itemLabel == MENU_STATS_LABEL) {
             items[i]->setVisibility(false);

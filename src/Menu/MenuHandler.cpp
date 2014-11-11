@@ -45,7 +45,7 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
 
     SaveHandler* sh = SaveHandler::getInstance();
 
-    for (std::size_t i = 0; i < NUMSLOTS; ++i) {
+    for (size_t i = 0; i < NUMSLOTS; ++i) {
         std::string path = "save/" + labels[i] + ".save";
 
         JsonAccessor accessor;

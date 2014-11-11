@@ -97,8 +97,8 @@ void SoundManager::play(SoundType type) {
 }
 
 void SoundManager::cleanUnusedSounds() {
-    for(unsigned int i = 0; i < sounds.size(); i++) {
-        if(sounds[i]->getStatus() != sf::Sound::Status::Playing) {
+    for (size_t i = 0; i < sounds.size(); i++) {
+        if (sounds[i]->getStatus() != sf::Sound::Status::Playing) {
             delete sounds[i];
             sounds.erase(sounds.begin()+i);
         }

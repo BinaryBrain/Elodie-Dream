@@ -68,7 +68,7 @@ void Level::display() {
     int marginLeft = cameraCenterX - HORIZONTAL_DISPLAY_MARGIN;
     int marginRight = cameraCenterX + HORIZONTAL_DISPLAY_MARGIN;
     int startX = marginLeft / 32;
-    if(startX < 0 ) {
+    if (startX < 0 ) {
         startX = 0;
     }
     size_t endX = marginRight / 32;
@@ -76,15 +76,15 @@ void Level::display() {
     int marginTop = cameraCenterY - VERTICAL_DISPLAY_MARGIN;
     int marginBot = cameraCenterY + VERTICAL_DISPLAY_MARGIN;
     int startY = marginTop / 32;
-    if(startY < 0 ) {
+    if (startY < 0) {
         startY = 0;
     }
     size_t endY = marginBot / 32;
     endY = endY > tiles.size() ? tiles.size() : endY;
-    for(unsigned int y=startY; y<endY; y++) {
+    for (size_t y=startY; y < endY; y++) {
         size_t tmpEndX = endX > tiles[y].size() ? tiles[y].size() : endX;
-        for(unsigned int x=startX; x<tmpEndX; x++) {
-            if(tiles[y][x]) {
+        for (size_t x=startX; x < tmpEndX; x++) {
+            if (tiles[y][x]) {
                 tiles[y][x]->setPosition(x*32, y*32);
                 gameView->addDrawable(ViewLayer::LEVEL, tiles[y][x]);
             }
@@ -130,7 +130,7 @@ void Level::live(EventHandler* const& event, sf::Time animate) {
             }
         }
     }
-    for (unsigned int i = 0; i < toDelete.size(); ++i) {
+    for (size_t i = 0; i < toDelete.size(); ++i) {
         delete entities[toDelete[i]];
         entities.erase(toDelete[i]);
     }
@@ -146,9 +146,9 @@ EntityMap Level::getEntities() {
 }
 
 void Level::applyEnv(TileMap tiles) {
-    for(unsigned int y=0; y<tiles.size(); y++) {
-        for(unsigned int x=0; x<tiles[y].size(); x++) {
-            if(tiles[y][x]) {
+    for (size_t y = 0; y < tiles.size(); y++) {
+        for (size_t x = 0; x < tiles[y].size(); x++) {
+            if (tiles[y][x]) {
                 sf::Texture* texture = manager->getTileTexture(environement, tiles[y][x]->getType());
                 tiles[y][x]->setTexture(*texture);
             }

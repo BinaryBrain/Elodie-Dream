@@ -82,11 +82,11 @@ const Animation* AnimatedSprite::getAnimation() const {
     return animation;
 }
 
-std::size_t AnimatedSprite::getCurrentFrame() {
+size_t AnimatedSprite::getCurrentFrame() {
     return currentFrame;
 }
 
-std::size_t AnimatedSprite::getPreviousFrame() {
+size_t AnimatedSprite::getPreviousFrame() {
     return previousFrame;
 }
 
@@ -115,7 +115,7 @@ sf::Time AnimatedSprite::getFrameTime() const {
     return frameTime;
 }
 
-void AnimatedSprite::setFrame(std::size_t, bool resetTime) {
+void AnimatedSprite::setFrame(size_t, bool resetTime) {
     if(animation) {
         //calculate new vertex positions and texture coordiantes
         sf::IntRect rect = animation->getFrame(currentFrame);

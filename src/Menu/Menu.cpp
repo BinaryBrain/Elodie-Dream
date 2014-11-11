@@ -18,7 +18,7 @@ Menu::~Menu() {
         text = NULL;
     }
 
-    for(std::size_t i = 0; i < items.size(); ++i) {
+    for(size_t i = 0; i < items.size(); ++i) {
         if (items[i] && !isParent[i]) {
             delete items[i];
             items[i] = NULL;
@@ -42,7 +42,7 @@ void Menu::draw(GameView* view) {
     background.setSize(sf::Vector2f(MENU_WIDTH, MENU_ITEMS_INTERSPACE * visibles.size()));
     view->addDrawable(ViewLayer::MENU, &background);
 
-    for (std::size_t i = 0; i < visibles.size(); ++i) {
+    for (size_t i = 0; i < visibles.size(); ++i) {
         visibles[i]->getText()->setPosition(MENU_X, MENU_Y + MENU_ITEMS_INTERSPACE * i);
         view->addDrawable(ViewLayer::MENU, (visibles[i]->getText()));
     }
@@ -77,7 +77,7 @@ MenuComponent* Menu::getSelectedItem() {
 
 void Menu::prepareVisibles() {
     visibles.clear();
-    for (std::size_t i = 0; i < items.size(); ++i) {
+    for (size_t i = 0; i < items.size(); ++i) {
         if (items[i]->isVisible()) {
             visibles.push_back(items[i]);
         }
