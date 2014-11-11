@@ -18,6 +18,7 @@
 					<Add option="-std=c++11" />
 					<Add option="-Wextra" />
 					<Add option="-Wall" />
+					<Add option="-g" />
 					<Add option="-fexceptions -Werror" />
 					<Add directory="rapidjson/include" />
 					<Add directory="sfml/include" />
