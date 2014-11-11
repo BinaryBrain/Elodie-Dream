@@ -6,7 +6,7 @@
 
 class TitleScreen : public Displayable {
 public:
-    TitleScreen(GameView* gameView);
+    TitleScreen(GameView& gameView);
     virtual ~TitleScreen();
     void display();
 protected:

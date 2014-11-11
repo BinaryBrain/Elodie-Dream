@@ -1,6 +1,6 @@
 #include "StatsBoard.h"
 
-StatsBoard::StatsBoard(GameView* gameView) : Displayable(gameView) {
+StatsBoard::StatsBoard(GameView& gameView) : Displayable(gameView) {
     float viewX(WINDOW_WIDTH);
     float viewY(WINDOW_HEIGHT);
 
@@ -11,7 +11,7 @@ StatsBoard::StatsBoard(GameView* gameView) : Displayable(gameView) {
     levelsText.setFont(globalFont);
     levelsText.setCharacterSize(STATS_CHAR_SIZE);
 
-    gameView->addView(ViewLayer::STATS, this);
+    gameView.addView(ViewLayer::STATS, this);
 }
 
 StatsBoard::~StatsBoard() {
@@ -19,12 +19,12 @@ StatsBoard::~StatsBoard() {
 }
 
 void StatsBoard::display() {
-    gameView->addDrawable(ViewLayer::STATS, &background);
-    gameView->addDrawable(ViewLayer::STATS, &levelsText);
+    gameView.addDrawable(ViewLayer::STATS, &background);
+    gameView.addDrawable(ViewLayer::STATS, &levelsText);
 
     for (size_t i = 0; i < categoriesText.size(); ++i) {
-        gameView->addDrawable(ViewLayer::STATS, &(categoriesText[i].first));
-        gameView->addDrawable(ViewLayer::STATS, &(categoriesText[i].second));
+        gameView.addDrawable(ViewLayer::STATS, &(categoriesText[i].first));
+        gameView.addDrawable(ViewLayer::STATS, &(categoriesText[i].second));
     }
 }
 

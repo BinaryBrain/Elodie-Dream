@@ -7,15 +7,16 @@ class GameView;
 
 class Displayable {
 public:
-    Displayable(GameView* gameView);
+    Displayable(GameView& g);
     virtual ~Displayable();
     virtual void display() = 0;
-    sf::View* getView();
+    sf::View& getView();
 
 protected:
-    GameView* gameView;
+    GameView& gameView;
+
 private:
-    sf::View* view;
+    sf::View view;
 };
 
 #endif // DISPLAYABLE_H

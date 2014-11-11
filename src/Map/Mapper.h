@@ -21,7 +21,7 @@ class Elodie;
 class Mapper {
 public:
     Mapper();
-    static void parse(std::string str, TileMap& tiles, EntityMap& entities, Elodie* elodie);
+    static void parse(std::string str, TileMap& tiles, EntityMap& entities, Elodie& elodie);
     static void beautify(TileMap& tiles);
     static void print(TileMap& tiles);
     static std::string getFreshID(std::string key);

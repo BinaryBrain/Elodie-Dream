@@ -75,7 +75,7 @@ private:
 
     MenuComponent* currentMenuComponent;
     MenuComponent* currentMenuSave;
-    MenuHandler menuHandler = MenuHandler(&view);
+    MenuHandler menuHandler = MenuHandler(view);
 
     ConfigManager configManager;
     JsonAccessor jsonAccessor;
@@ -84,11 +84,11 @@ private:
     ScoreManager* scoreManager;
 
     TitleScreen* title = NULL;
-    ScoreBoard scoreBoard = ScoreBoard(&view);
-    StatsBoard statsBoard = StatsBoard(&view);
-    Console console = Console(&view);
-    Girly girly = Girly(&view);
-    Hud hud = Hud(&view);
+    ScoreBoard scoreBoard = ScoreBoard(view);
+    StatsBoard statsBoard = StatsBoard(view);
+    Console console = Console(view);
+    Girly girly = Girly(view);
+    Hud hud = Hud(view);
 
     Overworld* overworld = NULL;
     Death* death = NULL;

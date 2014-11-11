@@ -153,7 +153,7 @@ public:
     void play();
     void setSpeed(sf::Vector2f speed);
     sf::Vector2f getCameraPos();
-    sf::Vector2f* getCameraPosPtr();
+    sf::Vector2f& getCameraPosRef();
     void handleEvent(EventHandler* const& event, EntityMap& entities, Collide collideTiles);
 
 protected:

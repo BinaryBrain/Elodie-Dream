@@ -1,25 +1,26 @@
 #include "Level.h"
 
-Level::Level(GameView* gameView, std::string filename, LevelEnv env, Elodie* elodie) : Displayable(gameView)  {
-    this->environement = env;
-    this->manager = new TextureManager();
-
+Level::Level(GameView& gameView, std::string filename, LevelEnv env, Elodie& elodie) :
+  Displayable(gameView),
+  environement(env)
+{
     loadLevel(filename, elodie);
 
-    std::pair <float,float> slow = getSlowVariables(env);
-    this->sky = new Sky(gameView, env, tiles[0].size(), elodie->getCameraPosPtr(), slow.first);
-    this->earth = new Earth(gameView, env, tiles[0].size(), elodie->getCameraPosPtr(), slow.second);
+    std::pair< float, float > slow = getSlowVariables(env);
+    this->sky = new Sky(gameView, env, tiles[0].size(), elodie.getCameraPosRef(), slow.first);
+    this->earth = new Earth(gameView, env, tiles[0].size(), elodie.getCameraPosRef(), slow.second);
 
-    gameView->addView(ViewLayer::LEVEL, this);
-    gameView->setZoom(ViewLayer::LEVEL, ZOOM_LEVEL);
+    gameView.addView(ViewLayer::LEVEL, this);
+    gameView.setZoom(ViewLayer::LEVEL, ZOOM_LEVEL);
 
-    gameView->setCameraCenter(ViewLayer::LEVEL, elodie->getPosition());
+    gameView.setCameraCenter(ViewLayer::LEVEL, elodie.getPosition());
 
     if (!music.openFromFile(MUSIC_PATH+"/"+LEVEL_MUSIC)) {
         // TODO Handle error
     } else {
         music.setLoop(true);
 
+	//TODO: Make the singletons return reference to themself instead of pointers
         Game* game = Game::getInstance();
         if(!game->isMute()) {
             music.play();
@@ -40,8 +41,6 @@ Level::~Level() {
             delete it->second;
         }
     }
-
-    delete this->manager;
     delete this->sky;
     delete this->earth;
 }
@@ -51,7 +50,7 @@ void Level::setEnvironement(LevelEnv env) {
 }
 
 // Load a level from the file system
-void Level::loadLevel(std::string filename, Elodie* elodie) {
+void Level::loadLevel(std::string filename, Elodie& elodie) {
     std::string levelSource = FileHandler::getContent(filename);
 
     Mapper::parse(levelSource, tiles, entities, elodie);
@@ -62,8 +61,8 @@ void Level::loadLevel(std::string filename, Elodie* elodie) {
 
 // Ask the given view to draw a Level frame
 void Level::display() {
-    int cameraCenterX = this->getView()->getCenter().x;
-    int cameraCenterY = this->getView()->getCenter().y;
+    int cameraCenterX = this->getView().getCenter().x;
+    int cameraCenterY = this->getView().getCenter().y;
 
     int marginLeft = cameraCenterX - HORIZONTAL_DISPLAY_MARGIN;
     int marginRight = cameraCenterX + HORIZONTAL_DISPLAY_MARGIN;
@@ -86,14 +85,14 @@ void Level::display() {
         for (size_t x=startX; x < tmpEndX; x++) {
             if (tiles[y][x]) {
                 tiles[y][x]->setPosition(x*32, y*32);
-                gameView->addDrawable(ViewLayer::LEVEL, tiles[y][x]);
+                gameView.addDrawable(ViewLayer::LEVEL, tiles[y][x]);
             }
         }
     }
 
     Portal* portal = dynamic_cast<Portal*>(entities["portal"]);
     if (portal->getSprite()) {
-        gameView->addDrawable(ViewLayer::LEVEL, portal->getSprite());
+        gameView.addDrawable(ViewLayer::LEVEL, portal->getSprite());
     }
     for(EntityMap::iterator entity_ptr = entities.begin(); entity_ptr != entities.end(); ++entity_ptr) {
         if(entity_ptr->first != "elodie" && entity_ptr->first != "portal") {
@@ -104,16 +103,16 @@ void Level::display() {
                     && sprite->getPosition().y < marginBot
                     && sprite->getPosition().y > marginTop) {
                 if(sprite) {
-                    gameView->addDrawable(ViewLayer::LEVEL, sprite);
+                    gameView.addDrawable(ViewLayer::LEVEL, sprite);
                 }
             }
         }
     }
     Elodie* elodie = dynamic_cast<Elodie*>(entities["elodie"]);
     if (elodie->getSprite()) {
-        gameView->addDrawable(ViewLayer::LEVEL, elodie->getSprite());
+        gameView.addDrawable(ViewLayer::LEVEL, elodie->getSprite());
     }
-    gameView->followPoint(ViewLayer::LEVEL, elodie->getCameraPos());
+    gameView.followPoint(ViewLayer::LEVEL, elodie->getCameraPos());
 }
 
 void Level::live(EventHandler* const& event, sf::Time animate) {
@@ -149,7 +148,7 @@ void Level::applyEnv(TileMap tiles) {
     for (size_t y = 0; y < tiles.size(); y++) {
         for (size_t x = 0; x < tiles[y].size(); x++) {
             if (tiles[y][x]) {
-                sf::Texture* texture = manager->getTileTexture(environement, tiles[y][x]->getType());
+                sf::Texture* texture = manager.getTileTexture(environement, tiles[y][x]->getType());
                 tiles[y][x]->setTexture(*texture);
             }
         }
@@ -171,7 +170,7 @@ sf::Music& Level::getMusic() {
 
 bool Level::isDead() {
     Elodie* elodie = dynamic_cast<Elodie*>(entities["elodie"]);
-    bool outOfCam = gameView->isPointOutsideView(ViewLayer::LEVEL, elodie->getPosition().x, elodie->getPosition().y);
+    bool outOfCam = gameView.isPointOutsideView(ViewLayer::LEVEL, elodie->getPosition().x, elodie->getPosition().y);
     bool noMoreImmersion = elodie->getImmersionLevel() <= 0;
     bool fellInTheDepths = elodie->getPosition().y > tiles.size()*32;
     return outOfCam || noMoreImmersion || fellInTheDepths;

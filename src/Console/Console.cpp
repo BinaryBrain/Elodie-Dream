@@ -2,9 +2,9 @@
 
 sf::Font globalFont;
 
-Console::Console(GameView* gameView) : Displayable(gameView) {
-    startX = gameView->getSizeX() - sizeX;
-    startY = gameView->getSizeY() - sizeY;
+Console::Console(GameView& gameView) : Displayable(gameView) {
+    startX = gameView.getSizeX() - sizeX;
+    startY = gameView.getSizeY() - sizeY;
 
     // up and down
     float startUpX = startX+sizeX-marginX;
@@ -27,7 +27,7 @@ Console::Console(GameView* gameView) : Displayable(gameView) {
     background.setOutlineThickness(3);
     background.setPosition(startX, startY);
 
-    gameView->addView(ViewLayer::CONSOLE, this);
+    gameView.addView(ViewLayer::CONSOLE, this);
 }
 
 Console::~Console() {
@@ -182,17 +182,17 @@ void Console::prepareCurrentPage() {
 }
 
 void Console::display() {
-    gameView->addDrawable(ViewLayer::CONSOLE, &background);
+    gameView.addDrawable(ViewLayer::CONSOLE, &background);
 
     for(size_t i = 0; i < currentPageText.size(); ++i) {
-        gameView->addDrawable(ViewLayer::CONSOLE, &(currentPageText[i]));
+        gameView.addDrawable(ViewLayer::CONSOLE, &(currentPageText[i]));
     }
 
     if(currentPage > 0) {
-        gameView->addDrawable(ViewLayer::CONSOLE, &up);
+        gameView.addDrawable(ViewLayer::CONSOLE, &up);
     }
     if(currentPage < totalPages-1) {
-        gameView->addDrawable(ViewLayer::CONSOLE, &down);
+        gameView.addDrawable(ViewLayer::CONSOLE, &down);
     }
 }
 

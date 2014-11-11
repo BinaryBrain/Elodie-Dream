@@ -38,17 +38,17 @@ void Menu::addItem(MenuComponent* item, bool isParent) {
 }
 
 // Draws the everything in the menu
-void Menu::draw(GameView* view) {
+void Menu::draw(GameView& view) {
     background.setSize(sf::Vector2f(MENU_WIDTH, MENU_ITEMS_INTERSPACE * visibles.size()));
-    view->addDrawable(ViewLayer::MENU, &background);
+    view.addDrawable(ViewLayer::MENU, &background);
 
     for (size_t i = 0; i < visibles.size(); ++i) {
         visibles[i]->getText()->setPosition(MENU_X, MENU_Y + MENU_ITEMS_INTERSPACE * i);
-        view->addDrawable(ViewLayer::MENU, (visibles[i]->getText()));
+        view.addDrawable(ViewLayer::MENU, (visibles[i]->getText()));
     }
 
     selector.setPosition(MENU_X - 40, MENU_Y + 10 + MENU_ITEMS_INTERSPACE * index);
-    view->addDrawable(ViewLayer::MENU, &selector);
+    view.addDrawable(ViewLayer::MENU, &selector);
 }
 
 void Menu::incIndex() {

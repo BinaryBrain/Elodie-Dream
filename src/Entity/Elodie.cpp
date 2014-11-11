@@ -327,6 +327,6 @@ sf::Vector2f Elodie::getCameraPos() {
     return cameraPos;
 }
 
-sf::Vector2f* Elodie::getCameraPosPtr() {
-    return &cameraPos;
+sf::Vector2f& Elodie::getCameraPosRef() {
+    return cameraPos;
 }

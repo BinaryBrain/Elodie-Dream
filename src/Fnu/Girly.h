@@ -9,7 +9,7 @@
 
 class Girly: public Displayable {
 public:
-    Girly(GameView* view);
+    Girly(GameView& view);
     virtual ~Girly();
 
     void display();

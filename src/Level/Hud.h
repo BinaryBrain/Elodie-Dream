@@ -31,8 +31,8 @@ public:
     static const float SCORE_MARGIN_R;
     static const float SCORE_MARGIN_T;
 
-
-    Hud(GameView* gameView);
+public:
+    Hud(GameView& gameView);
     virtual ~Hud();
     void display();
     void setLevel(int level);

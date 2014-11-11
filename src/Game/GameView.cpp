@@ -38,7 +38,7 @@ void GameView::show(ViewLayer viewKey) {
         toDraw.push_back(viewKey);
     }
     if (zooms[viewKey]<=0) {
-        viewMap[viewKey]->getView()->setSize(window->getDefaultView().getSize()/zooms[viewKey]);
+        viewMap[viewKey]->getView().setSize(window->getDefaultView().getSize()/zooms[viewKey]);
     }
 }
 
@@ -69,14 +69,14 @@ void GameView::followPoint(ViewLayer viewKey, const sf::Vector2f pos) {
 }
 
 void GameView::followPoint(ViewLayer viewKey, float x, float y) {
-    sf::Vector2f viewSize = viewMap[viewKey]->getView()->getSize();
+    sf::Vector2f viewSize = viewMap[viewKey]->getView().getSize();
 
     float marginTop = viewSize.y/7.9;
     float marginBot = viewSize.y/1.85;
     // margin = 0; // FIXME I bug with the zoom
 
     float camX = x+viewSize.x/2-viewSize.x/5; // 1/5 of the screen
-    float camY = viewMap[viewKey]->getView()->getCenter().y;
+    float camY = viewMap[viewKey]->getView().getCenter().y;
 
     if(centers[viewKey].y-y > viewSize.y/2-marginTop) {
         camY = y+(viewSize.y/2-marginTop);
@@ -89,7 +89,7 @@ void GameView::followPoint(ViewLayer viewKey, float x, float y) {
 
 void GameView::setZoom(ViewLayer viewKey, float zoom) {
     zooms[viewKey] = zoom;
-    viewMap[viewKey]->getView()->setSize(window->getDefaultView().getSize()/zooms[viewKey]);
+    viewMap[viewKey]->getView().setSize(window->getDefaultView().getSize()/zooms[viewKey]);
 }
 
 void GameView::draw() {
@@ -100,10 +100,10 @@ void GameView::draw() {
     for(size_t i = 0; i < toDraw.size(); ++i) {
         ViewLayer viewKey = toDraw[i];
         Displayable* disp = viewMap[viewKey];
-        disp->getView()->setCenter(centers[viewKey]);
+        disp->getView().setCenter(centers[viewKey]);
         disp->display();
-        disp->getView()->setSize(window->getDefaultView().getSize()/zooms[viewKey]);
-        window->setView(*(disp->getView()));
+        disp->getView().setSize(window->getDefaultView().getSize()/zooms[viewKey]);
+        window->setView(disp->getView());
         for(std::vector<sf::Drawable*>::iterator drawableIt = drawableMap[viewKey].begin(); drawableIt != drawableMap[viewKey].end(); ++drawableIt) {
             sf::Drawable* drawable = *drawableIt;
             window->draw(*drawable);
@@ -128,7 +128,7 @@ bool GameView::isPointOutsideView(ViewLayer, float x, float y) {
     windowSize.x = windowSize.x/zoom;
     windowSize.y = windowSize.y/zoom;
 
-    sf::Vector2f layerSize = viewMap[ViewLayer::LEVEL]->getView()->getSize();
+    sf::Vector2f layerSize = viewMap[ViewLayer::LEVEL]->getView().getSize();
     layerSize.x /= 2;
     layerSize.y /= 2;
 

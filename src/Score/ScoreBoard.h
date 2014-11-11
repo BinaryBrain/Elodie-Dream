@@ -12,7 +12,7 @@
 
 class ScoreBoard : public Displayable {
 public:
-    ScoreBoard(GameView* gameView);
+    ScoreBoard(GameView& gameView);
     virtual ~ScoreBoard();
 
     void display();

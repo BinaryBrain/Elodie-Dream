@@ -16,9 +16,9 @@
 #include "../Json/JsonAccessor.h"
 
 
-class MenuHandler : public Displayable{
+class MenuHandler : public Displayable {
 public:
-    MenuHandler(GameView* gameView);
+    MenuHandler(GameView& gameView);
     virtual ~MenuHandler();
 
     void display();

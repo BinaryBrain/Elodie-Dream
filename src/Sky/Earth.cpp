@@ -1,8 +1,8 @@
 #include "Earth.h"
 
-Earth::Earth(GameView* gameView, LevelEnv env, int tilesNumber, sf::Vector2f* cameraPos, float slow) : Displayable(gameView) {
+Earth::Earth(GameView& gameView, LevelEnv env, int tilesNumber, sf::Vector2f& cameraPosArg, float slow) : Displayable(gameView), cameraPos(cameraPosArg)
+{
     std::string filename;
-    this->cameraPos = cameraPos;
     this->slow = slow;
 
     switch(env) {
@@ -29,7 +29,7 @@ Earth::Earth(GameView* gameView, LevelEnv env, int tilesNumber, sf::Vector2f* ca
     earth.setTextureRect(sf::IntRect(0,0, tilesNumber*32*slow + WINDOW_WIDTH+100,WINDOW_HEIGHT));
     earth.setTexture(earthTexture);
 
-    gameView->addView(ViewLayer::EARTH, this);
+    gameView.addView(ViewLayer::EARTH, this);
 }
 
 Earth::~Earth() {
@@ -37,6 +37,6 @@ Earth::~Earth() {
 }
 
 void Earth::display() {
-    earth.setPosition(sf::Vector2f(-cameraPos->x*slow, 0));
-    gameView->addDrawable(ViewLayer::EARTH, &earth);
+    earth.setPosition(sf::Vector2f(-cameraPos.x*slow, 0));
+    gameView.addDrawable(ViewLayer::EARTH, &earth);
 }

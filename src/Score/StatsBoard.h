@@ -11,7 +11,7 @@
 
 class StatsBoard : public Displayable {
 public:
-    StatsBoard(GameView* gameView);
+    StatsBoard(GameView& gameView);
     virtual ~StatsBoard();
 
     void display();

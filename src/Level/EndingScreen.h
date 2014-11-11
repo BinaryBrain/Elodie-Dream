@@ -10,7 +10,7 @@
 
 class EndingScreen : public Displayable {
 public:
-    EndingScreen(GameView* view, bool isMute);
+    EndingScreen(GameView& view, bool isMute);
     virtual ~EndingScreen();
 
     void display();
@@ -20,7 +20,6 @@ private:
     sf::Texture texture;
     sf::Sprite endingImage;
     sf::Music music;
-
 };
 
 #endif // DEATH_H

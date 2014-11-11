@@ -5,9 +5,9 @@ const float Death::INTERSPACE = 50;
 const std::string Death::MUSIC = "death.ogg";
 const std::string Death::DREAMOVER = "assets/img/sprites/dreamover.png";
 
-Death::Death(GameView* view, bool isMute) : Displayable(view) {
-    float viewX = gameView->getSizeX();
-    float viewY = gameView->getSizeY();
+Death::Death(GameView& view, bool isMute) : Displayable(view) {
+    float viewX = gameView.getSizeX();
+    float viewY = gameView.getSizeY();
 
     rect.setSize(sf::Vector2f(viewX, viewY));
     rect.setFillColor(sf::Color(0x00, 0x00, 0x00, 0xFF));
@@ -39,7 +39,7 @@ Death::Death(GameView* view, bool isMute) : Displayable(view) {
         }
     }
 
-    view->addView(ViewLayer::DEATH, this);
+    view.addView(ViewLayer::DEATH, this);
 }
 
 Death::~Death() {
@@ -47,9 +47,9 @@ Death::~Death() {
 }
 
 void Death::display() {
-    gameView->addDrawable(ViewLayer::DEATH, &rect);
-    gameView->addDrawable(ViewLayer::DEATH, &elo);
-    gameView->addDrawable(ViewLayer::DEATH, &wokeUp);
+    gameView.addDrawable(ViewLayer::DEATH, &rect);
+    gameView.addDrawable(ViewLayer::DEATH, &elo);
+    gameView.addDrawable(ViewLayer::DEATH, &wokeUp);
 }
 
 sf::Music& Death::getMusic() {

@@ -20,10 +20,10 @@ class Elodie;
 
 class Level : public Displayable {
 public:
-    Level(GameView* gameView, std::string filename, LevelEnv env, Elodie* elodie);
+    Level(GameView& gameView, std::string filename, LevelEnv env, Elodie& elodie);
     virtual ~Level();
 
-    void loadLevel(std::string filename, Elodie* elodie);
+    void loadLevel(std::string filename, Elodie& elodie);
     void live(EventHandler* const& event, sf::Time animate);
 
     TileMap getTiles();
@@ -34,7 +34,7 @@ public:
     void applyEnv(TileMap tiles);
 
     void pause();
-    void play(sf::Clock *frameClock);
+    void play(sf::Clock* frameClock);
 
     sf::Music& getMusic();
     bool isDead();
@@ -46,7 +46,7 @@ private:
     TileMap tiles;
     EntityMap entities;
     LevelEnv environement;
-    TextureManager* manager;
+    TextureManager manager;
     sf::Music music;
     Sky* sky;
     Earth* earth;

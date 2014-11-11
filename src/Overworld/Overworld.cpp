@@ -1,6 +1,6 @@
 #include "Overworld.h"
 
-Overworld::Overworld(GameView* gameView, bool muted) : Displayable(gameView) {
+Overworld::Overworld(GameView& gameView, bool muted) : Displayable(gameView) {
     std::string filenames[4] = { "overworld1.png", "overworld2.png", "overworld3.png", "overworld4.png" };
     for(int i=0; i<4; i++) {
         sf::Texture* overworld = new sf::Texture;
@@ -73,7 +73,7 @@ Overworld::Overworld(GameView* gameView, bool muted) : Displayable(gameView) {
         }
     }
 
-    gameView->addView(ViewLayer::OVERWORLD, this);
+    gameView.addView(ViewLayer::OVERWORLD, this);
 }
 
 
@@ -107,12 +107,12 @@ void Overworld::setPosInPath(int pos) {
 }
 
 void Overworld::display() {
-    gameView->addDrawable(ViewLayer::OVERWORLD, overworldSprites[whichOverworld()]);
-    gameView->addDrawable(ViewLayer::OVERWORLD, pathSprites[currentState]);
+    gameView.addDrawable(ViewLayer::OVERWORLD, overworldSprites[whichOverworld()]);
+    gameView.addDrawable(ViewLayer::OVERWORLD, pathSprites[currentState]);
     for(size_t i = 0; i <= currentState; ++i) {
-        gameView->addDrawable(ViewLayer::OVERWORLD, levelSpotSprites[i]);
+        gameView.addDrawable(ViewLayer::OVERWORLD, levelSpotSprites[i]);
     }
-    gameView->addDrawable(ViewLayer::OVERWORLD, elodie->getSprite());
+    gameView.addDrawable(ViewLayer::OVERWORLD, elodie->getSprite());
 }
 
 int Overworld::moveUp() {
@@ -255,8 +255,8 @@ int Overworld::whichOverworld() {
     }
 }
 
-Elodie* Overworld::getElodie() {
-    return elodie;
+Elodie& Overworld::getElodie() {
+    return *elodie;
 }
 
 int Overworld::getCurrentEnv() {

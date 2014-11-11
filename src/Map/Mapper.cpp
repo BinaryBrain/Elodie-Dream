@@ -15,7 +15,7 @@ Mapper::Mapper() {
 }
 
 // The parser takes the ASCII level and modify the the TileMap and the EntityVector
-void Mapper::parse(std::string asciiLevel, TileMap& tiles, EntityMap& entities, Elodie* elodie) {
+void Mapper::parse(std::string asciiLevel, TileMap& tiles, EntityMap& entities, Elodie& elodie) {
     unsigned int y = 0;
     unsigned int x = 0;
     bool isEntity = true;
@@ -28,9 +28,9 @@ void Mapper::parse(std::string asciiLevel, TileMap& tiles, EntityMap& entities, 
         // Entities
         switch(asciiLevel[i]) {
         case MAP_ELODIE:
-            elodie->reset();
-            elodie->setPosition(x*32 - 21, y*32 - 32);
-            entities.insert(std::make_pair("elodie", elodie));
+            elodie.reset();
+            elodie.setPosition(x*32 - 21, y*32 - 32);
+            entities.insert(std::make_pair("elodie", &elodie));
             break;
 
         case MAP_SHEEP:

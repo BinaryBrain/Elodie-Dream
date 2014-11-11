@@ -15,7 +15,7 @@
 */
 class Console: public Displayable {
 public:
-    Console(GameView* view);
+    Console(GameView& view);
     virtual ~Console();
 
     void clearAndWrite(std::string m);

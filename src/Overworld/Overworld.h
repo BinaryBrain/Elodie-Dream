@@ -12,13 +12,14 @@
 #include "../Displayable/Displayable.h"
 
 class Game;
+class Elodie;
 
-class Overworld : public Displayable{
+class Overworld : public Displayable {
 public:
-    Overworld(GameView* gameView, bool muted);
+    Overworld(GameView& gameView, bool muted);
     virtual ~Overworld();
 
-    Elodie* getElodie();
+    Elodie& getElodie();
     int getCurrentEnv();
     int moveUp();
     int moveDown();

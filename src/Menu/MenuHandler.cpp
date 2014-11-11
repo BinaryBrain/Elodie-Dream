@@ -1,7 +1,7 @@
 #include <stdexcept>
 #include "MenuHandler.h"
 
-MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
+MenuHandler::MenuHandler(GameView& gameView) : Displayable(gameView) {
     MenuComponent* newGame = new MenuComponent(MENU_NEWGAME_LABEL, GameState::NEWGAME);
     MenuComponent* stats = new MenuComponent(MENU_STATS_LABEL, GameState::INSTATS);
     MenuComponent* resume = new MenuComponent(MENU_RESUME_LABEL, GameState::INLEVEL);
@@ -27,9 +27,9 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
 
     tbg.setTexture(*poroTexture);
 
-    gameView->getWindow().draw(tbg);
-    gameView->getWindow().draw(loading);
-    gameView->getWindow().display();
+    gameView.getWindow().draw(tbg);
+    gameView.getWindow().draw(loading);
+    gameView.getWindow().display();
 
     title = new TitleMenu(MENU_TITLEMENU_LABEL, GameState::INMENU);
     saveGame = new Menu(MENU_SAVEGAME_LABEL, GameState::INMENU);
@@ -76,7 +76,7 @@ MenuHandler::MenuHandler(GameView* gameView) : Displayable(gameView) {
     saveGame->prepareVisibles();
     loadGame->prepareVisibles();
     title->toTitleMenu();
-    gameView->addView(ViewLayer::MENU, this);
+    gameView.addView(ViewLayer::MENU, this);
 }
 
 MenuHandler::~MenuHandler() {

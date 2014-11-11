@@ -1,8 +1,7 @@
 #include "Sky.h"
 
-Sky::Sky(GameView* gameView, LevelEnv env, int tilesNumber, sf::Vector2f* cameraPos, float slow) : Displayable(gameView) {
+Sky::Sky(GameView& gameView, LevelEnv env, int tilesNumber, sf::Vector2f& cameraPosArg, float slow) : Displayable(gameView), cameraPos(cameraPosArg) {
     std::string filename;
-    this->cameraPos = cameraPos;
     this->slow = slow;
 
     switch(env) {
@@ -29,7 +28,7 @@ Sky::Sky(GameView* gameView, LevelEnv env, int tilesNumber, sf::Vector2f* camera
     //sky.scale(sf::Vector2f(dimX, 1));
     sky.setTexture(skyTexture);
     sky.setTextureRect(sf::IntRect(0,0, tilesNumber*32*slow + WINDOW_WIDTH+100,WINDOW_HEIGHT));
-    gameView->addView(ViewLayer::SKY, this);
+    gameView.addView(ViewLayer::SKY, this);
 }
 
 Sky::~Sky() {
@@ -37,6 +36,6 @@ Sky::~Sky() {
 }
 
 void Sky::display() {
-    sky.setPosition(sf::Vector2f(-cameraPos->x*slow, 0));
-    gameView->addDrawable(ViewLayer::SKY, &sky);
+    sky.setPosition(sf::Vector2f(-cameraPos.x*slow, 0));
+    gameView.addDrawable(ViewLayer::SKY, &sky);
 }

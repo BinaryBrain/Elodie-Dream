@@ -15,7 +15,8 @@ public:
     static const std::string MUSIC;
     static const std::string DREAMOVER;
 
-    Death(GameView* view, bool isMute);
+public:
+    Death(GameView& view, bool isMute);
     virtual ~Death();
 
     void display();

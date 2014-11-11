@@ -8,8 +8,8 @@ Game::Game() {
 
     mute = DEFAULT_MUTE;
 
-    title = new TitleScreen(&view);
-    overworld = new Overworld(&view, DEFAULT_MUTE);
+    title = new TitleScreen(view);
+    overworld = new Overworld(view, DEFAULT_MUTE);
 
     saveHandler = SaveHandler::getInstance();
     soundManager = SoundManager::getInstance();
@@ -54,7 +54,7 @@ void Game::leaveLevel() {
     if (!isMute() && overworld->getMusic().getStatus() != sf::Music::Status::Playing) {
         overworld->getMusic().play();
     }
-    overworld->getElodie()->stand();
+    overworld->getElodie().stand();
     overworld->resetPos();
 
     if (curLevel) {
@@ -123,7 +123,7 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
 
             // death
             } else if (curLevel->isDead() && !GOD_MODE) {
-                death = new Death(&view, mute);
+                death = new Death(view, mute);
                 view.show(ViewLayer::DEATH);
                 state = GameState::DEAD;
             }
@@ -167,34 +167,34 @@ void Game::loadLevel(int levelNbr) {
             env = LevelEnv::FIELD;
             break;
     }
-    curLevel = new Level(&view, "assets/levels/level"+Utils::itos(curLevelNbr)+".txt", env, overworld->getElodie());
+    curLevel = new Level(view, "assets/levels/level"+Utils::itos(curLevelNbr)+".txt", env, overworld->getElodie());
     menuHandler.getTitleMenu()->toLevelMenu();
 }
 
 void Game::handleOverworld(sf::Time time) {
-    Elodie* elo = overworld->getElodie();
+    Elodie& elo = overworld->getElodie();
 
-    if (elo->isMoving()) {
-        elo->overworldMove(time.asSeconds());
+    if (elo.isMoving()) {
+        elo.overworldMove(time.asSeconds());
     } else if (event.keyIsHold(sf::Keyboard::Down)) {
-        elo->setDistanceToMove(overworld->moveDown());
-        if (elo->hasToMove()) {
-            elo->setWalkDown();
+        elo.setDistanceToMove(overworld->moveDown());
+        if (elo.hasToMove()) {
+            elo.setWalkDown();
         }
     } else if (event.keyIsHold(sf::Keyboard::Up)) {
-        elo->setDistanceToMove(overworld->moveUp());
-        if (elo->hasToMove()) {
-            elo->setWalkUp();
+        elo.setDistanceToMove(overworld->moveUp());
+        if (elo.hasToMove()) {
+            elo.setWalkUp();
         }
     } else if (event.keyIsHold(sf::Keyboard::Left)) {
-        elo->setDistanceToMove(overworld->moveLeft());
-        if (elo->hasToMove()) {
-            elo->setWalkLeft();
+        elo.setDistanceToMove(overworld->moveLeft());
+        if (elo.hasToMove()) {
+            elo.setWalkLeft();
         }
     } else if (event.keyIsHold(sf::Keyboard::Right)) {
-        elo->setDistanceToMove(overworld->moveRight());
-        if (elo->hasToMove()) {
-            elo->setWalkRight();
+        elo.setDistanceToMove(overworld->moveRight());
+        if (elo.hasToMove()) {
+            elo.setWalkRight();
         }
     } else if (event.keyIsPressed(sf::Keyboard::Return) || event.keyIsPressed(sf::Keyboard::Space)) {
         if (overworld->getLevelToLoad() >= 0) {
@@ -218,7 +218,7 @@ void Game::handleOverworld(sf::Time time) {
         toggleMute(overworld->getMusic());
         // testing purposes
     }
-    elo->update(time);
+    elo.update(time);
 }
 
 void Game::displayMenu() {
@@ -236,7 +236,7 @@ void Game::displayMenu() {
             view.hide(ViewLayer::MENU);
             view.hide(ViewLayer::TITLESCREEN);
             leaveLevel();
-            overworld->getElodie()->play();
+            overworld->getElodie().play();
 
         } else if (state == GameState::INLEVEL) {
             if (curLevel) {
@@ -265,7 +265,7 @@ void Game::displayMenu() {
         if (state == GameState::INOVERWORLD) {
             view.hide(ViewLayer::MENU);
             view.show(ViewLayer::OVERWORLD);
-            overworld->getElodie()->stand();
+            overworld->getElodie().stand();
             overworld->resetPos();
             if (curLevel) {
                 delete curLevel;
@@ -349,7 +349,7 @@ void Game::displayScore() {
 
         // end of game
         if (curLevelNbr == (NUMLEVELS-1)) {
-            endingScreen = new EndingScreen(&view, mute);
+            endingScreen = new EndingScreen(view, mute);
             view.show(ViewLayer::ENDINGSCREEN);
             state = GameState::ENDINGSCREEN;
         } else {
@@ -486,7 +486,7 @@ void Game::newGame() {
         delete overworld;
         overworld = NULL;
     }
-    overworld = new Overworld(&view, mute);
+    overworld = new Overworld(view, mute);
     view.addView(ViewLayer::OVERWORLD, overworld);
     state = GameState::INOVERWORLD;
     view.hide(ViewLayer::MENU);
@@ -552,13 +552,13 @@ void Game::load() {
                 leaveLevel();
             }
             if (!overworld) {
-                overworld = new Overworld(&view, mute);
+                overworld = new Overworld(view, mute);
                 view.addView(ViewLayer::OVERWORLD, overworld);
             }
             overworld->setState(LDL);
             overworld->setToLevel(LDL);
             overworld->resetPos();
-            overworld->getElodie()->play();
+            overworld->getElodie().play();
 
             statsBoard.setLDL(LDL);
 

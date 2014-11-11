@@ -1,6 +1,6 @@
 #include "TitleScreen.h"
 bool MENU_PORO_IS_LOADED = false; // TODO global variable lol
-TitleScreen::TitleScreen(GameView* gameView) : Displayable(gameView) {
+TitleScreen::TitleScreen(GameView& gameView) : Displayable(gameView) {
     // Background
     if(!MENU_PORO_IS_LOADED) {
         poroIndex = MENU_BACKGROUND_FIRST_FRAME;
@@ -20,7 +20,7 @@ TitleScreen::TitleScreen(GameView* gameView) : Displayable(gameView) {
 
         MENU_PORO_IS_LOADED = true;
     }
-    gameView->addView(ViewLayer::TITLESCREEN, this);
+    gameView.addView(ViewLayer::TITLESCREEN, this);
 }
 
 TitleScreen::~TitleScreen() {
@@ -28,9 +28,9 @@ TitleScreen::~TitleScreen() {
 }
 
 void TitleScreen::display() {
-    gameView->addDrawable(ViewLayer::MENU, &tbg);
+    gameView.addDrawable(ViewLayer::MENU, &tbg);
     tbg.setTexture(*poroTextures[poroIndex]);
-    gameView->addDrawable(ViewLayer::MENU, &titleText);
+    gameView.addDrawable(ViewLayer::MENU, &titleText);
 
     // Animating title poro
     poroIndex++;
