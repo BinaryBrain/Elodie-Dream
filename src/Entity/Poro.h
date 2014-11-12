@@ -1,7 +1,6 @@
 #ifndef PORO_H_INCLUDED
 #define PORO_H_INCLUDED
 
-#include "../const.h"
 #include "Entity.h"
 #include "../Sprite/EntitySprite.h"
 #include "../Include/Collide.h"
@@ -14,6 +13,10 @@ enum class PoroState { RUNNING };
 
 class Poro : public Entity {
 public:
+    static const int SPEED_X;
+    static const int SPEED_Y;
+    static const int DETECTION;
+
     Poro();
     Poro(sf::Vector2f position);
     Poro(float x, float y);

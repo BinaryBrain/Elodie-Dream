@@ -1,7 +1,6 @@
 #ifndef ELODIE_H
 #define ELODIE_H
 
-#include "../const.h"
 #include "Entity.h"
 #include "../Sprite/ElodieSprite.h"
 #include "../Item/Item.h"

@@ -2,6 +2,8 @@
 #include "../../Sound/SoundManager.h"
 #include "Sheep.h"
 
+const int Sheep::DAMAGE = 10;
+
 Sheep::Sheep() {
     init(0, 0);
 }
@@ -19,7 +21,6 @@ void Sheep::init(float x, float y) {
         {SheepState::STANDING, "standing"}
     };
 
-    damage = SHEEP_DAMAGE;
     life = 1;
 
     info = EntityManager::getInstance().getEnemyInfo(EntityType::ENEMY, EntityName::SHEEP);
@@ -36,7 +37,6 @@ void Sheep::init(float x, float y) {
 
 Sheep::~Sheep() {
     delete sprite;
-    sprite = NULL;
     setEntitySprite(NULL);
 }
 
@@ -51,8 +51,9 @@ EntitySprite* Sheep::getSprite() {
 void Sheep::doAttack(std::map< std::string, Entity* >& entities) {
     sf::FloatRect entity = getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()).getArea();
     Elodie* elodie = (Elodie*) entities["elodie"];
-    if (entity.intersects(elodie->returnCurrentHitbox().getArea()))
-        elodie->takeDamage(damage, false);
+    if (entity.intersects(elodie->returnCurrentHitbox().getArea())) {
+        elodie->takeDamage(DAMAGE, false);
+    }
 }
 
 Hitbox Sheep::returnCurrentHitbox() {
@@ -67,9 +68,7 @@ void Sheep::takeDamage(int damage, bool) {
     }
     SoundManager::getInstance().play(SoundType::PUNCH);
     ScoreManager& sm = ScoreManager::getInstance();
-    sm.addEnemyKilled();
-    sm.addKilledSheep();
-    sm.addToLevelPoints(this->damage);
+    sm.addEnemyKilled(EnemyType::SHEEP);
 }
 
 void Sheep::doStuff(EventHandler* const&, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) {
@@ -84,8 +83,9 @@ void Sheep::doStuff(EventHandler* const&, std::vector< std::vector<TileSprite*> 
 
     doAttack(entities);
 
-    if (damageCD)
+    if (damageCD) {
         --damageCD;
+    }
 }
 
 void Sheep::pause() {

@@ -6,16 +6,22 @@
 #include <iostream>
 #include "SFML/Graphics.hpp"
 #include "Score.h"
-#include "../const.h"
+#include "../env.h"
+#include "../Entity/Enemy/Sheep.h"
+#include "../Entity/Enemy/MagmaCube.h"
+#include "../Entity/Enemy/Bristle.h"
+#include "../Entity/Bonus.h"
 
 class ScoreManager {
 public:
+    static const int BONUS_NODAMAGES;
+
     static ScoreManager& getInstance();
 
     void takeBonus();
     void addToLevelPoints(int points);
     void addDamage(int damage);
-    void addEnemyKilled();
+    void addEnemyKilled(EnemyType type);
     void addKilledSheep();
     void addKilledMagmacube();
     void addKilledBristle();
@@ -44,7 +50,6 @@ public:
 
     void setLevel(int level);
 
-protected:
 private:
     ScoreManager();
     virtual ~ScoreManager();
@@ -55,6 +60,8 @@ private:
     Score currentScore;
     Score lastSavedScore;
     std::vector<Score> gameScore;
+
+    int nKillsInARow = 0;
 };
 
 

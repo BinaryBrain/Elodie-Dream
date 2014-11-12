@@ -1,5 +1,10 @@
 #include "Ghost.h"
 
+const int Ghost::DAMAGE = 12;
+const int Ghost::STEP = 5;
+const int Ghost::LIMIT_Y = 150;
+const int Ghost::SPEED_X = 100;
+
 Ghost::Ghost() {
     init(0, 0);
 }
@@ -17,9 +22,8 @@ void Ghost::init(float x, float y) {
         {GhostState::STANDING, "standing"}
     };
 
-    damage = GHOST_DAMAGE;
     life = 1;
-    speed.x = -GHOST_SPEED_X;
+    speed.x = -SPEED_X;
 
     info = EntityManager::getInstance().getEnemyInfo(EntityType::ENEMY, EntityName::GHOST);
 
@@ -35,7 +39,6 @@ void Ghost::init(float x, float y) {
 
 Ghost::~Ghost() {
     delete sprite;
-    sprite = NULL;
     setEntitySprite(NULL);
 }
 
@@ -51,7 +54,7 @@ void Ghost::doAttack(std::map< std::string, Entity* >& entities) {
     sf::FloatRect entity = getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()).getArea();
     Elodie* elodie = (Elodie*) entities["elodie"];
     if (entity.intersects(elodie->returnCurrentHitbox().getArea()))
-        elodie->takeDamage(damage, false);
+        elodie->takeDamage(DAMAGE, false);
 }
 
 Hitbox Ghost::returnCurrentHitbox() {
@@ -67,16 +70,17 @@ void Ghost::doStuff(EventHandler* const&, std::vector< std::vector<TileSprite*> 
     sprite->update(animate);
 
     if (speed.y < 0 && speed.y < -limitSpeed) {
-        step = GHOST_STEP;
+        step = STEP;
     } else if (speed.y > 0 && speed.y > limitSpeed) {
-        step = -GHOST_STEP;
+        step = -STEP;
     }
     speed.y += step;
 
     doAttack(entities);
 
-    if (damageCD)
+    if (damageCD) {
         --damageCD;
+    }
 }
 
 void Ghost::pause() {

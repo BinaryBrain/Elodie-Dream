@@ -2,6 +2,8 @@
 #include "../Sound/SoundManager.h"
 #include "Bonus.h"
 
+const int Bonus::POINTS = 50;
+
 Bonus::Bonus() {
     init(0, 0);
 }
@@ -64,7 +66,7 @@ void Bonus::getTaken(std::map< std::string, Entity* >& entities) {
     if (zone.intersects(elodie)) {
         ScoreManager& sm = ScoreManager::getInstance();
         sm.takeBonus();
-        sm.addToLevelPoints(BONUS_POINTS);
+        sm.addToLevelPoints(POINTS);
         life = 0;
 	SoundManager::getInstance().play(SoundType::BOTTLE);
     }

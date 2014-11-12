@@ -12,6 +12,10 @@
 
 class ScoreBoard : public Displayable {
 public:
+    static const int CHAR_SIZE;
+    static const float INTERSPACE;
+    static const float STARTY;
+
     ScoreBoard(GameView& gameView);
     virtual ~ScoreBoard();
 

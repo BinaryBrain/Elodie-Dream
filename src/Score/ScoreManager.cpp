@@ -1,5 +1,7 @@
 #include "ScoreManager.h"
 
+const int ScoreManager::BONUS_NODAMAGES = 1000;
+
 ScoreManager::ScoreManager() {
     for (size_t i = 0; i < NUMLEVELS; ++i) {
         Score score;
@@ -11,10 +13,9 @@ ScoreManager::~ScoreManager() {
 }
 
 // Gets the instance of the entityManger
-ScoreManager& ScoreManager::getInstance()
-{
-  static ScoreManager instance;
-  return instance;
+ScoreManager& ScoreManager::getInstance() {
+    static ScoreManager instance;
+    return instance;
 }
 
 Score ScoreManager::getScore(int level) {
@@ -81,9 +82,29 @@ void ScoreManager::addToLevelPoints(int points) {
 
 void ScoreManager::addDamage(int damage) {
     currentScore.setDamagesTaken(currentScore.getDamagesTaken() + damage);
+    if (damage > 0) {
+        nKillsInARow = 0;
+    }
 }
 
-void ScoreManager::addEnemyKilled() {
+void ScoreManager::addEnemyKilled(EnemyType type) {
+    switch (type) {
+        case EnemyType::SHEEP:
+            addKilledSheep();
+            addToLevelPoints(Sheep::DAMAGE);
+            break;
+        case EnemyType::MAGMACUBE:
+            addKilledMagmacube();
+            addToLevelPoints(MagmaCube::DAMAGE);
+            break;
+        case EnemyType::BRISTLE:
+            addKilledBristle();
+            addToLevelPoints(Bristle::DAMAGE);
+            break;
+        default:
+            break;
+    }
+    ++nKillsInARow;
     currentScore.setEnemiesKilled(currentScore.getEnemiesKilled() + 1);
 }
 

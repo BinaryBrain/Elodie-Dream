@@ -1,6 +1,8 @@
 #include "../../Sound/SoundManager.h"
 #include "Spikes.h"
 
+const int Spikes::DAMAGE = 50;
+
 Spikes::Spikes() {
     init(0, 0);
 }
@@ -20,7 +22,6 @@ void Spikes::init(float x, float y) {
         {SpikesState::UNACTIVATED, "unactivated"}
     };
 
-    damage = SPIKES_DAMAGE;
     life = 1;
 
     info = EntityManager::getInstance().getEnemyInfo(EntityType::ENEMY, EntityName::SPIKES);
@@ -37,7 +38,6 @@ void Spikes::init(float x, float y) {
 
 Spikes::~Spikes() {
     delete sprite;
-    sprite = NULL;
     setEntitySprite(NULL);
 }
 
@@ -53,7 +53,7 @@ void Spikes::doAttack(std::map< std::string, Entity* >& entities) {
     sf::FloatRect entity = getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()).getArea();
     Elodie* elodie = (Elodie*) entities["elodie"];
     if (state == SpikesState::ACTIVATED && sprite->getCurrentFrame() == 2 && entity.intersects(elodie->returnCurrentHitbox().getArea())) {
-        elodie->takeDamage(damage, true);
+        elodie->takeDamage(DAMAGE, true);
     }
     if (!activated && entity.intersects(elodie->returnCurrentHitbox().getArea())) {
         state = SpikesState::ACTIVATED;

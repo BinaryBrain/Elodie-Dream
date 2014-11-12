@@ -2,6 +2,11 @@
 #include "../../Sound/SoundManager.h"
 #include "MagmaCube.h"
 
+const int MagmaCube::DAMAGE = 25;
+const int MagmaCube::JUMP_CD = 50;
+const int MagmaCube::MOVE_X = 200;
+const int MagmaCube::MOVE_Y = 400;
+
 MagmaCube::MagmaCube() {
     init(0, 0);
 }
@@ -19,7 +24,6 @@ void MagmaCube::init(float x, float y) {
         {MagmaCubeState::STANDING, "standing"}
     };
 
-    damage = MAGMACUBE_DAMAGE;
     life = 1;
 
     info = EntityManager::getInstance().getEnemyInfo(EntityType::ENEMY, EntityName::MAGMACUBE);
@@ -36,7 +40,6 @@ void MagmaCube::init(float x, float y) {
 
 MagmaCube::~MagmaCube() {
     delete sprite;
-    sprite = NULL;
     setEntitySprite(NULL);
 }
 
@@ -51,8 +54,9 @@ EntitySprite* MagmaCube::getSprite() {
 void MagmaCube::doAttack(std::map< std::string, Entity* >& entities) {
     sf::FloatRect entity = getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()).getArea();
     Elodie* elodie = (Elodie*) entities["elodie"];
-    if (entity.intersects(elodie->returnCurrentHitbox().getArea()))
-        elodie->takeDamage(damage, false);
+    if (entity.intersects(elodie->returnCurrentHitbox().getArea())) {
+        elodie->takeDamage(DAMAGE, false);
+    }
 }
 
 Hitbox MagmaCube::returnCurrentHitbox() {
@@ -66,26 +70,24 @@ void MagmaCube::takeDamage(int damage, bool) {
     }
     SoundManager::getInstance().play(SoundType::PUNCH);
     ScoreManager& sm = ScoreManager::getInstance();
-    sm.addEnemyKilled();
-    sm.addKilledMagmacube();
-    sm.addToLevelPoints(this->damage);
+    sm.addEnemyKilled(EnemyType::MAGMACUBE);
 }
 
 void MagmaCube::jump() {
     if (!jumpCD && !speed.x && !speed.y) {
-        speed.x = -MAGMACUBE_MOVE_X;
-        speed.y = -MAGMACUBE_MOVE_Y;
+        speed.x = -MOVE_X;
+        speed.y = -MOVE_Y;
     } else if (speed.y == 0 && !jumpCD) {
         SoundManager::getInstance().play(SoundType::MAGMACUBE);
         speed.x = 0;
-        jumpCD = MAGMACUBE_JUMP_CD;
+        jumpCD = JUMP_CD;
     } else if (!speed.x && speed.y) {
         if (direction == Direction::LEFT) {
             direction = Direction::RIGHT;
-            speed.x = -MAGMACUBE_MOVE_X;
+            speed.x = -MOVE_X;
         } else if (direction == Direction::RIGHT) {
             direction = Direction::LEFT;
-            speed.x = MAGMACUBE_MOVE_X;
+            speed.x = MOVE_X;
         }
     } else if (jumpCD > 0) {
         --jumpCD;

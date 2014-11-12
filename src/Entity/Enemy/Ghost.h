@@ -1,7 +1,6 @@
 #ifndef GHOST_H_INCLUDED
 #define GHOST_H_INCLUDED
 
-#include "../../const.h"
 #include "../Entity.h"
 #include "../../Sprite/EntitySprite.h"
 #include "../../Include/Collide.h"
@@ -14,6 +13,11 @@ enum class GhostState { STANDING };
 
 class Ghost : public Entity {
 public:
+    static const int DAMAGE;
+    static const int STEP;
+    static const int LIMIT_Y;
+    static const int SPEED_X;
+
     Ghost();
     Ghost(sf::Vector2f position);
     Ghost(float x, float y);
@@ -32,11 +36,10 @@ protected:
 
 private:
     void init(float x, float y);
-    int damage = 0;
 
     EntitySprite* sprite;
-    int limitSpeed = GHOST_LIMIT_Y;
-    int step = GHOST_STEP;
+    int limitSpeed = LIMIT_Y;
+    int step = STEP;
 
     GhostState state;
 

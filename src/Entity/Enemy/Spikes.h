@@ -1,7 +1,6 @@
 #ifndef SPIKES_H_INCLUDED
 #define SPIKES_H_INCLUDED
 
-#include "../../const.h"
 #include "../Entity.h"
 #include "../../Sprite/EntitySprite.h"
 #include "../../Include/Collide.h"
@@ -14,6 +13,8 @@ enum class SpikesState { WAITING, ACTIVATED, UNACTIVATED };
 
 class Spikes : public Entity {
 public:
+    static const int DAMAGE;
+
     Spikes();
     Spikes(sf::Vector2f position);
     Spikes(float x, float y);
@@ -32,7 +33,6 @@ protected:
 
 private:
     void init(float x, float y);
-    int damage = 0;
     bool activated = false;
 
     EntitySprite* sprite;

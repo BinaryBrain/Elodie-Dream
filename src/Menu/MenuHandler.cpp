@@ -1,6 +1,8 @@
 #include <stdexcept>
 #include "MenuHandler.h"
 
+const int MenuHandler::CHAR_SIZE = 25;
+
 MenuHandler::MenuHandler(GameView& gameView) : Displayable(gameView) {
     MenuComponent* newGame = new MenuComponent(MENU_NEWGAME_LABEL, GameState::NEWGAME);
     MenuComponent* stats = new MenuComponent(MENU_STATS_LABEL, GameState::INSTATS);
@@ -17,12 +19,12 @@ MenuHandler::MenuHandler(GameView& gameView) : Displayable(gameView) {
     }
 
     loading.setFont(globalFont);
-    loading.setCharacterSize(SCORES_CHAR_SIZE);
+    loading.setCharacterSize(CHAR_SIZE);
     loading.setString("Loading...");
     loading.setPosition(MENU_LOADING_X, MENU_LOADING_Y);
 
     sf::Texture* poroTexture = new sf::Texture();
-    if(!poroTexture->loadFromFile(MENU_ANIMATED_BACKGROUND_PATH+"/"+Utils::toStringWithLength(MENU_BACKGROUND_FIRST_FRAME, 4)+".png"))
+    if (!poroTexture->loadFromFile(MENU_ANIMATED_BACKGROUND_PATH+"/"+Utils::toStringWithLength(MENU_BACKGROUND_FIRST_FRAME, 4)+".png"))
         std::cerr << "Unable to load menu background";
 
     tbg.setTexture(*poroTexture);

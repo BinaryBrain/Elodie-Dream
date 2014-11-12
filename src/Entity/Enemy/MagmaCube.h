@@ -1,7 +1,6 @@
 #ifndef MAGMACUBE_H_INCLUDED
 #define MAGMACUBE_H_INCLUDED
 
-#include "../../const.h"
 #include "../Entity.h"
 #include "../../Sprite/EntitySprite.h"
 #include "../../Include/Collide.h"
@@ -14,6 +13,11 @@ enum class MagmaCubeState { STANDING };
 
 class MagmaCube : public Entity {
 public:
+    static const int DAMAGE;
+    static const int JUMP_CD;
+    static const int MOVE_X;
+    static const int MOVE_Y;
+
     MagmaCube();
     MagmaCube(sf::Vector2f position);
     MagmaCube(float x, float y);
@@ -29,11 +33,9 @@ public:
     void doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate);
     void pause();
     void play();
-protected:
 
 private:
     void init(float x, float y);
-    int damage = 0;
     int jumpCD = 0;
 
     EntitySprite* sprite;

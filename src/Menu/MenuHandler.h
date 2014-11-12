@@ -1,16 +1,12 @@
 #ifndef MENUHANDLER_H
 #define MENUHANDLER_H
 
-
 #include <SFML/Graphics.hpp>
-
 #include "../env.h"
 #include "../Game/GameView.h"
-
 #include "MenuComponent.h"
 #include "Menu.h"
 #include "TitleMenu.h"
-
 #include "../Displayable/Displayable.h"
 #include "../FileHandler/SaveHandler.h"
 #include "../Json/JsonAccessor.h"
@@ -18,6 +14,8 @@
 
 class MenuHandler : public Displayable {
 public:
+    static const int CHAR_SIZE;
+
     MenuHandler(GameView& gameView);
     virtual ~MenuHandler();
 

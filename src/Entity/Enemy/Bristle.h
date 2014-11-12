@@ -1,7 +1,6 @@
 #ifndef BRISTLE_H_INCLUDED
 #define BRISTLE_H_INCLUDED
 
-#include "../../const.h"
 #include "../Entity.h"
 #include "../../Sprite/EntitySprite.h"
 #include "../../Include/Collide.h"
@@ -14,6 +13,11 @@ enum class BristleState { STANDING, GRATTING };
 
 class Bristle : public Entity {
 public:
+    static const int DAMAGE;
+    static const int SPEED_X;
+    static const int SPEED_Y;
+    static const int DETECTION;
+
     Bristle();
     Bristle(sf::Vector2f position);
     Bristle(float x, float y);
@@ -29,11 +33,9 @@ public:
     void doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate);
     void pause();
     void play();
-protected:
 
 private:
     void init(float x, float y);
-    int damage = 0;
 
     EntitySprite* sprite;
 

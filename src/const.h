@@ -25,25 +25,6 @@ const int ELODIE_SPEED = 250;
 const float INC_PV_TIMER = 0.2;
 const float ATTACK_COOLDOWN = 0.5;
 
-// -- ENEMY -- //
-const int SHEEP_DAMAGE = 10;
-const int GHOST_DAMAGE = 12;
-const int GHOST_STEP = 5;
-const int GHOST_LIMIT_Y = 150;
-const int GHOST_SPEED_X = 100;
-const int MAGMACUBE_DAMAGE = 25;
-const int MAGMACUBE_JUMP_CD = 50;
-const int MAGMACUBE_MOVE_X = 200;
-const int MAGMACUBE_MOVE_Y = 400;
-const int BRISTLE_DAMAGE = 60;
-const int BRISTLE_SPEED_X = 500;
-const int BRISTLE_SPEED_Y = 200;
-const int BRISTLE_DETECTION = 450;
-const int SPIKES_DAMAGE = 50;
-const int PORO_SPEED_X = 255;
-const int PORO_SPEED_Y = 300;
-const int PORO_DETECTION = 350;
-
 // -- LEVEL -- //
 const float ZOOM_LEVEL = 2;
 const int BLOCK_SIZE = 32;
@@ -191,13 +172,6 @@ const int MENU_LOADING_Y = 660;
 
 //Console
 const int CONSOLE_NLINES = 6;
-
-// Scores board
-const float SCORES_INTERSPACE = 100;
-const int SCORES_CHAR_SIZE = 25;
-const float SCORES_STARTY = 100;
-const int BONUS_POINTS = 50;
-const int BONUS_NODAMAGES = 1000;
 
 // Stats board
 const float STATS_MARGIN = 50;

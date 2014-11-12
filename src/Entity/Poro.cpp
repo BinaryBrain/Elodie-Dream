@@ -1,6 +1,10 @@
 #include "../Sound/SoundManager.h"
 #include "Poro.h"
 
+const int Poro::SPEED_X = 255;
+const int Poro::SPEED_Y = 300;
+const int Poro::DETECTION = 350;
+
 Poro::Poro() {
     init(0, 0);
 }
@@ -35,7 +39,6 @@ void Poro::init(float x, float y) {
 
 Poro::~Poro() {
     delete sprite;
-    sprite = NULL;
     setEntitySprite(NULL);
 }
 
@@ -49,22 +52,22 @@ EntitySprite* Poro::getSprite() {
 
 void Poro::checkArea(std::map< std::string, Entity* >& entities) {
     sf::FloatRect zone = getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()).getArea();
-    zone.top -= PORO_DETECTION / 2;
-    zone.left -= PORO_DETECTION / 2;
-    zone.width += PORO_DETECTION;
-    zone.height += PORO_DETECTION;
+    zone.top -= DETECTION / 2;
+    zone.left -= DETECTION / 2;
+    zone.width += DETECTION;
+    zone.height += DETECTION;
     sf::FloatRect elodie = ((Elodie*)entities["elodie"])->returnCurrentHitbox().getArea();
     sf::FloatRect portal = ((Portal*)entities["portal"])->returnCurrentHitbox().getArea();
     if (zone.intersects(elodie)) {
         if (elodie.left > getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()).getArea().left)
-            speed.x = -PORO_SPEED_X;
+            speed.x = -SPEED_X;
         else
-            speed.x = PORO_SPEED_X;
+            speed.x = SPEED_X;
     }
     if (zone.intersects(portal)) {
         if (speed.y == 0 && ((portal.left > getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()).getArea().left && speed.x > 0) ||
             (portal.left < getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()).getArea().left && speed.x < 0))) {
-                speed.y = -PORO_SPEED_Y - 50;
+                speed.y = -SPEED_Y - 50;
         }
     }
     if (portal.intersects(getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()).getArea())) {
@@ -98,7 +101,7 @@ void Poro::doStuff(EventHandler* const&, std::vector< std::vector<TileSprite*> >
     sprite->update(animate);
 
     if (speed.y == 0 && ((speed.x > 0 && collideTiles.right["surface"]) || (speed.x < 0 && collideTiles.left["surface"]))) {
-        speed.y = -PORO_SPEED_Y;
+        speed.y = -SPEED_Y;
     }
 
     if (damageCD)

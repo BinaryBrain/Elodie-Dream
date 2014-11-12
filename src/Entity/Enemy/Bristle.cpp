@@ -2,6 +2,11 @@
 #include "../../Sound/SoundManager.h"
 #include "Bristle.h"
 
+const int Bristle::DAMAGE = 60;
+const int Bristle::SPEED_X = 500;
+const int Bristle::SPEED_Y = 200;
+const int Bristle::DETECTION = 450;
+
 Bristle::Bristle() {
     init(0, 0);
 }
@@ -20,7 +25,6 @@ void Bristle::init(float x, float y) {
         {BristleState::GRATTING, "gratting"}
     };
 
-    damage = BRISTLE_DAMAGE;
     life = 1;
 
     info = EntityManager::getInstance().getEnemyInfo(EntityType::ENEMY, EntityName::BRISTLE);
@@ -39,7 +43,6 @@ void Bristle::init(float x, float y) {
 
 Bristle::~Bristle() {
     delete sprite;
-    sprite = NULL;
     setEntitySprite(NULL);
 }
 
@@ -55,7 +58,7 @@ void Bristle::doAttack(std::map< std::string, Entity* >& entities) {
     sf::FloatRect entity = getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()).getArea();
     Elodie* elodie = (Elodie*) entities["elodie"];
     if (entity.intersects(elodie->returnCurrentHitbox().getArea()))
-        elodie->takeDamage(damage, false);
+        elodie->takeDamage(DAMAGE, false);
 }
 
 Hitbox Bristle::returnCurrentHitbox() {
@@ -64,20 +67,20 @@ Hitbox Bristle::returnCurrentHitbox() {
 
 void Bristle::checkArea(std::map< std::string, Entity* >& entities) {
     sf::FloatRect zone = getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()).getArea();
-    zone.top -= BRISTLE_DETECTION / 4;
-    zone.left -= BRISTLE_DETECTION / 2;
-    zone.width += BRISTLE_DETECTION;
-    zone.height += BRISTLE_DETECTION / 2;
+    zone.top -= DETECTION / 4;
+    zone.left -= DETECTION / 2;
+    zone.width += DETECTION;
+    zone.height += DETECTION / 2;
     sf::FloatRect elodie = ((Elodie*)entities["elodie"])->returnCurrentHitbox().getArea();
     if (zone.intersects(elodie) && !speed.x && !speed.y) {
         if (!charge) {
 	  SoundManager::getInstance().play(SoundType::BRISTLE);
         }
         if (elodie.left > getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()).getArea().left)
-            speed.x = BRISTLE_SPEED_X;
+            speed.x = SPEED_X;
         else
-            speed.x = -BRISTLE_SPEED_X;
-        speed.y = -BRISTLE_SPEED_Y;
+            speed.x = -SPEED_X;
+        speed.y = -SPEED_Y;
 
         state = BristleState::STANDING;
         sprite->changeStance(ANIMATIONS[state], sf::seconds(0.05f));
@@ -92,9 +95,7 @@ void Bristle::takeDamage(int damage, bool) {
     }
     SoundManager::getInstance().play(SoundType::PUNCH);
     ScoreManager& sm = ScoreManager::getInstance();
-    sm.addEnemyKilled();
-    sm.addKilledBristle();
-    sm.addToLevelPoints(this->damage);
+    sm.addEnemyKilled(EnemyType::BRISTLE);
 }
 
 void Bristle::doStuff(EventHandler* const&, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate) {
@@ -112,16 +113,17 @@ void Bristle::doStuff(EventHandler* const&, std::vector< std::vector<TileSprite*
     if (!speed.x && charge) {
         if (direction == Direction::LEFT) {
             direction = Direction::RIGHT;
-            speed.x = -BRISTLE_SPEED_X;
+            speed.x = -SPEED_X;
         } else if (direction == Direction::RIGHT) {
             direction = Direction::LEFT;
-            speed.x = BRISTLE_SPEED_X;
+            speed.x = SPEED_X;
         }
     }
     doAttack(entities);
 
-    if (damageCD)
+    if (damageCD) {
         --damageCD;
+    }
 }
 
 void Bristle::pause() {

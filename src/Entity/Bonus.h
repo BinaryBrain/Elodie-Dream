@@ -14,6 +14,8 @@ enum class BonusState { STANDING };
 
 class Bonus : public Entity {
 public:
+    static const int POINTS;
+
     Bonus();
     Bonus(sf::Vector2f position);
     Bonus(float x, float y);
