@@ -1,5 +1,7 @@
 #include "Entity.h"
 
+const int Entity::DAMAGE_CD = 25;
+
 Entity::Entity() {
     sprite = NULL;
 }

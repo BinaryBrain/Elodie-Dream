@@ -47,9 +47,6 @@ void StatsBoard::prepareText() {
     titles.push_back("Boni");
     titles.push_back("Damages taken");
     titles.push_back("Enemies killed");
-    titles.push_back("Sheeps");
-    titles.push_back("Magma cubes");
-    titles.push_back("Bristles");
 
     std::vector< std::vector<int> > categories;
     for (size_t i = 0; i < titles.size(); ++i) {
@@ -60,7 +57,7 @@ void StatsBoard::prepareText() {
     // for each level, store in the right category its values
     for (int i = 0; i <= LDL; ++i) {
         for (size_t j = 0; j < titles.size(); ++j) {
-            categories[j].push_back(allDatas[i][j+2]);
+            categories[j].push_back(allDatas[i][j+1]);
         }
     }
 

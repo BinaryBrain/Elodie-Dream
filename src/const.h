@@ -18,13 +18,6 @@ const int LIVE_SCOPE = 2000;
 const float MAX_TIME_FRAME = 1.0/10.0;
 const double GAME_VERSION = 1.1;
 
-// -- ELODIE -- //
-const int DAMAGE_CD = 25;
-const int ELODIE_JUMP = -450;
-const int ELODIE_SPEED = 250;
-const float INC_PV_TIMER = 0.2;
-const float ATTACK_COOLDOWN = 0.5;
-
 // -- LEVEL -- //
 const float ZOOM_LEVEL = 2;
 const int BLOCK_SIZE = 32;
@@ -179,6 +172,6 @@ const float STATS_WIDTH_CATEGORY = 100;
 const int STATS_CHAR_SIZE = 15;
 
 // Saves
-const unsigned int NUMSLOTS = 3;
+const unsigned int NUMSLOTS = 5;
 
 #endif // CONST_H_INCLUDED

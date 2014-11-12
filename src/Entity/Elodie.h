@@ -17,6 +17,10 @@ enum class ElodieState {
 */
 class Elodie : public Entity {
 public:
+    static const int JUMP;
+    static const int SPEED;
+    static const float INC_PV_TIMER;
+    static const float ATTACK_COOLDOWN;
 
     /**
     * \brief The default constructor of Elodie. Calls init().

@@ -23,6 +23,8 @@ enum class Direction {
 */
 class Entity {
 public:
+    static const int DAMAGE_CD;
+
     /**
     * \brief The constructor of Entity. Sets its sprite to be NULL.
     */

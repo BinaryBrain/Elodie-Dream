@@ -66,7 +66,6 @@ void Bonus::getTaken(std::map< std::string, Entity* >& entities) {
     if (zone.intersects(elodie)) {
         ScoreManager& sm = ScoreManager::getInstance();
         sm.takeBonus();
-        sm.addToLevelPoints(POINTS);
         life = 0;
 	SoundManager::getInstance().play(SoundType::BOTTLE);
     }

@@ -12,10 +12,6 @@ int Score::getLevelId() {
     return levelId;
 }
 
-int Score::getLevelPoints() {
-    return levelPoints;
-}
-
 int Score::getTotalPoints() {
     return totalPoints;
 }
@@ -32,6 +28,10 @@ int Score::getEnemiesKilled() {
     return enemiesKilled;
 }
 
+int Score::getLargestKillingSpree() {
+    return largestKillingSpree;
+}
+
 int Score::getSheeps() {
     return sheeps;
 }
@@ -46,9 +46,6 @@ int Score::getBristles() {
 
 void Score::setLevelId(int levelId) {
     this->levelId = levelId;
-}
-void Score::setLevelPoints(int levelPoints) {
-    this->levelPoints = levelPoints;
 }
 
 void Score::setTotalPoints(int totalPoints) {
@@ -67,6 +64,10 @@ void Score::setEnemiesKilled(int enemiesKilled) {
     this->enemiesKilled = enemiesKilled;
 }
 
+void Score::setLargestKillingSpree(int largestKillingSpree) {
+    this->largestKillingSpree = largestKillingSpree;
+}
+
 void Score::setSheeps(int sheeps) {
     this->sheeps = sheeps;
 }
@@ -81,11 +82,11 @@ void Score::setBristles(int bristles) {
 
 void Score::reset() {
     levelId = 0;
-    levelPoints = 0;
     totalPoints = 0;
     boni = 0;
     damagesTaken = 0;
     enemiesKilled = 0;
+    largestKillingSpree = 0;
     sheeps = 0;
     magmaCubes = 0;
     bristles = 0;
