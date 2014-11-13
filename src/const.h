@@ -171,7 +171,4 @@ const float STATS_MARGIN = 50;
 const float STATS_WIDTH_CATEGORY = 100;
 const int STATS_CHAR_SIZE = 15;
 
-// Saves
-const unsigned int NUMSLOTS = 5;
-
 #endif // CONST_H_INCLUDED

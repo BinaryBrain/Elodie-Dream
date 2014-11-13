@@ -13,7 +13,7 @@ MenuHandler::MenuHandler(GameView& gameView) : Displayable(gameView) {
     std::vector<std::string> lastDiscoveredLevels;
     std::vector<std::string> labels;
 
-    for (size_t i = 1; i <= NUMSLOTS; ++i) {
+    for (size_t i = 1; i <= SaveHandler::NUMSLOTS; ++i) {
         lastDiscoveredLevels.push_back("Level 0"); // to know if not initialized later
         labels.push_back(MENU_SLOT_PREFIX_LABEL + Utils::itos(i));
     }
@@ -47,7 +47,7 @@ MenuHandler::MenuHandler(GameView& gameView) : Displayable(gameView) {
 
     SaveHandler& sh = SaveHandler::getInstance();
 
-    for (size_t i = 0; i < NUMSLOTS; ++i) {
+    for (size_t i = 0; i < SaveHandler::NUMSLOTS; ++i) {
         std::string path = "save/" + labels[i] + ".save";
 
         JsonAccessor accessor;

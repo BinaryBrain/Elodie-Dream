@@ -1,9 +1,9 @@
 #ifndef JSONSTRINGIFIER_H
 #define JSONSTRINGIFIER_H
 
-#include "rapidjson/document.h"		// rapidjson's DOM-style API
-#include "rapidjson/prettywriter.h"	// for stringify JSON
-#include "rapidjson/filestream.h"	// wrapper of C stream for prettywriter as output<w>
+#include "rapidjson/document.h"
+#include "rapidjson/prettywriter.h"
+#include "rapidjson/filestream.h"
 #include "rapidjson/stringbuffer.h"
 #include "../env.h"
 
@@ -18,9 +18,10 @@ public:
     void add(std::string key, std::vector<int> v);
     void add(std::string key, std::vector< std::vector<int> > v2d);
     std::string getStringifiedDoc();
+    bool reset();
 
 private:
-    rapidjson::Document values;
+    rapidjson::Document doc;
 };
 
 #endif // JSONSTRINGIFIER_H

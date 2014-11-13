@@ -2,10 +2,7 @@
 
 
 JsonStringifier::JsonStringifier() {
-    const char buff[] = "{}";
-    if(values.Parse<0>(buff).HasParseError() == true){
-        std::cerr << "Parse error when initializing document in JsonStringifier" << std::endl;
-    }
+    reset();
 }
 
 JsonStringifier::~JsonStringifier() {
@@ -13,15 +10,15 @@ JsonStringifier::~JsonStringifier() {
 }
 
 void JsonStringifier::add(std::string key, int i) {
-    values.AddMember(key.c_str(), i, values.GetAllocator());
+    doc.AddMember(key.c_str(), i, doc.GetAllocator());
 }
 
 void JsonStringifier::add(std::string key, double d) {
-    values.AddMember(key.c_str(), d, values.GetAllocator());
+    doc.AddMember(key.c_str(), d, doc.GetAllocator());
 }
 
 void JsonStringifier::add(std::string key, std::string s) {
-    values.AddMember(key.c_str(), s.c_str(), values.GetAllocator());
+    doc.AddMember(key.c_str(), s.c_str(), doc.GetAllocator());
 }
 
 void JsonStringifier::add(std::string key, std::vector<int> v) {
@@ -29,9 +26,9 @@ void JsonStringifier::add(std::string key, std::vector<int> v) {
     arr.SetArray();
 
     for (size_t i = 0; i < v.size(); ++i) {
-        arr.PushBack(i, values.GetAllocator());
+        arr.PushBack(i, doc.GetAllocator());
     }
-    values.AddMember(key.c_str(), arr, values.GetAllocator());
+    doc.AddMember(key.c_str(), arr, doc.GetAllocator());
 }
 
 void JsonStringifier::add(std::string key, std::vector< std::vector<int> > v2d) {
@@ -44,17 +41,27 @@ void JsonStringifier::add(std::string key, std::vector< std::vector<int> > v2d) 
         arr2.SetArray();
 
         for (size_t j = 0; j < v2d[i].size(); ++j) {
-            arr2.PushBack(v2d[i][j], values.GetAllocator());
+            arr2.PushBack(v2d[i][j], doc.GetAllocator());
         }
-        arr.PushBack(arr2, values.GetAllocator());
+        arr.PushBack(arr2, doc.GetAllocator());
     }
-    values.AddMember(key.c_str(), arr, values.GetAllocator());
+    doc.AddMember(key.c_str(), arr, doc.GetAllocator());
 }
 
 std::string JsonStringifier::getStringifiedDoc() {
     rapidjson::StringBuffer strbuf;
     rapidjson::Writer<rapidjson::StringBuffer> writer(strbuf);
-    values.Accept(writer);
+    doc.Accept(writer);
 
     return strbuf.GetString();
+}
+
+bool JsonStringifier::reset() {
+    doc.SetObject();
+    const char buff[] = "{}";
+    if (doc.Parse<0>(buff).HasParseError()) {
+        std::cerr << "Parse error when initializing document in JsonStringifier" << std::endl;
+        return false;
+    }
+    return true;
 }

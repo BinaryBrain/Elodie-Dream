@@ -593,11 +593,11 @@ void Game::save() {
     std::string keyLDL = "lastdiscoveredlevel";
     std::string keyScoresDatas = "scoresdatas";
 
-    JsonStringifier* stringifier = saveHandler.getStringifier();
-    stringifier->add(keyVersion, GAME_VERSION);
-    stringifier->add(keyDate, date);
-    stringifier->add(keyLDL, LDL);
-    stringifier->add(keyScoresDatas, scoresDatas);
+    JsonStringifier& stringifier = saveHandler.getStringifier();
+    stringifier.add(keyVersion, GAME_VERSION);
+    stringifier.add(keyDate, date);
+    stringifier.add(keyLDL, LDL);
+    stringifier.add(keyScoresDatas, scoresDatas);
 
     saveHandler.saveEncryptedContentTo(path);
     saveHandler.clearStringifier();

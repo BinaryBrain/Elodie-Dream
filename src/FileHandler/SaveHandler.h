@@ -13,10 +13,13 @@
 
 class SaveHandler {
 public:
+    static const unsigned int NUMSLOTS;
+
     static SaveHandler& getInstance();
 
     void setPath(const std::string& path);
-    JsonStringifier* getStringifier();
+    JsonStringifier& getStringifier();
+    void clearStringifier();
 
     bool isSlotFree(const std::string& slot);
     std::string nextFreeSlot();
@@ -24,7 +27,6 @@ public:
     void saveEncryptedContentTo(const std::string& path);
     std::string getDecryptedContentFrom(const std::string& path);
 
-    void clearStringifier();
     std::string computeLDLName(int LDL);
 
 private:
@@ -49,7 +51,7 @@ private:
     */
     std::string decrypt(std::vector<int> tmp, const std::string& key);
 
-    JsonStringifier* stringifier;
+    JsonStringifier stringifier;
 };
 
 #endif // SAVEHANDLER_H

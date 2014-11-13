@@ -1,26 +1,27 @@
 #include "SaveHandler.h"
 
+const unsigned int SaveHandler::NUMSLOTS = 5;
+
 SaveHandler::SaveHandler() {
-    stringifier = new JsonStringifier();
+
 }
 
 SaveHandler::~SaveHandler() {
-    delete stringifier;
+
 }
 
 // Gets the instance of the SaveHandler
-SaveHandler& SaveHandler::getInstance()
-{
+SaveHandler& SaveHandler::getInstance() {
   static SaveHandler instance;
   return instance;
 }
 
-JsonStringifier* SaveHandler::getStringifier() {
+JsonStringifier& SaveHandler::getStringifier() {
     return stringifier;
 }
 
 void SaveHandler::saveEncryptedContentTo(const std::string& path) {
-    std::string stringified(stringifier->getStringifiedDoc());
+    std::string stringified(stringifier.getStringifiedDoc());
 
     // saves the encrypted content to the file
     std::vector<int> tmp = encrypt(stringified, "key");
@@ -59,7 +60,7 @@ bool SaveHandler::isSlotFree(const std::string& slot) {
 std::string SaveHandler::nextFreeSlot() {
     for (unsigned int i = 1; i <= NUMSLOTS; i++) {
         std::string slot = MENU_SLOT_PREFIX_LABEL + Utils::itos(i);
-        if(isSlotFree(slot)) {
+        if (isSlotFree(slot)) {
             return slot;
         }
     }
@@ -68,8 +69,7 @@ std::string SaveHandler::nextFreeSlot() {
 }
 
 void SaveHandler::clearStringifier() {
-    delete stringifier;
-    stringifier = new JsonStringifier();
+    stringifier.reset();
 }
 
 
