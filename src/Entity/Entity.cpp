@@ -17,7 +17,7 @@ Entity::Entity(sf::Vector2f position, EntityType type, EntityName name,
   position.y -= (info->height - BLOCK_SIZE);
 
   sprite = new EntitySprite(info, ENTITIES_JSON_PATH + "/" + spritePath, spriteStance);
-  dynamic_cast<EntitySprite*>(sprite)->changeStance(animations[state], sf::seconds(0.2f));
+  dynamic_cast<EntitySprite*>(sprite)->changeStance(animations.at(state), sf::seconds(0.2f));
   sprite->setPosition(position);
 
   setHitboxes(info, sprite->getPosition());

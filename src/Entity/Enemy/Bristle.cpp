@@ -34,7 +34,7 @@ Bristle::~Bristle()
 
 void Bristle::doAttack(std::map< std::string, Entity* >& entities)
 {
-  sf::FloatRect entity = getCurrentHitbox(animations[state], sprite->getCurrentFrame()).getArea();
+  sf::FloatRect entity = getCurrentHitbox(animations.at(state), sprite->getCurrentFrame()).getArea();
   Elodie* elodie = (Elodie*) entities["elodie"];
   if (entity.intersects(elodie->returnCurrentHitbox().getArea()))
     elodie->takeDamage(DAMAGE, false);
@@ -42,7 +42,7 @@ void Bristle::doAttack(std::map< std::string, Entity* >& entities)
 
 void Bristle::checkArea(std::map< std::string, Entity* >& entities)
 {
-  sf::FloatRect zone = getCurrentHitbox(animations[state], sprite->getCurrentFrame()).getArea();
+  sf::FloatRect zone = getCurrentHitbox(animations.at(state), sprite->getCurrentFrame()).getArea();
   zone.top -= DETECTION / 4;
   zone.left -= DETECTION / 2;
   zone.width += DETECTION;
@@ -54,14 +54,14 @@ void Bristle::checkArea(std::map< std::string, Entity* >& entities)
 	{
 	  SoundManager::getInstance().play(SoundType::BRISTLE);
 	}
-      if (elodie.left > getCurrentHitbox(animations[state], sprite->getCurrentFrame()).getArea().left)
+      if (elodie.left > getCurrentHitbox(animations.at(state), sprite->getCurrentFrame()).getArea().left)
 	speed.x = SPEED_X;
       else
 	speed.x = -SPEED_X;
       speed.y = -SPEED_Y;
       
       state = Bristle::State::STANDING;
-      changeStance(animations[state], sf::seconds(0.05f));
+      changeStance(animations.at(state), sf::seconds(0.05f));
       charge = true;
     }
 }
@@ -87,7 +87,7 @@ void Bristle::doStuff(const EventHandler&, const std::vector< std::vector<TileSp
   computeGravity(animate);
 
   //Check the collisions, set the new distances and do the move
-  Collide collideTiles = collideWithTiles(tiles, &speed, animate.asSeconds(), getCurrentHitbox(animations[state], sprite->getCurrentFrame()));
+  Collide collideTiles = collideWithTiles(tiles, &speed, animate.asSeconds(), getCurrentHitbox(animations.at(state), sprite->getCurrentFrame()));
   setDistance(collideTiles);
   move(animate.asSeconds()*(speed.x), animate.asSeconds()*speed.y);
   sprite->update(animate);

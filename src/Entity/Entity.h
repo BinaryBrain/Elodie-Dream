@@ -95,7 +95,7 @@ protected:
   int damageCD = 0;
   int state;
 
-  std::map< int, std::string > animations;
+  const std::map< int, std::string >& animations;
 
 private:
   int checkTiles(std::vector< std::vector<TileSprite*> > const& world, int x, int y);

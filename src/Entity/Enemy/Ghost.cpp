@@ -31,7 +31,7 @@ Ghost::~Ghost()
 
 void Ghost::doAttack(std::map< std::string, Entity* >& entities)
 {
-  sf::FloatRect entity = getCurrentHitbox(animations[state], sprite->getCurrentFrame()).getArea();
+  sf::FloatRect entity = getCurrentHitbox(animations.at(state), sprite->getCurrentFrame()).getArea();
   Elodie* elodie = (Elodie*) entities["elodie"];
   if (entity.intersects(elodie->returnCurrentHitbox().getArea()))
     elodie->takeDamage(DAMAGE, false);

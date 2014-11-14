@@ -31,7 +31,7 @@ Poro::~Poro()
 
 void Poro::checkArea(std::map< std::string, Entity* >& entities)
 {
-  sf::FloatRect zone = getCurrentHitbox(animations[state], sprite->getCurrentFrame()).getArea();
+  sf::FloatRect zone = getCurrentHitbox(animations.at(state), sprite->getCurrentFrame()).getArea();
   zone.top -= DETECTION / 2;
   zone.left -= DETECTION / 2;
   zone.width += DETECTION;
@@ -40,20 +40,20 @@ void Poro::checkArea(std::map< std::string, Entity* >& entities)
   sf::FloatRect portal = ((Portal*)entities["portal"])->returnCurrentHitbox().getArea();
   if (zone.intersects(elodie))
     {
-      if (elodie.left > getCurrentHitbox(animations[state], sprite->getCurrentFrame()).getArea().left)
+      if (elodie.left > getCurrentHitbox(animations.at(state), sprite->getCurrentFrame()).getArea().left)
 	speed.x = -SPEED_X;
       else
 	speed.x = SPEED_X;
     }
   if (zone.intersects(portal))
     {
-      if (speed.y == 0 && ((portal.left > getCurrentHitbox(animations[state], sprite->getCurrentFrame()).getArea().left && speed.x > 0) ||
-			   (portal.left < getCurrentHitbox(animations[state], sprite->getCurrentFrame()).getArea().left && speed.x < 0)))
+      if (speed.y == 0 && ((portal.left > getCurrentHitbox(animations.at(state), sprite->getCurrentFrame()).getArea().left && speed.x > 0) ||
+			   (portal.left < getCurrentHitbox(animations.at(state), sprite->getCurrentFrame()).getArea().left && speed.x < 0)))
 	{
 	  speed.y = -SPEED_Y - 50;
 	}
     }
-  if (portal.intersects(getCurrentHitbox(animations[state], sprite->getCurrentFrame()).getArea()))
+  if (portal.intersects(getCurrentHitbox(animations.at(state), sprite->getCurrentFrame()).getArea()))
     {
       life = 0;
     }
@@ -78,7 +78,7 @@ void Poro::doStuff(const EventHandler&, std::vector< std::vector<TileSprite*> > 
   computeGravity(animate);
 
   //Check the collisions, set the new distances and do the move
-  Collide collideTiles = collideWithTiles(tiles, &speed, animate.asSeconds(), getCurrentHitbox(animations[state], sprite->getCurrentFrame()));
+  Collide collideTiles = collideWithTiles(tiles, &speed, animate.asSeconds(), getCurrentHitbox(animations.at(state), sprite->getCurrentFrame()));
   setDistance(collideTiles);
   move(animate.asSeconds()*(speed.x), animate.asSeconds()*speed.y);
   sprite->update(animate);

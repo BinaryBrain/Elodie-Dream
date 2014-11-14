@@ -34,7 +34,7 @@ void Bonus::takeDamage(int, bool)
 
 void Bonus::getTaken(std::map< std::string, Entity* >& entities)
 {
-  sf::FloatRect zone = getCurrentHitbox(animations[state], sprite->getCurrentFrame()).getArea();
+  sf::FloatRect zone = getCurrentHitbox(animations.at(state), sprite->getCurrentFrame()).getArea();
   sf::FloatRect elodie = ((Elodie*)entities["elodie"])->returnCurrentHitbox().getArea();
   if (zone.intersects(elodie))
     {

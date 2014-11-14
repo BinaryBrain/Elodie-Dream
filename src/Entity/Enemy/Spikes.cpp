@@ -31,7 +31,7 @@ Spikes::~Spikes()
 
 void Spikes::doAttack(std::map< std::string, Entity* >& entities)
 {
-  sf::FloatRect entity = getCurrentHitbox(animations[state], sprite->getCurrentFrame()).getArea();
+  sf::FloatRect entity = getCurrentHitbox(animations.at(state), sprite->getCurrentFrame()).getArea();
   Elodie* elodie = (Elodie*) entities["elodie"];
   if (state == Spikes::State::ACTIVATED && sprite->getCurrentFrame() == 2 &&
       entity.intersects(elodie->returnCurrentHitbox().getArea()))
@@ -41,7 +41,7 @@ void Spikes::doAttack(std::map< std::string, Entity* >& entities)
   if (!activated && entity.intersects(elodie->returnCurrentHitbox().getArea()))
     {
       state = Spikes::State::ACTIVATED;
-      changeStance(animations[state], sf::seconds(0.05f));
+      changeStance(animations.at(state), sf::seconds(0.05f));
 activated = true;
       
       SoundManager::getInstance().play(SoundType::SPIKES);
@@ -60,7 +60,7 @@ void Spikes::doStuff(const EventHandler&, const std::vector< std::vector<TileSpr
   if (state == Spikes::State::ACTIVATED && sprite->getCurrentFrame() == 3)
     {
       state = Spikes::State::UNACTIVATED;
-      changeStance(animations[state], sf::seconds(0.05f));
+      changeStance(animations.at(state), sf::seconds(0.05f));
     }
 
   sprite->update(animate);

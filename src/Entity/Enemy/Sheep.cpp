@@ -30,7 +30,7 @@ Sheep::~Sheep()
 
 void Sheep::doAttack(std::map< std::string, Entity* >& entities)
 {
-  sf::FloatRect entity = getCurrentHitbox(animations[state], sprite->getCurrentFrame()).getArea();
+  sf::FloatRect entity = getCurrentHitbox(animations.at(state), sprite->getCurrentFrame()).getArea();
   Elodie* elodie = (Elodie*) entities["elodie"];
   if (entity.intersects(elodie->returnCurrentHitbox().getArea()))
     {
@@ -58,7 +58,7 @@ void Sheep::doStuff(const EventHandler&, const std::vector< std::vector<TileSpri
   computeGravity(animate);
 
   //Check the collisions, set the new distances and do the move
-  Collide collideTiles = collideWithTiles(tiles, &speed, animate.asSeconds(), getCurrentHitbox(animations[state], sprite->getCurrentFrame()));
+  Collide collideTiles = collideWithTiles(tiles, &speed, animate.asSeconds(), getCurrentHitbox(animations.at(state), sprite->getCurrentFrame()));
   setDistance(collideTiles);
   move(animate.asSeconds()*(speed.x), animate.asSeconds()*speed.y);
   sprite->update(animate);

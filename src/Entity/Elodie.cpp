@@ -93,13 +93,13 @@ void Elodie::overworldMove(float seconds)
 
 void Elodie::setWalkDown()
 {
-  spriteCast->changeStance(animations[Elodie::State::FALLING], sf::seconds(0.1f));
+  spriteCast->changeStance(animations.at(Elodie::State::FALLING), sf::seconds(0.1f));
   goingDown = true;
 }
 
 void Elodie::setWalkUp()
 {
-  spriteCast->changeStance(animations[Elodie::State::JUMPING], sf::seconds(0.1f));
+  spriteCast->changeStance(animations.at(Elodie::State::JUMPING), sf::seconds(0.1f));
   goingUp = true;
 }
 
@@ -191,7 +191,7 @@ void Elodie::changeAnimation(Collide collideTiles)
   unsigned int curFrame = spriteCast->getCurrentFrame();
   Elodie::State memState = static_cast<Elodie::State>(state);
 
-  if (spriteCast->getCurrentStance() == animations[Elodie::State::STANDING] ||
+  if (spriteCast->getCurrentStance() == animations.at(Elodie::State::STANDING) ||
       (state == Elodie::State::PUNCHING && curFrame == 3))
     {
       if (collideTiles.bottom["surface"])
@@ -241,7 +241,7 @@ void Elodie::changeAnimation(Collide collideTiles)
   
   if (state != memState)
     {
-      spriteCast->changeStance(animations[state], sf::seconds(0.1f));
+      spriteCast->changeStance(animations.at(state), sf::seconds(0.1f));
     }
 }
 
@@ -253,7 +253,7 @@ void Elodie::handleEvent(const EventHandler& event, EntityMap& entities, Collide
     {
       changeState(Elodie::State::JUMPING);
       speed.y = JUMP;
-      spriteCast->changeStance(animations[state], sf::seconds(0.1f));
+      spriteCast->changeStance(animations.at(state), sf::seconds(0.1f));
     }
   else if (event.keyIsPressed(sf::Keyboard::A) && (attackTimer > ATTACK_COOLDOWN))
     {
@@ -274,7 +274,7 @@ void Elodie::doStuff(const EventHandler& event, const std::vector< std::vector<T
   computeGravity(animate);
 
   //Check the collisions, set the new distances and do the move
-  Collide collideTiles = collideWithTiles(tiles, &speed, animate.asSeconds(), getCurrentHitbox(animations[state], spriteCast->getCurrentFrame()));
+  Collide collideTiles = collideWithTiles(tiles, &speed, animate.asSeconds(), getCurrentHitbox(animations.at(state), spriteCast->getCurrentFrame()));
   setDistance(collideTiles);
   move(animate.asSeconds()*(speed.x), animate.asSeconds()*speed.y);
   spriteCast->update(animate);
@@ -328,7 +328,7 @@ void Elodie::changeState(Elodie::State to)
   if (from == Elodie::State::WALKING && to == Elodie::State::JUMPING)
     {
       speed.y = JUMP;
-      spriteCast->changeStance(animations[state], sf::seconds(0.1f));
+      spriteCast->changeStance(animations.at(state), sf::seconds(0.1f));
     }
   else if (from == Elodie::State::FALLING && to == Elodie::State::WALKING)
     {
@@ -341,7 +341,7 @@ void Elodie::changeState(Elodie::State to)
 
   if (to == Elodie::State::PUNCHING)
     {
-      spriteCast->changeStance(animations[state], sf::seconds(0.05f));
+      spriteCast->changeStance(animations.at(state), sf::seconds(0.05f));
       SoundManager::getInstance().play(SoundType::WOOSH);
     }
 }
