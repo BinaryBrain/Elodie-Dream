@@ -586,7 +586,7 @@ void Game::save() {
     int LDL = overworld->getState();
 
     // Displays the save name on the menu
-    currentMenuSave->getText()->setString(saveHandler.computeLDLName(LDL));
+    currentMenuSave->getText()->setString(saveHandler.computeLevelName(LDL));
 
     std::vector< std::vector<int> > scoresDatas = scoreManager.getAllDatas();
 

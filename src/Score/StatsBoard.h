@@ -1,16 +1,20 @@
 #ifndef STATSBOARD_H
 #define STATSBOARD_H
 
-#include "../const.h"
 #include "../font.h"
 #include "../Utils/Utils.h"
 #include "../Displayable/Displayable.h"
 #include "../Game/GameView.h"
+#include "../FileHandler/SaveHandler.h"
 #include "ScoreManager.h"
 
 
 class StatsBoard : public Displayable {
 public:
+    static const float MARGIN;
+    static const float LINES_INTERSPACE;
+    static const int CHAR_SIZE;
+
     StatsBoard(GameView& gameView);
     virtual ~StatsBoard();
 
@@ -19,14 +23,11 @@ public:
     void setLDL(int LDL);
 
 private:
-    sf::RectangleShape background;
-    sf::Text levelsText;
+    std::vector<sf::Text> createCategoryTexts(float beginX, float beginY, const std::string& title, const std::vector<int>& datas);
 
     int LDL = 0;
-
-    std::vector< std::pair<sf::Text, sf::Text> > categoriesText;
-
-    std::pair<sf::Text, sf::Text> createCategoryText(float x, float y, std::string title, std::vector<int> levelDatas);
+    sf::RectangleShape background;
+    std::vector<sf::Text> categoriesTexts;
 };
 
 #endif // STATSBOARD_H
