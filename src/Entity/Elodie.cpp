@@ -274,7 +274,7 @@ void Elodie::doStuff(const EventHandler& event, const std::vector< std::vector<T
   computeGravity(animate);
 
   //Check the collisions, set the new distances and do the move
-  Collide collideTiles = collideWithTiles(tiles, &speed, animate.asSeconds(), getCurrentHitbox(animations.at(state), spriteCast->getCurrentFrame()));
+  Collide collideTiles = collideWithTiles(tiles, animate.asSeconds());
   setDistance(collideTiles);
   move(animate.asSeconds()*(speed.x), animate.asSeconds()*speed.y);
   spriteCast->update(animate);

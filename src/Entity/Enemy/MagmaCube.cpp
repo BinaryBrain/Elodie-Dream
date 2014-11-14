@@ -92,7 +92,7 @@ void MagmaCube::doStuff(const EventHandler&, const std::vector< std::vector<Tile
   computeGravity(animate);
 
   //Check the collisions, set the new distances and do the move
-  Collide collideTiles = collideWithTiles(tiles, &speed, animate.asSeconds(), getCurrentHitbox(animations.at(state), sprite->getCurrentFrame()));
+  Collide collideTiles = collideWithTiles(tiles, animate.asSeconds());
   setDistance(collideTiles);
   move(animate.asSeconds()*(speed.x), animate.asSeconds()*speed.y);
   sprite->update(animate);

@@ -55,7 +55,7 @@ public:
   Hitbox getCurrentHitbox(std::string animation, int frame) const;
   Hitbox returnCurrentHitbox() const;
 
-  Collide collideWithTiles(const std::vector< std::vector<TileSprite*> >& world, sf::Vector2f *vit, float time, Hitbox hitbox);
+  Collide collideWithTiles(const std::vector< std::vector<TileSprite*> >& world, float time);
 
   /**
    * \brief A getter to the main Sprite
