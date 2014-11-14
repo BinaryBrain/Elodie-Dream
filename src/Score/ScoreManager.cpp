@@ -2,7 +2,7 @@
 
 const int ScoreManager::BONUS_NODAMAGES = 500;
 
-ScoreManager::ScoreManager() {
+ScoreManager::ScoreManager() : statsManager(StatsManager::getInstance()) {
     for (size_t i = 0; i < NUMLEVELS; ++i) {
         Score score;
         gameScore.push_back(score);
@@ -86,6 +86,7 @@ void ScoreManager::setLevelScore(int level, int totalPoints) {
 
 void ScoreManager::takeBonus() {
     currentScore.setBoni(currentScore.getBoni() + 1);
+    statsManager.setTotalBoni(statsManager.getTotalBoni() + 1);
 }
 
 void ScoreManager::takeDamage(int damage) {
@@ -106,14 +107,17 @@ void ScoreManager::addEnemyKilled(EnemyType type) {
         case EnemyType::SHEEP:
             killPoints += Sheep::DAMAGE * nKillsInARow;
             currentScore.setSheeps(currentScore.getSheeps() + 1);
+            statsManager.setTotalSheeps(statsManager.getTotalSheeps() + 1);
             break;
         case EnemyType::MAGMACUBE:
             killPoints += MagmaCube::DAMAGE * nKillsInARow;
             currentScore.setMagmaCubes(currentScore.getMagmaCubes() + 1);
+            statsManager.setTotalMagmaCubes(statsManager.getTotalMagmaCubes() + 1);
             break;
         case EnemyType::BRISTLE:
             killPoints += Bristle::DAMAGE * nKillsInARow;
             currentScore.setBristles(currentScore.getBristles() + 1);
+            statsManager.setTotalBristles(statsManager.getTotalBristles() + 1);
             break;
         default:
             break;

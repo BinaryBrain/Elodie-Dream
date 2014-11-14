@@ -11,6 +11,7 @@
 #include "../Entity/Enemy/MagmaCube.h"
 #include "../Entity/Enemy/Bristle.h"
 #include "../Entity/Bonus.h"
+#include "../Stats/StatsManager.h"
 
 class ScoreManager {
 public:
@@ -54,6 +55,8 @@ private:
 
     Score currentScore;
     std::vector<Score> gameScore;
+
+    StatsManager& statsManager;
 
     int killPoints = 0;
     int nKillsInARow = 0;
