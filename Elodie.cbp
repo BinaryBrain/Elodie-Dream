@@ -24,6 +24,7 @@
 					<Add directory="sfml/include" />
 					<Add directory="src/Menu" />
 					<Add directory="src/FileHandler" />
+					<Add directory="src/Stats" />
 				</Compiler>
 				<Linker>
 					<Add library="sfml\lib\libsfml-graphics-d.a" />
@@ -50,6 +51,7 @@
 					<Add directory="sfml/include" />
 					<Add directory="src/Menu" />
 					<Add directory="src/FileHandler" />
+					<Add directory="src/Stats" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -154,8 +156,6 @@
 		<Unit filename="src/Score/ScoreBoard.h" />
 		<Unit filename="src/Score/ScoreManager.cpp" />
 		<Unit filename="src/Score/ScoreManager.h" />
-		<Unit filename="src/Score/StatsBoard.cpp" />
-		<Unit filename="src/Score/StatsBoard.h" />
 		<Unit filename="src/Sky/Earth.cpp" />
 		<Unit filename="src/Sky/Earth.h" />
 		<Unit filename="src/Sky/Sky.cpp" />
@@ -178,6 +178,10 @@
 		<Unit filename="src/Sprite/Interactive.h" />
 		<Unit filename="src/Sprite/TileSprite.cpp" />
 		<Unit filename="src/Sprite/TileSprite.h" />
+		<Unit filename="src/Stats/StatsBoard.cpp" />
+		<Unit filename="src/Stats/StatsBoard.h" />
+		<Unit filename="src/Stats/StatsManager.cpp" />
+		<Unit filename="src/Stats/StatsManager.h" />
 		<Unit filename="src/TextureManager/TextureManager.cpp" />
 		<Unit filename="src/TextureManager/TextureManager.h" />
 		<Unit filename="src/Utils/Date.cpp" />

@@ -6,7 +6,7 @@
 #include "../Displayable/Displayable.h"
 #include "../Game/GameView.h"
 #include "../FileHandler/SaveHandler.h"
-#include "ScoreManager.h"
+#include "../Score/ScoreManager.h"
 
 
 class StatsBoard : public Displayable {

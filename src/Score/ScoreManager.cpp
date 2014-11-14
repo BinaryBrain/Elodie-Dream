@@ -134,10 +134,8 @@ void ScoreManager::saveCurrentScore() {
     bool betterScore = gameScore[level].getTotalPoints() < currentScore.getTotalPoints();
 
     if (!registered || betterScore) {
-        if (!registered) {
-            gameScore[level].setRegistered(true);
-        }
         gameScore[level] = currentScore;
+        gameScore[level].setRegistered(true);
         scoreString = "(new record! :3)";
     } else {
         scoreString = "(best score: " + Utils::itos(gameScore[level].getTotalPoints()) + ")";
