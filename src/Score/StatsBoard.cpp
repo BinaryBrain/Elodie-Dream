@@ -1,5 +1,9 @@
 #include "StatsBoard.h"
 
+const float StatsBoard::MARGIN = 50;
+const float StatsBoard::LINES_INTERSPACE = 15;
+const int StatsBoard::CHAR_SIZE = 15;
+
 StatsBoard::StatsBoard(GameView& gameView) : Displayable(gameView) {
     float viewX(WINDOW_WIDTH);
     float viewY(WINDOW_HEIGHT);
@@ -8,45 +12,50 @@ StatsBoard::StatsBoard(GameView& gameView) : Displayable(gameView) {
     background.setFillColor(sf::Color(0x00, 0x00, 0x00, 0xE0));
     background.setPosition(0, 0);
 
-    levelsText.setFont(globalFont);
-    levelsText.setCharacterSize(STATS_CHAR_SIZE);
-
     gameView.addView(ViewLayer::STATS, this);
 }
 
 StatsBoard::~StatsBoard() {
-    //dtor
+
 }
 
 void StatsBoard::display() {
     gameView.addDrawable(ViewLayer::STATS, &background);
-    gameView.addDrawable(ViewLayer::STATS, &levelsText);
 
-    for (size_t i = 0; i < categoriesText.size(); ++i) {
-        gameView.addDrawable(ViewLayer::STATS, &(categoriesText[i].first));
-        gameView.addDrawable(ViewLayer::STATS, &(categoriesText[i].second));
+    for (size_t i = 0; i < categoriesTexts.size(); ++i) {
+        gameView.addDrawable(ViewLayer::STATS, &(categoriesTexts[i]));
     }
 }
 
 void StatsBoard::prepareText() {
-    categoriesText.clear();
+    categoriesTexts.clear();
 
     std::vector< std::vector<int> > allDatas = ScoreManager::getInstance().getAllDatas();
-
-    std::string levels = "\nTutorial\n";
-
-    for (int i = 1; i <= LDL; ++i) {
-        levels += "Level " + Utils::itos(i) + "\n";
-    }
-
-    levelsText.setString(levels);
-    levelsText.setPosition(STATS_MARGIN, STATS_MARGIN);
-
     std::vector<std::string> titles;
     titles.push_back("Points");
     titles.push_back("Boni");
     titles.push_back("Damages taken");
     titles.push_back("Enemies killed");
+    titles.push_back("Largest killing spree");
+
+    float x = MARGIN;
+    float y = MARGIN + LINES_INTERSPACE;
+    float maxWidth = 0;
+
+    for (int i = 0; i <= LDL; i++) {
+        sf::Text levelText;
+        levelText.setFont(globalFont);
+        levelText.setCharacterSize(CHAR_SIZE);
+        levelText.setString(SaveHandler::computeLevelName(i));
+        levelText.setPosition(x, y + levelText.getLocalBounds().height);
+
+        float width = levelText.getLocalBounds().width;
+        if (maxWidth < width) {
+            maxWidth = width;
+        }
+        y += levelText.getLocalBounds().height + LINES_INTERSPACE;
+        categoriesTexts.push_back(levelText);
+    }
 
     std::vector< std::vector<int> > categories;
     for (size_t i = 0; i < titles.size(); ++i) {
@@ -61,34 +70,44 @@ void StatsBoard::prepareText() {
         }
     }
 
-    float startX = STATS_MARGIN*2 + levelsText.getLocalBounds().width;
+    float startX = MARGIN*2 + maxWidth;
+    float categoryWidth = (gameView.getSizeX() - startX)/categories.size();
+
     for (size_t i = 0; i < titles.size(); ++i) {
-        categoriesText.push_back(createCategoryText(startX + STATS_MARGIN*i +  STATS_WIDTH_CATEGORY*i, STATS_MARGIN, titles[i], categories[i]));
+        std::vector<sf::Text> texts = createCategoryTexts(startX +  categoryWidth*i, MARGIN, titles[i], categories[i]);
+        for (size_t j = 0; j < texts.size(); ++j) {
+            categoriesTexts.push_back(texts[j]);
+        }
     }
 }
 
-std::pair<sf::Text, sf::Text> StatsBoard::createCategoryText(float x, float y, std::string title, std::vector<int> datas) {
+std::vector<sf::Text> StatsBoard::createCategoryTexts(float beginX, float beginY, const std::string& title, const std::vector<int>& datas) {
+    std::vector<sf::Text> texts;
 
     sf::Text titleText;
-    sf::Text valuesText;
+    titleText.setFont(globalFont);
+    titleText.setCharacterSize(CHAR_SIZE);
+    titleText.setString(title);
+    titleText.setPosition(beginX,beginY);
+    texts.push_back(titleText);
 
-    std::string values = "\n";
+    float titleWidth = titleText.getLocalBounds().width;
+    float titleHeight = titleText.getLocalBounds().height;
+    float y = beginY + titleHeight + LINES_INTERSPACE;
 
     for (size_t i = 0; i < datas.size(); ++i) {
-        values += Utils::itos(datas[i]) + "\n";
+        sf::Text t;
+        t.setFont(globalFont);
+        t.setCharacterSize(CHAR_SIZE);
+        t.setString(Utils::itos(datas[i]));
+
+        float x = beginX + titleWidth/2 - t.getLocalBounds().width/2;
+        t.setPosition(x,y);
+        y += t.getLocalBounds().height + LINES_INTERSPACE;
+        texts.push_back(t);
     }
 
-    titleText.setString(title);
-    titleText.setFont(globalFont);
-    titleText.setCharacterSize(STATS_CHAR_SIZE);
-    titleText.setPosition(x, y);
-
-    valuesText.setString(values);
-    valuesText.setFont(globalFont);
-    valuesText.setCharacterSize(STATS_CHAR_SIZE);
-    valuesText.setPosition(x, y);
-
-    return std::make_pair(titleText, valuesText);
+    return texts;
 }
 
 void StatsBoard::setLDL(int LDL) {

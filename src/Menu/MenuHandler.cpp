@@ -55,7 +55,7 @@ MenuHandler::MenuHandler(GameView& gameView) : Displayable(gameView) {
 
         if (FileHandler::fileExists(path)) {
             int LDL = accessor.getIntWithDefault("lastdiscoveredlevel", 0);
-            lastDiscoveredLevels[i] = sh.computeLDLName(LDL);
+            lastDiscoveredLevels[i] = sh.computeLevelName(LDL);
         } else {
             lastDiscoveredLevels[i] = labels[i];
         }

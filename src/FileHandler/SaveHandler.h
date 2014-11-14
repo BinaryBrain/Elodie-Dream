@@ -16,18 +16,15 @@ public:
     static const unsigned int NUMSLOTS;
 
     static SaveHandler& getInstance();
+    static bool isSlotFree(const std::string& slot);
+    static std::string nextFreeSlot();
+    static std::string computeLevelName(int LDL);
 
-    void setPath(const std::string& path);
     JsonStringifier& getStringifier();
     void clearStringifier();
 
-    bool isSlotFree(const std::string& slot);
-    std::string nextFreeSlot();
-
     void saveEncryptedContentTo(const std::string& path);
     std::string getDecryptedContentFrom(const std::string& path);
-
-    std::string computeLDLName(int LDL);
 
 private:
     SaveHandler();
