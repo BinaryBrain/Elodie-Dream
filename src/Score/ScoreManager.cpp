@@ -1,6 +1,6 @@
 #include "ScoreManager.h"
 
-const int ScoreManager::BONUS_NODAMAGES = 1000;
+const int ScoreManager::BONUS_NODAMAGES = 500;
 
 ScoreManager::ScoreManager() {
     for (size_t i = 0; i < NUMLEVELS; ++i) {
@@ -18,8 +18,12 @@ ScoreManager& ScoreManager::getInstance() {
     return instance;
 }
 
+int ScoreManager::getKillPoints() {
+    return killPoints;
+}
+
 int ScoreManager::getLevelPoints() {
-    return levelPoints;
+    return currentScore.getBoni() * Bonus::POINTS + currentScore.getDamagesTaken() + killPoints;
 }
 
 Score ScoreManager::getScore(int level) {
@@ -72,21 +76,15 @@ void ScoreManager::setLevel(int level) {
     currentScore.setLevelId(level);
 }
 
-void ScoreManager::setLevelPoints(int points) {
-    levelPoints = points;
-}
-
 void ScoreManager::setLevelScore(int level, int totalPoints) {
     gameScore[level].setTotalPoints(totalPoints);
 }
 
 void ScoreManager::takeBonus() {
-    levelPoints += Bonus::POINTS;
     currentScore.setBoni(currentScore.getBoni() + 1);
 }
 
 void ScoreManager::takeDamage(int damage) {
-    levelPoints -= damage;
     currentScore.setDamagesTaken(currentScore.getDamagesTaken() + damage);
     if (damage > 0) {
         nKillsInARow = 0;
@@ -94,44 +92,32 @@ void ScoreManager::takeDamage(int damage) {
 }
 
 void ScoreManager::addEnemyKilled(EnemyType type) {
-    switch (type) {
-        case EnemyType::SHEEP:
-            addKilledSheep();
-            break;
-        case EnemyType::MAGMACUBE:
-            addKilledMagmacube();
-            break;
-        case EnemyType::BRISTLE:
-            addKilledBristle();
-            break;
-        default:
-            break;
-    }
-
     ++nKillsInARow;
     if (nKillsInARow > currentScore.getLargestKillingSpree()) {
         currentScore.setLargestKillingSpree(nKillsInARow);
     }
     currentScore.setEnemiesKilled(currentScore.getEnemiesKilled() + 1);
-}
 
-void ScoreManager::addKilledSheep() {
-    levelPoints += Sheep::DAMAGE;
-    currentScore.setSheeps(currentScore.getSheeps() + 1);
-}
-
-void ScoreManager::addKilledMagmacube() {
-    levelPoints += MagmaCube::DAMAGE;
-    currentScore.setMagmaCubes(currentScore.getMagmaCubes() + 1);
-}
-
-void ScoreManager::addKilledBristle() {
-    levelPoints += Bristle::DAMAGE;
-    currentScore.setBristles(currentScore.getBristles() + 1);
+    switch (type) {
+        case EnemyType::SHEEP:
+            killPoints += Sheep::DAMAGE * nKillsInARow;
+            currentScore.setSheeps(currentScore.getSheeps() + 1);
+            break;
+        case EnemyType::MAGMACUBE:
+            killPoints += MagmaCube::DAMAGE * nKillsInARow;
+            currentScore.setMagmaCubes(currentScore.getMagmaCubes() + 1);
+            break;
+        case EnemyType::BRISTLE:
+            killPoints += Bristle::DAMAGE * nKillsInARow;
+            currentScore.setBristles(currentScore.getBristles() + 1);
+            break;
+        default:
+            break;
+    }
 }
 
 void ScoreManager::computeTotalPoints() {
-    int totalPoints = levelPoints;
+    int totalPoints = getLevelPoints();
     if (currentScore.getDamagesTaken() == 0) {
         totalPoints += BONUS_NODAMAGES;
     }
@@ -149,7 +135,7 @@ void ScoreManager::saveCurrentScore() {
 }
 
 void ScoreManager::resetCurrentScore() {
-    levelPoints = 0;
+    killPoints = 0;
     nKillsInARow = 0;
     currentScore.reset();
 }

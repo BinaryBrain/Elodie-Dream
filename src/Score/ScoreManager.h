@@ -17,6 +17,7 @@ public:
     static const int BONUS_NODAMAGES;
 
     static ScoreManager& getInstance();
+    int getKillPoints();
     int getLevelPoints();
     Score getScore(int level);
     Score getCurrentScore();
@@ -32,15 +33,12 @@ public:
     */
     void setAllDatas(std::vector< std::vector<int> > datas);
     void setLevel(int level);
-    void setLevelPoints(int points);
+    void setKillPoints(int points);
     void setLevelScore(int level, int totalPoints);
 
     void takeBonus();
     void takeDamage(int damage);
     void addEnemyKilled(EnemyType type);
-    void addKilledSheep();
-    void addKilledMagmacube();
-    void addKilledBristle();
     void computeTotalPoints();
     void saveCurrentScore();
     void resetCurrentScore();
@@ -56,7 +54,7 @@ private:
     Score currentScore;
     std::vector<Score> gameScore;
 
-    int levelPoints = 0;
+    int killPoints = 0;
     int nKillsInARow = 0;
 };
 

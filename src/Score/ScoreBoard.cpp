@@ -47,24 +47,11 @@ void ScoreBoard::prepareText() {
     Score score = scoreManager.getCurrentScore();
     int boni = score.getBoni();
     int damages = score.getDamagesTaken();
-    int sheeps = score.getSheeps();
-    int magmaCubes = score.getMagmaCubes();
-    int bristles = score.getBristles();
-    int enemiesKilled = score.getEnemiesKilled();
     int totalPoints = score.getTotalPoints();
     int levelId = score.getLevelId();
     int bestScore = scoreManager.getGameScore()[levelId].getTotalPoints();
 
-    std::string enemiesString = "Enemies killed: " + Utils::itos(enemiesKilled);
-    if (sheeps > 0) {
-        enemiesString += "\nSheeps: " + Utils::itos(sheeps) + " => " + Utils::itos(sheeps * Sheep::DAMAGE) + " pts";
-    }
-    if (magmaCubes > 0) {
-        enemiesString += "\nMagma cubes: " + Utils::itos(magmaCubes) + " => " + Utils::itos(magmaCubes * MagmaCube::DAMAGE) + " pts";
-    }
-    if (bristles > 0) {
-        enemiesString += "\nBristles: " + Utils::itos(bristles) + " => " + Utils::itos(bristles * Bristle::DAMAGE) + " pts";
-    }
+    std::string enemiesString = "Enemies killed: " + Utils::itos(score.getEnemiesKilled()) + " => " + Utils::itos(scoreManager.getKillPoints()) + "pts";
 
     std::string p = "";
     if (damages == 0) {
