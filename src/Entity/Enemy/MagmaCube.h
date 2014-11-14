@@ -9,40 +9,35 @@
 #include "../../EntityManager/EntityManager.h"
 #include "../Elodie.h"
 
-enum class MagmaCubeState { STANDING };
-
-class MagmaCube : public Entity {
+class MagmaCube : public Entity
+{
 public:
-    static const int DAMAGE;
-    static const int JUMP_CD;
-    static const int MOVE_X;
-    static const int MOVE_Y;
+  static const int DAMAGE;
+  static const int JUMP_CD;
+  static const int MOVE_X;
+  static const int MOVE_Y;
+  static const std::map< int, std::string > ANIMATIONS;
 
-    MagmaCube();
-    MagmaCube(sf::Vector2f position);
-    MagmaCube(float x, float y);
-    virtual ~MagmaCube();
+  enum State
+    {
+      STANDING
+    };
 
-    void update(sf::Time deltaTime);
+public:
+  MagmaCube();
+  MagmaCube(sf::Vector2f position);
+  MagmaCube(float x, float y);
+  virtual ~MagmaCube();
 
-    EntitySprite* getSprite();
-    Hitbox returnCurrentHitbox();
-    void doAttack(std::map< std::string, Entity* >& entities);
-    void takeDamage(int damage, bool ignore);
-    void jump();
-    void doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate);
-    void pause();
-    void play();
+  void doAttack(std::map< std::string, Entity* >& entities);
+  void jump();
+
+  virtual void takeDamage(int damage, bool ignore);
+  virtual void doStuff(const EventHandler& event, const std::vector< std::vector<TileSprite*> >& tiles,
+		       std::map< std::string, Entity* >& entities, sf::Time animate);
 
 private:
-    void init(float x, float y);
-    int jumpCD = 0;
-
-    EntitySprite* sprite;
-
-    MagmaCubeState state;
-
-    std::map< MagmaCubeState, std::string > ANIMATIONS;
+  int jumpCD = 0;
 };
 
 #endif // MAGMACUBE_H_INCLUDED

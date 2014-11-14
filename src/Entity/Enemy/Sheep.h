@@ -9,35 +9,28 @@
 #include "../../EntityManager/EntityManager.h"
 #include "../Elodie.h"
 
-enum class SheepState { STANDING };
-
-class Sheep : public Entity {
+class Sheep : public Entity
+{
 public:
-    static const int DAMAGE;
+  static const int DAMAGE;
+  static const std::map< int, std::string > ANIMATIONS;
 
-    Sheep();
-    Sheep(sf::Vector2f position);
-    Sheep(float x, float y);
-    virtual ~Sheep();
+  enum State
+    {
+      STANDING
+    };
 
-    void update(sf::Time deltaTime);
+public:
+  Sheep();
+  Sheep(sf::Vector2f position);
+  Sheep(float x, float y);
+  virtual ~Sheep();
 
-    EntitySprite* getSprite();
-    Hitbox returnCurrentHitbox();
-    void doAttack(std::map< std::string, Entity* >& entities);
-    void takeDamage(int damage, bool ignore);
-    void doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate);
-    void pause();
-    void play();
+  void doAttack(std::map< std::string, Entity* >& entities);
 
-private:
-    void init(float x, float y);
-
-    EntitySprite* sprite;
-
-    SheepState state;
-
-    std::map< SheepState, std::string > ANIMATIONS;
+  virtual void takeDamage(int damage, bool ignore);
+  virtual void doStuff(const EventHandler& event, const std::vector< std::vector<TileSprite*> >& tiles,
+		       std::map< std::string, Entity* >& entities, sf::Time animate);
 };
 
 #endif // SHEEP_H_INCLUDED

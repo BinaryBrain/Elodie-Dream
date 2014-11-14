@@ -25,7 +25,7 @@ void EventHandler::pushAll(const std::vector<eventMouse>& tabFrom, std::vector<e
     }
 }
 
-int EventHandler::inVector(const std::vector<eventInput>& tab, int code)
+int EventHandler::inVector(const std::vector<eventInput>& tab, int code) const
 {
   for (unsigned int i = 0; i < tab.size(); ++i)
     {
@@ -37,7 +37,7 @@ int EventHandler::inVector(const std::vector<eventInput>& tab, int code)
   return (-1);
 }
 
-int EventHandler::inVector(const std::vector<eventMouse>& tab, int code)
+int EventHandler::inVector(const std::vector<eventMouse>& tab, int code) const
 {
   for (unsigned int i = 0; i < tab.size(); ++i)
     {
@@ -82,7 +82,7 @@ void EventHandler::extractByCode(std::vector<eventMouse>& tab, int code)
     }
 }
 
-std::vector<int> EventHandler::codeContent(const std::vector<eventInput>& tab)
+std::vector<int> EventHandler::codeContent(const std::vector<eventInput>& tab) const
 {
   std::vector<int> ret;
 
@@ -93,7 +93,7 @@ std::vector<int> EventHandler::codeContent(const std::vector<eventInput>& tab)
   return (ret);
 }
 
-eventMouse EventHandler::getInfoByCode(const std::vector<eventMouse>& tab, int code)
+eventMouse EventHandler::getInfoByCode(const std::vector<eventMouse>& tab, int code) const
 {
   eventMouse emptyStruct;
 
@@ -107,12 +107,12 @@ eventMouse EventHandler::getInfoByCode(const std::vector<eventMouse>& tab, int c
   return (emptyStruct);
 }
 
-bool EventHandler::checkIn(const std::vector<eventInput>& tab, int code)
+bool EventHandler::checkIn(const std::vector<eventInput>& tab, int code) const
 {
   return (inVector(tab, code) >= 0);
 }
 
-bool EventHandler::checkIn(const std::vector<eventInput>& tab, const std::vector<int>& codes)
+bool EventHandler::checkIn(const std::vector<eventInput>& tab, const std::vector<int>& codes) const
 {
   for (unsigned int i = 0; i < codes.size(); ++i)
     {
@@ -124,7 +124,7 @@ bool EventHandler::checkIn(const std::vector<eventInput>& tab, const std::vector
   return (false);
 }
 
-bool EventHandler::checkIn(const std::vector<eventMouse>& tab, int code)
+bool EventHandler::checkIn(const std::vector<eventMouse>& tab, int code) const
 {
   return (inVector(tab, code) >= 0);
 }
@@ -218,93 +218,93 @@ void EventHandler::listening()
     }
 }
 
-std::vector<int> EventHandler::keyPressed()
+std::vector<int> EventHandler::keyPressed() const
 {
   return (codeContent(_keyPressedVector));
 }
 
-bool EventHandler::keyIsPressed(int code)
+bool EventHandler::keyIsPressed(int code) const
 {
   return (checkIn(_keyPressedVector, code));
 }
 
-bool EventHandler::keyIsPressed(const std::vector<int>& codes)
+bool EventHandler::keyIsPressed(const std::vector<int>& codes) const
 {
   return (checkIn(_keyPressedVector, codes));
 }
 
 
-std::vector<int> EventHandler::keyHold()
+std::vector<int> EventHandler::keyHold() const
 {
   return (codeContent(_keyHoldVector));
 }
 
-bool EventHandler::keyIsHold(int code)
+bool EventHandler::keyIsHold(int code) const
 {
   return (checkIn(_keyHoldVector, code));
 }
 
-bool EventHandler::keyIsHold(const std::vector<int>& codes)
+bool EventHandler::keyIsHold(const std::vector<int>& codes) const
 {
   return (checkIn(_keyHoldVector, codes));
 }
 
 
-std::vector<int> EventHandler::keyReleased()
+std::vector<int> EventHandler::keyReleased() const
 {
   return (codeContent(_keyReleasedVector));
 }
 
-bool EventHandler::keyIsReleased(int code)
+bool EventHandler::keyIsReleased(int code) const
 {
   return (checkIn(_keyReleasedVector, code));
 }
 
-bool EventHandler::keyIsReleased(const std::vector<int>& codes)
+bool EventHandler::keyIsReleased(const std::vector<int>& codes) const
 {
   return (checkIn(_keyReleasedVector, codes));
 }
 
 
-bool EventHandler::mouseIsPressed(int code)
+bool EventHandler::mouseIsPressed(int code) const
 {
   return (checkIn(_mousePressedVector, code));
 }
 
-eventMouse EventHandler::mouseInfoPressed(int code)
+eventMouse EventHandler::mouseInfoPressed(int code) const
 {
   return (getInfoByCode(_mousePressedVector, code));
 }
 
 
-bool EventHandler::mouseIsHold(int code)
+bool EventHandler::mouseIsHold(int code) const
 {
   return (checkIn(_mouseHoldVector, code));
 }
 
-eventMouse EventHandler::mouseInfoHold(int code)
+eventMouse EventHandler::mouseInfoHold(int code) const
 {
   return (getInfoByCode(_mouseHoldVector, code));
 }
 
 
-bool EventHandler::mouseIsReleased(int code)
+bool EventHandler::mouseIsReleased(int code) const
 {
   return (checkIn(_mouseReleasedVector, code));
 }
 
-eventMouse EventHandler::mouseInfoReleased(int code)
+eventMouse EventHandler::mouseInfoReleased(int code) const
 {
   return (getInfoByCode(_mouseReleasedVector, code));
 }
 
 
-int EventHandler::mouseIsWheeled()
+int EventHandler::mouseIsWheeled() const
 {
   return (_mouseWheel.code);
 }
 
-eventMouse EventHandler::mouseInfoWheeled()
+eventMouse EventHandler::mouseInfoWheeled() const
 {
   eventMouse emptyStruct;
 
@@ -315,17 +315,17 @@ eventMouse EventHandler::mouseInfoWheeled()
   return (emptyStruct);
 }
 
-bool EventHandler::hasFocus()
+bool EventHandler::hasFocus() const
 {
   return (_focus);
 }
 
-bool EventHandler::gainedFocus()
+bool EventHandler::gainedFocus() const
 {
   return (_prevFocus != _focus && _focus == true);
 }
 
-bool EventHandler::lostFocus()
+bool EventHandler::lostFocus() const
 {
   return (_prevFocus != _focus && _focus == false);
 }

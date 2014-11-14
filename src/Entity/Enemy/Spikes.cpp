@@ -2,91 +2,66 @@
 #include "Spikes.h"
 
 const int Spikes::DAMAGE = 50;
+const std::map< int, std::string > Spikes::ANIMATIONS =
+  {
+    {Spikes::State::WAITING, "waiting"},
+    {Spikes::State::ACTIVATED, "activated"},
+    {Spikes::State::UNACTIVATED, "unactivated"}
+};
 
-Spikes::Spikes() {
-    init(0, 0);
+Spikes::Spikes() : Spikes(sf::Vector2f(0, 0))
+{
 }
 
-Spikes::Spikes(sf::Vector2f position) {
-    init(position.x, position.y);
+Spikes::Spikes(sf::Vector2f position) :
+  Entity(position, EntityType::ENEMY, EntityName::SPIKES,
+	 ENTITYTYPE_ENEMY+"/"+ENTITYNAME_SPIKES+".png", "waiting",
+	 Spikes::ANIMATIONS, Spikes::State::WAITING,
+	 {0, 0}, 1, Spikes::DAMAGE)
+{
 }
 
-Spikes::Spikes(float x, float y) {
-    init(x, y);
+Spikes::Spikes(float x, float y) : Spikes(sf::Vector2f(x, y))
+{
 }
 
-void Spikes::init(float x, float y) {
-    ANIMATIONS = {
-        {SpikesState::WAITING, "waiting"},
-        {SpikesState::ACTIVATED, "activated"},
-        {SpikesState::UNACTIVATED, "unactivated"}
-    };
-
-    life = 1;
-
-    info = EntityManager::getInstance().getEnemyInfo(EntityType::ENEMY, EntityName::SPIKES);
-
-    state = SpikesState::WAITING;
-    speed.x = 0;
-
-    sprite = new EntitySprite(info, ENTITIES_JSON_PATH+"/"+ENTITYTYPE_ENEMY+"/"+ENTITYNAME_SPIKES+".png", "waiting");
-    setEntitySprite(sprite);
-
-    sprite->setPosition(sf::Vector2f(x,y));
-    setHitboxes(info, sprite->getPosition());
+Spikes::~Spikes()
+{
 }
 
-Spikes::~Spikes() {
-    delete sprite;
-    setEntitySprite(NULL);
-}
-
-void Spikes::update(sf::Time deltaTime) {
-    sprite->update(deltaTime);
-}
-
-EntitySprite* Spikes::getSprite() {
-    return sprite;
-}
-
-void Spikes::doAttack(std::map< std::string, Entity* >& entities) {
-    sf::FloatRect entity = getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()).getArea();
-    Elodie* elodie = (Elodie*) entities["elodie"];
-    if (state == SpikesState::ACTIVATED && sprite->getCurrentFrame() == 2 && entity.intersects(elodie->returnCurrentHitbox().getArea())) {
-        elodie->takeDamage(DAMAGE, true);
+void Spikes::doAttack(std::map< std::string, Entity* >& entities)
+{
+  sf::FloatRect entity = getCurrentHitbox(animations[state], sprite->getCurrentFrame()).getArea();
+  Elodie* elodie = (Elodie*) entities["elodie"];
+  if (state == Spikes::State::ACTIVATED && sprite->getCurrentFrame() == 2 &&
+      entity.intersects(elodie->returnCurrentHitbox().getArea()))
+    {
+      elodie->takeDamage(DAMAGE, true);
     }
-    if (!activated && entity.intersects(elodie->returnCurrentHitbox().getArea())) {
-        state = SpikesState::ACTIVATED;
-        sprite->changeStance(ANIMATIONS[state], sf::seconds(0.02f));
-        activated = true;
-
-        SoundManager::getInstance().play(SoundType::SPIKES);
+  if (!activated && entity.intersects(elodie->returnCurrentHitbox().getArea()))
+    {
+      state = Spikes::State::ACTIVATED;
+      changeStance(animations[state], sf::seconds(0.05f));
+activated = true;
+      
+      SoundManager::getInstance().play(SoundType::SPIKES);
     }
 }
 
-Hitbox Spikes::returnCurrentHitbox() {
-    return getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame());
+void  Spikes::takeDamage(int, bool)
+{
 }
 
-void  Spikes::takeDamage(int, bool) {
-    //SPIKES ARE IMMORTAL BITCHES
-}
+void Spikes::doStuff(const EventHandler&, const std::vector< std::vector<TileSprite*> >&,
+		     std::map< std::string, Entity* >& entities, sf::Time animate)
+{
+  doAttack(entities);
 
-void Spikes::doStuff(EventHandler* const&, std::vector< std::vector<TileSprite*> > const&, std::map< std::string, Entity* >& entities, sf::Time animate) {
-    doAttack(entities);
-
-    if (state == SpikesState::ACTIVATED && sprite->getCurrentFrame() == 3) {
-        state = SpikesState::UNACTIVATED;
-        sprite->changeStance(ANIMATIONS[state], sf::seconds(0.1f));
+  if (state == Spikes::State::ACTIVATED && sprite->getCurrentFrame() == 3)
+    {
+      state = Spikes::State::UNACTIVATED;
+      changeStance(animations[state], sf::seconds(0.05f));
     }
 
-    sprite->update(animate);
-}
-
-void Spikes::pause() {
-    sprite->pause();
-}
-
-void Spikes::play() {
-    sprite->play();
+  sprite->update(animate);
 }

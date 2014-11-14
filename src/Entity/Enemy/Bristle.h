@@ -9,40 +9,36 @@
 #include "../../EntityManager/EntityManager.h"
 #include "../Elodie.h"
 
-enum class BristleState { STANDING, GRATTING };
-
-class Bristle : public Entity {
+class Bristle : public Entity
+{
 public:
-    static const int DAMAGE;
-    static const int SPEED_X;
-    static const int SPEED_Y;
-    static const int DETECTION;
+  static const int DAMAGE;
+  static const int SPEED_X;
+  static const int SPEED_Y;
+  static const int DETECTION;
+  static const std::map< int, std::string > ANIMATIONS;
 
-    Bristle();
-    Bristle(sf::Vector2f position);
-    Bristle(float x, float y);
-    virtual ~Bristle();
+  enum State
+    {
+      STANDING,
+      GRATTING
+    };
 
-    void update(sf::Time deltaTime);
+public:
+  Bristle();
+  Bristle(sf::Vector2f position);
+  Bristle(float x, float y);
+  virtual ~Bristle();
 
-    EntitySprite* getSprite();
-    Hitbox returnCurrentHitbox();
-    void doAttack(std::map< std::string, Entity* >& entities);
-    void checkArea(std::map< std::string, Entity* >& entities);
-    void takeDamage(int damage, bool ignore);
-    void doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate);
-    void pause();
-    void play();
+  void doAttack(std::map< std::string, Entity* >& entities);
+  void checkArea(std::map< std::string, Entity* >& entities);
+
+  virtual void takeDamage(int damage, bool ignore);
+  virtual void doStuff(const EventHandler& event, const std::vector< std::vector<TileSprite*> >& tiles,
+		       std::map< std::string, Entity* >& entities, sf::Time animate);
 
 private:
-    void init(float x, float y);
-
-    EntitySprite* sprite;
-
-    BristleState state;
-    bool charge = false;
-
-    std::map< BristleState, std::string > ANIMATIONS;
+  bool charge = false;
 };
 
 #endif // BRISTLE_H_INCLUDED

@@ -18,7 +18,7 @@ EntitySprite::~EntitySprite() {
     //dtor
 }
 
-void EntitySprite::changeStance(std::string stance, sf::Time speed) {
+void EntitySprite::changeStance(const std::string& stance, const sf::Time& speed) {
     AnimatedSprite::setAnimation(animations[stance]);
     setFrameTime(speed);
     setCurrentStance(stance);

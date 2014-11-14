@@ -10,34 +10,25 @@
 #include "../EntityManager/EntityManager.h"
 #include "Elodie.h"
 
-enum class PortalState { STANDING };
-
-class Portal : public Entity {
+class Portal : public Entity
+{
 public:
-    Portal();
-    Portal(sf::Vector2f position);
-    Portal(float x, float y);
-    virtual ~Portal();
+  static const std::map< int, std::string > ANIMATIONS;
 
-    void update(sf::Time deltaTime);
+  enum State
+    {
+      STANDING
+    };
 
-    EntitySprite* getSprite();
-    Hitbox returnCurrentHitbox();
-    void takeDamage(int damage, bool ignore);
-    void doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate);
-    void pause();
-    void play();
-protected:
+public:
+  Portal();
+  Portal(sf::Vector2f position);
+  Portal(float x, float y);
+  virtual ~Portal();
 
-private:
-    void init(float x, float y);
-    int damage = 0;
-
-    EntitySprite* sprite;
-
-    PortalState state;
-
-    std::map< PortalState, std::string > ANIMATIONS;
+  virtual void takeDamage(int damage, bool ignore);
+  virtual void doStuff(const EventHandler& event, const std::vector< std::vector<TileSprite*> >& tiles,
+		       std::map< std::string, Entity* >& entities, sf::Time animate);
 };
 
 #endif // Portal_H_INCLUDED

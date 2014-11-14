@@ -1,3 +1,5 @@
+#include "../const.h"
+#include "../Utils/Utils.h"
 #include "SaveHandler.h"
 
 const unsigned int SaveHandler::NUMSLOTS = 5;

@@ -10,37 +10,28 @@
 #include "../EntityManager/EntityManager.h"
 #include "Elodie.h"
 
-enum class BonusState { STANDING };
-
-class Bonus : public Entity {
+class Bonus : public Entity
+{
 public:
-    static const int POINTS;
+  static const int POINTS;
+  static const std::map< int, std::string > ANIMATIONS;
 
-    Bonus();
-    Bonus(sf::Vector2f position);
-    Bonus(float x, float y);
-    virtual ~Bonus();
+  enum State
+    {
+      STANDING
+    };
 
-    void update(sf::Time deltaTime);
+public:
+  Bonus();
+  Bonus(sf::Vector2f position);
+  Bonus(float x, float y);
+  virtual ~Bonus();
 
-    EntitySprite* getSprite();
-    Hitbox returnCurrentHitbox();
-    void getTaken(std::map< std::string, Entity* >& entities);
-    void takeDamage(int damage, bool ignore);
-    void doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate);
-    void pause();
-    void play();
-protected:
+  void getTaken(std::map< std::string, Entity* >& entities);
 
-private:
-    void init(float x, float y);
-    int damage = 0;
-
-    EntitySprite* sprite;
-
-    BonusState state;
-
-    std::map< BonusState, std::string > ANIMATIONS;
+  virtual void takeDamage(int damage, bool ignore);
+  virtual void doStuff(const EventHandler& event, const std::vector< std::vector<TileSprite*> >& tiles,
+		       std::map< std::string, Entity* >& entities, sf::Time animate);
 };
 
 #endif // BONUS_H_INCLUDED

@@ -24,7 +24,7 @@ public:
     virtual ~Level();
 
     void loadLevel(std::string filename, Elodie& elodie);
-    void live(EventHandler* const& event, sf::Time animate);
+    void live(const EventHandler& event, sf::Time animate);
 
     TileMap getTiles();
     EntityMap getEntities();

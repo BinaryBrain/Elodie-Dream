@@ -10,7 +10,8 @@
 #include <cmath>
 
 #include "Sprite/TileSprite.h"
-#include "Entity/Entity.h"
+
+class Entity;
 
 typedef std::vector< std::vector<TileSprite*> > TileMap;
 typedef std::map<std::string, Entity*> EntityMap;

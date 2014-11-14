@@ -6,332 +6,384 @@ const int Elodie::JUMP = -430;
 const int Elodie::SPEED = 250;
 const float Elodie::INC_PV_TIMER = 0.2;
 const float Elodie::ATTACK_COOLDOWN = 0.5;
+const std::map< int, std::string > Elodie::ANIMATIONS =
+  {
+    {Elodie::State::STANDING, "standing"},
+    {Elodie::State::WALKING, "running"},
+    {Elodie::State::PUNCHING, "attacking"},
+    {Elodie::State::FALLING, "falling"},
+    {Elodie::State::JUMPING, "jumping"}
+  };
 
-Elodie::Elodie() {
-    init();
+Elodie::Elodie() : Entity(Elodie::ANIMATIONS, Elodie::State::STANDING, {Elodie::SPEED, 0})
+{
+  JsonAccessor accessor = JsonAccessor();
+  accessor.loadJsonFrom(ENTITIES_JSON_PATH+"/"+ENTITYNAME_ELODIE+".json");
+  info = accessor.getEntityInfo();
+  sprite = new ElodieSprite(info);
+  spriteCast = dynamic_cast<ElodieSprite*>(sprite);
 }
 
-Elodie::Elodie(sf::Vector2f position) {
-    init();
-    setPosition(position.x, position.y);
+Elodie::Elodie(sf::Vector2f position) : Elodie()
+{
+  setPosition(position.x, position.y);
 }
 
-Elodie::Elodie(float x, float y) {
-    init();
-    setPosition(x, y);
+Elodie::Elodie(float x, float y) : Elodie(sf::Vector2f(x, y))
+{
 }
 
-void Elodie::init() {
-    ANIMATIONS = {
-        {ElodieState::STANDING, "standing"},
-        {ElodieState::WALKING, "running"},
-        {ElodieState::PUNCHING, "attacking"},
-        {ElodieState::FALLING, "falling"},
-        {ElodieState::JUMPING, "jumping"}
-    };
-
-    JsonAccessor accessor = JsonAccessor();
-    accessor.loadJsonFrom(ENTITIES_JSON_PATH+"/"+ENTITYNAME_ELODIE+".json");
-    info = accessor.getEntityInfo();
-
-    state = ElodieState::STANDING;
-    speed.x = SPEED;
-
-    sprite = new ElodieSprite(info);
-    setEntitySprite(sprite);
+Elodie::~Elodie()
+{
 }
 
-ElodieSprite* Elodie::getSprite() {
-    return sprite;
+sf::Vector2f Elodie::getPosition()
+{
+  return sf::Vector2f(spriteCast->getPosition().x, spriteCast->getPosition().y);
 }
 
-Elodie::~Elodie() {
-    delete sprite;
-    delete info;
-    setEntitySprite(NULL);
+void Elodie::stand()
+{
+  spriteCast->stand();
 }
 
-sf::Vector2f Elodie::getPosition() {
-    return sf::Vector2f(sprite->getPosition().x, sprite->getPosition().y);
-}
-
-void Elodie::stand() {
-    sprite->stand();
-}
-
-void Elodie::overworldMove(float seconds) {
-    if (!hasToMove()) {
-        noMoves();
-        stand();
-    } else {
-        float rem = toMove - seconds*overworldSpeed.x;
-        float delta;
-        if (rem > 0) {
-            toMove -= seconds*overworldSpeed.x;
-            delta = seconds*overworldSpeed.x;
-        } else {
-            delta = toMove;
-            toMove = 0;
-        }
-        if (goingDown) {
-            sprite->move(0,delta);
-        } else if (goingLeft) {
-            sprite->move(-delta, 0);
-        } else if (goingRight) {
-            sprite->move(+delta, 0);
-        } else if (goingUp) {
-            sprite->move(0, -delta);
-        } else {
-            noMoves();
-        }
+void Elodie::overworldMove(float seconds)
+{
+  if (!hasToMove())
+    {
+      noMoves();
+      stand();
+    }
+  else
+    {
+      float rem = toMove - seconds*overworldSpeed.x;
+      float delta;
+      if (rem > 0)
+	{
+	  toMove -= seconds*overworldSpeed.x;
+	  delta = seconds*overworldSpeed.x;
+	}
+      else
+	{
+	  delta = toMove;
+	  toMove = 0;
+	}
+      if (goingDown)
+	{
+	  spriteCast->move(0,delta);
+	}
+      else if (goingLeft)
+	{
+	  spriteCast->move(-delta, 0);
+	}
+      else if (goingRight)
+	{
+	  spriteCast->move(+delta, 0);
+	}
+      else if (goingUp)
+	{
+	  spriteCast->move(0, -delta);
+	}
+      else
+	{
+	  noMoves();
+	}
     }
 }
 
-void Elodie::setWalkDown() {
-    sprite->changeStance(ANIMATIONS[ElodieState::FALLING], sf::seconds(0.1f));
-    goingDown = true;
+void Elodie::setWalkDown()
+{
+  spriteCast->changeStance(animations[Elodie::State::FALLING], sf::seconds(0.1f));
+  goingDown = true;
 }
 
-void Elodie::setWalkUp() {
-    sprite->changeStance(ANIMATIONS[ElodieState::JUMPING], sf::seconds(0.1f));
-    goingUp = true;
+void Elodie::setWalkUp()
+{
+  spriteCast->changeStance(animations[Elodie::State::JUMPING], sf::seconds(0.1f));
+  goingUp = true;
 }
 
-void Elodie::setWalkRight() {
-    this->walk();
-    goingRight = true;
-    flipToRight();
+void Elodie::setWalkRight()
+{
+  this->walk();
+  goingRight = true;
+  flipToRight();
 }
 
-void Elodie::setWalkLeft() {
-    this->walk();
-    goingLeft = true;
-    flipToLeft();
+void Elodie::setWalkLeft()
+{
+  this->walk();
+  goingLeft = true;
+  flipToLeft();
 }
 
-void Elodie::setDistanceToMove(float dist) {
-    toMove = dist;
+void Elodie::setDistanceToMove(float dist)
+{
+  toMove = dist;
 }
 
-bool Elodie::isMoving() {
-    return goingDown or goingLeft or goingRight or goingUp;
+bool Elodie::isMoving()
+{
+  return (goingDown or goingLeft or goingRight or goingUp);
 }
 
-bool Elodie::hasToMove() {
-    return toMove > 0;
+bool Elodie::hasToMove()
+{
+  return toMove > 0;
 }
 
-void Elodie::noMoves() {
-    toMove = 0;
-    goingDown = false;
-    goingLeft = false;
-    goingRight = false;
-    goingUp = false;
+void Elodie::noMoves()
+{
+  toMove = 0;
+  goingDown = false;
+  goingLeft = false;
+  goingRight = false;
+  goingUp = false;
 }
 
-void Elodie::update(sf::Time deltaTime) {
-    sprite->update(deltaTime);
+int Elodie::getImmersionLevel()
+{
+  return immersionLevel;
 }
 
-int Elodie::getImmersionLevel() {
-    return immersionLevel;
+int Elodie::getNightmareLevel()
+{
+  return nightmareLevel;
 }
 
-int Elodie::getNightmareLevel() {
-    return nightmareLevel;
-}
-
-void Elodie::takeDamage(int damage, bool ignore) {
-    if (!damageCD && (state != ElodieState::PUNCHING || ignore)) {
-        immersionLevel -= damage;
-	ScoreManager& sm = ScoreManager::getInstance();
-        sm.takeDamage(damage);
-        if (immersionLevel < 0) {
-            immersionLevel = 0;
-        }
-        damageCD = DAMAGE_CD;
+void Elodie::takeDamage(int damage, bool ignore)
+{
+  if (!damageCD && (state != Elodie::State::PUNCHING || ignore))
+    {
+      immersionLevel -= damage;
+      ScoreManager& sm = ScoreManager::getInstance();
+      sm.takeDamage(damage);
+      if (immersionLevel < 0)
+	{
+	  immersionLevel = 0;
+	}
+      damageCD = DAMAGE_CD;
     }
 }
 
-void Elodie::walk() {
-    sprite->walk();
+void Elodie::walk()
+{
+  spriteCast->walk();
 }
 
-Hitbox Elodie::returnCurrentHitbox() {
-    return getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame());
-}
-
-void Elodie::punch(std::map< std::string, Entity* >& entities) {
-    for (std::map< std::string, Entity* >::iterator it = entities.begin(); it != entities.end(); ++it) {
-        if (it->first != "elodie") {
-            if (isInFront(returnCurrentHitbox().getArea(), it->second->returnCurrentHitbox().getArea(), direction)) {
-                it->second->takeDamage(1, true);
-            }
-        }
+void Elodie::punch(std::map< std::string, Entity* >& entities)
+{
+  for (std::map< std::string, Entity* >::iterator it = entities.begin(); it != entities.end(); ++it)
+    {
+      if (it->first != "elodie")
+	{
+	  if (isInFront(returnCurrentHitbox().getArea(),
+			it->second->returnCurrentHitbox().getArea(), direction))
+	    {
+	      it->second->takeDamage(1, true);
+	    }
+	}
     }
 }
 
-void Elodie::changeAnimation(Collide collideTiles) {
-    unsigned int curFrame = sprite->getCurrentFrame();
-    ElodieState memState = state;
+void Elodie::changeAnimation(Collide collideTiles)
+{
+  unsigned int curFrame = spriteCast->getCurrentFrame();
+  Elodie::State memState = static_cast<Elodie::State>(state);
 
-    if (sprite->getCurrentStance() == ANIMATIONS[ElodieState::STANDING] ||
-            (state == ElodieState::PUNCHING && curFrame == 3)) {
-        if (collideTiles.bottom["surface"]) {
-            changeState(ElodieState::WALKING);
-            this->walk();
-        } else {
-            if(speed.y > 0) {
-                changeState(ElodieState::FALLING);
-            } else {
-                changeState(ElodieState::JUMPING);
-            }
-        }
+  if (spriteCast->getCurrentStance() == animations[Elodie::State::STANDING] ||
+      (state == Elodie::State::PUNCHING && curFrame == 3))
+    {
+      if (collideTiles.bottom["surface"])
+	{
+	  changeState(Elodie::State::WALKING);
+	  this->walk();
+	}
+      else
+	{
+	  if(speed.y > 0)
+	    {
+	      changeState(Elodie::State::FALLING);
+	    }
+	  else
+	    {
+	      changeState(Elodie::State::JUMPING);
+	    }
+	}
     }
-
-
-    if (collideTiles.bottom["surface"]) {
-        if (state != ElodieState::PUNCHING) {
-            changeState(ElodieState::WALKING);
-        }
-        if (state == ElodieState::STANDING) {
-            changeState(ElodieState::WALKING);
-        }
-        if (state == ElodieState::WALKING && curFrame == 1 && sprite->getPreviousFrame() != curFrame) {
+  
+  if (collideTiles.bottom["surface"])
+    {
+      if (state != Elodie::State::PUNCHING)
+	{
+	  changeState(Elodie::State::WALKING);
+	}
+      if (state == Elodie::State::STANDING)
+	{
+	  changeState(Elodie::State::WALKING);
+	}
+      if (state == Elodie::State::WALKING && curFrame == 1 && spriteCast->getPreviousFrame() != curFrame)
+	{
 	  SoundManager::getInstance().play(SoundType::FOOTSTEP_GROUND);
-        }
-    } else if (state != ElodieState::PUNCHING) {
-        if (speed.y > 0) {
-            changeState(ElodieState::FALLING);
-        } else {
-            changeState(ElodieState::JUMPING);
-        }
+	}
     }
-
-    if (state != memState) {
-        sprite->changeStance(ANIMATIONS[state], sf::seconds(0.1f));
+  else if (state != Elodie::State::PUNCHING)
+    {
+      if (speed.y > 0)
+	{
+	  changeState(Elodie::State::FALLING);
+	}
+      else
+	{
+	  changeState(Elodie::State::JUMPING);
+	}
+    }
+  
+  if (state != memState)
+    {
+      spriteCast->changeStance(animations[state], sf::seconds(0.1f));
     }
 }
 
-void Elodie::handleEvent(EventHandler* const& event, EntityMap& entities, Collide collideTiles) {
-    if (event->keyIsPressed(sf::Keyboard::Space) &&
-            (state == ElodieState::WALKING || state == ElodieState::STANDING ||
-             (state == ElodieState::PUNCHING && collideTiles.bottom["surface"]))) {
-        changeState(ElodieState::JUMPING);
-        speed.y = JUMP;
-        sprite->changeStance(ANIMATIONS[state], sf::seconds(0.1f));
-    } else if (event->keyIsPressed(sf::Keyboard::A) && (attackTimer > ATTACK_COOLDOWN)) {
-        attackTimer = 0;
-        changeState(ElodieState::PUNCHING);
-    } else if (state == ElodieState::PUNCHING) {
-        punch(entities);
+void Elodie::handleEvent(const EventHandler& event, EntityMap& entities, Collide collideTiles)
+{
+  if (event.keyIsPressed(sf::Keyboard::Space) &&
+      (state == Elodie::State::WALKING || state == Elodie::State::STANDING ||
+       (state == Elodie::State::PUNCHING && collideTiles.bottom["surface"])))
+    {
+      changeState(Elodie::State::JUMPING);
+      speed.y = JUMP;
+      spriteCast->changeStance(animations[state], sf::seconds(0.1f));
+    }
+  else if (event.keyIsPressed(sf::Keyboard::A) && (attackTimer > ATTACK_COOLDOWN))
+    {
+      attackTimer = 0;
+      changeState(Elodie::State::PUNCHING);
+    }
+  else if (state == Elodie::State::PUNCHING)
+    {
+      punch(entities);
     }
 }
 
 //What's in doStuff right now is only for testing purpose. Lot of stuff to do here.
-void Elodie::doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, EntityMap& entities, sf::Time animate) {
-    //Compute the gravity
-    computeGravity(animate);
+void Elodie::doStuff(const EventHandler& event, const std::vector< std::vector<TileSprite*> >& tiles,
+		     EntityMap& entities, sf::Time animate)
+{
+  //Compute the gravity
+  computeGravity(animate);
 
-    //Check the collisions, set the new distances and do the move
-    Collide collideTiles = collideWithTiles(tiles, &speed, animate.asSeconds(), getCurrentHitbox(ANIMATIONS[state], sprite->getCurrentFrame()));
-    setDistance(collideTiles);
-    move(animate.asSeconds()*(speed.x), animate.asSeconds()*speed.y);
-    sprite->update(animate);
+  //Check the collisions, set the new distances and do the move
+  Collide collideTiles = collideWithTiles(tiles, &speed, animate.asSeconds(), getCurrentHitbox(animations[state], spriteCast->getCurrentFrame()));
+  setDistance(collideTiles);
+  move(animate.asSeconds()*(speed.x), animate.asSeconds()*speed.y);
+  spriteCast->update(animate);
 
-    //Change the sprite in accord with the speed
-    changeAnimation(collideTiles);
-    handleEvent(event, entities, collideTiles);
+  //Change the sprite in accord with the speed
+  changeAnimation(collideTiles);
+  handleEvent(event, entities, collideTiles);
 
-    if (0 == speed.x && !collideTiles.right["surface"]) {
-        speed.x = SPEED;
+  if (0 == speed.x && !collideTiles.right["surface"])
+    {
+      speed.x = SPEED;
     }
 
-    float dist = cameraPos.x - sprite->getPosition().x;
+  float dist = cameraPos.x - spriteCast->getPosition().x;
 
-    if (dist > 0 && !collideTiles.right["surface"] && !buffed) {
-        buffed = true;
-        speed.x = SPEED + dist;
+  if (dist > 0 && !collideTiles.right["surface"] && !buffed)
+    {
+      buffed = true;
+      speed.x = SPEED + dist;
     }
 
-    buffed = !collideTiles.right["surface"];
+  buffed = !collideTiles.right["surface"];
 
-    if (buffed && dist <= 0) {
-        buffed = false;
-        speed.x = SPEED;
+  if (buffed && dist <= 0)
+    {
+      buffed = false;
+      speed.x = SPEED;
     }
 
-    //Other stuff to do
-    attackTimer += animate.asSeconds();
-    pvTimer += animate.asSeconds();
-    if (pvTimer > INC_PV_TIMER) {
-        pvTimer = 0;
-        immersionLevel = immersionLevel == 100 ? 100 : immersionLevel + 1;
+  //Other stuff to do
+  attackTimer += animate.asSeconds();
+  pvTimer += animate.asSeconds();
+  if (pvTimer > INC_PV_TIMER)
+    {
+      pvTimer = 0;
+      immersionLevel = immersionLevel == 100 ? 100 : immersionLevel + 1;
     }
-    if (damageCD)
-        --damageCD;
-    cameraPos.x += SPEED*animate.asSeconds();
-    cameraPos.y = sprite->getPosition().y;
+  if (damageCD)
+    {
+      --damageCD;
+    }
+  cameraPos.x += SPEED*animate.asSeconds();
+  cameraPos.y = spriteCast->getPosition().y;
 }
 
-void Elodie::changeState(ElodieState to) {
-    ElodieState from = state;
-    state = to;
+void Elodie::changeState(Elodie::State to)
+{
+  Elodie::State from = static_cast<Elodie::State>(state);
+  state = to;
 
-    if (from == ElodieState::WALKING && to == ElodieState::JUMPING) {
-        speed.y = JUMP;
-        sprite->changeStance(ANIMATIONS[state], sf::seconds(0.1f));
-    } else if (from == ElodieState::FALLING && to == ElodieState::WALKING) {
+  if (from == Elodie::State::WALKING && to == Elodie::State::JUMPING)
+    {
+      speed.y = JUMP;
+      spriteCast->changeStance(animations[state], sf::seconds(0.1f));
+    }
+  else if (from == Elodie::State::FALLING && to == Elodie::State::WALKING)
+    {
       SoundManager::getInstance().play(SoundType::FOOTSTEP_GROUND);
-    } else if (from == ElodieState::JUMPING && to == ElodieState::WALKING) {
-        SoundManager::getInstance().play(SoundType::FOOTSTEP_GROUND);
+    }
+  else if (from == Elodie::State::JUMPING && to == Elodie::State::WALKING)
+    {
+      SoundManager::getInstance().play(SoundType::FOOTSTEP_GROUND);
     }
 
-    if (to == ElodieState::PUNCHING) {
-        sprite->changeStance(ANIMATIONS[state], sf::seconds(0.05f));
-        SoundManager::getInstance().play(SoundType::WOOSH);
+  if (to == Elodie::State::PUNCHING)
+    {
+      spriteCast->changeStance(animations[state], sf::seconds(0.05f));
+      SoundManager::getInstance().play(SoundType::WOOSH);
     }
 }
 
-void Elodie::pause() {
-    sprite->pause();
+void Elodie::reset()
+{
+  immersionLevel = 100;
+  pvTimer = 0;
+  attackTimer = 2;
+  state = Elodie::State::WALKING;
+  speed.x = SPEED;
+  speed.y = 0;
+
+  delete sprite;
+  sprite = new ElodieSprite(info);
+  spriteCast = dynamic_cast<ElodieSprite*>(sprite);
+
+  setHitboxes(info, sprite->getPosition());
 }
 
-void Elodie::play() {
-    sprite->play();
+void Elodie::setPosition(sf::Vector2f pos)
+{
+  sprite->setPosition(pos);
+  cameraPos.x = pos.x;
+  cameraPos.y = pos.y;
+  setHitboxes(info, sprite->getPosition());
 }
 
-void Elodie::reset() {
-    immersionLevel = 100;
-    pvTimer = 0;
-    attackTimer = 2;
-    state = ElodieState::WALKING;
-    speed.x = SPEED;
-    speed.y = 0;
-
-    setEntitySprite(sprite);
-
-    setHitboxes(info, sprite->getPosition());
+void Elodie::setPosition(float x, float y)
+{
+  setPosition(sf::Vector2f(x,y));
+  cameraPos.x = x;
+  cameraPos.y = y;
+  setHitboxes(info, sprite->getPosition());
 }
 
-void Elodie::setPosition(sf::Vector2f pos) {
-    sprite->setPosition(pos);
-    cameraPos.x = pos.x;
-    cameraPos.y = pos.y;
-    setHitboxes(info, sprite->getPosition());
+sf::Vector2f Elodie::getCameraPos()
+{
+  return cameraPos;
 }
 
-void Elodie::setPosition(float x, float y) {
-    setPosition(sf::Vector2f(x,y));
-    cameraPos.x = x;
-    cameraPos.y = y;
-    setHitboxes(info, sprite->getPosition());
-}
-
-sf::Vector2f Elodie::getCameraPos() {
-    return cameraPos;
-}
-
-sf::Vector2f& Elodie::getCameraPosRef() {
-    return cameraPos;
+sf::Vector2f& Elodie::getCameraPosRef()
+{
+  return cameraPos;
 }

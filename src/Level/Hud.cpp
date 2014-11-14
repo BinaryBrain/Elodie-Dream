@@ -1,3 +1,4 @@
+#include "../Utils/Utils.h"
 #include "Hud.h"
 
 const std::string Hud::IMMERSION_BAR_IMG = "assets/img/immersion/immersion_bar.png";

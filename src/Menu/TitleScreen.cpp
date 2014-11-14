@@ -1,5 +1,8 @@
+#include "../Utils/Utils.h"
 #include "TitleScreen.h"
+
 bool MENU_PORO_IS_LOADED = false; // TODO global variable lol
+
 TitleScreen::TitleScreen(GameView& gameView) : Displayable(gameView) {
     // Background
     if(!MENU_PORO_IS_LOADED) {

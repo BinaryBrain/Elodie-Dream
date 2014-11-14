@@ -113,7 +113,7 @@ void Level::display() {
     gameView.followPoint(ViewLayer::LEVEL, elodie->getCameraPos());
 }
 
-void Level::live(EventHandler* const& event, sf::Time animate) {
+void Level::live(const EventHandler& event, sf::Time animate) {
     std::vector< std::string > toDelete;
     sf::FloatRect scope(0, 0, LIVE_SCOPE, LIVE_SCOPE);
     scope.top = ((Elodie*)entities["elodie"])->getPosition().y - LIVE_SCOPE / 2;

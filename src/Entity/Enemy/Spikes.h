@@ -9,37 +9,33 @@
 #include "../../EntityManager/EntityManager.h"
 #include "../Elodie.h"
 
-enum class SpikesState { WAITING, ACTIVATED, UNACTIVATED };
-
-class Spikes : public Entity {
+class Spikes : public Entity
+{
 public:
-    static const int DAMAGE;
+  static const int DAMAGE;
+  static const std::map< int, std::string > ANIMATIONS;
 
-    Spikes();
-    Spikes(sf::Vector2f position);
-    Spikes(float x, float y);
-    virtual ~Spikes();
+  enum State
+    {
+      WAITING,
+      ACTIVATED,
+      UNACTIVATED
+    };
 
-    void update(sf::Time deltaTime);
+public:
+  Spikes();
+  Spikes(sf::Vector2f position);
+  Spikes(float x, float y);
+  virtual ~Spikes();
 
-    EntitySprite* getSprite();
-    Hitbox returnCurrentHitbox();
-    void doAttack(std::map< std::string, Entity* >& entities);
-    void takeDamage(int damage, bool ignore);
-    void doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate);
-    void pause();
-    void play();
-protected:
+  void doAttack(std::map< std::string, Entity* >& entities);
+
+  virtual void takeDamage(int damage, bool ignore);
+  virtual void doStuff(const EventHandler& event, const std::vector< std::vector<TileSprite*> >& tiles,
+		       std::map< std::string, Entity* >& entities, sf::Time animate);
 
 private:
-    void init(float x, float y);
-    bool activated = false;
-
-    EntitySprite* sprite;
-
-    SpikesState state;
-
-    std::map< SpikesState, std::string > ANIMATIONS;
+  bool activated = false;
 };
 
 #endif // SPIKES_H_INCLUDED

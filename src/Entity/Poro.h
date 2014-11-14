@@ -9,39 +9,30 @@
 #include "../EntityManager/EntityManager.h"
 #include "Elodie.h"
 
-enum class PoroState { RUNNING };
-
-class Poro : public Entity {
+class Poro : public Entity
+{
 public:
-    static const int SPEED_X;
-    static const int SPEED_Y;
-    static const int DETECTION;
+  static const int SPEED_X;
+  static const int SPEED_Y;
+  static const int DETECTION;
+  static const std::map< int, std::string > ANIMATIONS;
 
-    Poro();
-    Poro(sf::Vector2f position);
-    Poro(float x, float y);
-    virtual ~Poro();
+  enum State
+    {
+      RUNNING
+    };
 
-    void update(sf::Time deltaTime);
+public:
+  Poro();
+  Poro(sf::Vector2f position);
+  Poro(float x, float y);
+  virtual ~Poro();
 
-    EntitySprite* getSprite();
-    Hitbox returnCurrentHitbox();
-    void checkArea(std::map< std::string, Entity* >& entities);
-    void takeDamage(int damage, bool ignore);
-    void doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate);
-    void pause();
-    void play();
-protected:
+  void checkArea(std::map< std::string, Entity* >& entities);
 
-private:
-    void init(float x, float y);
-    int damage = 0;
-
-    EntitySprite* sprite;
-
-   PoroState state;
-
-    std::map< PoroState, std::string > ANIMATIONS;
+  virtual void takeDamage(int damage, bool ignore);
+  virtual void doStuff(const EventHandler& event, const std::vector< std::vector<TileSprite*> >& tiles,
+		       std::map< std::string, Entity* >& entities, sf::Time animate);
 };
 
 #endif // PORO_H_INCLUDED

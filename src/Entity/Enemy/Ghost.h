@@ -9,41 +9,35 @@
 #include "../../EntityManager/EntityManager.h"
 #include "../Elodie.h"
 
-enum class GhostState { STANDING };
-
-class Ghost : public Entity {
+class Ghost : public Entity
+{
 public:
-    static const int DAMAGE;
-    static const int STEP;
-    static const int LIMIT_Y;
-    static const int SPEED_X;
+  static const int DAMAGE;
+  static const int STEP;
+  static const int LIMIT_Y;
+  static const int SPEED_X;
+  static const std::map< int, std::string > ANIMATIONS;
 
-    Ghost();
-    Ghost(sf::Vector2f position);
-    Ghost(float x, float y);
-    virtual ~Ghost();
+  enum State
+    {
+      STANDING
+    };
 
-    void update(sf::Time deltaTime);
+public:
+  Ghost();
+  Ghost(sf::Vector2f position);
+  Ghost(float x, float y);
+  virtual ~Ghost();
 
-    EntitySprite* getSprite();
-    Hitbox returnCurrentHitbox();
-    void doAttack(std::map< std::string, Entity* >& entities);
-    void takeDamage(int damage, bool ignore);
-    void doStuff(EventHandler* const& event, std::vector< std::vector<TileSprite*> > const& tiles, std::map< std::string, Entity* >& entities, sf::Time animate);
-    void pause();
-    void play();
-protected:
+  void doAttack(std::map< std::string, Entity* >& entities);
+
+  virtual void takeDamage(int damage, bool ignore);
+  virtual void doStuff(const EventHandler& event, const std::vector< std::vector<TileSprite*> >& tiles,
+		       std::map< std::string, Entity* >& entities, sf::Time animate);
 
 private:
-    void init(float x, float y);
-
-    EntitySprite* sprite;
-    int limitSpeed = LIMIT_Y;
-    int step = STEP;
-
-    GhostState state;
-
-    std::map< GhostState, std::string > ANIMATIONS;
+  int limitSpeed = LIMIT_Y;
+  int step = STEP;
 };
 
 #endif // GHOST_H_INCLUDED
