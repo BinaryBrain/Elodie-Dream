@@ -23,18 +23,22 @@ int ScoreManager::getKillPoints() {
 }
 
 int ScoreManager::getLevelPoints() {
-    return currentScore.getBoni() * Bonus::POINTS + currentScore.getDamagesTaken() + killPoints;
+    return killPoints + currentScore.getBoni() * Bonus::POINTS - currentScore.getDamagesTaken();
 }
 
-Score ScoreManager::getScore(int level) {
+std::string ScoreManager::getScoreString() {
+    return scoreString;
+}
+
+Score& ScoreManager::getScore(int level) {
     return gameScore[level];
 }
 
-Score ScoreManager::getCurrentScore() {
+Score& ScoreManager::getCurrentScore() {
     return currentScore;
 }
 
-std::vector<Score> ScoreManager::getGameScore() {
+std::vector<Score>& ScoreManager::getGameScore() {
     return gameScore;
 }
 
@@ -126,17 +130,24 @@ void ScoreManager::computeTotalPoints() {
 
 void ScoreManager::saveCurrentScore() {
     int level = currentScore.getLevelId();
+    bool registered = gameScore[level].isRegistered();
+    bool betterScore = gameScore[level].getTotalPoints() < currentScore.getTotalPoints();
 
-    // if the player has done a better score
-    if (gameScore[level].getTotalPoints() < currentScore.getTotalPoints()) {
+    if (!registered || betterScore) {
+        if (!registered) {
+            gameScore[level].setRegistered(true);
+        }
         gameScore[level] = currentScore;
+        scoreString = "(new record! :3)";
+    } else {
+        scoreString = "(best score: " + Utils::itos(gameScore[level].getTotalPoints()) + ")";
     }
-    resetCurrentScore();
 }
 
 void ScoreManager::resetCurrentScore() {
     killPoints = 0;
     nKillsInARow = 0;
+    scoreString = "";
     currentScore.reset();
 }
 

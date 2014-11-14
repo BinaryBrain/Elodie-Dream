@@ -104,8 +104,9 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
             if (curLevel->isCleared()) {
                 scoreManager.setLevel(curLevelNbr);
                 scoreManager.computeTotalPoints();
-                scoreBoard.prepareText();
                 scoreManager.saveCurrentScore();
+                scoreBoard.prepareText();
+                scoreManager.resetCurrentScore();
 
                 view.show(ViewLayer::SCORE);
                 state = GameState::INSCORE;

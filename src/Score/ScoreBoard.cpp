@@ -48,23 +48,15 @@ void ScoreBoard::prepareText() {
     int boni = score.getBoni();
     int damages = score.getDamagesTaken();
     int totalPoints = score.getTotalPoints();
-    int levelId = score.getLevelId();
-    int bestScore = scoreManager.getGameScore()[levelId].getTotalPoints();
 
-    std::string enemiesString = "Enemies killed: " + Utils::itos(score.getEnemiesKilled()) + " => " + Utils::itos(scoreManager.getKillPoints()) + "pts";
+    std::string enemiesString = "Enemies killed: " + Utils::itos(score.getEnemiesKilled()) + " => " + Utils::itos(scoreManager.getKillPoints()) + " pts";
 
     std::string p = "";
     if (damages == 0) {
         p = "Bonus 0 damages taken: "+ Utils::itos(ScoreManager::BONUS_NODAMAGES) +" pts !\n";
     }
 
-    p += "Points obtained: " + Utils::itos(totalPoints) + " pts";
-
-    if (totalPoints > bestScore) {
-        p += " (new record! :3)";
-    } else {
-        p += " (best score: " + Utils::itos(bestScore) + ")";
-    }
+    p += "Points obtained: " + Utils::itos(totalPoints) + " pts " + scoreManager.getScoreString();
 
     damagesTakenText.setString("Damages taken: " + Utils::itos(damages));
     enemiesKilledText.setString(enemiesString);

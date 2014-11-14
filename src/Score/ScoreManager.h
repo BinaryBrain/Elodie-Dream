@@ -19,11 +19,12 @@ public:
     static ScoreManager& getInstance();
     int getKillPoints();
     int getLevelPoints();
-    Score getScore(int level);
-    Score getCurrentScore();
-    std::vector<Score> getGameScore();
+    std::string getScoreString();
+    Score& getScore(int level);
+    Score& getCurrentScore();
+    std::vector<Score>& getGameScore();
     /**
-    * \brief Returns in a vector of vector of int all the values in the Scores. Used to prepare datas for the save.
+    * \brief Returns in a vector of vector of int: all the values in the Scores. Used to prepare datas for the save.
     * \return A vector of vector of int containing each value of a Score, in the same order as in Score.h.
     */
     std::vector< std::vector<int> > getAllDatas();
@@ -56,6 +57,7 @@ private:
 
     int killPoints = 0;
     int nKillsInARow = 0;
+    std::string scoreString = "";
 };
 
 

@@ -15,6 +15,7 @@ public:
     int getSheeps();
     int getMagmaCubes();
     int getBristles();
+    bool isRegistered();
 
     void setLevelId(int levelId);
     void setTotalPoints(int totalPoints);
@@ -25,19 +26,22 @@ public:
     void setSheeps(int sheeps);
     void setMagmaCubes(int magmaCubes);
     void setBristles(int bristles);
+    void setRegistered(bool firstTimeSet);
 
     void reset();
 
 private:
-    int levelId = 0;
-    int totalPoints = 0;
-    int boni = 0;
-    int damagesTaken = 0;
-    int enemiesKilled = 0;
-    int largestKillingSpree = 0;
-    int sheeps = 0;
-    int magmaCubes = 0;
-    int bristles = 0;
+    int levelId;
+    int totalPoints;
+    int boni;
+    int damagesTaken;
+    int enemiesKilled;
+    int largestKillingSpree;
+    int sheeps;
+    int magmaCubes;
+    int bristles;
+
+    bool registered;
 };
 
 #endif // SCORE_H_INCLUDED
