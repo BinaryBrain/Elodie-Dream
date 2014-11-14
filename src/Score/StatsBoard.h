@@ -27,7 +27,7 @@ private:
 
     int LDL = 0;
     sf::RectangleShape background;
-    std::vector<sf::Text> categoriesTexts;
+    std::vector<sf::Text> allTexts;
 };
 
 #endif // STATSBOARD_H

@@ -1,6 +1,7 @@
 #include "Console.h"
 
 sf::Font globalFont;
+const int Console::NLINES = 6;
 
 Console::Console(GameView& gameView) : Displayable(gameView) {
     startX = gameView.getSizeX() - sizeX;
@@ -42,7 +43,7 @@ void Console::clearAndWrite(std::string m) {
 
 
 void Console::addParagraph(std::string paragraph) {
-    pushAll(makePages(cutShort(paragraph, " ", sizeX-3*marginX), CONSOLE_NLINES), pages);
+    pushAll(makePages(cutShort(paragraph, " ", sizeX-3*marginX), NLINES), pages);
     totalPages = pages.size();
 }
 

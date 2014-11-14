@@ -22,13 +22,13 @@ StatsBoard::~StatsBoard() {
 void StatsBoard::display() {
     gameView.addDrawable(ViewLayer::STATS, &background);
 
-    for (size_t i = 0; i < categoriesTexts.size(); ++i) {
-        gameView.addDrawable(ViewLayer::STATS, &(categoriesTexts[i]));
+    for (size_t i = 0; i < allTexts.size(); ++i) {
+        gameView.addDrawable(ViewLayer::STATS, &(allTexts[i]));
     }
 }
 
 void StatsBoard::prepareText() {
-    categoriesTexts.clear();
+    allTexts.clear();
 
     std::vector< std::vector<int> > allDatas = ScoreManager::getInstance().getAllDatas();
     std::vector<std::string> titles;
@@ -54,16 +54,12 @@ void StatsBoard::prepareText() {
             maxWidth = width;
         }
         y += levelText.getLocalBounds().height + LINES_INTERSPACE;
-        categoriesTexts.push_back(levelText);
+        allTexts.push_back(levelText);
     }
 
-    std::vector< std::vector<int> > categories;
-    for (size_t i = 0; i < titles.size(); ++i) {
-        std::vector<int> tmp;
-        categories.push_back(tmp);
-    }
+    std::vector< std::vector<int> > categories(titles.size()); // categories with their respective int values
 
-    // for each level, store in the right category its values
+    // for each level, store its values in the right category
     for (int i = 0; i <= LDL; ++i) {
         for (size_t j = 0; j < titles.size(); ++j) {
             categories[j].push_back(allDatas[i][j+1]);
@@ -76,7 +72,7 @@ void StatsBoard::prepareText() {
     for (size_t i = 0; i < titles.size(); ++i) {
         std::vector<sf::Text> texts = createCategoryTexts(startX +  categoryWidth*i, MARGIN, titles[i], categories[i]);
         for (size_t j = 0; j < texts.size(); ++j) {
-            categoriesTexts.push_back(texts[j]);
+            allTexts.push_back(texts[j]);
         }
     }
 }

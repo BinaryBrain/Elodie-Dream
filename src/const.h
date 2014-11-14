@@ -27,10 +27,6 @@ const int HORIZONTAL_DISPLAY_MARGIN = WINDOW_WIDTH/(2*ZOOM_LEVEL) + 2*BLOCK_SIZE
 const int VERTICAL_DISPLAY_MARGIN = WINDOW_HEIGHT/(2*ZOOM_LEVEL) + 2*BLOCK_SIZE;
 const unsigned int NUMLEVELS = 8;
 
-// -- SCORE -- //
-const float SCORE_OVERWORLD_SPRITE_SIZE = 40;
-const float SCORE_LEVEL_SPRITE_SIZE = 20;
-
 // -- MAPS --
 // ASCII Map
 // Terrain
@@ -162,8 +158,5 @@ const int MENU_BACKGROUND_FIRST_FRAME = 69;
 const int MENU_BACKGROUND_LAST_FRAME = 100;
 const int MENU_LOADING_X = 1100;
 const int MENU_LOADING_Y = 660;
-
-//Console
-const int CONSOLE_NLINES = 6;
 
 #endif // CONST_H_INCLUDED

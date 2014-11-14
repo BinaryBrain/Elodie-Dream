@@ -15,6 +15,8 @@
 */
 class Console: public Displayable {
 public:
+    static const int NLINES;
+
     Console(GameView& view);
     virtual ~Console();
 
