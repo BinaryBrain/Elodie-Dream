@@ -327,6 +327,9 @@ void Game::displayEnd() {
             endingScreen = NULL;
         }
         leaveLevel();
+        if (autoSave) {
+            save();
+        }
     } else if (event.keyIsPressed(sf::Keyboard::M)) {
         toggleMute(endingScreen->getMusic());
     }
@@ -346,9 +349,9 @@ void Game::displayScore() {
             overworld->setToLevel(curLevelNbr + 1);
             statsBoard.setLDL(overworld->getState());
             leaveLevel();
-        }
-        if (autoSave) {
-            save();
+            if (autoSave) {
+                save();
+            }
         }
     }
 }
