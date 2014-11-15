@@ -3,7 +3,8 @@
 Game::Game() :
   saveHandler(SaveHandler::getInstance()),
   soundManager(SoundManager::getInstance()),
-  scoreManager(ScoreManager::getInstance())
+  scoreManager(ScoreManager::getInstance()),
+  statsManager(StatsManager::getInstance())
 {
     configManager.load(SETTINGS_PATH + "/settings.json");
 
@@ -113,6 +114,7 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
 
             // death
             } else if (curLevel->isDead() && !GOD_MODE) {
+                statsManager.setTotalDeaths(statsManager.getTotalDeaths() + 1);
                 death = new Death(view, mute);
                 view.show(ViewLayer::DEATH);
                 state = GameState::DEAD;
@@ -486,6 +488,7 @@ void Game::newGame() {
     view.show(ViewLayer::OVERWORLD);
     view.hide(ViewLayer::TITLESCREEN);
     scoreManager.resetAllScores();
+    statsManager.reset();
     statsBoard.setLDL(0);
     menuHandler.getTitleMenu()->toNormalMenu();
 
@@ -508,6 +511,7 @@ void Game::load() {
     if (FileHandler::fileExists(path)) {
         // resets the scores
         scoreManager.resetAllScores();
+        statsManager.reset();
 
         // Sets the slot and text (for example for the autosave)
         autoSave = true;
@@ -538,6 +542,7 @@ void Game::load() {
             } else {
                 std::cout << "Save from version prior to 1.1" << std::endl;
                 scoreManager.resetAllScores();
+                statsManager.reset();
             }
 
 

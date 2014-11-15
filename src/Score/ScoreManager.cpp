@@ -94,6 +94,7 @@ void ScoreManager::takeDamage(int damage) {
     if (damage > 0) {
         nKillsInARow = 0;
     }
+    statsManager.setTotalDamages(statsManager.getTotalDamages() + damage);
 }
 
 void ScoreManager::addEnemyKilled(EnemyType type) {

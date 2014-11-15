@@ -82,6 +82,7 @@ private:
     SaveHandler& saveHandler;
     SoundManager& soundManager;
     ScoreManager& scoreManager;
+    StatsManager& statsManager;
 
     TitleScreen* title = NULL;
     ScoreBoard scoreBoard = ScoreBoard(view);

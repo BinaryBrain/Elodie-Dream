@@ -23,11 +23,16 @@ public:
     void setLDL(int LDL);
 
 private:
-    std::vector<sf::Text> createCategoryTexts(float beginX, float beginY, const std::string& title, const std::vector<int>& datas);
+    void createLevelTexts(float beginX, float beginY);
+    void createAllCategoriesTexts();
+    void createCategoryTexts(float beginX, float beginY, const std::string& title, const std::vector<int>& datas);
+    void createMoreStats();
+    float findLargestTextWidth();
 
     int LDL = 0;
     sf::RectangleShape background;
     std::vector<sf::Text> allTexts;
+    StatsManager& statsManager;
 };
 
 #endif // STATSBOARD_H

@@ -1,8 +1,25 @@
 #ifndef STATSMANAGER_H
 #define STATSMANAGER_H
 
+#include <map>
+#include <vector>
+
 class StatsManager {
 public:
+    static const std::string BONI_KEY;
+    static const std::string DAMAGES_KEY;
+    static const std::string DEATHS_KEY;
+    static const std::string SHEEPS_KEY;
+    static const std::string MAGMACUBE_KEY;
+    static const std::string BRISTLES_KEY;
+
+    static const std::string BONI_LABEL;
+    static const std::string DAMAGES_LABEL;
+    static const std::string DEATHS_LABEL;
+    static const std::string SHEEPS_LABEL;
+    static const std::string MAGMACUBE_LABEL;
+    static const std::string BRISTLES_LABEL;
+
     static StatsManager& getInstance();
 
     int getTotalBoni();
@@ -13,6 +30,9 @@ public:
     int getTotalMagmaCubes();
     int getTotalBristles();
     int getTotalEnemiesKilled();
+
+    std::map<std::string, int>& getAllDatas();
+    std::vector< std::pair<std::string, int> > getLabelledDatas();
 
     void setTotalBoni(int totalBoni);
     void setTotalDamages(int totalDamages);
@@ -31,12 +51,7 @@ private:
     StatsManager(const StatsManager&);
     StatsManager& operator= (StatsManager const&);
 
-    int totalBoni;
-    int totalDamages;
-    int totalDeaths;
-    int totalSheeps;
-    int totalMagmaCubes;
-    int totalBristles;
+    std::map<std::string, int> datas;
 };
 
 #endif // STATSMANAGER_H
