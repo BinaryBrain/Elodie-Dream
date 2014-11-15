@@ -1,6 +1,7 @@
 #include "Menu.h"
 
-Menu::Menu(std::string label, GameState state): MenuComponent(label, state) {
+Menu::Menu(std::string label, GameState state): MenuComponent(label, state)
+{
     selectortexture.loadFromFile(MENU_SELECTOR_PATH, sf::IntRect(102, 16, 120, 30));
     selector.setTexture(selectortexture);
 
@@ -12,21 +13,26 @@ Menu::Menu(std::string label, GameState state): MenuComponent(label, state) {
     isMenu = true;
 }
 
-Menu::~Menu() {
-    if(text) {
+Menu::~Menu()
+{
+    if(text)
+    {
         delete text;
         text = NULL;
     }
 
-    for(size_t i = 0; i < items.size(); ++i) {
-        if (items[i] && !isParent[i]) {
+    for(size_t i = 0; i < items.size(); ++i)
+    {
+        if (items[i] && !isParent[i])
+        {
             delete items[i];
             items[i] = NULL;
         }
     }
 }
 
-void Menu::addItem(MenuComponent* item, bool isParent) {
+void Menu::addItem(MenuComponent* item, bool isParent)
+{
     sf::Text* text = item->getText();
 
     text->setCharacterSize(MENU_CHAR_SIZE);
@@ -38,11 +44,13 @@ void Menu::addItem(MenuComponent* item, bool isParent) {
 }
 
 // Draws the everything in the menu
-void Menu::draw(GameView& view) {
+void Menu::draw(GameView& view)
+{
     background.setSize(sf::Vector2f(MENU_WIDTH, MENU_ITEMS_INTERSPACE * visibles.size()));
     view.addDrawable(ViewLayer::MENU, &background);
 
-    for (size_t i = 0; i < visibles.size(); ++i) {
+    for (size_t i = 0; i < visibles.size(); ++i)
+    {
         visibles[i]->getText()->setPosition(MENU_X, MENU_Y + MENU_ITEMS_INTERSPACE * i);
         view.addDrawable(ViewLayer::MENU, (visibles[i]->getText()));
     }
@@ -51,34 +59,47 @@ void Menu::draw(GameView& view) {
     view.addDrawable(ViewLayer::MENU, &selector);
 }
 
-void Menu::incIndex() {
-    if (index == visibles.size() - 1) {
+void Menu::incIndex()
+{
+    if (index == visibles.size() - 1)
+    {
         index = 0;
-    } else {
+    }
+    else
+    {
         ++index;
     }
 }
 
-void Menu::decIndex() {
-    if (index == 0) {
+void Menu::decIndex()
+{
+    if (index == 0)
+    {
         index = visibles.size() - 1;
-    } else {
+    }
+    else
+    {
         --index;
     }
 }
 
-int Menu::getIndex() {
+int Menu::getIndex()
+{
     return index;
 }
 
-MenuComponent* Menu::getSelectedItem() {
+MenuComponent* Menu::getSelectedItem()
+{
     return visibles[index];
 }
 
-void Menu::prepareVisibles() {
+void Menu::prepareVisibles()
+{
     visibles.clear();
-    for (size_t i = 0; i < items.size(); ++i) {
-        if (items[i]->isVisible()) {
+    for (size_t i = 0; i < items.size(); ++i)
+    {
+        if (items[i]->isVisible())
+        {
             visibles.push_back(items[i]);
         }
     }

@@ -9,14 +9,16 @@
 #include "../EntityManager/EntityManager.h"
 #include "Elodie.h"
 
-class Poro : public Entity {
+class Poro : public Entity
+{
 public:
     static const int SPEED_X;
     static const int SPEED_Y;
     static const int DETECTION;
     static const std::map< int, std::string > ANIMATIONS;
 
-    enum State {
+    enum State
+    {
         RUNNING
     };
 

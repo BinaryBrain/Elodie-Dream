@@ -4,7 +4,8 @@
 #include "FileHandler.h"
 #include "../Json/JsonAccessor.h"
 
-class ConfigManager {
+class ConfigManager
+{
 public:
     static const std::string LANGUAGE_KEY;
     static const std::string DEFAULT_LANGUAGE;

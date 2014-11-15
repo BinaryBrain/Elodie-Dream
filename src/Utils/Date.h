@@ -4,7 +4,8 @@
 #include <time.h>
 #include "Utils.h"
 
-class Date {
+class Date
+{
 public:
     Date();
     ~Date();

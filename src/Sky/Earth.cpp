@@ -1,10 +1,12 @@
 #include "Earth.h"
 
-Earth::Earth(GameView& gameView, LevelEnv env, int tilesNumber, sf::Vector2f& cameraPosArg, float slow) : Displayable(gameView), cameraPos(cameraPosArg) {
+Earth::Earth(GameView& gameView, LevelEnv env, int tilesNumber, sf::Vector2f& cameraPosArg, float slow) : Displayable(gameView), cameraPos(cameraPosArg)
+{
     std::string filename;
     this->slow = slow;
 
-    switch(env) {
+    switch(env)
+    {
     case LevelEnv::CASTLE:
         filename = ENVIRONMENT_TEXTURES_PATH + "/" + LEVELENV_CASTLE + "/backlayer.png";
         break;
@@ -31,11 +33,13 @@ Earth::Earth(GameView& gameView, LevelEnv env, int tilesNumber, sf::Vector2f& ca
     gameView.addView(ViewLayer::EARTH, this);
 }
 
-Earth::~Earth() {
+Earth::~Earth()
+{
     //dtor
 }
 
-void Earth::display() {
+void Earth::display()
+{
     earth.setPosition(sf::Vector2f(-cameraPos.x*slow, 0));
     gameView.addDrawable(ViewLayer::EARTH, &earth);
 }

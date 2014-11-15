@@ -1,12 +1,14 @@
 /* GIMP RGBA C-Source image dump (icon.c) */
 #ifndef ICON_H
 #define ICON_H
-static const struct {
+static const struct
+{
     unsigned int 	 width;
     unsigned int 	 height;
     unsigned int 	 bytes_per_pixel; /* 2:RGB16, 3:RGB, 4:RGBA */
     unsigned char	 pixel_data[42 * 42 * 4 + 1];
-} icon = {
+} icon =
+{
     42, 42, 4,
     "\24""0M#\32.N\377\27-M\377\30+L\377\30,M\377\30,M\377\30,M\377\30,M\377\30"
     ",M\377\30,M\377\30,M\377\30*L\311\26,L\377\27,M\377\35""1Q\377\30+Lv\27,"

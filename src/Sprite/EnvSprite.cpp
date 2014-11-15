@@ -1,9 +1,11 @@
 #include "EnvSprite.h"
 
-EnvSprite::EnvSprite() {
+EnvSprite::EnvSprite()
+{
     //ctor
 }
 
-EnvSprite::~EnvSprite() {
+EnvSprite::~EnvSprite()
+{
     //dtor
 }

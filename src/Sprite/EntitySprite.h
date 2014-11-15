@@ -12,7 +12,8 @@
 #include "../Include/EntityInfo.h"
 
 
-class EntitySprite : public CharacterSprite {
+class EntitySprite : public CharacterSprite
+{
 public:
     EntitySprite(EntityInfo *informations, std::string path, std::string stance);
     virtual ~EntitySprite();

@@ -4,7 +4,8 @@
 #include "AnimatedSprite.h"
 
 
-class Interactive : public AnimatedSprite {
+class Interactive : public AnimatedSprite
+{
 public:
     Interactive();
     virtual ~Interactive();

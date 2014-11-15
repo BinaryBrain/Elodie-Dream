@@ -13,7 +13,8 @@
 * The class used to display infos to the player in game. Shows as a black layer with some transparency
 * and white text.
 */
-class Console: public Displayable {
+class Console: public Displayable
+{
 public:
     static const int NLINES;
 

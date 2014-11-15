@@ -4,7 +4,8 @@
 #include <vector>
 #include "SFML/Graphics.hpp"
 
-class HitboxInfo {
+class HitboxInfo
+{
 public:
     int row;
     std::vector< sf::FloatRect > hitboxes;

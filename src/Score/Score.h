@@ -1,7 +1,8 @@
 #ifndef SCORE_H_INCLUDED
 #define SCORE_H_INCLUDED
 
-class Score {
+class Score
+{
 public:
     Score();
     ~Score();

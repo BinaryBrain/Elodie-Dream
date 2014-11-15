@@ -16,19 +16,23 @@ class Entity;
 typedef std::vector< std::vector<TileSprite*> > TileMap;
 typedef std::map<std::string, Entity*> EntityMap;
 
-enum class GameState {
+enum class GameState
+{
     INLEVEL = 0, INOVERWORLD, INMENU, INCONSOLE, PAUSE, SAVE, LOAD, EXIT, DEAD, NEWGAME, ENDINGSCREEN, INSCORE, INSTATS
 };
 
-enum class LevelEnv {
+enum class LevelEnv
+{
     FIELD, UNIL, CASTLE, VOLCANO, FRELJORD
 };
 
-enum class SoundType {
+enum class SoundType
+{
     PUNCH, SPIKES, SHEEP, FOOTSTEP_GRASS, FOOTSTEP_GROUND, GHOST, MAGMACUBE, BRISTLE, BOTTLE, WOOSH
 };
 
-enum class EnemyType {
+enum class EnemyType
+{
     SHEEP, MAGMACUBE, BRISTLE, SPIKES, GHOST
 };
 

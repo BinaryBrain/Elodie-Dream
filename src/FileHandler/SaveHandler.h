@@ -13,7 +13,8 @@
 #include "../Json/JsonStringifier.h"
 #include "FileHandler.h"
 
-class SaveHandler {
+class SaveHandler
+{
 public:
     static const unsigned int NUMSLOTS;
 

@@ -11,7 +11,8 @@
 /**
 * The class handling files.
 */
-class FileHandler {
+class FileHandler
+{
 public:
     /**
     * \brief The constructor of FileHandler.

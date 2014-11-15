@@ -10,12 +10,14 @@
 #include "../EntityManager/EntityManager.h"
 #include "Elodie.h"
 
-class Bonus : public Entity {
+class Bonus : public Entity
+{
 public:
     static const int POINTS;
     static const std::map< int, std::string > ANIMATIONS;
 
-    enum State {
+    enum State
+    {
         STANDING
     };
 

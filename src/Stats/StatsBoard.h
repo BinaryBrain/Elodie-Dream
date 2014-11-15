@@ -9,7 +9,8 @@
 #include "../Score/ScoreManager.h"
 
 
-class StatsBoard : public Displayable {
+class StatsBoard : public Displayable
+{
 public:
     static const float MARGIN;
     static const float LINES_INTERSPACE;

@@ -9,12 +9,14 @@
 #include "../../EntityManager/EntityManager.h"
 #include "../Elodie.h"
 
-class Sheep : public Entity {
+class Sheep : public Entity
+{
 public:
     static const int DAMAGE;
     static const std::map< int, std::string > ANIMATIONS;
 
-    enum State {
+    enum State
+    {
         STANDING
     };
 

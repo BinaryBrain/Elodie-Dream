@@ -8,7 +8,8 @@
 #include "../Game/GameView.h"
 #include "../Displayable/Displayable.h"
 
-class Sky : public Displayable {
+class Sky : public Displayable
+{
 public:
     Sky(GameView& gameView, LevelEnv env, int tilesNumber, sf::Vector2f& cameraPosArg, float slow);
     void display();

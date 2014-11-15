@@ -9,7 +9,8 @@
 /**
  * The structure representing inputs events.
  */
-typedef struct {
+typedef struct
+{
     int code;
     std::time_t time;
 } eventInput;
@@ -17,7 +18,8 @@ typedef struct {
 /**
  * The structure representing mouse events.
  */
-typedef struct {
+typedef struct
+{
     int code;
     int x;
     int y;
@@ -27,7 +29,8 @@ typedef struct {
 /**
  * The class handling input and mouse events.
  */
-class EventHandler {
+class EventHandler
+{
 public:
 
     /**

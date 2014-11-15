@@ -4,7 +4,8 @@
 #include <Menu.h>
 
 
-class TitleMenu : public Menu {
+class TitleMenu : public Menu
+{
 public:
     TitleMenu(std::string label, GameState state);
     virtual ~TitleMenu();

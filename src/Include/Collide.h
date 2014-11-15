@@ -3,7 +3,8 @@
 
 #include "../Sprite/TileSprite.h"
 
-class Collide {
+class Collide
+{
 public:
     std::map< std::string, float > top = {{"surface", 0}, {"distance", 0}};
     std::map< std::string, float > right = {{"surface", 0}, {"distance", 0}};

@@ -26,7 +26,8 @@ const float Hud::SCORE_MARGIN_R = 50;
 const float Hud::SCORE_MARGIN_T = 50;
 
 
-Hud::Hud(GameView& gameView) : Displayable(gameView) {
+Hud::Hud(GameView& gameView) : Displayable(gameView)
+{
     float viewX = gameView.getSizeX();
 
     xRatioBg = IMMERSION_BG_W/IMMERSION_IMAGE_W;
@@ -60,11 +61,13 @@ Hud::Hud(GameView& gameView) : Displayable(gameView) {
     gameView.addView(ViewLayer::HUD, this);
 }
 
-Hud::~Hud() {
+Hud::~Hud()
+{
 
 }
 
-void Hud::display() {
+void Hud::display()
+{
     barSprite.setTextureRect(sf::IntRect(0,0,barWidth*level/100,barHeight));
     scoreText.setString(Utils::itos(score));
 
@@ -74,10 +77,12 @@ void Hud::display() {
     gameView.addDrawable(ViewLayer::HUD, &scoreText);
 }
 
-void Hud::setLevel(int level) {
+void Hud::setLevel(int level)
+{
     this->level = level;
 }
 
-void Hud::setScore(int score) {
+void Hud::setScore(int score)
+{
     this->score = score;
 }

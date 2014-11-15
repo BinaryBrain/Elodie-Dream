@@ -11,7 +11,8 @@
 /**
  * The class representing Elodie, an Entity.
  */
-class Elodie : public Entity {
+class Elodie : public Entity
+{
 public:
     static const int JUMP;
     static const int SPEED;
@@ -19,7 +20,8 @@ public:
     static const float ATTACK_COOLDOWN;
     static const std::map< int, std::string > ANIMATIONS;
 
-    enum State {
+    enum State
+    {
         STANDING,
         WALKING,
         FALLING,

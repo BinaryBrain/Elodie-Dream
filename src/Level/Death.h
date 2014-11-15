@@ -8,7 +8,8 @@
 
 #include <SFML/Audio.hpp>
 
-class Death : public Displayable {
+class Death : public Displayable
+{
 public:
     static const int CHAR_SIZE;
     static const float INTERSPACE;

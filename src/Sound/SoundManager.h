@@ -9,7 +9,8 @@
 #include "../const.h"
 #include "../Game/Game.h"
 
-class SoundManager {
+class SoundManager
+{
 public:
     static SoundManager& getInstance();
 

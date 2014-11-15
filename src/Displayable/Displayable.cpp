@@ -1,11 +1,14 @@
 #include "Displayable.h"
 
-Displayable::Displayable(GameView& g) : gameView(g) {
+Displayable::Displayable(GameView& g) : gameView(g)
+{
 }
 
-Displayable::~Displayable() {
+Displayable::~Displayable()
+{
 }
 
-sf::View& Displayable::getView() {
+sf::View& Displayable::getView()
+{
     return (this->view);
 }

@@ -18,7 +18,8 @@
 
 class Elodie;
 
-class Mapper {
+class Mapper
+{
 public:
     Mapper();
     static void parse(std::string str, TileMap& tiles, EntityMap& entities, Elodie& elodie);

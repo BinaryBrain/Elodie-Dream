@@ -1,94 +1,117 @@
 #include "Score.h"
 
-Score::Score() {
+Score::Score()
+{
     reset();
 }
 
-Score::~Score() {
+Score::~Score()
+{
 
 }
 
-int Score::getLevelId() {
+int Score::getLevelId()
+{
     return levelId;
 }
 
-int Score::getTotalPoints() {
+int Score::getTotalPoints()
+{
     return totalPoints;
 }
 
-int Score::getBoni() {
+int Score::getBoni()
+{
     return boni;
 }
 
-int Score::getDamagesTaken() {
+int Score::getDamagesTaken()
+{
     return damagesTaken;
 }
 
-int Score::getEnemiesKilled() {
+int Score::getEnemiesKilled()
+{
     return enemiesKilled;
 }
 
-int Score::getLargestKillingSpree() {
+int Score::getLargestKillingSpree()
+{
     return largestKillingSpree;
 }
 
-int Score::getSheeps() {
+int Score::getSheeps()
+{
     return sheeps;
 }
 
-int Score::getMagmaCubes() {
+int Score::getMagmaCubes()
+{
     return magmaCubes;
 }
 
-int Score::getBristles() {
+int Score::getBristles()
+{
     return bristles;
 }
 
-bool Score::isRegistered() {
+bool Score::isRegistered()
+{
     return registered;
 }
 
-void Score::setLevelId(int levelId) {
+void Score::setLevelId(int levelId)
+{
     this->levelId = levelId;
 }
 
-void Score::setTotalPoints(int totalPoints) {
+void Score::setTotalPoints(int totalPoints)
+{
     this->totalPoints = totalPoints;
 }
 
-void Score::setBoni(int boni) {
+void Score::setBoni(int boni)
+{
     this->boni = boni;
 }
 
-void Score::setDamagesTaken(int damagesTaken) {
+void Score::setDamagesTaken(int damagesTaken)
+{
     this->damagesTaken = damagesTaken;
 }
 
-void Score::setEnemiesKilled(int enemiesKilled) {
+void Score::setEnemiesKilled(int enemiesKilled)
+{
     this->enemiesKilled = enemiesKilled;
 }
 
-void Score::setLargestKillingSpree(int largestKillingSpree) {
+void Score::setLargestKillingSpree(int largestKillingSpree)
+{
     this->largestKillingSpree = largestKillingSpree;
 }
 
-void Score::setSheeps(int sheeps) {
+void Score::setSheeps(int sheeps)
+{
     this->sheeps = sheeps;
 }
 
-void Score::setMagmaCubes(int magmaCubes) {
+void Score::setMagmaCubes(int magmaCubes)
+{
     this->magmaCubes = magmaCubes;
 }
 
-void Score::setBristles(int bristles) {
+void Score::setBristles(int bristles)
+{
     this->bristles = bristles;
 }
 
-void Score::setRegistered(bool registered) {
+void Score::setRegistered(bool registered)
+{
     this->registered = registered;
 }
 
-void Score::reset() {
+void Score::reset()
+{
     levelId = 0;
     totalPoints = 0;
     boni = 0;

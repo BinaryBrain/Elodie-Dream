@@ -1,10 +1,12 @@
 #include "Sky.h"
 
-Sky::Sky(GameView& gameView, LevelEnv env, int tilesNumber, sf::Vector2f& cameraPosArg, float slow) : Displayable(gameView), cameraPos(cameraPosArg) {
+Sky::Sky(GameView& gameView, LevelEnv env, int tilesNumber, sf::Vector2f& cameraPosArg, float slow) : Displayable(gameView), cameraPos(cameraPosArg)
+{
     std::string filename;
     this->slow = slow;
 
-    switch(env) {
+    switch(env)
+    {
     case LevelEnv::CASTLE:
         filename = ENVIRONMENT_TEXTURES_PATH + "/" + LEVELENV_CASTLE + "/background.png";
         break;
@@ -31,11 +33,13 @@ Sky::Sky(GameView& gameView, LevelEnv env, int tilesNumber, sf::Vector2f& camera
     gameView.addView(ViewLayer::SKY, this);
 }
 
-Sky::~Sky() {
+Sky::~Sky()
+{
     //dtor
 }
 
-void Sky::display() {
+void Sky::display()
+{
     sky.setPosition(sf::Vector2f(-cameraPos.x*slow, 0));
     gameView.addDrawable(ViewLayer::SKY, &sky);
 }

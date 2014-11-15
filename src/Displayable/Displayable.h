@@ -5,7 +5,8 @@
 
 class GameView;
 
-class Displayable {
+class Displayable
+{
 public:
     Displayable(GameView& g);
     virtual ~Displayable();

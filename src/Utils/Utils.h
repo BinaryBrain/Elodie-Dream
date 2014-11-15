@@ -8,7 +8,8 @@
 /**
 * A class with many useful functions.
 */
-class Utils {
+class Utils
+{
 public:
     /**
     * \brief The default constructor of Utils.

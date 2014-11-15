@@ -5,11 +5,13 @@
 
 #include "EnvSprite.h"
 
-enum class TileType {
+enum class TileType
+{
     VOID = 0, GROUND, DIRT, ROCK, ICE
 };
 
-enum class TileSide {
+enum class TileSide
+{
     TOP = 0x01,
     BOTTOM = 0X02,
     LEFT = 0X04,
@@ -20,7 +22,8 @@ enum class TileSide {
     BOTTOM_RIGHT = 0X80,
 };
 
-class TileSprite : public EnvSprite {
+class TileSprite : public EnvSprite
+{
 public:
     TileSprite(TileType type);
     virtual ~TileSprite();

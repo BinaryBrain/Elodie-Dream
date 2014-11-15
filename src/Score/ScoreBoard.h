@@ -10,7 +10,8 @@
 
 #include <SFML/Audio.hpp>
 
-class ScoreBoard : public Displayable {
+class ScoreBoard : public Displayable
+{
 public:
     static const int CHAR_SIZE;
     static const float INTERSPACE;

@@ -14,7 +14,8 @@
 class Game;
 class Elodie;
 
-class Overworld : public Displayable {
+class Overworld : public Displayable
+{
 public:
     Overworld(GameView& gameView, bool muted);
     virtual ~Overworld();
@@ -41,7 +42,8 @@ public:
 
 protected:
 private:
-    enum states {
+    enum states
+    {
         UNIL1 = 0,
         UNIL2 = 1,
         CASTLE1 = 2,

@@ -5,7 +5,8 @@
 #include <string>
 #include "HitboxInfo.h"
 
-class EntityInfo {
+class EntityInfo
+{
 public:
     int height;
     int width;

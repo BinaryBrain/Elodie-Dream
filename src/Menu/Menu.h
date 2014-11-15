@@ -9,7 +9,8 @@
 #include "../Utils/Utils.h"
 #include "MenuComponent.h"
 
-class Menu : public MenuComponent {
+class Menu : public MenuComponent
+{
 
 public:
     Menu(std::string label, GameState state);

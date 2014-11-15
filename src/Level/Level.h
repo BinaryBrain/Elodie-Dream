@@ -18,7 +18,8 @@
 class Game;
 class Elodie;
 
-class Level : public Displayable {
+class Level : public Displayable
+{
 public:
     Level(GameView& gameView, std::string filename, LevelEnv env, Elodie& elodie);
     virtual ~Level();

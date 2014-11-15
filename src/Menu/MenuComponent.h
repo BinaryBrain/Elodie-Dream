@@ -5,7 +5,8 @@
 #include "../env.h"
 #include "../font.h"
 
-class MenuComponent {
+class MenuComponent
+{
 public:
     MenuComponent(std::string label, GameState state);
     virtual ~MenuComponent();

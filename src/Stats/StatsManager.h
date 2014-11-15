@@ -4,7 +4,8 @@
 #include <map>
 #include <vector>
 
-class StatsManager {
+class StatsManager
+{
 public:
     static const std::string BONI_KEY;
     static const std::string DAMAGES_KEY;

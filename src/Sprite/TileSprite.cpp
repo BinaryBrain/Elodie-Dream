@@ -1,6 +1,7 @@
 #include "TileSprite.h"
 
-TileSprite::TileSprite(TileType type) {
+TileSprite::TileSprite(TileType type)
+{
     this->type = type;
 
     side = 0;
@@ -8,50 +9,61 @@ TileSprite::TileSprite(TileType type) {
     setTextureRect(sf::IntRect(0, 0, 32, 32));
 }
 
-TileSprite::~TileSprite() {
+TileSprite::~TileSprite()
+{
 
 }
 
-TileType TileSprite::getType() {
+TileType TileSprite::getType()
+{
     return type;
 }
 
-int TileSprite::getSide() {
+int TileSprite::getSide()
+{
     return side;
 }
 
-void TileSprite::setSide(TileSide side) {
+void TileSprite::setSide(TileSide side)
+{
     setSide((int) side);
 
 }
 
-void TileSprite::addSide(TileSide side) {
+void TileSprite::addSide(TileSide side)
+{
     setSide(this->side | (int) side);
 }
 
-void TileSprite::filterSides() {
-    if(side & (int) TileSide::TOP) {
+void TileSprite::filterSides()
+{
+    if(side & (int) TileSide::TOP)
+    {
         side = ~(~side | (int) TileSide::TOP_LEFT);
         side = ~(~side | (int) TileSide::TOP_RIGHT);
     }
 
-    if(side & (int) TileSide::BOTTOM) {
+    if(side & (int) TileSide::BOTTOM)
+    {
         side = ~(~side | (int) TileSide::BOTTOM_LEFT);
         side = ~(~side | (int) TileSide::BOTTOM_RIGHT);
     }
 
-    if(side & (int) TileSide::RIGHT) {
+    if(side & (int) TileSide::RIGHT)
+    {
         side = ~(~side | (int) TileSide::TOP_RIGHT);
         side = ~(~side | (int) TileSide::BOTTOM_RIGHT);
     }
 
-    if(side & (int) TileSide::LEFT) {
+    if(side & (int) TileSide::LEFT)
+    {
         side = ~(~side | (int) TileSide::TOP_LEFT);
         side = ~(~side | (int) TileSide::BOTTOM_LEFT);
     }
 }
 
-void TileSprite::setSide(int side) {
+void TileSprite::setSide(int side)
+{
     this->side = side;
 
     filterSides();

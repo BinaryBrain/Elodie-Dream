@@ -10,11 +10,13 @@
 #include "../env.h"
 #include "../Displayable/Displayable.h"
 
-enum class ViewLayer {
+enum class ViewLayer
+{
     MENU, OVERWORLD, LEVEL, HUD, CONSOLE, GIRLY, DEATH, SKY, EARTH, SCORE, STATS, ENDINGSCREEN, TITLESCREEN
 };
 
-class GameView {
+class GameView
+{
 public:
     GameView();
     virtual ~GameView();

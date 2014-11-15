@@ -28,7 +28,8 @@
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/Graphics/Texture.hpp>
 
-class Animation {
+class Animation
+{
 public:
     Animation();
 

@@ -1,9 +1,11 @@
 #include "Interactive.h"
 
-Interactive::Interactive() {
+Interactive::Interactive()
+{
     //ctor
 }
 
-Interactive::~Interactive() {
+Interactive::~Interactive()
+{
     //dtor
 }

@@ -19,11 +19,13 @@
 /**
  * The class representing entities.
  */
-class Entity {
+class Entity
+{
 public:
     static const int DAMAGE_CD;
 
-    enum Direction {
+    enum Direction
+    {
         LEFT, RIGHT
     };
 

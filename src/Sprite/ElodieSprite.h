@@ -11,7 +11,8 @@
 #include "../Include/EntityInfo.h"
 
 
-class ElodieSprite : public CharacterSprite {
+class ElodieSprite : public CharacterSprite
+{
 public:
     ElodieSprite(EntityInfo *informations);
     virtual ~ElodieSprite();

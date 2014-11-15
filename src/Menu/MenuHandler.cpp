@@ -3,7 +3,8 @@
 
 const int MenuHandler::CHAR_SIZE = 25;
 
-MenuHandler::MenuHandler(GameView& gameView) : Displayable(gameView) {
+MenuHandler::MenuHandler(GameView& gameView) : Displayable(gameView)
+{
     MenuComponent* newGame = new MenuComponent(MENU_NEWGAME_LABEL, GameState::NEWGAME);
     MenuComponent* stats = new MenuComponent(MENU_STATS_LABEL, GameState::INSTATS);
     MenuComponent* resume = new MenuComponent(MENU_RESUME_LABEL, GameState::INLEVEL);
@@ -13,7 +14,8 @@ MenuHandler::MenuHandler(GameView& gameView) : Displayable(gameView) {
     std::vector<std::string> lastDiscoveredLevels;
     std::vector<std::string> labels;
 
-    for (size_t i = 1; i <= SaveHandler::NUMSLOTS; ++i) {
+    for (size_t i = 1; i <= SaveHandler::NUMSLOTS; ++i)
+    {
         lastDiscoveredLevels.push_back("Level 0"); // to know if not initialized later
         labels.push_back(MENU_SLOT_PREFIX_LABEL + Utils::itos(i));
     }
@@ -47,16 +49,20 @@ MenuHandler::MenuHandler(GameView& gameView) : Displayable(gameView) {
 
     SaveHandler& sh = SaveHandler::getInstance();
 
-    for (size_t i = 0; i < SaveHandler::NUMSLOTS; ++i) {
+    for (size_t i = 0; i < SaveHandler::NUMSLOTS; ++i)
+    {
         std::string path = "save/" + labels[i] + ".save";
 
         JsonAccessor accessor;
         accessor.setJson(sh.getDecryptedContentFrom(path));
 
-        if (FileHandler::fileExists(path)) {
+        if (FileHandler::fileExists(path))
+        {
             int LDL = accessor.getIntWithDefault("lastdiscoveredlevel", 0);
             lastDiscoveredLevels[i] = sh.computeLevelName(LDL);
-        } else {
+        }
+        else
+        {
             lastDiscoveredLevels[i] = labels[i];
         }
 
@@ -81,7 +87,8 @@ MenuHandler::MenuHandler(GameView& gameView) : Displayable(gameView) {
     gameView.addView(ViewLayer::MENU, this);
 }
 
-MenuHandler::~MenuHandler() {
+MenuHandler::~MenuHandler()
+{
     delete title;
 
     title = NULL;
@@ -89,29 +96,41 @@ MenuHandler::~MenuHandler() {
     loadGame = NULL;
 }
 
-void MenuHandler::display() {
+void MenuHandler::display()
+{
     selectedMenu->draw(gameView);
 }
 
-void MenuHandler::incIndex() {
+void MenuHandler::incIndex()
+{
     selectedMenu->incIndex();
 }
 
-void MenuHandler::decIndex() {
+void MenuHandler::decIndex()
+{
     selectedMenu->decIndex();
 }
 
-MenuComponent* MenuHandler::getCurrentMenuComponent() {
+MenuComponent* MenuHandler::getCurrentMenuComponent()
+{
 
-    if (!selectedMenu->getSelectedItem()->isAMenu()) {
+    if (!selectedMenu->getSelectedItem()->isAMenu())
+    {
         return selectedMenu->getSelectedItem();
-    } else {
+    }
+    else
+    {
         std::string label = selectedMenu->getSelectedItem()->getText()->getString();
-        if (label == MENU_TITLEMENU_LABEL) {
+        if (label == MENU_TITLEMENU_LABEL)
+        {
             selectedMenu = title;
-        } else if (label == MENU_SAVEGAME_LABEL) {
+        }
+        else if (label == MENU_SAVEGAME_LABEL)
+        {
             selectedMenu = saveGame;
-        } else if (label == MENU_LOADGAME_LABEL) {
+        }
+        else if (label == MENU_LOADGAME_LABEL)
+        {
             selectedMenu = loadGame;
         }
 
@@ -119,36 +138,46 @@ MenuComponent* MenuHandler::getCurrentMenuComponent() {
     }
 }
 
-void MenuHandler::addCompToMenu(MenuComponent* comp, Menu* menu, bool isParent) {
+void MenuHandler::addCompToMenu(MenuComponent* comp, Menu* menu, bool isParent)
+{
     menu->addItem(comp, isParent);
     compPointers.insert(std::pair<std::string, MenuComponent*>(comp->getLabel(), comp));
 }
 
-MenuComponent* MenuHandler::getMenuComponentFromKey(std::string key) {
-    try {
+MenuComponent* MenuHandler::getMenuComponentFromKey(std::string key)
+{
+    try
+    {
         return compPointers.at(key);
-    } catch (const std::out_of_range& oor) {
+    }
+    catch (const std::out_of_range& oor)
+    {
         std::cerr << "Could not find " << key<< " in compPointers" << std::endl;
         return compPointers[0];
     }
 }
 
-void MenuHandler::setNextState(GameState state) {
+void MenuHandler::setNextState(GameState state)
+{
     this->nextState = state;
 }
 
-GameState MenuHandler::getNextState() {
+GameState MenuHandler::getNextState()
+{
     return this->nextState;
 }
 
-TitleMenu* MenuHandler::getTitleMenu() {
+TitleMenu* MenuHandler::getTitleMenu()
+{
     return title;
 }
 
-void MenuHandler::resetMenu() {
+void MenuHandler::resetMenu()
+{
     selectedMenu = title;
 }
 
-void MenuHandler::setInLevel(bool inLevel) {
+void MenuHandler::setInLevel(bool inLevel)
+{
     this->inLevel = inLevel;
 }

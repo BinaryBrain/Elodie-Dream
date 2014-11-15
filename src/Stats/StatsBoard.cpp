@@ -4,7 +4,8 @@ const float StatsBoard::MARGIN = 50;
 const float StatsBoard::LINES_INTERSPACE = 15;
 const int StatsBoard::CHAR_SIZE = 15;
 
-StatsBoard::StatsBoard(GameView& gameView) : Displayable(gameView), statsManager(StatsManager::getInstance()) {
+StatsBoard::StatsBoard(GameView& gameView) : Displayable(gameView), statsManager(StatsManager::getInstance())
+{
     float viewX(WINDOW_WIDTH);
     float viewY(WINDOW_HEIGHT);
 
@@ -15,19 +16,23 @@ StatsBoard::StatsBoard(GameView& gameView) : Displayable(gameView), statsManager
     gameView.addView(ViewLayer::STATS, this);
 }
 
-StatsBoard::~StatsBoard() {
+StatsBoard::~StatsBoard()
+{
 
 }
 
-void StatsBoard::display() {
+void StatsBoard::display()
+{
     gameView.addDrawable(ViewLayer::STATS, &background);
 
-    for (size_t i = 0; i < allTexts.size(); ++i) {
+    for (size_t i = 0; i < allTexts.size(); ++i)
+    {
         gameView.addDrawable(ViewLayer::STATS, &(allTexts[i]));
     }
 }
 
-void StatsBoard::prepareText() {
+void StatsBoard::prepareText()
+{
     allTexts.clear();
 
     // Levels (Tutorial, Level 1, ...)
@@ -40,14 +45,17 @@ void StatsBoard::prepareText() {
     createMoreStats();
 }
 
-void StatsBoard::setLDL(int LDL) {
+void StatsBoard::setLDL(int LDL)
+{
     this->LDL = LDL;
 }
 
-void StatsBoard::createLevelTexts(float beginX, float beginY) {
+void StatsBoard::createLevelTexts(float beginX, float beginY)
+{
     float y = beginY;
 
-    for (int i = 0; i <= LDL; i++) {
+    for (int i = 0; i <= LDL; i++)
+    {
         sf::Text levelText;
         levelText.setFont(globalFont);
         levelText.setCharacterSize(CHAR_SIZE);
@@ -58,7 +66,8 @@ void StatsBoard::createLevelTexts(float beginX, float beginY) {
     }
 }
 
-void StatsBoard::createAllCategoriesTexts() {
+void StatsBoard::createAllCategoriesTexts()
+{
     std::vector< std::vector<int> > allDatas = ScoreManager::getInstance().getAllDatas();
     std::vector<std::string> titles;
     titles.push_back("Points");
@@ -69,8 +78,10 @@ void StatsBoard::createAllCategoriesTexts() {
     std::vector< std::vector<int> > categories(titles.size());
 
     // for each level, store its values in the right category
-    for (int i = 0; i <= LDL; ++i) {
-        for (size_t j = 0; j < titles.size(); ++j) {
+    for (int i = 0; i <= LDL; ++i)
+    {
+        for (size_t j = 0; j < titles.size(); ++j)
+        {
             categories[j].push_back(allDatas[i][j+1]);
         }
     }
@@ -78,12 +89,14 @@ void StatsBoard::createAllCategoriesTexts() {
     float startX = MARGIN*2 + findLargestTextWidth(); // findLargestSize() will search max text width among the texts existing (i.e. the levelTexts)
     float categoryWidth = (gameView.getSizeX() - startX)/categories.size();
 
-    for (size_t i = 0; i < titles.size(); ++i) {
+    for (size_t i = 0; i < titles.size(); ++i)
+    {
         createCategoryTexts(startX +  categoryWidth*i, MARGIN, titles[i], categories[i]);
     }
 }
 
-void StatsBoard::createCategoryTexts(float beginX, float beginY, const std::string& title, const std::vector<int>& datas) {
+void StatsBoard::createCategoryTexts(float beginX, float beginY, const std::string& title, const std::vector<int>& datas)
+{
     sf::Text titleText;
     titleText.setFont(globalFont);
     titleText.setCharacterSize(CHAR_SIZE);
@@ -95,7 +108,8 @@ void StatsBoard::createCategoryTexts(float beginX, float beginY, const std::stri
     float titleHeight = titleText.getLocalBounds().height;
     float y = beginY + titleHeight + LINES_INTERSPACE;
 
-    for (size_t i = 0; i < datas.size(); ++i) {
+    for (size_t i = 0; i < datas.size(); ++i)
+    {
         sf::Text t;
         t.setFont(globalFont);
         t.setCharacterSize(CHAR_SIZE);
@@ -108,13 +122,15 @@ void StatsBoard::createCategoryTexts(float beginX, float beginY, const std::stri
     }
 }
 
-void StatsBoard::createMoreStats() {
+void StatsBoard::createMoreStats()
+{
     sf::Text& lastText = allTexts[allTexts.size() - 1];
     float x = MARGIN;
     float y = lastText.getPosition().y + lastText.getLocalBounds().height + MARGIN;
     std::vector< std::pair<std::string, int>> namesValues = statsManager.getLabelledValues();
 
-    for (size_t i = 0; i < namesValues.size(); ++i) {
+    for (size_t i = 0; i < namesValues.size(); ++i)
+    {
         sf::Text t;
         t.setFont(globalFont);
         t.setCharacterSize(CHAR_SIZE);
@@ -126,11 +142,14 @@ void StatsBoard::createMoreStats() {
     }
 }
 
-float StatsBoard::findLargestTextWidth() {
+float StatsBoard::findLargestTextWidth()
+{
     float maxWidth = 0;
-    for (size_t i = 0; i < allTexts.size(); ++i) {
+    for (size_t i = 0; i < allTexts.size(); ++i)
+    {
         float width = allTexts[i].getLocalBounds().width;
-        if (maxWidth < width) {
+        if (maxWidth < width)
+        {
             maxWidth = width;
         }
     }

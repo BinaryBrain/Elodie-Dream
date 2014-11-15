@@ -9,7 +9,8 @@
 #include "../../EntityManager/EntityManager.h"
 #include "../Elodie.h"
 
-class MagmaCube : public Entity {
+class MagmaCube : public Entity
+{
 public:
     static const int DAMAGE;
     static const int JUMP_CD;
@@ -17,7 +18,8 @@ public:
     static const int MOVE_Y;
     static const std::map< int, std::string > ANIMATIONS;
 
-    enum State {
+    enum State
+    {
         STANDING
     };
 

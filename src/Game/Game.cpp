@@ -4,7 +4,8 @@ Game::Game() :
     saveHandler(SaveHandler::getInstance()),
     soundManager(SoundManager::getInstance()),
     scoreManager(ScoreManager::getInstance()),
-    statsManager(StatsManager::getInstance()) {
+    statsManager(StatsManager::getInstance())
+{
     configManager.load(SETTINGS_PATH + "/settings.json");
 
     mute = DEFAULT_MUTE;
@@ -16,22 +17,27 @@ Game::Game() :
     view.show(ViewLayer::TITLESCREEN);
 }
 
-Game::~Game() {
-    if (title) {
+Game::~Game()
+{
+    if (title)
+    {
         delete title;
     }
-    if (overworld) {
+    if (overworld)
+    {
         delete overworld;
     }
 }
 
 // Gets the instance of the game
-Game& Game::getInstance() {
+Game& Game::getInstance()
+{
     static Game instance;
     return instance;
 }
 
-void Game::leaveLevel() {
+void Game::leaveLevel()
+{
     state = GameState::INOVERWORLD;
     view.hide(ViewLayer::SKY);
     view.hide(ViewLayer::EARTH);
@@ -39,13 +45,15 @@ void Game::leaveLevel() {
     view.hide(ViewLayer::HUD);
     view.hide(ViewLayer::CONSOLE);
     view.show(ViewLayer::OVERWORLD);
-    if (!isMute() && overworld->getMusic().getStatus() != sf::Music::Status::Playing) {
+    if (!isMute() && overworld->getMusic().getStatus() != sf::Music::Status::Playing)
+    {
         overworld->getMusic().play();
     }
     overworld->getElodie().stand();
     overworld->resetPos();
 
-    if (curLevel) {
+    if (curLevel)
+    {
         delete curLevel;
         curLevel = NULL;
     }
@@ -53,22 +61,28 @@ void Game::leaveLevel() {
     menuHandler.getTitleMenu()->toNormalMenu();
 }
 
-void Game::displayLevel(int curLevelNbr, sf::Time time) {
+void Game::displayLevel(int curLevelNbr, sf::Time time)
+{
     //double ypos = ((Elodie*)curLevel->getEntities()["elodie"])->getPosition().y;
     //if (  ypos < miny) {
     //    miny = ypos;
     //}
-    if (showTutoConsole || showCastleConsole) {
+    if (showTutoConsole || showCastleConsole)
+    {
         std::string key;
-        if (showTutoConsole) {
+        if (showTutoConsole)
+        {
             key = "tutorial";
             showTutoConsole = false;
-        } else if (showCastleConsole) {
+        }
+        else if (showCastleConsole)
+        {
             key = "castle";
             showCastleConsole = false;
         }
         jsonAccessor.loadJsonFrom(LANGUAGES_PATH + "/" + configManager.getLanguage() + ".lang");
-        if (jsonAccessor.canTakeElementFrom(key)) {
+        if (jsonAccessor.canTakeElementFrom(key))
+        {
             curLevel->pause();
             state = GameState::INCONSOLE;
             view.show(ViewLayer::CONSOLE);
@@ -79,7 +93,8 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
 
     }
     // leave level
-    if (event.keyIsPressed(sf::Keyboard::Escape)) {
+    if (event.keyIsPressed(sf::Keyboard::Escape))
+    {
         defaultReturnState = state;
         state = GameState::INMENU;
         curLevel->pause();
@@ -88,19 +103,25 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
         menuHandler.setInLevel(true);
         view.show(ViewLayer::MENU);
         // toggle sound
-    } else if(event.keyIsPressed(sf::Keyboard::M)) {
+    }
+    else if(event.keyIsPressed(sf::Keyboard::M))
+    {
         toggleMute(curLevel->getMusic());
 
         // the level
-    } else {
+    }
+    else
+    {
         curLevel->live(event, time);
         hud.setLevel(((Elodie*)curLevel->getEntities()["elodie"])->getImmersionLevel());
         hud.setScore(scoreManager.getLevelPoints());
 
         // level leaving
-        if (curLevel->mustLeave()) {
+        if (curLevel->mustLeave())
+        {
             // level cleared
-            if (curLevel->isCleared()) {
+            if (curLevel->isCleared())
+            {
                 scoreManager.setLevel(curLevelNbr);
                 scoreManager.computeTotalPoints();
                 scoreManager.saveCurrentScore();
@@ -111,7 +132,9 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
                 state = GameState::INSCORE;
 
                 // death
-            } else if (curLevel->isDead() && !GOD_MODE) {
+            }
+            else if (curLevel->isDead() && !GOD_MODE)
+            {
                 statsManager.setTotalDeaths(statsManager.getTotalDeaths() + 1);
                 death = new Death(view, mute);
                 view.show(ViewLayer::DEATH);
@@ -122,11 +145,13 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
     }
 }
 
-void Game::loadLevel(int levelNbr) {
+void Game::loadLevel(int levelNbr)
+{
     state = GameState::INLEVEL;
     curLevelNbr = levelNbr;
     LevelEnv env = LevelEnv::FIELD;
-    switch (levelNbr) {
+    switch (levelNbr)
+    {
     case 0:
         showTutoConsole = true;
         env = LevelEnv::FIELD;
@@ -161,33 +186,50 @@ void Game::loadLevel(int levelNbr) {
     menuHandler.getTitleMenu()->toLevelMenu();
 }
 
-void Game::handleOverworld(sf::Time time) {
+void Game::handleOverworld(sf::Time time)
+{
     Elodie& elo = overworld->getElodie();
 
-    if (elo.isMoving()) {
+    if (elo.isMoving())
+    {
         elo.overworldMove(time.asSeconds());
-    } else if (event.keyIsHold(sf::Keyboard::Down)) {
+    }
+    else if (event.keyIsHold(sf::Keyboard::Down))
+    {
         elo.setDistanceToMove(overworld->moveDown());
-        if (elo.hasToMove()) {
+        if (elo.hasToMove())
+        {
             elo.setWalkDown();
         }
-    } else if (event.keyIsHold(sf::Keyboard::Up)) {
+    }
+    else if (event.keyIsHold(sf::Keyboard::Up))
+    {
         elo.setDistanceToMove(overworld->moveUp());
-        if (elo.hasToMove()) {
+        if (elo.hasToMove())
+        {
             elo.setWalkUp();
         }
-    } else if (event.keyIsHold(sf::Keyboard::Left)) {
+    }
+    else if (event.keyIsHold(sf::Keyboard::Left))
+    {
         elo.setDistanceToMove(overworld->moveLeft());
-        if (elo.hasToMove()) {
+        if (elo.hasToMove())
+        {
             elo.setWalkLeft();
         }
-    } else if (event.keyIsHold(sf::Keyboard::Right)) {
+    }
+    else if (event.keyIsHold(sf::Keyboard::Right))
+    {
         elo.setDistanceToMove(overworld->moveRight());
-        if (elo.hasToMove()) {
+        if (elo.hasToMove())
+        {
             elo.setWalkRight();
         }
-    } else if (event.keyIsPressed(sf::Keyboard::Return) || event.keyIsPressed(sf::Keyboard::Space)) {
-        if (overworld->getLevelToLoad() >= 0) {
+    }
+    else if (event.keyIsPressed(sf::Keyboard::Return) || event.keyIsPressed(sf::Keyboard::Space))
+    {
+        if (overworld->getLevelToLoad() >= 0)
+        {
             loadLevel(overworld->getLevelToLoad());
             view.hide(ViewLayer::OVERWORLD);
             overworld->getMusic().stop();
@@ -196,7 +238,9 @@ void Game::handleOverworld(sf::Time time) {
             view.show(ViewLayer::LEVEL);
             view.show(ViewLayer::HUD);
         }
-    } else if (event.keyIsPressed(sf::Keyboard::Escape)) {
+    }
+    else if (event.keyIsPressed(sf::Keyboard::Escape))
+    {
         menuHandler.resetMenu();
         defaultReturnState = state;
         state = GameState::INMENU;
@@ -204,175 +248,235 @@ void Game::handleOverworld(sf::Time time) {
         view.show(ViewLayer::MENU);
         menuHandler.setInLevel(false);
         // testing purposes
-    } else if (event.keyIsPressed(sf::Keyboard::M)) {
+    }
+    else if (event.keyIsPressed(sf::Keyboard::M))
+    {
         toggleMute(overworld->getMusic());
         // testing purposes
     }
     elo.update(time);
 }
 
-void Game::displayMenu() {
-    if (event.keyIsPressed(sf::Keyboard::Down)) {
+void Game::displayMenu()
+{
+    if (event.keyIsPressed(sf::Keyboard::Down))
+    {
         menuHandler.incIndex();
     }
-    if (event.keyIsPressed(sf::Keyboard::Up)) {
+    if (event.keyIsPressed(sf::Keyboard::Up))
+    {
         menuHandler.decIndex();
     }
-    if (event.keyIsPressed(sf::Keyboard::Return)) {
+    if (event.keyIsPressed(sf::Keyboard::Return))
+    {
         currentMenuComponent = menuHandler.getCurrentMenuComponent();
         state = currentMenuComponent->getState();
 
-        if (state == GameState::INOVERWORLD) {
+        if (state == GameState::INOVERWORLD)
+        {
             view.hide(ViewLayer::MENU);
             view.hide(ViewLayer::TITLESCREEN);
             leaveLevel();
             overworld->getElodie().play();
 
-        } else if (state == GameState::INLEVEL) {
-            if (curLevel) {
+        }
+        else if (state == GameState::INLEVEL)
+        {
+            if (curLevel)
+            {
                 view.hide(ViewLayer::MENU);
                 view.show(ViewLayer::LEVEL);
                 view.show(ViewLayer::HUD);
                 state = GameState::INLEVEL;
                 curLevel->play(&frameClock);
-            } else {
+            }
+            else
+            {
                 std::cerr << "Must display level but not initialized." << std::endl;
             }
 
-        } else if (state == GameState::SAVE) {
+        }
+        else if (state == GameState::SAVE)
+        {
             // sets the current slot and name
             autoSave = true;
             currentMenuSave = currentMenuComponent;
-        } else if (state == GameState::INSTATS) {
+        }
+        else if (state == GameState::INSTATS)
+        {
             statsBoard.prepareText();
             view.hide(ViewLayer::MENU);
             view.show(ViewLayer::STATS);
         }
 
-    } else if (event.keyIsPressed(sf::Keyboard::Escape)) {
+    }
+    else if (event.keyIsPressed(sf::Keyboard::Escape))
+    {
         defaultReturnState = state;
         state = menuHandler.getNextState();
-        if (state == GameState::INOVERWORLD) {
+        if (state == GameState::INOVERWORLD)
+        {
             view.hide(ViewLayer::MENU);
             view.show(ViewLayer::OVERWORLD);
             overworld->getElodie().stand();
             overworld->resetPos();
-            if (curLevel) {
+            if (curLevel)
+            {
                 delete curLevel;
                 curLevel = NULL;
             }
-        } else if (state == GameState::INLEVEL) {
-            if (curLevel) {
+        }
+        else if (state == GameState::INLEVEL)
+        {
+            if (curLevel)
+            {
                 state = GameState::INLEVEL;
                 view.hide(ViewLayer::MENU);
                 view.show(ViewLayer::LEVEL);
                 view.show(ViewLayer::HUD);
                 curLevel->play(&frameClock);
-            } else {
+            }
+            else
+            {
                 std::cerr << "Must display level but not initialized." << std::endl;
             }
         }
-    } else if (event.keyIsPressed(sf::Keyboard::M)) {
+    }
+    else if (event.keyIsPressed(sf::Keyboard::M))
+    {
         toggleMute(overworld->getMusic());
     }
 }
 
-void Game::displayConsole() {
-    if (event.keyIsPressed(sf::Keyboard::Up)) {
+void Game::displayConsole()
+{
+    if (event.keyIsPressed(sf::Keyboard::Up))
+    {
         console.previousPage();
     }
-    if (event.keyIsPressed(sf::Keyboard::Down)) {
+    if (event.keyIsPressed(sf::Keyboard::Down))
+    {
         console.nextPage();
     }
-    if (event.keyIsPressed(sf::Keyboard::Space) || event.keyIsPressed(sf::Keyboard::Return)) {
+    if (event.keyIsPressed(sf::Keyboard::Space) || event.keyIsPressed(sf::Keyboard::Return))
+    {
         state = console.getNextState();
-        if (state == GameState::INOVERWORLD) {
+        if (state == GameState::INOVERWORLD)
+        {
             view.hide(ViewLayer::CONSOLE);
             view.hide(ViewLayer::MENU);
             view.show(ViewLayer::OVERWORLD);
             view.hide(ViewLayer::TITLESCREEN);
-        } else if (state == GameState::INLEVEL) {
-            if (curLevel) {
+        }
+        else if (state == GameState::INLEVEL)
+        {
+            if (curLevel)
+            {
                 state = GameState::INLEVEL;
                 view.hide(ViewLayer::CONSOLE);
                 view.show(ViewLayer::LEVEL);
                 curLevel->play(&frameClock);
-            } else {
+            }
+            else
+            {
                 std::cerr << "Must display level but not initialized." << std::endl;
             }
-        } else if (state == GameState::INMENU) {
+        }
+        else if (state == GameState::INMENU)
+        {
             view.hide(ViewLayer::CONSOLE);
             view.show(ViewLayer::MENU);
         }
     }
 }
 
-void Game::dead() {
-    if (event.keyIsPressed(sf::Keyboard::Return) || event.keyIsPressed(sf::Keyboard::Space) ) {
+void Game::dead()
+{
+    if (event.keyIsPressed(sf::Keyboard::Return) || event.keyIsPressed(sf::Keyboard::Space) )
+    {
         view.hide(ViewLayer::DEATH);
-        if (death) {
+        if (death)
+        {
             delete death;
             death = NULL;
         }
         leaveLevel();
-    } else if (event.keyIsPressed(sf::Keyboard::M)) {
+    }
+    else if (event.keyIsPressed(sf::Keyboard::M))
+    {
         toggleMute(death->getMusic());
     }
 }
 
-void Game::displayEnd() {
-    if (event.keyIsPressed(sf::Keyboard::Return) || event.keyIsPressed(sf::Keyboard::Space)) {
+void Game::displayEnd()
+{
+    if (event.keyIsPressed(sf::Keyboard::Return) || event.keyIsPressed(sf::Keyboard::Space))
+    {
         view.hide(ViewLayer::ENDINGSCREEN);
-        if (endingScreen) {
+        if (endingScreen)
+        {
             delete endingScreen;
             endingScreen = NULL;
         }
         leaveLevel();
-        if (autoSave) {
+        if (autoSave)
+        {
             save();
         }
-    } else if (event.keyIsPressed(sf::Keyboard::M)) {
+    }
+    else if (event.keyIsPressed(sf::Keyboard::M))
+    {
         toggleMute(endingScreen->getMusic());
     }
 }
 
-void Game::displayScore() {
-    if (event.keyIsPressed(sf::Keyboard::Return) || event.keyIsPressed(sf::Keyboard::Space)) {
+void Game::displayScore()
+{
+    if (event.keyIsPressed(sf::Keyboard::Return) || event.keyIsPressed(sf::Keyboard::Space))
+    {
         view.hide(ViewLayer::SCORE);
 
         // end of game
-        if (curLevelNbr == (NUMLEVELS-1)) {
+        if (curLevelNbr == (NUMLEVELS-1))
+        {
             endingScreen = new EndingScreen(view, mute);
             view.show(ViewLayer::ENDINGSCREEN);
             state = GameState::ENDINGSCREEN;
-        } else {
+        }
+        else
+        {
             overworld->evolve(overworld->getState(), curLevelNbr + 1);
             overworld->setToLevel(curLevelNbr + 1);
             statsBoard.setLDL(overworld->getState());
             leaveLevel();
-            if (autoSave) {
+            if (autoSave)
+            {
                 save();
             }
         }
     }
 }
 
-void Game::displayStats() {
-    if (event.keyIsPressed(sf::Keyboard::Return) || event.keyIsPressed(sf::Keyboard::Escape)) {
+void Game::displayStats()
+{
+    if (event.keyIsPressed(sf::Keyboard::Return) || event.keyIsPressed(sf::Keyboard::Escape))
+    {
         view.hide(ViewLayer::STATS);
         view.show(ViewLayer::MENU);
         state = GameState::INMENU;
     }
 }
 
-void Game::run() {
+void Game::run()
+{
     sf::RenderWindow& window = view.getWindow();
     view.show(ViewLayer::MENU);
 
     window.setFramerateLimit(FPS);
     window.setIcon(icon.width, icon.height, icon.pixel_data);
 
-    while (window.isOpen()) {
+    while (window.isOpen())
+    {
         sf::Time sfTime = sf::seconds(1.0/FPS);//frameClock.restart();
         //if (sfTime.asSeconds() > MAX_TIME_FRAME)
         //    sfTime = sf::seconds(MAX_TIME_FRAME);
@@ -381,22 +485,27 @@ void Game::run() {
         //frametime += sfTime.asSeconds();
         event.listening();
 
-        if (event.lostFocus()) {
-            if (curLevel) {
+        if (event.lostFocus())
+        {
+            if (curLevel)
+            {
                 pausePrevState = state;
                 state = GameState::PAUSE;
                 curLevel->pause();
             }
         }
 
-        if (event.gainedFocus()) {
-            if (curLevel) {
+        if (event.gainedFocus())
+        {
+            if (curLevel)
+            {
                 state = pausePrevState;
                 curLevel->play(&frameClock);
             }
         }
 
-        if (event.keyIsPressed(sf::Keyboard::F12)) {
+        if (event.keyIsPressed(sf::Keyboard::F12))
+        {
             sf::Image screen = window.capture();
             now.refreshTime();
 
@@ -407,11 +516,13 @@ void Game::run() {
             screen.saveToFile(screensDirPath+"/"+date+".jpg");
         }
 
-        if (event.keyIsPressed(sf::Keyboard::G)) {
+        if (event.keyIsPressed(sf::Keyboard::G))
+        {
             girlyMode = !girlyMode;
         }
 
-        switch(state) {
+        switch(state)
+        {
         case GameState::INLEVEL:
             displayLevel(curLevelNbr, sfTime);
             break;
@@ -457,7 +568,8 @@ void Game::run() {
 
 
         view.hide(ViewLayer::GIRLY);
-        if (girlyMode) {
+        if (girlyMode)
+        {
             view.show(ViewLayer::GIRLY);
         }
 
@@ -471,11 +583,14 @@ void Game::run() {
     //std::cin >> hihi;
 }
 
-void Game::newGame() {
-    if (curLevel) {
+void Game::newGame()
+{
+    if (curLevel)
+    {
         leaveLevel();
     }
-    if (overworld) {
+    if (overworld)
+    {
         delete overworld;
         overworld = NULL;
     }
@@ -493,20 +608,25 @@ void Game::newGame() {
     // if there is a free slot, save on it
     std::string nextFreeSlot = saveHandler.nextFreeSlot();
 
-    if (nextFreeSlot != "") {
+    if (nextFreeSlot != "")
+    {
         currentMenuSave = menuHandler.getMenuComponentFromKey(nextFreeSlot);
         save();
         autoSave = true;
-    } else {
+    }
+    else
+    {
         autoSave = false;
     }
 }
 
-void Game::load() {
+void Game::load()
+{
     std::string path = "save/" + currentMenuComponent->getLabel() + ".save";
     std::string tempJsonFilePath = "save/temp.json";
 
-    if (FileHandler::fileExists(path)) {
+    if (FileHandler::fileExists(path))
+    {
         // resets the scores
         scoreManager.resetAllScores();
         statsManager.reset();
@@ -520,17 +640,21 @@ void Game::load() {
         bool jsonOk = accessor.setJson(saveHandler.getDecryptedContentFrom(path));
 
         // if the save is valid
-        if (jsonOk && accessor.canTakeElementFrom(SaveHandler::DATE_KEY) && accessor.canTakeElementFrom(SaveHandler::LDL_KEY)) {
+        if (jsonOk && accessor.canTakeElementFrom(SaveHandler::DATE_KEY) && accessor.canTakeElementFrom(SaveHandler::LDL_KEY))
+        {
             std::string date = accessor.getString(SaveHandler::DATE_KEY);
             int LDL = accessor.getInt(SaveHandler::LDL_KEY);
 
             // if the version number exists
-            if (accessor.canTakeElementFrom(SaveHandler::VERSION_KEY)) {
-                if (accessor.canTakeElementFrom(SaveHandler::SCORES_KEY)) {
+            if (accessor.canTakeElementFrom(SaveHandler::VERSION_KEY))
+            {
+                if (accessor.canTakeElementFrom(SaveHandler::SCORES_KEY))
+                {
                     std::vector< std::vector<int> > datas = accessor.getInt2DVector(SaveHandler::SCORES_KEY);
                     std::vector< std::vector<int> > scoreDatas;
 
-                    for (size_t i = 0; i < datas.size(); ++i) {
+                    for (size_t i = 0; i < datas.size(); ++i)
+                    {
                         std::vector<int> score = datas[i];
                         scoreDatas.push_back(score);
                     }
@@ -538,19 +662,24 @@ void Game::load() {
                     scoreManager.setAllDatas(scoreDatas);
                 }
 
-                if (accessor.canTakeElementFrom(SaveHandler::MORESTATS_KEY)) {
+                if (accessor.canTakeElementFrom(SaveHandler::MORESTATS_KEY))
+                {
                     std::vector<int> datas = accessor.getIntVector(SaveHandler::MORESTATS_KEY);
                     statsManager.setAllValues(datas);
                 }
-            } else {
+            }
+            else
+            {
                 std::cout << "Save from version prior to 1.1" << std::endl;
             }
 
 
-            if (curLevel) {
+            if (curLevel)
+            {
                 leaveLevel();
             }
-            if (!overworld) {
+            if (!overworld)
+            {
                 overworld = new Overworld(view, mute);
                 view.addView(ViewLayer::OVERWORLD, overworld);
             }
@@ -566,12 +695,16 @@ void Game::load() {
 
             menuHandler.getTitleMenu()->toNormalMenu();
 
-        } else {
+        }
+        else
+        {
             console.clearAndWrite("Save corrupted.");
             console.setNextState(GameState::INMENU);
         }
 
-    } else {
+    }
+    else
+    {
         console.clearAndWrite("Save doesn't exist.");
         console.setNextState(GameState::INMENU);
     }
@@ -581,7 +714,8 @@ void Game::load() {
     view.show(ViewLayer::CONSOLE);
 }
 
-void Game::save() {
+void Game::save()
+{
 
     // creates date
     now.refreshTime();
@@ -611,12 +745,15 @@ void Game::save() {
 
     // console confirmation
     // save() called from the menu
-    if (state == GameState::SAVE) {
+    if (state == GameState::SAVE)
+    {
         console.clearAndWrite("Successfully saved on " + currentMenuSave->getLabel() + " (" + date + ").");
         console.setNextState(GameState::INMENU);
         view.show(ViewLayer::MENU);
         // if autosave
-    } else if (state == GameState::INOVERWORLD) {
+    }
+    else if (state == GameState::INOVERWORLD)
+    {
         console.clearAndWrite("Progress saved on " + currentMenuSave->getLabel() + ".");
         console.setNextState(GameState::INOVERWORLD);
         view.show(ViewLayer::OVERWORLD);
@@ -626,36 +763,46 @@ void Game::save() {
     view.show(ViewLayer::CONSOLE);
 }
 
-void Game::exit() {
+void Game::exit()
+{
     view.getWindow().close();
 }
 
-GameState Game::getState() {
+GameState Game::getState()
+{
     return state;
 }
 
-void Game::setState(GameState state) {
+void Game::setState(GameState state)
+{
     this->state = state;
 }
 
-Overworld* Game::getOverworld() {
+Overworld* Game::getOverworld()
+{
     return overworld;
 }
 
-Console* Game::getConsole() {
+Console* Game::getConsole()
+{
     return &console;
 }
 
-void Game::toggleMute(sf::Music& music) {
+void Game::toggleMute(sf::Music& music)
+{
     mute = !mute;
 
-    if (mute) {
+    if (mute)
+    {
         music.pause();
-    } else {
+    }
+    else
+    {
         music.play();
     }
 }
 
-bool Game::isMute() {
+bool Game::isMute()
+{
     return mute;
 }

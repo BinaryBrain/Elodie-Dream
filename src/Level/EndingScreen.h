@@ -8,7 +8,8 @@
 
 #include <SFML/Audio.hpp>
 
-class EndingScreen : public Displayable {
+class EndingScreen : public Displayable
+{
 public:
     EndingScreen(GameView& view, bool isMute);
     virtual ~EndingScreen();

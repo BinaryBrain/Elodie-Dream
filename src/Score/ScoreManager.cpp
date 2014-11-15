@@ -2,50 +2,62 @@
 
 const int ScoreManager::BONUS_NODAMAGES = 500;
 
-ScoreManager::ScoreManager() : statsManager(StatsManager::getInstance()) {
-    for (size_t i = 0; i < NUMLEVELS; ++i) {
+ScoreManager::ScoreManager() : statsManager(StatsManager::getInstance())
+{
+    for (size_t i = 0; i < NUMLEVELS; ++i)
+    {
         Score score;
         gameScore.push_back(score);
     }
 }
 
-ScoreManager::~ScoreManager() {
+ScoreManager::~ScoreManager()
+{
 }
 
 // Gets the instance of the entityManger
-ScoreManager& ScoreManager::getInstance() {
+ScoreManager& ScoreManager::getInstance()
+{
     static ScoreManager instance;
     return instance;
 }
 
-int ScoreManager::getKillPoints() {
+int ScoreManager::getKillPoints()
+{
     return killPoints;
 }
 
-int ScoreManager::getLevelPoints() {
+int ScoreManager::getLevelPoints()
+{
     return killPoints + currentScore.getBoni() * Bonus::POINTS - currentScore.getDamagesTaken();
 }
 
-std::string ScoreManager::getScoreString() {
+std::string ScoreManager::getScoreString()
+{
     return scoreString;
 }
 
-Score& ScoreManager::getScore(int level) {
+Score& ScoreManager::getScore(int level)
+{
     return gameScore[level];
 }
 
-Score& ScoreManager::getCurrentScore() {
+Score& ScoreManager::getCurrentScore()
+{
     return currentScore;
 }
 
-std::vector<Score>& ScoreManager::getGameScore() {
+std::vector<Score>& ScoreManager::getGameScore()
+{
     return gameScore;
 }
 
-std::vector< std::vector<int> > ScoreManager::getAllDatas() {
+std::vector< std::vector<int> > ScoreManager::getAllDatas()
+{
     std::vector< std::vector<int> > datas;
 
-    for (size_t i = 0; i < gameScore.size(); ++i) {
+    for (size_t i = 0; i < gameScore.size(); ++i)
+    {
         std::vector<int> score;
         score.push_back(gameScore[i].getLevelId());
         score.push_back(gameScore[i].getTotalPoints());
@@ -62,8 +74,10 @@ std::vector< std::vector<int> > ScoreManager::getAllDatas() {
     return datas;
 }
 
-void ScoreManager::setAllDatas(std::vector< std::vector<int> > datas) {
-    for (size_t i = 0; i < datas.size(); ++i) {
+void ScoreManager::setAllDatas(std::vector< std::vector<int> > datas)
+{
+    for (size_t i = 0; i < datas.size(); ++i)
+    {
         gameScore[i].setLevelId(datas[i][0]);
         gameScore[i].setTotalPoints(datas[i][1]);
         gameScore[i].setBoni(datas[i][2]);
@@ -76,35 +90,43 @@ void ScoreManager::setAllDatas(std::vector< std::vector<int> > datas) {
     }
 }
 
-void ScoreManager::setLevel(int level) {
+void ScoreManager::setLevel(int level)
+{
     currentScore.setLevelId(level);
 }
 
-void ScoreManager::setLevelScore(int level, int totalPoints) {
+void ScoreManager::setLevelScore(int level, int totalPoints)
+{
     gameScore[level].setTotalPoints(totalPoints);
 }
 
-void ScoreManager::takeBonus() {
+void ScoreManager::takeBonus()
+{
     currentScore.setBoni(currentScore.getBoni() + 1);
     statsManager.setTotalBoni(statsManager.getTotalBoni() + 1);
 }
 
-void ScoreManager::takeDamage(int damage) {
+void ScoreManager::takeDamage(int damage)
+{
     currentScore.setDamagesTaken(currentScore.getDamagesTaken() + damage);
-    if (damage > 0) {
+    if (damage > 0)
+    {
         nKillsInARow = 0;
     }
     statsManager.setTotalDamages(statsManager.getTotalDamages() + damage);
 }
 
-void ScoreManager::addEnemyKilled(EnemyType type) {
+void ScoreManager::addEnemyKilled(EnemyType type)
+{
     ++nKillsInARow;
-    if (nKillsInARow > currentScore.getLargestKillingSpree()) {
+    if (nKillsInARow > currentScore.getLargestKillingSpree())
+    {
         currentScore.setLargestKillingSpree(nKillsInARow);
     }
     currentScore.setEnemiesKilled(currentScore.getEnemiesKilled() + 1);
 
-    switch (type) {
+    switch (type)
+    {
     case EnemyType::SHEEP:
         killPoints += Sheep::DAMAGE * nKillsInARow;
         currentScore.setSheeps(currentScore.getSheeps() + 1);
@@ -125,37 +147,46 @@ void ScoreManager::addEnemyKilled(EnemyType type) {
     }
 }
 
-void ScoreManager::computeTotalPoints() {
+void ScoreManager::computeTotalPoints()
+{
     int totalPoints = getLevelPoints();
-    if (currentScore.getDamagesTaken() == 0) {
+    if (currentScore.getDamagesTaken() == 0)
+    {
         totalPoints += BONUS_NODAMAGES;
     }
     currentScore.setTotalPoints(totalPoints);
 }
 
-void ScoreManager::saveCurrentScore() {
+void ScoreManager::saveCurrentScore()
+{
     int level = currentScore.getLevelId();
     bool registered = gameScore[level].isRegistered();
     bool betterScore = gameScore[level].getTotalPoints() < currentScore.getTotalPoints();
 
-    if (!registered || betterScore) {
+    if (!registered || betterScore)
+    {
         gameScore[level] = currentScore;
         gameScore[level].setRegistered(true);
         scoreString = "(new record! :3)";
-    } else {
+    }
+    else
+    {
         scoreString = "(best score: " + Utils::itos(gameScore[level].getTotalPoints()) + ")";
     }
 }
 
-void ScoreManager::resetCurrentScore() {
+void ScoreManager::resetCurrentScore()
+{
     killPoints = 0;
     nKillsInARow = 0;
     scoreString = "";
     currentScore.reset();
 }
 
-void ScoreManager::resetAllScores() {
-    for (size_t i = 0; i < NUMLEVELS; ++i) {
+void ScoreManager::resetAllScores()
+{
+    for (size_t i = 0; i < NUMLEVELS; ++i)
+    {
         gameScore[i].reset();
     }
 }

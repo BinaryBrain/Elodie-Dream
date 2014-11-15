@@ -1,9 +1,11 @@
 #include "Item.h"
 
-Item::Item() {
+Item::Item()
+{
     //ctor
 }
 
-Item::~Item() {
+Item::~Item()
+{
     //dtor
 }

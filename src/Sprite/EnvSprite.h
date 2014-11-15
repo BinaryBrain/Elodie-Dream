@@ -4,7 +4,8 @@
 #include <SFML/Graphics.hpp>
 
 
-class EnvSprite : public sf::Sprite {
+class EnvSprite : public sf::Sprite
+{
 public:
     EnvSprite();
     virtual ~EnvSprite();

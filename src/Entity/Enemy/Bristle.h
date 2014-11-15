@@ -9,7 +9,8 @@
 #include "../../EntityManager/EntityManager.h"
 #include "../Elodie.h"
 
-class Bristle : public Entity {
+class Bristle : public Entity
+{
 public:
     static const int DAMAGE;
     static const int SPEED_X;
@@ -17,7 +18,8 @@ public:
     static const int DETECTION;
     static const std::map< int, std::string > ANIMATIONS;
 
-    enum State {
+    enum State
+    {
         STANDING,
         GRATTING
     };

@@ -4,7 +4,8 @@
 #include <string>
 #include "AnimatedSprite.h"
 
-class CharacterSprite : public AnimatedSprite {
+class CharacterSprite : public AnimatedSprite
+{
 public:
     CharacterSprite();
     virtual ~CharacterSprite();

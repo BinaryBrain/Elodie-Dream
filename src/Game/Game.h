@@ -34,7 +34,8 @@ class SoundManager;
 * Uses the Singleton Pattern so that Game can be instantiated only one time. Thus, the constructor is private an
 * getInstance can be used to get the only instance of Game.
 */
-class Game {
+class Game
+{
 public:
     static Game& getInstance();
 

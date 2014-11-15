@@ -11,7 +11,8 @@
 
 typedef std::map< LevelEnv, std::map< TileType, sf::Texture* > > TileTextures;
 
-class TextureManager {
+class TextureManager
+{
 public:
     TextureManager();
     virtual ~TextureManager();

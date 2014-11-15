@@ -1,7 +1,9 @@
 #include "SoundManager.h"
 
-SoundManager::SoundManager() {
-    SOUND_TYPE = {
+SoundManager::SoundManager()
+{
+    SOUND_TYPE =
+    {
         { SoundType::PUNCH, { SOUND_TYPE_PUNCH, SOUND_TYPE_PUNCH_MAX } }, // The int is the number after the max file (2 => punch2.wav)
         { SoundType::SPIKES, { SOUND_TYPE_SPIKES, SOUND_TYPE_SPIKES_MAX } },
         { SoundType::SHEEP, { SOUND_TYPE_SHEEP, SOUND_TYPE_SHEEP_MAX } },
@@ -14,11 +16,15 @@ SoundManager::SoundManager() {
     };
 }
 
-SoundManager::~SoundManager() {
+SoundManager::~SoundManager()
+{
     for(std::map< SoundType, std::map < int, sf::SoundBuffer* > >::iterator bufferPair = soundBuffers.begin();
-            bufferPair != soundBuffers.end(); bufferPair++) {
-        for(std::map < int, sf::SoundBuffer* >::iterator buffer = bufferPair->second.begin(); buffer != bufferPair->second.end(); buffer++) {
-            if(buffer->second) {
+            bufferPair != soundBuffers.end(); bufferPair++)
+    {
+        for(std::map < int, sf::SoundBuffer* >::iterator buffer = bufferPair->second.begin(); buffer != bufferPair->second.end(); buffer++)
+        {
+            if(buffer->second)
+            {
                 delete buffer->second;
             }
         }
@@ -26,24 +32,31 @@ SoundManager::~SoundManager() {
 }
 
 // Gets the instance of the game
-SoundManager& SoundManager::getInstance() {
+SoundManager& SoundManager::getInstance()
+{
     static SoundManager instance;
     return instance;
 }
 
-sf::SoundBuffer* SoundManager::getRandomSoundBuffer(SoundType type) {
+sf::SoundBuffer* SoundManager::getRandomSoundBuffer(SoundType type)
+{
     int n = 0;
 
-    if(SOUND_TYPE[type].second != 0) {
+    if(SOUND_TYPE[type].second != 0)
+    {
         n = rand() % (SOUND_TYPE[type].second+1);
     }
 
-    if(!soundBuffers[type][n]) {
+    if(!soundBuffers[type][n])
+    {
         sf::SoundBuffer* buffer = new sf::SoundBuffer();
-        if(!buffer->loadFromFile(getPath(type, n))) {
+        if(!buffer->loadFromFile(getPath(type, n)))
+        {
             // TODO handle error
             // Buffer should not be called
-        } else {
+        }
+        else
+        {
             soundBuffers[type][n] = buffer;
         }
     }
@@ -51,14 +64,17 @@ sf::SoundBuffer* SoundManager::getRandomSoundBuffer(SoundType type) {
     return soundBuffers[type][n];
 }
 
-std::string SoundManager::getPath(SoundType type, int n) {
+std::string SoundManager::getPath(SoundType type, int n)
+{
     std::stringstream sstm;
     sstm << SOUNDS_PATH << "/" << SOUND_TYPE[type].first << n << ".wav";
     return sstm.str();
 }
 
-void SoundManager::play(sf::SoundBuffer* buffer, int volume) {
-    if(!Game::getInstance().isMute()) {
+void SoundManager::play(sf::SoundBuffer* buffer, int volume)
+{
+    if(!Game::getInstance().isMute())
+    {
         sf::Sound* sound = new sf::Sound();
         sound->setBuffer(*buffer);
         sound->setVolume(volume);
@@ -69,9 +85,11 @@ void SoundManager::play(sf::SoundBuffer* buffer, int volume) {
     cleanUnusedSounds();
 }
 
-void SoundManager::play(SoundType type) {
+void SoundManager::play(SoundType type)
+{
     int volume = 100;
-    switch(type) {
+    switch(type)
+    {
     case SoundType::PUNCH:
         volume = PUNCH_VOLUME;
         break;
@@ -85,9 +103,12 @@ void SoundManager::play(SoundType type) {
     play(buffer, volume);
 }
 
-void SoundManager::cleanUnusedSounds() {
-    for (size_t i = 0; i < sounds.size(); i++) {
-        if (sounds[i]->getStatus() != sf::Sound::Status::Playing) {
+void SoundManager::cleanUnusedSounds()
+{
+    for (size_t i = 0; i < sounds.size(); i++)
+    {
+        if (sounds[i]->getStatus() != sf::Sound::Status::Playing)
+        {
             delete sounds[i];
             sounds.erase(sounds.begin()+i);
         }

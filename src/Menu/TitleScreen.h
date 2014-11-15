@@ -4,7 +4,8 @@
 #include "../Displayable/Displayable.h"
 #include "../Game/GameView.h"
 
-class TitleScreen : public Displayable {
+class TitleScreen : public Displayable
+{
 public:
     TitleScreen(GameView& gameView);
     virtual ~TitleScreen();

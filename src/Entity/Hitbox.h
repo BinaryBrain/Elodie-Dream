@@ -4,7 +4,8 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-class Hitbox {
+class Hitbox
+{
 public:
     Hitbox(sf::FloatRect area);
     Hitbox(const Hitbox& original);

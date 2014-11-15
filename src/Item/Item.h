@@ -1,7 +1,8 @@
 #ifndef ITEM_H
 #define ITEM_H
 
-class Item {
+class Item
+{
 public:
     /**
     * \brief The constructor of Item.

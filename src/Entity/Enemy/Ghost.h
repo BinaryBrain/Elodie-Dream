@@ -9,7 +9,8 @@
 #include "../../EntityManager/EntityManager.h"
 #include "../Elodie.h"
 
-class Ghost : public Entity {
+class Ghost : public Entity
+{
 public:
     static const int DAMAGE;
     static const int STEP;
@@ -17,7 +18,8 @@ public:
     static const int SPEED_X;
     static const std::map< int, std::string > ANIMATIONS;
 
-    enum State {
+    enum State
+    {
         STANDING
     };
 

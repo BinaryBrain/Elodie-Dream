@@ -13,7 +13,8 @@
 #include "../Entity/Bonus.h"
 #include "../Stats/StatsManager.h"
 
-class ScoreManager {
+class ScoreManager
+{
 public:
     static const int BONUS_NODAMAGES;
 

@@ -7,7 +7,8 @@
 #include "rapidjson/stringbuffer.h"
 #include "../env.h"
 
-class JsonStringifier {
+class JsonStringifier
+{
 public:
     JsonStringifier();
     virtual ~JsonStringifier();

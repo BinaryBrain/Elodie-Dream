@@ -9,12 +9,14 @@
 #include "../../EntityManager/EntityManager.h"
 #include "../Elodie.h"
 
-class Spikes : public Entity {
+class Spikes : public Entity
+{
 public:
     static const int DAMAGE;
     static const std::map< int, std::string > ANIMATIONS;
 
-    enum State {
+    enum State
+    {
         WAITING,
         ACTIVATED,
         UNACTIVATED

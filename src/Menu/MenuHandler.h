@@ -12,7 +12,8 @@
 #include "../Json/JsonAccessor.h"
 
 
-class MenuHandler : public Displayable {
+class MenuHandler : public Displayable
+{
 public:
     static const int CHAR_SIZE;
 

@@ -14,7 +14,8 @@
 #include "../Include/EntityInfo.h"
 #include "FileHandler.h"
 
-class JsonAccessor {
+class JsonAccessor
+{
 public:
     JsonAccessor();
     ~JsonAccessor();

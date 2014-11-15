@@ -4,7 +4,8 @@ const int ScoreBoard::CHAR_SIZE = 25;
 const float ScoreBoard::INTERSPACE = 100;
 const float ScoreBoard::STARTY = 100;
 
-ScoreBoard::ScoreBoard(GameView& gameView) : Displayable(gameView) {
+ScoreBoard::ScoreBoard(GameView& gameView) : Displayable(gameView)
+{
     float viewX(WINDOW_WIDTH);
     float viewY(WINDOW_HEIGHT);
 
@@ -28,11 +29,13 @@ ScoreBoard::ScoreBoard(GameView& gameView) : Displayable(gameView) {
     gameView.addView(ViewLayer::SCORE, this);
 }
 
-ScoreBoard::~ScoreBoard() {
+ScoreBoard::~ScoreBoard()
+{
 
 }
 
-void ScoreBoard::display() {
+void ScoreBoard::display()
+{
     gameView.addDrawable(ViewLayer::SCORE, &rect);
     gameView.addDrawable(ViewLayer::SCORE, &damagesTakenText);
     gameView.addDrawable(ViewLayer::SCORE, &enemiesKilledText);
@@ -40,7 +43,8 @@ void ScoreBoard::display() {
     gameView.addDrawable(ViewLayer::SCORE, &pointsText);
 }
 
-void ScoreBoard::prepareText() {
+void ScoreBoard::prepareText()
+{
     ScoreManager& scoreManager = ScoreManager::getInstance();
     float viewX(WINDOW_WIDTH);
 
@@ -52,7 +56,8 @@ void ScoreBoard::prepareText() {
     std::string enemiesString = "Enemies killed: " + Utils::itos(score.getEnemiesKilled()) + " => " + Utils::itos(scoreManager.getKillPoints()) + " pts";
 
     std::string p = "";
-    if (damages == 0) {
+    if (damages == 0)
+    {
         p = "Bonus 0 damages taken: "+ Utils::itos(ScoreManager::BONUS_NODAMAGES) +" pts !\n";
     }
 

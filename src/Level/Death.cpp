@@ -5,7 +5,8 @@ const float Death::INTERSPACE = 50;
 const std::string Death::MUSIC = "death.ogg";
 const std::string Death::DREAMOVER = "assets/img/sprites/dreamover.png";
 
-Death::Death(GameView& view, bool isMute) : Displayable(view) {
+Death::Death(GameView& view, bool isMute) : Displayable(view)
+{
     float viewX = gameView.getSizeX();
     float viewY = gameView.getSizeY();
 
@@ -30,11 +31,15 @@ Death::Death(GameView& view, bool isMute) : Displayable(view) {
 
     wokeUp.setPosition(midX - wokeUp.getLocalBounds().width/2, botElo + INTERSPACE);
 
-    if (!music.openFromFile(MUSIC_PATH + "/" + MUSIC)) {
+    if (!music.openFromFile(MUSIC_PATH + "/" + MUSIC))
+    {
         // TODO Handle error
-    } else {
+    }
+    else
+    {
         music.setLoop(true);
-        if (!isMute) {
+        if (!isMute)
+        {
             music.play();
         }
     }
@@ -42,16 +47,19 @@ Death::Death(GameView& view, bool isMute) : Displayable(view) {
     view.addView(ViewLayer::DEATH, this);
 }
 
-Death::~Death() {
+Death::~Death()
+{
 
 }
 
-void Death::display() {
+void Death::display()
+{
     gameView.addDrawable(ViewLayer::DEATH, &rect);
     gameView.addDrawable(ViewLayer::DEATH, &elo);
     gameView.addDrawable(ViewLayer::DEATH, &wokeUp);
 }
 
-sf::Music& Death::getMusic() {
+sf::Music& Death::getMusic()
+{
     return music;
 }

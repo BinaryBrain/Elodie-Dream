@@ -10,11 +10,13 @@
 #include "../EntityManager/EntityManager.h"
 #include "Elodie.h"
 
-class Portal : public Entity {
+class Portal : public Entity
+{
 public:
     static const std::map< int, std::string > ANIMATIONS;
 
-    enum State {
+    enum State
+    {
         STANDING
     };
 

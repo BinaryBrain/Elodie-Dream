@@ -1,6 +1,7 @@
 #include "Girly.h"
 
-Girly::Girly(GameView& gameView) : Displayable(gameView) {
+Girly::Girly(GameView& gameView) : Displayable(gameView)
+{
     float viewX = gameView.getSizeX();
     float viewY = gameView.getSizeY();
 
@@ -10,10 +11,12 @@ Girly::Girly(GameView& gameView) : Displayable(gameView) {
     filter.setPosition(0, 0);
 }
 
-Girly::~Girly() {
+Girly::~Girly()
+{
     //dtor
 }
 
-void Girly::display() {
+void Girly::display()
+{
     gameView.addDrawable(ViewLayer::GIRLY, &filter);
 }

@@ -6,7 +6,8 @@
 #include "../Displayable/Displayable.h"
 #include "../Game/GameView.h"
 
-class Hud : public Displayable {
+class Hud : public Displayable
+{
 public:
     static const std::string IMMERSION_BAR_IMG;
     static const std::string IMMERSION_BAR_BG_IMG;
