@@ -25,7 +25,7 @@ Overworld::Overworld(GameView& gameView, bool muted) : Displayable(gameView) {
         sf::Texture* spotTexture = new sf::Texture;
         spotTexture->loadFromFile("assets/img/overworld/spot_level.png");
         sf::Sprite* spotSprite = new sf::Sprite(*spotTexture);
-        spotSprite->setPosition((*levelPos[i])[0] - 16, (*levelPos[i])[1] - 16);
+        spotSprite->setPosition((levelPos[i])[0] - 16, (levelPos[i])[1] - 16);
         levelSpotSprites.push_back(spotSprite);
     }
     pathSprites.push_back(new sf::Sprite);
@@ -47,10 +47,10 @@ Overworld::Overworld(GameView& gameView, bool muted) : Displayable(gameView) {
 
         do {
             curPos ++;
-            std::vector<int>* tmp = accessor.getIntVector(Utils::itos(curPos));
-            vec = new sf::Vector2f((*tmp)[0], (*tmp)[1]);
+            std::vector<int> tmp = accessor.getIntVector(Utils::itos(curPos));
+            vec = new sf::Vector2f((tmp)[0], (tmp)[1]);
             mem->push_back(vec);
-        } while ((*vec).x != (*levelPos[i])[0] or (*vec).y != (*levelPos[i])[1]);
+        } while ((*vec).x != (levelPos[i])[0] or (*vec).y != (levelPos[i])[1]);
 
         sf::VertexArray* path = new sf::VertexArray(sf::LinesStrip, mem->size());
 
@@ -89,9 +89,6 @@ Overworld::~Overworld() {
         delete *sprite;
     }
 
-    for (std::vector<std::vector<int>*>::iterator pos = levelPos.begin(); pos != levelPos.end(); ++pos) {
-        delete *pos;
-    }
     for (std::vector<sf::VertexArray*>::iterator path = paths.begin(); path != paths.end(); ++path) {
         delete *path;
     }

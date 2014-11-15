@@ -21,8 +21,8 @@ public:
     std::string getString(const std::string& key);
     int getInt(const std::string& key);
     double getDouble(const std::string& key);
-    std::vector<int>* getIntVector(const std::string& key);
-    std::vector< std::vector<int>* >* getInt2DVector(const std::string& key);
+    std::vector<int> getIntVector(const std::string& key);
+    std::vector< std::vector<int> > getInt2DVector(const std::string& key);
     EntityInfo* getEntityInfo();
 
     std::string getStringWithDefault(const std::string& key, const std::string& defaultValue);

@@ -40,28 +40,28 @@ double JsonAccessor::getDouble(const std::string& key) {
     return a.GetDouble();
 }
 
-std::vector<int>* JsonAccessor::getIntVector(const std::string& key) {
-    std::vector<int>* vec = new std::vector<int>();
+std::vector<int> JsonAccessor::getIntVector(const std::string& key) {
+    std::vector<int> vec;
     const rapidjson::Value& a = getAskedObject(key);
     assert(a.IsArray());
     for (rapidjson::SizeType i = 0; i < a.Size(); i++) {
-        vec->push_back(a[i].GetInt());
+        vec.push_back(a[i].GetInt());
     }
 
     return vec;
 }
 
-std::vector< std::vector<int>* >* JsonAccessor::getInt2DVector(const std::string& key) {
-    std::vector< std::vector<int>* >* vec = new std::vector< std::vector<int>* >();
+std::vector< std::vector<int> > JsonAccessor::getInt2DVector(const std::string& key) {
+    std::vector< std::vector<int> > vec;
     const rapidjson::Value& a = getAskedObject(key);
     assert(a.IsArray());
     for (rapidjson::SizeType i = 0; i < a.Size(); ++i) {
-        std::vector<int>* row = new std::vector<int>();
+        std::vector<int> row;
         assert(a[i].IsArray());
         for (rapidjson::SizeType j = 0; j < a[i].Size(); ++j) {
-            row->push_back(a[i][j].GetInt());
+            row.push_back(a[i][j].GetInt());
         }
-        vec->push_back(row);
+        vec.push_back(row);
     }
 
     return vec;

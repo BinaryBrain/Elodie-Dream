@@ -56,7 +56,7 @@ private:
     std::vector<sf::Sprite*> overworldSprites;
     std::vector<sf::VertexArray*> paths;
     std::vector<sf::Sprite*> pathSprites;
-    std::vector<std::vector<int>*> levelPos;
+    std::vector< std::vector<int> > levelPos;
 
     size_t curPosInPath=0;
 

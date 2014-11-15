@@ -529,11 +529,11 @@ void Game::load() {
             // if the version number exists
             if (accessor.canTakeElementFrom(SaveHandler::VERSION_KEY)) {
                 if (accessor.canTakeElementFrom(SaveHandler::SCORES_KEY)) {
-                    std::vector< std::vector<int>* > datas = *(accessor.getInt2DVector(SaveHandler::SCORES_KEY));
+                    std::vector< std::vector<int> > datas = accessor.getInt2DVector(SaveHandler::SCORES_KEY);
                     std::vector< std::vector<int> > scoreDatas;
 
                     for (size_t i = 0; i < datas.size(); ++i) {
-                        std::vector<int> score = *(datas[i]);
+                        std::vector<int> score = datas[i];
                         scoreDatas.push_back(score);
                     }
 
@@ -541,7 +541,7 @@ void Game::load() {
                 }
 
                 if (accessor.canTakeElementFrom(SaveHandler::MORESTATS_KEY)) {
-                    std::vector<int> datas = *(accessor.getIntVector(SaveHandler::MORESTATS_KEY));
+                    std::vector<int> datas = accessor.getIntVector(SaveHandler::MORESTATS_KEY);
                     statsManager.setAllValues(datas);
                 }
             } else {
