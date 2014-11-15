@@ -53,7 +53,8 @@ private:
     };
 
     states currentState;
-    std::vector<sf::Sprite*> overworldSprites;
+    std::vector<sf::Sprite> overworldSprites;
+    std::vector<sf::Texture*> overworldTextures;
     std::vector<sf::VertexArray*> paths;
     std::vector<sf::Sprite*> pathSprites;
     std::vector< std::vector<int> > levelPos;

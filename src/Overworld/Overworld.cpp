@@ -4,8 +4,9 @@ Overworld::Overworld(GameView& gameView, bool muted) : Displayable(gameView) {
     std::string filenames[4] = { "overworld1.png", "overworld2.png", "overworld3.png", "overworld4.png" };
     for(int i=0; i<4; i++) {
         sf::Texture* overworld = new sf::Texture;
-        overworld->loadFromFile("assets/img/overworld/"+filenames[i]);
-        overworldSprites.push_back(new sf::Sprite(*overworld));
+        overworldTextures.push_back(overworld);
+        overworldTextures.back()->loadFromFile("assets/img/overworld/"+filenames[i]);
+        overworldSprites.push_back(sf::Sprite(*(overworldTextures.back())));
     }
 
     JsonAccessor accessor;
@@ -81,8 +82,8 @@ Overworld::~Overworld() {
     for (std::vector<sf::Sprite*>::iterator sprite = pathSprites.begin(); sprite != pathSprites.end(); ++sprite) {
         delete *sprite;
     }
-    for (std::vector<sf::Sprite*>::iterator sprite = overworldSprites.begin(); sprite != overworldSprites.end(); ++sprite) {
-        delete *sprite;
+    for (std::vector<sf::Texture*>::iterator texture = overworldTextures.begin(); texture != overworldTextures.end(); ++texture) {
+        delete *texture;
     }
 
     for (std::vector<sf::Sprite*>::iterator sprite = levelSpotSprites.begin(); sprite != levelSpotSprites.end(); ++sprite) {
@@ -104,7 +105,7 @@ void Overworld::setPosInPath(int pos) {
 }
 
 void Overworld::display() {
-    gameView.addDrawable(ViewLayer::OVERWORLD, overworldSprites[whichOverworld()]);
+    gameView.addDrawable(ViewLayer::OVERWORLD, &overworldSprites[whichOverworld()]);
     gameView.addDrawable(ViewLayer::OVERWORLD, pathSprites[currentState]);
     for(size_t i = 0; i <= currentState; ++i) {
         gameView.addDrawable(ViewLayer::OVERWORLD, levelSpotSprites[i]);
