@@ -3,10 +3,12 @@
 
 #include <fstream>
 #include <cstdio>
-#include "rapidjson/document.h"		// rapidjson's DOM-style API
-#include "rapidjson/prettywriter.h"	// for stringify JSON
-#include "rapidjson/filestream.h"	// wrapper of C stream for prettywriter as output
+#include "rapidjson/document.h"
+#include "rapidjson/prettywriter.h"
+#include "rapidjson/filestream.h"
 #include "../env.h"
+#include "../const.h"
+#include "../Utils/Utils.h"
 
 #include "../Json/JsonStringifier.h"
 #include "FileHandler.h"
@@ -14,6 +16,12 @@
 class SaveHandler {
 public:
     static const unsigned int NUMSLOTS;
+
+    static const std::string VERSION_KEY;
+    static const std::string DATE_KEY;
+    static const std::string LDL_KEY;
+    static const std::string SCORES_KEY;
+    static const std::string MORESTATS_KEY;
 
     static SaveHandler& getInstance();
     static bool isSlotFree(const std::string& slot);

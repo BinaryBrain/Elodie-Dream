@@ -522,14 +522,14 @@ void Game::load() {
         bool jsonOk = accessor.setJson(saveHandler.getDecryptedContentFrom(path));
 
         // if the save is valid
-        if (jsonOk && accessor.canTakeElementFrom("date") && accessor.canTakeElementFrom("lastdiscoveredlevel")) {
-            std::string date = accessor.getString("date");
-            int LDL = accessor.getInt("lastdiscoveredlevel");
+        if (jsonOk && accessor.canTakeElementFrom(SaveHandler::DATE_KEY) && accessor.canTakeElementFrom(SaveHandler::LDL_KEY)) {
+            std::string date = accessor.getString(SaveHandler::DATE_KEY);
+            int LDL = accessor.getInt(SaveHandler::LDL_KEY);
 
             // if the version number exists
-            if (accessor.canTakeElementFrom("version")) {
-                if (accessor.canTakeElementFrom("scoresdatas")) {
-                    std::vector< std::vector<int>* > datas = *(accessor.getInt2DVector("scoresdatas"));
+            if (accessor.canTakeElementFrom(SaveHandler::VERSION_KEY)) {
+                if (accessor.canTakeElementFrom(SaveHandler::SCORES_KEY)) {
+                    std::vector< std::vector<int>* > datas = *(accessor.getInt2DVector(SaveHandler::SCORES_KEY));
                     std::vector< std::vector<int> > scoreDatas;
 
                     for (size_t i = 0; i < datas.size(); ++i) {
@@ -540,8 +540,8 @@ void Game::load() {
                     scoreManager.setAllDatas(scoreDatas);
                 }
 
-                if (accessor.canTakeElementFrom("morestats")) {
-                    std::vector<int> datas = *(accessor.getIntVector("morestats"));
+                if (accessor.canTakeElementFrom(SaveHandler::MORESTATS_KEY)) {
+                    std::vector<int> datas = *(accessor.getIntVector(SaveHandler::MORESTATS_KEY));
                     statsManager.setAllValues(datas);
                 }
             } else {
@@ -601,18 +601,12 @@ void Game::save() {
     std::vector<int> moreStatsDatas = statsManager.getAllValues();
 
     // saves the datas to the save file
-    std::string keyVersion = "version";
-    std::string keyDate = "date";
-    std::string keyLDL = "lastdiscoveredlevel";
-    std::string keyScoresDatas = "scoresdatas";
-    std::string keyMoreStats = "morestats";
-
     JsonStringifier& stringifier = saveHandler.getStringifier();
-    stringifier.add(keyVersion, GAME_VERSION);
-    stringifier.add(keyDate, date);
-    stringifier.add(keyLDL, LDL);
-    stringifier.add(keyScoresDatas, scoresDatas);
-    stringifier.add(keyMoreStats, moreStatsDatas);
+    stringifier.add(SaveHandler::VERSION_KEY, GAME_VERSION);
+    stringifier.add(SaveHandler::DATE_KEY, date);
+    stringifier.add(SaveHandler::LDL_KEY, LDL);
+    stringifier.add(SaveHandler::SCORES_KEY, scoresDatas);
+    stringifier.add(SaveHandler::MORESTATS_KEY, moreStatsDatas);
 
     saveHandler.saveEncryptedContentTo(path);
     saveHandler.clearStringifier();

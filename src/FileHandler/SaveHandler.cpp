@@ -1,8 +1,12 @@
-#include "../const.h"
-#include "../Utils/Utils.h"
 #include "SaveHandler.h"
 
 const unsigned int SaveHandler::NUMSLOTS = 5;
+
+const std::string SaveHandler::VERSION_KEY = "version";
+const std::string SaveHandler::DATE_KEY = "date";
+const std::string SaveHandler::LDL_KEY = "lastdiscoveredlevel";
+const std::string SaveHandler::SCORES_KEY = "scoresdatas";
+const std::string SaveHandler::MORESTATS_KEY = "morestats";
 
 SaveHandler::SaveHandler() {
 
