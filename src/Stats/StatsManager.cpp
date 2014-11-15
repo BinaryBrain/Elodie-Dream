@@ -65,7 +65,7 @@ int StatsManager::getTotalEnemiesKilled()
     return datas[SHEEPS_KEY] + datas[MAGMACUBE_KEY] + datas[BRISTLES_KEY];
 }
 
-std::map<std::string, int>& StatsManager::getAllDatas()
+const std::map<std::string, int>& StatsManager::getAllDatas()
 {
     return datas;
 }
@@ -124,7 +124,7 @@ void StatsManager::setTotalBristles(int totalBristles)
     datas[BRISTLES_KEY] = totalBristles;
 }
 
-void StatsManager::setAllValues(std::vector<int>& values)
+void StatsManager::setAllValues(const std::vector<int>& values)
 {
     reset();
     datas[BONI_KEY] = values[0];

@@ -32,7 +32,7 @@ public:
     int getTotalBristles();
     int getTotalEnemiesKilled();
 
-    std::map<std::string, int>& getAllDatas();
+    const std::map<std::string, int>& getAllDatas();
     std::vector< std::pair<std::string, int> > getLabelledValues();
     std::vector<int> getAllValues();
 
@@ -44,7 +44,7 @@ public:
     void setTotalMagmaCubes(int totalMagmaCubes);
     void setTotalBristles(int totalBristles);
 
-    void setAllValues(std::vector<int>& values);
+    void setAllValues(const std::vector<int>& values);
 
     void reset();
 
