@@ -112,7 +112,7 @@ void StatsBoard::createMoreStats() {
     sf::Text& lastText = allTexts[allTexts.size() - 1];
     float x = MARGIN;
     float y = lastText.getPosition().y + lastText.getLocalBounds().height + MARGIN;
-    std::vector< std::pair<std::string, int>> namesValues = statsManager.getLabelledDatas();
+    std::vector< std::pair<std::string, int>> namesValues = statsManager.getLabelledValues();
 
     for (size_t i = 0; i < namesValues.size(); ++i) {
         sf::Text t;

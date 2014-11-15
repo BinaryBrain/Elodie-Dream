@@ -528,21 +528,24 @@ void Game::load() {
 
             // if the version number exists
             if (accessor.canTakeElementFrom("version")) {
-                std::vector< std::vector<int>* > datas = *(accessor.getInt2DVector("scoresdatas"));
-                std::vector< std::vector<int> > scoreDatas;
+                if (accessor.canTakeElementFrom("scoresdatas")) {
+                    std::vector< std::vector<int>* > datas = *(accessor.getInt2DVector("scoresdatas"));
+                    std::vector< std::vector<int> > scoreDatas;
 
-                for (size_t i = 0; i < datas.size(); ++i) {
-                    std::vector<int> score = *(datas[i]);
-                    scoreDatas.push_back(score);
+                    for (size_t i = 0; i < datas.size(); ++i) {
+                        std::vector<int> score = *(datas[i]);
+                        scoreDatas.push_back(score);
+                    }
+
+                    scoreManager.setAllDatas(scoreDatas);
                 }
 
-                scoreManager.setAllDatas(scoreDatas);
-                //std::cout << "Save from version " << accessor.getDouble("version") << std::endl;
-
+                if (accessor.canTakeElementFrom("morestats")) {
+                    std::vector<int> datas = *(accessor.getIntVector("morestats"));
+                    statsManager.setAllValues(datas);
+                }
             } else {
                 std::cout << "Save from version prior to 1.1" << std::endl;
-                scoreManager.resetAllScores();
-                statsManager.reset();
             }
 
 
@@ -595,18 +598,21 @@ void Game::save() {
     currentMenuSave->getText()->setString(saveHandler.computeLevelName(LDL));
 
     std::vector< std::vector<int> > scoresDatas = scoreManager.getAllDatas();
+    std::vector<int> moreStatsDatas = statsManager.getAllValues();
 
     // saves the datas to the save file
     std::string keyVersion = "version";
     std::string keyDate = "date";
     std::string keyLDL = "lastdiscoveredlevel";
     std::string keyScoresDatas = "scoresdatas";
+    std::string keyMoreStats = "morestats";
 
     JsonStringifier& stringifier = saveHandler.getStringifier();
     stringifier.add(keyVersion, GAME_VERSION);
     stringifier.add(keyDate, date);
     stringifier.add(keyLDL, LDL);
     stringifier.add(keyScoresDatas, scoresDatas);
+    stringifier.add(keyMoreStats, moreStatsDatas);
 
     saveHandler.saveEncryptedContentTo(path);
     saveHandler.clearStringifier();

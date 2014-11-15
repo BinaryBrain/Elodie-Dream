@@ -32,7 +32,8 @@ public:
     int getTotalEnemiesKilled();
 
     std::map<std::string, int>& getAllDatas();
-    std::vector< std::pair<std::string, int> > getLabelledDatas();
+    std::vector< std::pair<std::string, int> > getLabelledValues();
+    std::vector<int> getAllValues();
 
     void setTotalBoni(int totalBoni);
     void setTotalDamages(int totalDamages);
@@ -41,6 +42,8 @@ public:
     void setTotalSheeps(int totalSheeps);
     void setTotalMagmaCubes(int totalMagmaCubes);
     void setTotalBristles(int totalBristles);
+
+    void setAllValues(std::vector<int>& values);
 
     void reset();
 

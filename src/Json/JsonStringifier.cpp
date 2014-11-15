@@ -26,7 +26,7 @@ void JsonStringifier::add(std::string key, std::vector<int> v) {
     arr.SetArray();
 
     for (size_t i = 0; i < v.size(); ++i) {
-        arr.PushBack(i, doc.GetAllocator());
+        arr.PushBack(v[i], doc.GetAllocator());
     }
     doc.AddMember(key.c_str(), arr, doc.GetAllocator());
 }

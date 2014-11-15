@@ -59,7 +59,7 @@ std::map<std::string, int>& StatsManager::getAllDatas() {
     return datas;
 }
 
-std::vector< std::pair<std::string, int> > StatsManager::getLabelledDatas() {
+std::vector< std::pair<std::string, int> > StatsManager::getLabelledValues() {
     std::vector< std::pair<std::string, int> > namesValues;
     namesValues.push_back(std::make_pair(BONI_LABEL, datas[BONI_KEY]));
     namesValues.push_back(std::make_pair(DAMAGES_LABEL, datas[DAMAGES_KEY]));
@@ -68,6 +68,17 @@ std::vector< std::pair<std::string, int> > StatsManager::getLabelledDatas() {
     namesValues.push_back(std::make_pair(MAGMACUBE_LABEL, datas[MAGMACUBE_KEY]));
     namesValues.push_back(std::make_pair(BRISTLES_LABEL, datas[BRISTLES_KEY]));
     return namesValues;
+}
+
+std::vector<int> StatsManager::getAllValues() {
+    std::vector<int> values;
+    values.push_back(datas[BONI_KEY]);
+    values.push_back(datas[DAMAGES_KEY]);
+    values.push_back(datas[DEATHS_KEY]);
+    values.push_back(datas[SHEEPS_KEY]);
+    values.push_back(datas[MAGMACUBE_KEY]);
+    values.push_back(datas[BRISTLES_KEY]);
+    return values;
 }
 
 void StatsManager::setTotalBoni(int totalBoni) {
@@ -92,6 +103,16 @@ void StatsManager::setTotalMagmaCubes(int totalMagmaCubes) {
 
 void StatsManager::setTotalBristles(int totalBristles) {
     datas[BRISTLES_KEY] = totalBristles;
+}
+
+void StatsManager::setAllValues(std::vector<int>& values) {
+    reset();
+    datas[BONI_KEY] = values[0];
+    datas[DAMAGES_KEY] = values[1];
+    datas[DEATHS_KEY] = values[2];
+    datas[SHEEPS_KEY] = values[3];
+    datas[MAGMACUBE_KEY] = values[4];
+    datas[BRISTLES_KEY] = values[5];
 }
 
 void StatsManager::reset() {
