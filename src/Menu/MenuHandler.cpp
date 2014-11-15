@@ -127,8 +127,7 @@ void MenuHandler::addCompToMenu(MenuComponent* comp, Menu* menu, bool isParent) 
 MenuComponent* MenuHandler::getMenuComponentFromKey(std::string key) {
     try {
         return compPointers.at(key);
-    }
-    catch (const std::out_of_range& oor) {
+    } catch (const std::out_of_range& oor) {
         std::cerr << "Could not find " << key<< " in compPointers" << std::endl;
         return compPointers[0];
     }

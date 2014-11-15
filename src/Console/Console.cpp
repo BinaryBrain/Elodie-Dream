@@ -167,7 +167,7 @@ void Console::prepareCurrentPage() {
         newText.setCharacterSize(15);
         newText.setPosition(startX+marginX, startY+marginY+20*i);
         currentPageText.push_back(newText);
-     }
+    }
 
     // progress number
     newText.setString(toString(currentPage+1) + "/" + toString(totalPages));
@@ -197,7 +197,7 @@ void Console::display() {
     }
 }
 
-void Console::setNextState(GameState state){
+void Console::setNextState(GameState state) {
     nextState = state;
 }
 

@@ -1,9 +1,8 @@
 #include "Level.h"
 
 Level::Level(GameView& gameView, std::string filename, LevelEnv env, Elodie& elodie) :
-  Displayable(gameView),
-  environement(env)
-{
+    Displayable(gameView),
+    environement(env) {
     loadLevel(filename, elodie);
 
     std::pair< float, float > slow = getSlowVariables(env);

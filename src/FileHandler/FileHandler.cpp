@@ -29,8 +29,7 @@ bool FileHandler::writeContent(const std::string& path, const std::string& toWri
         stream << toWrite << std::endl;
         stream.close();
         return true;
-    }
-    else {
+    } else {
         std::cerr << "Error: could not write to " << path << "." << std::endl;
         return false;
     }
@@ -45,7 +44,7 @@ bool FileHandler::deleteFile(const std::string& path) {
 }
 
 bool FileHandler::fileExists(const std::string& path) {
-  std::ifstream f((path).c_str());
+    std::ifstream f((path).c_str());
     if (f.good()) {
         f.close();
         return true;
@@ -61,8 +60,7 @@ bool FileHandler::createFileIfNotExisting(const std::string& path, const std::st
             fputs(content.c_str(), f);
             fclose(f);
             return true;
-        }
-        else {
+        } else {
             std::cerr << "Error: could not create " << path << "." << std::endl;
             return false;
         }

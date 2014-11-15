@@ -26,10 +26,9 @@ SoundManager::~SoundManager() {
 }
 
 // Gets the instance of the game
-SoundManager& SoundManager::getInstance()
-{
-  static SoundManager instance;
-  return instance;
+SoundManager& SoundManager::getInstance() {
+    static SoundManager instance;
+    return instance;
 }
 
 sf::SoundBuffer* SoundManager::getRandomSoundBuffer(SoundType type) {

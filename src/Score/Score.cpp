@@ -45,7 +45,7 @@ int Score::getBristles() {
 }
 
 bool Score::isRegistered() {
-   return registered;
+    return registered;
 }
 
 void Score::setLevelId(int levelId) {

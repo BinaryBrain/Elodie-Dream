@@ -9,30 +9,28 @@
 #include "../EntityManager/EntityManager.h"
 #include "Elodie.h"
 
-class Poro : public Entity
-{
+class Poro : public Entity {
 public:
-  static const int SPEED_X;
-  static const int SPEED_Y;
-  static const int DETECTION;
-  static const std::map< int, std::string > ANIMATIONS;
+    static const int SPEED_X;
+    static const int SPEED_Y;
+    static const int DETECTION;
+    static const std::map< int, std::string > ANIMATIONS;
 
-  enum State
-    {
-      RUNNING
+    enum State {
+        RUNNING
     };
 
 public:
-  Poro();
-  Poro(sf::Vector2f position);
-  Poro(float x, float y);
-  virtual ~Poro();
+    Poro();
+    Poro(sf::Vector2f position);
+    Poro(float x, float y);
+    virtual ~Poro();
 
-  void checkArea(std::map< std::string, Entity* >& entities);
+    void checkArea(std::map< std::string, Entity* >& entities);
 
-  virtual void takeDamage(int damage, bool ignore);
-  virtual void doStuff(const EventHandler& event, const std::vector< std::vector<TileSprite*> >& tiles,
-		       std::map< std::string, Entity* >& entities, sf::Time animate);
+    virtual void takeDamage(int damage, bool ignore);
+    virtual void doStuff(const EventHandler& event, const std::vector< std::vector<TileSprite*> >& tiles,
+                         std::map< std::string, Entity* >& entities, sf::Time animate);
 };
 
 #endif // PORO_H_INCLUDED

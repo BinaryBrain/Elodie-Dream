@@ -10,7 +10,7 @@ public:
     static const std::string DEFAULT_LANGUAGE;
 
     ConfigManager();
-     ~ConfigManager();
+    ~ConfigManager();
     void load(const std::string& configPath);
     const std::string& getLanguage();
 

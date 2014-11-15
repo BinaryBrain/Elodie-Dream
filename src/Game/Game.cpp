@@ -1,11 +1,10 @@
 #include "Game.h"
 
 Game::Game() :
-  saveHandler(SaveHandler::getInstance()),
-  soundManager(SoundManager::getInstance()),
-  scoreManager(ScoreManager::getInstance()),
-  statsManager(StatsManager::getInstance())
-{
+    saveHandler(SaveHandler::getInstance()),
+    soundManager(SoundManager::getInstance()),
+    scoreManager(ScoreManager::getInstance()),
+    statsManager(StatsManager::getInstance()) {
     configManager.load(SETTINGS_PATH + "/settings.json");
 
     mute = DEFAULT_MUTE;
@@ -27,10 +26,9 @@ Game::~Game() {
 }
 
 // Gets the instance of the game
-Game& Game::getInstance()
-{
-  static Game instance;
-  return instance;
+Game& Game::getInstance() {
+    static Game instance;
+    return instance;
 }
 
 void Game::leaveLevel() {
@@ -112,7 +110,7 @@ void Game::displayLevel(int curLevelNbr, sf::Time time) {
                 view.show(ViewLayer::SCORE);
                 state = GameState::INSCORE;
 
-            // death
+                // death
             } else if (curLevel->isDead() && !GOD_MODE) {
                 statsManager.setTotalDeaths(statsManager.getTotalDeaths() + 1);
                 death = new Death(view, mute);
@@ -129,35 +127,35 @@ void Game::loadLevel(int levelNbr) {
     curLevelNbr = levelNbr;
     LevelEnv env = LevelEnv::FIELD;
     switch (levelNbr) {
-        case 0:
-            showTutoConsole = true;
-            env = LevelEnv::FIELD;
-            break;
-        case 1:
-            env = LevelEnv::FIELD;
-            break;
-        case 2:
-            env = LevelEnv::CASTLE;
-            break;
-        case 3:
-            showCastleConsole = true;
-            env = LevelEnv::CASTLE;
-            break;
-        case 4:
-            env = LevelEnv::VOLCANO;
-            break;
-        case 5:
-            env = LevelEnv::VOLCANO;
-            break;
-        case 6:
-            env = LevelEnv::FRELJORD;
-            break;
-        case 7:
-            env = LevelEnv::FRELJORD;
-            break;
-        default:
-            env = LevelEnv::FIELD;
-            break;
+    case 0:
+        showTutoConsole = true;
+        env = LevelEnv::FIELD;
+        break;
+    case 1:
+        env = LevelEnv::FIELD;
+        break;
+    case 2:
+        env = LevelEnv::CASTLE;
+        break;
+    case 3:
+        showCastleConsole = true;
+        env = LevelEnv::CASTLE;
+        break;
+    case 4:
+        env = LevelEnv::VOLCANO;
+        break;
+    case 5:
+        env = LevelEnv::VOLCANO;
+        break;
+    case 6:
+        env = LevelEnv::FRELJORD;
+        break;
+    case 7:
+        env = LevelEnv::FRELJORD;
+        break;
+    default:
+        env = LevelEnv::FIELD;
+        break;
     }
     curLevel = new Level(view, "assets/levels/level"+Utils::itos(curLevelNbr)+".txt", env, overworld->getElodie());
     menuHandler.getTitleMenu()->toLevelMenu();
@@ -414,47 +412,47 @@ void Game::run() {
         }
 
         switch(state) {
-            case GameState::INLEVEL:
-                displayLevel(curLevelNbr, sfTime);
-                break;
-            case GameState::INOVERWORLD:
-                handleOverworld(sfTime);
-                break;
-            case GameState::INMENU:
-                displayMenu();
-                break;
-            case GameState::INCONSOLE:
-                displayConsole();
-                break;
-            case GameState::PAUSE:
-                break;
-            case GameState::LOAD:
-                load();
-                break;
-            case GameState::SAVE:
-                save();
-                break;
-            case GameState::EXIT:
-                exit();
-                break;
-            case GameState::DEAD:
-                dead();
-                break;
-            case GameState::NEWGAME:
-                newGame();
-                break;
-            case GameState::ENDINGSCREEN:
-                displayEnd();
-                break;
-            case GameState::INSCORE:
-                displayScore();
-                break;
-            case GameState::INSTATS:
-                displayStats();
-                break;
-            default :
-                std::cerr << "Error: unknown state" << std::endl;
-                break;
+        case GameState::INLEVEL:
+            displayLevel(curLevelNbr, sfTime);
+            break;
+        case GameState::INOVERWORLD:
+            handleOverworld(sfTime);
+            break;
+        case GameState::INMENU:
+            displayMenu();
+            break;
+        case GameState::INCONSOLE:
+            displayConsole();
+            break;
+        case GameState::PAUSE:
+            break;
+        case GameState::LOAD:
+            load();
+            break;
+        case GameState::SAVE:
+            save();
+            break;
+        case GameState::EXIT:
+            exit();
+            break;
+        case GameState::DEAD:
+            dead();
+            break;
+        case GameState::NEWGAME:
+            newGame();
+            break;
+        case GameState::ENDINGSCREEN:
+            displayEnd();
+            break;
+        case GameState::INSCORE:
+            displayScore();
+            break;
+        case GameState::INSTATS:
+            displayStats();
+            break;
+        default :
+            std::cerr << "Error: unknown state" << std::endl;
+            break;
         }
 
 
@@ -617,7 +615,7 @@ void Game::save() {
         console.clearAndWrite("Successfully saved on " + currentMenuSave->getLabel() + " (" + date + ").");
         console.setNextState(GameState::INMENU);
         view.show(ViewLayer::MENU);
-    // if autosave
+        // if autosave
     } else if (state == GameState::INOVERWORLD) {
         console.clearAndWrite("Progress saved on " + currentMenuSave->getLabel() + ".");
         console.setNextState(GameState::INOVERWORLD);

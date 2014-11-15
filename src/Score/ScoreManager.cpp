@@ -105,23 +105,23 @@ void ScoreManager::addEnemyKilled(EnemyType type) {
     currentScore.setEnemiesKilled(currentScore.getEnemiesKilled() + 1);
 
     switch (type) {
-        case EnemyType::SHEEP:
-            killPoints += Sheep::DAMAGE * nKillsInARow;
-            currentScore.setSheeps(currentScore.getSheeps() + 1);
-            statsManager.setTotalSheeps(statsManager.getTotalSheeps() + 1);
-            break;
-        case EnemyType::MAGMACUBE:
-            killPoints += MagmaCube::DAMAGE * nKillsInARow;
-            currentScore.setMagmaCubes(currentScore.getMagmaCubes() + 1);
-            statsManager.setTotalMagmaCubes(statsManager.getTotalMagmaCubes() + 1);
-            break;
-        case EnemyType::BRISTLE:
-            killPoints += Bristle::DAMAGE * nKillsInARow;
-            currentScore.setBristles(currentScore.getBristles() + 1);
-            statsManager.setTotalBristles(statsManager.getTotalBristles() + 1);
-            break;
-        default:
-            break;
+    case EnemyType::SHEEP:
+        killPoints += Sheep::DAMAGE * nKillsInARow;
+        currentScore.setSheeps(currentScore.getSheeps() + 1);
+        statsManager.setTotalSheeps(statsManager.getTotalSheeps() + 1);
+        break;
+    case EnemyType::MAGMACUBE:
+        killPoints += MagmaCube::DAMAGE * nKillsInARow;
+        currentScore.setMagmaCubes(currentScore.getMagmaCubes() + 1);
+        statsManager.setTotalMagmaCubes(statsManager.getTotalMagmaCubes() + 1);
+        break;
+    case EnemyType::BRISTLE:
+        killPoints += Bristle::DAMAGE * nKillsInARow;
+        currentScore.setBristles(currentScore.getBristles() + 1);
+        statsManager.setTotalBristles(statsManager.getTotalBristles() + 1);
+        break;
+    default:
+        break;
     }
 }
 

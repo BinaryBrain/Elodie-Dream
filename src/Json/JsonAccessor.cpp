@@ -16,8 +16,8 @@ rapidjson::Value& JsonAccessor::getAskedObject(std::string key) {
     std::istringstream iss(key);
     std::vector<std::string> tokens;
     std::copy(std::istream_iterator<std::string>(iss),
-         std::istream_iterator<std::string>(),
-         std::back_inserter<std::vector<std::string> >(tokens));
+              std::istream_iterator<std::string>(),
+              std::back_inserter<std::vector<std::string> >(tokens));
     rapidjson::Value* obj = &doc;
     for (size_t i = 0; i < tokens.size(); ++i) {
         obj = &(*obj)[tokens[i].c_str()];

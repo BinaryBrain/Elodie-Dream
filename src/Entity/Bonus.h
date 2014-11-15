@@ -10,28 +10,26 @@
 #include "../EntityManager/EntityManager.h"
 #include "Elodie.h"
 
-class Bonus : public Entity
-{
+class Bonus : public Entity {
 public:
-  static const int POINTS;
-  static const std::map< int, std::string > ANIMATIONS;
+    static const int POINTS;
+    static const std::map< int, std::string > ANIMATIONS;
 
-  enum State
-    {
-      STANDING
+    enum State {
+        STANDING
     };
 
 public:
-  Bonus();
-  Bonus(sf::Vector2f position);
-  Bonus(float x, float y);
-  virtual ~Bonus();
+    Bonus();
+    Bonus(sf::Vector2f position);
+    Bonus(float x, float y);
+    virtual ~Bonus();
 
-  void getTaken(std::map< std::string, Entity* >& entities);
+    void getTaken(std::map< std::string, Entity* >& entities);
 
-  virtual void takeDamage(int damage, bool ignore);
-  virtual void doStuff(const EventHandler& event, const std::vector< std::vector<TileSprite*> >& tiles,
-		       std::map< std::string, Entity* >& entities, sf::Time animate);
+    virtual void takeDamage(int damage, bool ignore);
+    virtual void doStuff(const EventHandler& event, const std::vector< std::vector<TileSprite*> >& tiles,
+                         std::map< std::string, Entity* >& entities, sf::Time animate);
 };
 
 #endif // BONUS_H_INCLUDED

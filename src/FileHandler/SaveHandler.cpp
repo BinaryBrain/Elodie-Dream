@@ -18,8 +18,8 @@ SaveHandler::~SaveHandler() {
 
 // Gets the instance of the SaveHandler
 SaveHandler& SaveHandler::getInstance() {
-  static SaveHandler instance;
-  return instance;
+    static SaveHandler instance;
+    return instance;
 }
 
 bool SaveHandler::isSlotFree(const std::string& slot) {

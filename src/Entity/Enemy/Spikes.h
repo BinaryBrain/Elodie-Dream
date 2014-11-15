@@ -9,33 +9,31 @@
 #include "../../EntityManager/EntityManager.h"
 #include "../Elodie.h"
 
-class Spikes : public Entity
-{
+class Spikes : public Entity {
 public:
-  static const int DAMAGE;
-  static const std::map< int, std::string > ANIMATIONS;
+    static const int DAMAGE;
+    static const std::map< int, std::string > ANIMATIONS;
 
-  enum State
-    {
-      WAITING,
-      ACTIVATED,
-      UNACTIVATED
+    enum State {
+        WAITING,
+        ACTIVATED,
+        UNACTIVATED
     };
 
 public:
-  Spikes();
-  Spikes(sf::Vector2f position);
-  Spikes(float x, float y);
-  virtual ~Spikes();
+    Spikes();
+    Spikes(sf::Vector2f position);
+    Spikes(float x, float y);
+    virtual ~Spikes();
 
-  void doAttack(std::map< std::string, Entity* >& entities);
+    void doAttack(std::map< std::string, Entity* >& entities);
 
-  virtual void takeDamage(int damage, bool ignore);
-  virtual void doStuff(const EventHandler& event, const std::vector< std::vector<TileSprite*> >& tiles,
-		       std::map< std::string, Entity* >& entities, sf::Time animate);
+    virtual void takeDamage(int damage, bool ignore);
+    virtual void doStuff(const EventHandler& event, const std::vector< std::vector<TileSprite*> >& tiles,
+                         std::map< std::string, Entity* >& entities, sf::Time animate);
 
 private:
-  bool activated = false;
+    bool activated = false;
 };
 
 #endif // SPIKES_H_INCLUDED

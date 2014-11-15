@@ -32,10 +32,9 @@ EntityManager::~EntityManager() {
 }
 
 // Gets the instance of the entityManger
-EntityManager& EntityManager::getInstance()
-{
-  static EntityManager instance;
-  return instance;
+EntityManager& EntityManager::getInstance() {
+    static EntityManager instance;
+    return instance;
 }
 
 EntityInfo* EntityManager::getEnemyInfo(EntityType type, EntityName name) {

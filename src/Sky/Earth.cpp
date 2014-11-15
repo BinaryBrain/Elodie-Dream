@@ -1,7 +1,6 @@
 #include "Earth.h"
 
-Earth::Earth(GameView& gameView, LevelEnv env, int tilesNumber, sf::Vector2f& cameraPosArg, float slow) : Displayable(gameView), cameraPos(cameraPosArg)
-{
+Earth::Earth(GameView& gameView, LevelEnv env, int tilesNumber, sf::Vector2f& cameraPosArg, float slow) : Displayable(gameView), cameraPos(cameraPosArg) {
     std::string filename;
     this->slow = slow;
 
