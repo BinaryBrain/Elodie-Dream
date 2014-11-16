@@ -24,6 +24,7 @@ public:
     double getDouble(const std::string& key);
     std::vector<int> getIntVector(const std::string& key);
     std::vector< std::vector<int> > getInt2DVector(const std::string& key);
+    std::map<std::string, int> getMap(const std::string& key, const std::vector<std::string>& keys);
     std::vector< std::map<std::string, int> > getVectMaps(const std::string& key, const std::vector<std::string>& keys);
     EntityInfo* getEntityInfo();
 

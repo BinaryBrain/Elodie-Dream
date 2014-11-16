@@ -35,6 +35,7 @@ public:
     const std::map<std::string, int>& getAllDatas();
     std::vector< std::pair<std::string, int> > getLabelledValues();
     std::vector<int> getAllValues();
+    std::vector<std::string> getAllKeys();
 
     void setTotalBoni(int totalBoni);
     void setTotalDamages(int totalDamages);
@@ -44,7 +45,7 @@ public:
     void setTotalMagmaCubes(int totalMagmaCubes);
     void setTotalBristles(int totalBristles);
 
-    void setAllValues(const std::vector<int>& values);
+    void setAllDatas(const std::map<std::string, int>& datas);
 
     void reset();
 

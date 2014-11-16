@@ -63,6 +63,20 @@ std::vector< std::vector<int> > JsonAccessor::getInt2DVector(const std::string& 
     return vec;
 }
 
+std::map<std::string, int> JsonAccessor::getMap(const std::string& key, const std::vector<std::string>& keys)
+{
+    std::map<std::string, int> mapDatas;
+    rapidjson::Value& a = doc[key.c_str()];
+    assert(a.IsObject());
+    for (size_t i = 0; i < keys.size(); ++i)
+    {
+        rapidjson::Value& v = a[keys[i].c_str()];
+        mapDatas.insert({keys[i], v.GetInt()});
+    }
+
+    return mapDatas;
+}
+
 std::vector< std::map<std::string, int> > JsonAccessor::getVectMaps(const std::string& key, const std::vector<std::string>& keys)
 {
     std::vector< std::map<std::string, int> > maps;
@@ -70,13 +84,13 @@ std::vector< std::map<std::string, int> > JsonAccessor::getVectMaps(const std::s
     assert(a.IsArray());
     for (rapidjson::SizeType i = 0; i < a.Size(); ++i)
     {
-        std::map<std::string, int> levelDatas;
+        std::map<std::string, int> mapDatas;
         for (size_t j = 0; j < keys.size(); ++j)
         {
             rapidjson::Value& v = a[rapidjson::SizeType(i)][keys[j].c_str()];
-            levelDatas.insert({keys[j], v.GetInt()});
+            mapDatas.insert({keys[j], v.GetInt()});
         }
-        maps.push_back(levelDatas);
+        maps.push_back(mapDatas);
     }
 
     return maps;

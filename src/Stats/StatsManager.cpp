@@ -4,7 +4,7 @@ const std::string StatsManager::BONI_KEY = "boni";
 const std::string StatsManager::DAMAGES_KEY = "damages";
 const std::string StatsManager::DEATHS_KEY = "deaths";
 const std::string StatsManager::SHEEPS_KEY = "sheeps";
-const std::string StatsManager::MAGMACUBE_KEY = "magmaCubes";
+const std::string StatsManager::MAGMACUBE_KEY = "magmacubes";
 const std::string StatsManager::BRISTLES_KEY = "bristles";
 
 const std::string StatsManager::BONI_LABEL = "Boni collected";
@@ -94,6 +94,17 @@ std::vector<int> StatsManager::getAllValues()
     return values;
 }
 
+std::vector<std::string> StatsManager::getAllKeys() {
+    std::vector<std::string> keys;
+    keys.push_back(BONI_KEY);
+    keys.push_back(DAMAGES_KEY);
+    keys.push_back(DEATHS_KEY);
+    keys.push_back(SHEEPS_KEY);
+    keys.push_back(MAGMACUBE_KEY);
+    keys.push_back(BRISTLES_KEY);
+    return keys;
+}
+
 void StatsManager::setTotalBoni(int totalBoni)
 {
     datas[BONI_KEY] = totalBoni;
@@ -124,15 +135,9 @@ void StatsManager::setTotalBristles(int totalBristles)
     datas[BRISTLES_KEY] = totalBristles;
 }
 
-void StatsManager::setAllValues(const std::vector<int>& values)
+void StatsManager::setAllDatas(const std::map<std::string, int>& datas)
 {
-    reset();
-    datas[BONI_KEY] = values[0];
-    datas[DAMAGES_KEY] = values[1];
-    datas[DEATHS_KEY] = values[2];
-    datas[SHEEPS_KEY] = values[3];
-    datas[MAGMACUBE_KEY] = values[4];
-    datas[BRISTLES_KEY] = values[5];
+    this->datas = datas;
 }
 
 void StatsManager::reset()

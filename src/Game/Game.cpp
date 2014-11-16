@@ -656,8 +656,8 @@ void Game::load()
 
                 if (accessor.canTakeElementFrom(SaveHandler::MORESTATS_KEY))
                 {
-                    std::vector<int> datas = accessor.getIntVector(SaveHandler::MORESTATS_KEY);
-                    statsManager.setAllValues(datas);
+                    std::map<std::string, int> datas = accessor.getMap(SaveHandler::MORESTATS_KEY, statsManager.getAllKeys());
+                    statsManager.setAllDatas(datas);
                 }
             }
             else
@@ -722,7 +722,7 @@ void Game::save()
     currentMenuSave->getText()->setString(saveHandler.computeLevelName(LDL));
 
     std::vector< std::map<std::string, int> > scoresDatas = scoreManager.getAllDatas();
-    std::vector<int> moreStatsDatas = statsManager.getAllValues();
+    std::map<std::string, int> moreStatsDatas = statsManager.getAllDatas();
 
     // saves the datas to the save file
     JsonStringifier& stringifier = saveHandler.getStringifier();

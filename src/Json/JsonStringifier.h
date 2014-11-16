@@ -18,6 +18,7 @@ public:
     void add(std::string key, std::string s);
     void add(std::string key, std::vector<int> v);
     void add(std::string key, std::vector< std::vector<int> > v2d);
+    void add(const std::string& key, const std::map<std::string, int>& m);
     void add(const std::string& key, const std::vector< std::map<std::string, int> >& maps);
     std::string getStringifiedDoc();
     bool reset();
