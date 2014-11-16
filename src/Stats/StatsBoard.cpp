@@ -68,13 +68,22 @@ void StatsBoard::createLevelTexts(float beginX, float beginY)
 
 void StatsBoard::createAllCategoriesTexts()
 {
-    std::vector< std::vector<int> > allDatas = ScoreManager::getInstance().getAllDatas();
+    std::vector< std::map<std::string, int> > allDatas = ScoreManager::getInstance().getAllDatas();
     std::vector<std::string> titles;
+    std::vector<std::string> keys;
+
     titles.push_back("Points");
     titles.push_back("Boni");
     titles.push_back("Damages taken");
     titles.push_back("Enemies killed");
     titles.push_back("Largest killing spree");
+
+    keys.push_back(Score::TOTALPOINTS_KEY);
+    keys.push_back(Score::BONI_KEY);
+    keys.push_back(Score::DAMAGESTAKEN_KEY);
+    keys.push_back(Score::ENEMIESKILLED_KEY);
+    keys.push_back(Score::LARGESTKILLINGSPREE_KEY);
+
     std::vector< std::vector<int> > categories(titles.size());
 
     // for each level, store its values in the right category
@@ -82,7 +91,7 @@ void StatsBoard::createAllCategoriesTexts()
     {
         for (size_t j = 0; j < titles.size(); ++j)
         {
-            categories[j].push_back(allDatas[i][j+1]);
+            categories[j].push_back(allDatas[i][keys[j]]);
         }
     }
 

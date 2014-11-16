@@ -26,15 +26,12 @@ public:
     Score& getCurrentScore();
     std::vector<Score>& getGameScore();
     /**
-    * \brief Returns in a vector of vector of int: all the values in the Scores. Used to prepare datas for the save.
+    * \brief Returns in a vector of map of string and int: all the values in the Scores with their keys. Used to prepare datas for the save.
     * \return A vector of vector of int containing each value of a Score, in the same order as in Score.h.
     */
-    std::vector< std::vector<int> > getAllDatas();
-
-    /**
-    * \brief Save the current score to the gameScore if  the total points are better than the ones in it.
-    */
-    void setAllDatas(std::vector< std::vector<int> > datas);
+    std::vector< std::map<std::string, int> > getAllDatas();
+    std::vector<std::string> getAllKeys();
+    void setAllDatas(const std::vector< std::map<std::string, int> >& datas);
     void setLevel(int level);
     void setKillPoints(int points);
     void setLevelScore(int level, int totalPoints);

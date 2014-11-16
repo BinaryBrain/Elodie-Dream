@@ -650,16 +650,8 @@ void Game::load()
             {
                 if (accessor.canTakeElementFrom(SaveHandler::SCORES_KEY))
                 {
-                    std::vector< std::vector<int> > datas = accessor.getInt2DVector(SaveHandler::SCORES_KEY);
-                    std::vector< std::vector<int> > scoreDatas;
-
-                    for (size_t i = 0; i < datas.size(); ++i)
-                    {
-                        std::vector<int> score = datas[i];
-                        scoreDatas.push_back(score);
-                    }
-
-                    scoreManager.setAllDatas(scoreDatas);
+                    std::vector< std::map<std::string, int> > datas = accessor.getVectMaps(SaveHandler::SCORES_KEY, scoreManager.getAllKeys());
+                    scoreManager.setAllDatas(datas);
                 }
 
                 if (accessor.canTakeElementFrom(SaveHandler::MORESTATS_KEY))
@@ -729,7 +721,7 @@ void Game::save()
     // Displays the save name on the menu
     currentMenuSave->getText()->setString(saveHandler.computeLevelName(LDL));
 
-    std::vector< std::vector<int> > scoresDatas = scoreManager.getAllDatas();
+    std::vector< std::map<std::string, int> > scoresDatas = scoreManager.getAllDatas();
     std::vector<int> moreStatsDatas = statsManager.getAllValues();
 
     // saves the datas to the save file

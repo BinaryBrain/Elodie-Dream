@@ -1,9 +1,21 @@
 #ifndef SCORE_H_INCLUDED
 #define SCORE_H_INCLUDED
 
+#include "../env.h"
+
 class Score
 {
 public:
+    static const std::string LEVELID_KEY;
+    static const std::string TOTALPOINTS_KEY;
+    static const std::string BONI_KEY;
+    static const std::string DAMAGESTAKEN_KEY;
+    static const std::string ENEMIESKILLED_KEY;
+    static const std::string LARGESTKILLINGSPREE_KEY;
+    static const std::string SHEEPS_KEY;
+    static const std::string MAGMACUBES_KEY;
+    static const std::string BRISTLES_KEY;
+
     Score();
     ~Score();
 
@@ -16,6 +28,7 @@ public:
     int getSheeps();
     int getMagmaCubes();
     int getBristles();
+    const std::map<std::string, int>& getDatas();
     bool isRegistered();
 
     void setLevelId(int levelId);
@@ -27,21 +40,13 @@ public:
     void setSheeps(int sheeps);
     void setMagmaCubes(int magmaCubes);
     void setBristles(int bristles);
+    void setDatas(const std::map<std::string, int>& datas);
     void setRegistered(bool firstTimeSet);
 
     void reset();
 
 private:
-    int levelId;
-    int totalPoints;
-    int boni;
-    int damagesTaken;
-    int enemiesKilled;
-    int largestKillingSpree;
-    int sheeps;
-    int magmaCubes;
-    int bristles;
-
+    std::map<std::string, int> datas;
     bool registered;
 };
 

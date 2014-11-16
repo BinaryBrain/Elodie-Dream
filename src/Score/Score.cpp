@@ -1,5 +1,16 @@
 #include "Score.h"
 
+const std::string Score::LEVELID_KEY = "levelid";
+const std::string Score::TOTALPOINTS_KEY = "totalpoints";
+const std::string Score::BONI_KEY = "boni";
+const std::string Score::DAMAGESTAKEN_KEY = "damagestaken";
+const std::string Score::ENEMIESKILLED_KEY = "enemieskilled";
+const std::string Score::LARGESTKILLINGSPREE_KEY = "largestkillingspree";
+const std::string Score::SHEEPS_KEY = "sheeps";
+const std::string Score::MAGMACUBES_KEY = "magmacubes";
+const std::string Score::BRISTLES_KEY = "bristles";
+
+
 Score::Score()
 {
     reset();
@@ -12,47 +23,51 @@ Score::~Score()
 
 int Score::getLevelId()
 {
-    return levelId;
+    return datas[LEVELID_KEY];
 }
 
 int Score::getTotalPoints()
 {
-    return totalPoints;
+    return datas[TOTALPOINTS_KEY];
 }
 
 int Score::getBoni()
 {
-    return boni;
+    return datas[BONI_KEY];
 }
 
 int Score::getDamagesTaken()
 {
-    return damagesTaken;
+    return datas[DAMAGESTAKEN_KEY];
 }
 
 int Score::getEnemiesKilled()
 {
-    return enemiesKilled;
+    return datas[ENEMIESKILLED_KEY];
 }
 
 int Score::getLargestKillingSpree()
 {
-    return largestKillingSpree;
+    return datas[LARGESTKILLINGSPREE_KEY];
 }
 
 int Score::getSheeps()
 {
-    return sheeps;
+    return datas[SHEEPS_KEY];
 }
 
 int Score::getMagmaCubes()
 {
-    return magmaCubes;
+    return datas[MAGMACUBES_KEY];
 }
 
 int Score::getBristles()
 {
-    return bristles;
+    return datas[BRISTLES_KEY];
+}
+
+const std::map<std::string, int>& Score::getDatas() {
+    return datas;
 }
 
 bool Score::isRegistered()
@@ -62,47 +77,51 @@ bool Score::isRegistered()
 
 void Score::setLevelId(int levelId)
 {
-    this->levelId = levelId;
+    datas[LEVELID_KEY] = levelId;
 }
 
 void Score::setTotalPoints(int totalPoints)
 {
-    this->totalPoints = totalPoints;
+    datas[TOTALPOINTS_KEY] = totalPoints;
 }
 
 void Score::setBoni(int boni)
 {
-    this->boni = boni;
+    datas[BONI_KEY] = boni;
 }
 
 void Score::setDamagesTaken(int damagesTaken)
 {
-    this->damagesTaken = damagesTaken;
+    datas[DAMAGESTAKEN_KEY] = damagesTaken;
 }
 
 void Score::setEnemiesKilled(int enemiesKilled)
 {
-    this->enemiesKilled = enemiesKilled;
+    datas[ENEMIESKILLED_KEY] = enemiesKilled;
 }
 
 void Score::setLargestKillingSpree(int largestKillingSpree)
 {
-    this->largestKillingSpree = largestKillingSpree;
+    datas[LARGESTKILLINGSPREE_KEY] = largestKillingSpree;
 }
 
 void Score::setSheeps(int sheeps)
 {
-    this->sheeps = sheeps;
+    datas[SHEEPS_KEY] = sheeps;
 }
 
 void Score::setMagmaCubes(int magmaCubes)
 {
-    this->magmaCubes = magmaCubes;
+    datas[MAGMACUBES_KEY] = magmaCubes;
 }
 
 void Score::setBristles(int bristles)
 {
-    this->bristles = bristles;
+    datas[BRISTLES_KEY] = bristles;
+}
+
+void Score::setDatas(const std::map<std::string, int>& datas) {
+    this->datas = datas;
 }
 
 void Score::setRegistered(bool registered)
@@ -112,15 +131,16 @@ void Score::setRegistered(bool registered)
 
 void Score::reset()
 {
-    levelId = 0;
-    totalPoints = 0;
-    boni = 0;
-    damagesTaken = 0;
-    enemiesKilled = 0;
-    largestKillingSpree = 0;
-    sheeps = 0;
-    magmaCubes = 0;
-    bristles = 0;
+    datas.clear();
+    datas.insert({LEVELID_KEY, 0});
+    datas.insert({TOTALPOINTS_KEY, 0});
+    datas.insert({BONI_KEY, 0});
+    datas.insert({DAMAGESTAKEN_KEY, 0});
+    datas.insert({ENEMIESKILLED_KEY, 0});
+    datas.insert({LARGESTKILLINGSPREE_KEY, 0});
+    datas.insert({SHEEPS_KEY, 0});
+    datas.insert({MAGMACUBES_KEY, 0});
+    datas.insert({BRISTLES_KEY, 0});
 
     registered = false;
 }

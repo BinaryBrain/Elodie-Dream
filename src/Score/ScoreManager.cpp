@@ -52,41 +52,37 @@ std::vector<Score>& ScoreManager::getGameScore()
     return gameScore;
 }
 
-std::vector< std::vector<int> > ScoreManager::getAllDatas()
+std::vector< std::map<std::string, int> > ScoreManager::getAllDatas()
 {
-    std::vector< std::vector<int> > datas;
+    std::vector< std::map<std::string, int> > datas;
 
     for (size_t i = 0; i < gameScore.size(); ++i)
     {
-        std::vector<int> score;
-        score.push_back(gameScore[i].getLevelId());
-        score.push_back(gameScore[i].getTotalPoints());
-        score.push_back(gameScore[i].getBoni());
-        score.push_back(gameScore[i].getDamagesTaken());
-        score.push_back(gameScore[i].getEnemiesKilled());
-        score.push_back(gameScore[i].getLargestKillingSpree());
-        score.push_back(gameScore[i].getSheeps());
-        score.push_back(gameScore[i].getMagmaCubes());
-        score.push_back(gameScore[i].getBristles());
-        datas.push_back(score);
+        datas.push_back(gameScore[i].getDatas());
     }
 
     return datas;
 }
 
-void ScoreManager::setAllDatas(std::vector< std::vector<int> > datas)
+std::vector<std::string> ScoreManager::getAllKeys() {
+    std::vector<std::string> keys;
+    keys.push_back(Score::LEVELID_KEY);
+    keys.push_back(Score::TOTALPOINTS_KEY);
+    keys.push_back(Score::BONI_KEY);
+    keys.push_back(Score::DAMAGESTAKEN_KEY);
+    keys.push_back(Score::ENEMIESKILLED_KEY);
+    keys.push_back(Score::LARGESTKILLINGSPREE_KEY);
+    keys.push_back(Score::SHEEPS_KEY);
+    keys.push_back(Score::MAGMACUBES_KEY);
+    keys.push_back(Score::BRISTLES_KEY);
+    return keys;
+}
+
+void ScoreManager::setAllDatas(const std::vector< std::map<std::string, int> >& datas)
 {
     for (size_t i = 0; i < datas.size(); ++i)
     {
-        gameScore[i].setLevelId(datas[i][0]);
-        gameScore[i].setTotalPoints(datas[i][1]);
-        gameScore[i].setBoni(datas[i][2]);
-        gameScore[i].setDamagesTaken(datas[i][3]);
-        gameScore[i].setEnemiesKilled(datas[i][4]);
-        gameScore[i].setLargestKillingSpree(datas[i][5]);
-        gameScore[i].setSheeps(datas[i][6]);
-        gameScore[i].setMagmaCubes(datas[i][7]);
-        gameScore[i].setBristles(datas[i][8]);
+        gameScore[i].setDatas(datas[i]);
     }
 }
 
