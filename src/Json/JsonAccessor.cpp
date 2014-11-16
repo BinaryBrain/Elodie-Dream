@@ -13,45 +13,28 @@ JsonAccessor::~JsonAccessor()
     }
 }
 
-rapidjson::Value& JsonAccessor::getAskedObject(std::string key)
-{
-    std::string delimiter = " ";
-    std::replace(key.begin(), key.end(), '.', ' ');
-    std::istringstream iss(key);
-    std::vector<std::string> tokens;
-    std::copy(std::istream_iterator<std::string>(iss),
-              std::istream_iterator<std::string>(),
-              std::back_inserter<std::vector<std::string> >(tokens));
-    rapidjson::Value* obj = &doc;
-    for (size_t i = 0; i < tokens.size(); ++i)
-    {
-        obj = &(*obj)[tokens[i].c_str()];
-    }
-    return *obj;
-}
-
 std::string JsonAccessor::getString(const std::string& key)
 {
-    const rapidjson::Value& a = getAskedObject(key);
+    const rapidjson::Value& a = doc[key.c_str()];
     return a.GetString();
 }
 
 int JsonAccessor::getInt(const std::string& key)
 {
-    const rapidjson::Value& a = getAskedObject(key);
+    const rapidjson::Value& a = doc[key.c_str()];
     return a.GetInt();
 }
 
 double JsonAccessor::getDouble(const std::string& key)
 {
-    const rapidjson::Value& a = getAskedObject(key);
+    const rapidjson::Value& a = doc[key.c_str()];
     return a.GetDouble();
 }
 
 std::vector<int> JsonAccessor::getIntVector(const std::string& key)
 {
     std::vector<int> vec;
-    const rapidjson::Value& a = getAskedObject(key);
+    const rapidjson::Value& a = doc[key.c_str()];
     assert(a.IsArray());
     for (rapidjson::SizeType i = 0; i < a.Size(); i++)
     {
@@ -64,7 +47,7 @@ std::vector<int> JsonAccessor::getIntVector(const std::string& key)
 std::vector< std::vector<int> > JsonAccessor::getInt2DVector(const std::string& key)
 {
     std::vector< std::vector<int> > vec;
-    const rapidjson::Value& a = getAskedObject(key);
+    const rapidjson::Value& a = doc[key.c_str()];
     assert(a.IsArray());
     for (rapidjson::SizeType i = 0; i < a.Size(); ++i)
     {
@@ -80,13 +63,32 @@ std::vector< std::vector<int> > JsonAccessor::getInt2DVector(const std::string& 
     return vec;
 }
 
+std::vector< std::map<std::string, int> > JsonAccessor::getVectMaps(const std::string& key, const std::vector<std::string>& keys)
+{
+    std::vector< std::map<std::string, int> > maps;
+    rapidjson::Value& a = doc[key.c_str()];
+    assert(a.IsArray());
+    for (rapidjson::SizeType i = 0; i < a.Size(); ++i)
+    {
+        std::map<std::string, int> levelDatas;
+        for (size_t j = 0; j < keys.size(); ++j)
+        {
+            rapidjson::Value& v = a[rapidjson::SizeType(i)][keys[j].c_str()];
+            levelDatas.insert({keys[j], v.GetInt()});
+        }
+        maps.push_back(levelDatas);
+    }
+
+    return maps;
+}
+
 EntityInfo* JsonAccessor::getEntityInfo()
 {
     EntityInfo* entity = new EntityInfo();
     entity->height = this->getInt("height");
     entity->width = this->getInt("width");
 
-    const rapidjson::Value& anim = getAskedObject("anim");
+    const rapidjson::Value& anim = doc["anim"];
     assert(anim.IsObject());
 
     for (rapidjson::Value::ConstMemberIterator itr = anim.MemberBegin(); itr != anim.MemberEnd(); ++itr)

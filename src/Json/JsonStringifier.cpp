@@ -58,6 +58,26 @@ void JsonStringifier::add(std::string key, std::vector< std::vector<int> > v2d)
     doc.AddMember(key.c_str(), arr, doc.GetAllocator());
 }
 
+void JsonStringifier::add(const std::string& key, const std::vector< std::map<std::string, int> >& maps)
+{
+    rapidjson::Value v;
+    v.SetArray();
+    doc.AddMember(key.c_str(), v, doc.GetAllocator());
+    rapidjson::Value& a = doc[key.c_str()];
+
+    rapidjson::Value mapData;
+    for (size_t i = 0; i < maps.size(); ++i)
+    {
+        mapData.SetObject();
+        for (auto it = maps[i].begin(); it != maps[i].end(); ++it)
+        {
+            v.SetInt(it->second);
+            mapData.AddMember((it->first).c_str(), v, doc.GetAllocator());
+        }
+        a.PushBack(mapData, doc.GetAllocator());
+    }
+}
+
 std::string JsonStringifier::getStringifiedDoc()
 {
     rapidjson::StringBuffer strbuf;

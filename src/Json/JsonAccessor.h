@@ -24,6 +24,7 @@ public:
     double getDouble(const std::string& key);
     std::vector<int> getIntVector(const std::string& key);
     std::vector< std::vector<int> > getInt2DVector(const std::string& key);
+    std::vector< std::map<std::string, int> > getVectMaps(const std::string& key, const std::vector<std::string>& keys);
     EntityInfo* getEntityInfo();
 
     std::string getStringWithDefault(const std::string& key, const std::string& defaultValue);
@@ -37,7 +38,6 @@ public:
 
 private:
     rapidjson::Document doc;
-    rapidjson::Value& getAskedObject(std::string key);
     std::string pathToFile;
     char* buffer = NULL;
 };
