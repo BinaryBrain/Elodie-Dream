@@ -23,7 +23,7 @@ enum class GameState
 
 enum class LevelEnv
 {
-    FIELD, UNIL, CASTLE, VOLCANO, FRELJORD
+    FIELD, UNIL, CASTLE, VOLCANO, FRELJORD, SPACE
 };
 
 enum class SoundType
