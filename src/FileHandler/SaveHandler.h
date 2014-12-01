@@ -24,6 +24,8 @@ public:
     static const std::string SCORES_KEY;
     static const std::string MORESTATS_KEY;
 
+    static const std::string SLOT_PREFIX_LABEL;
+
     static SaveHandler& getInstance();
     static bool isSlotFree(const std::string& slot);
     static std::string nextFreeSlot();

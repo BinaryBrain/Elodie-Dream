@@ -7,6 +7,7 @@
 #include "MenuComponent.h"
 #include "Menu.h"
 #include "TitleMenu.h"
+#include "TitleScreen.h"
 #include "../Displayable/Displayable.h"
 #include "../FileHandler/SaveHandler.h"
 #include "../Json/JsonAccessor.h"
@@ -16,6 +17,12 @@ class MenuHandler : public Displayable
 {
 public:
     static const int CHAR_SIZE;
+
+    static const std::string NEWGAME_LABEL;
+    static const std::string TITLEMENU_LABEL;
+    static const std::string SAVEGAME_LABEL;
+    static const std::string LOADGAME_LABEL;
+    static const std::string QUITGAME_LABEL;
 
     MenuHandler(GameView& gameView);
     virtual ~MenuHandler();

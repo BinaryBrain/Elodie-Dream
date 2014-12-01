@@ -3,13 +3,19 @@
 
 const int MenuHandler::CHAR_SIZE = 25;
 
+const std::string MenuHandler::NEWGAME_LABEL = "New game";
+const std::string MenuHandler::TITLEMENU_LABEL = "Title menu";
+const std::string MenuHandler::SAVEGAME_LABEL = "Save game";
+const std::string MenuHandler::LOADGAME_LABEL = "Load game";
+const std::string MenuHandler::QUITGAME_LABEL = "Quit game";
+
 MenuHandler::MenuHandler(GameView& gameView) : Displayable(gameView)
 {
-    MenuComponent* newGame = new MenuComponent(MENU_NEWGAME_LABEL, GameState::NEWGAME);
-    MenuComponent* stats = new MenuComponent(MENU_STATS_LABEL, GameState::INSTATS);
-    MenuComponent* resume = new MenuComponent(MENU_RESUME_LABEL, GameState::INLEVEL);
-    MenuComponent* backToOv = new MenuComponent(MENU_LEAVELEVEL_LABEL, GameState::INOVERWORLD);
-    MenuComponent* quit = new MenuComponent(MENU_QUITGAME_LABEL, GameState::EXIT);
+    MenuComponent* newGame = new MenuComponent(NEWGAME_LABEL, GameState::NEWGAME);
+    MenuComponent* stats = new MenuComponent(TitleMenu::STATS_LABEL, GameState::INSTATS);
+    MenuComponent* resume = new MenuComponent(TitleMenu::RESUME_LABEL, GameState::INLEVEL);
+    MenuComponent* backToOv = new MenuComponent(TitleMenu::LEAVELEVEL_LABEL, GameState::INOVERWORLD);
+    MenuComponent* quit = new MenuComponent(QUITGAME_LABEL, GameState::EXIT);
 
     std::vector<std::string> lastDiscoveredLevels;
     std::vector<std::string> labels;
@@ -17,7 +23,7 @@ MenuHandler::MenuHandler(GameView& gameView) : Displayable(gameView)
     for (size_t i = 1; i <= SaveHandler::NUMSLOTS; ++i)
     {
         lastDiscoveredLevels.push_back("Level 0"); // to know if not initialized later
-        labels.push_back(MENU_SLOT_PREFIX_LABEL + Utils::itos(i));
+        labels.push_back(SaveHandler::SLOT_PREFIX_LABEL + Utils::itos(i));
     }
 
     loading.setFont(globalFont);
@@ -26,8 +32,10 @@ MenuHandler::MenuHandler(GameView& gameView) : Displayable(gameView)
     loading.setPosition(MENU_LOADING_X, MENU_LOADING_Y);
 
     sf::Texture* poroTexture = new sf::Texture();
-    if (!poroTexture->loadFromFile(MENU_ANIMATED_BACKGROUND_PATH+"/"+Utils::toStringWithLength(MENU_BACKGROUND_FIRST_FRAME, 4)+".png"))
-        std::cerr << "Unable to load menu background";
+    if (!poroTexture->loadFromFile(TitleScreen::ANIMATED_BACKGROUND_PATH+"/"+Utils::toStringWithLength(MENU_BACKGROUND_FIRST_FRAME, 4)+".png"))
+    {
+        std::cerr << "Unable to load menu background" << std::endl;;
+    }
 
     tbg.setTexture(*poroTexture);
 
@@ -35,9 +43,9 @@ MenuHandler::MenuHandler(GameView& gameView) : Displayable(gameView)
     gameView.getWindow().draw(loading);
     gameView.getWindow().display();
 
-    title = new TitleMenu(MENU_TITLEMENU_LABEL, GameState::INMENU);
-    saveGame = new Menu(MENU_SAVEGAME_LABEL, GameState::INMENU);
-    loadGame = new Menu(MENU_LOADGAME_LABEL, GameState::INMENU);
+    title = new TitleMenu(TITLEMENU_LABEL, GameState::INMENU);
+    saveGame = new Menu(SAVEGAME_LABEL, GameState::INMENU);
+    loadGame = new Menu(LOADGAME_LABEL, GameState::INMENU);
 
     addCompToMenu(newGame, title);
     addCompToMenu(saveGame, title);
@@ -121,15 +129,15 @@ MenuComponent* MenuHandler::getCurrentMenuComponent()
     else
     {
         std::string label = selectedMenu->getSelectedItem()->getText()->getString();
-        if (label == MENU_TITLEMENU_LABEL)
+        if (label == TITLEMENU_LABEL)
         {
             selectedMenu = title;
         }
-        else if (label == MENU_SAVEGAME_LABEL)
+        else if (label == SAVEGAME_LABEL)
         {
             selectedMenu = saveGame;
         }
-        else if (label == MENU_LOADGAME_LABEL)
+        else if (label == LOADGAME_LABEL)
         {
             selectedMenu = loadGame;
         }

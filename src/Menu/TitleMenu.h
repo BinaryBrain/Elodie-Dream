@@ -7,7 +7,11 @@
 class TitleMenu : public Menu
 {
 public:
-    TitleMenu(std::string label, GameState state);
+    static const std::string STATS_LABEL;
+    static const std::string RESUME_LABEL;
+    static const std::string LEAVELEVEL_LABEL;
+
+    TitleMenu(const std::string& label, GameState state);
     virtual ~TitleMenu();
 
     void toLevelMenu();

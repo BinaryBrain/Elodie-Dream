@@ -1,8 +1,10 @@
 #include "Menu.h"
 
-Menu::Menu(std::string label, GameState state): MenuComponent(label, state)
+const std::string Menu::SELECTOR_PATH = "assets/img/sprites/poro.png";
+
+Menu::Menu(const std::string& label, GameState state): MenuComponent(label, state)
 {
-    selectortexture.loadFromFile(MENU_SELECTOR_PATH, sf::IntRect(102, 16, 120, 30));
+    selectortexture.loadFromFile(SELECTOR_PATH, sf::IntRect(102, 16, 120, 30));
     selector.setTexture(selectortexture);
 
     background.setOutlineColor(MENU_BACKGROUND_OUTLINE_COLOR);
