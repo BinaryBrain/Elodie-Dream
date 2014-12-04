@@ -8,6 +8,8 @@ const std::string SaveHandler::LDL_KEY = "lastdiscoveredlevel";
 const std::string SaveHandler::SCORES_KEY = "scoresdatas";
 const std::string SaveHandler::MORESTATS_KEY = "morestats";
 
+const std::string SaveHandler::SLOT_PREFIX_LABEL = "Slot ";
+
 SaveHandler::SaveHandler()
 {
 
@@ -34,7 +36,7 @@ std::string SaveHandler::nextFreeSlot()
 {
     for (unsigned int i = 1; i <= NUMSLOTS; i++)
     {
-        std::string slot = MENU_SLOT_PREFIX_LABEL + Utils::itos(i);
+        std::string slot = SLOT_PREFIX_LABEL + Utils::itos(i);
         if (isSlotFree(slot))
         {
             return slot;

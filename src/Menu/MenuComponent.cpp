@@ -1,6 +1,6 @@
 #include "MenuComponent.h"
 
-MenuComponent::MenuComponent(std::string label, GameState state)
+MenuComponent::MenuComponent(const std::string& label, GameState state)
 {
     this->text = new sf::Text(label, globalFont);
     this->label = label;
@@ -22,12 +22,12 @@ void MenuComponent::setText(sf::Text* text)
     this->text = text;
 }
 
-std::string MenuComponent::getLabel()
+const std::string& MenuComponent::getLabel()
 {
     return label;
 }
 
-void MenuComponent::setLabel(std::string label)
+void MenuComponent::setLabel(const std::string& label)
 {
     this->label = label;
 }

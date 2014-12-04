@@ -1,6 +1,10 @@
 #include "TitleMenu.h"
 
-TitleMenu::TitleMenu(std::string label, GameState state): Menu(label, state)
+const std::string TitleMenu::STATS_LABEL = "Stats";
+const std::string TitleMenu::RESUME_LABEL = "Resume";
+const std::string TitleMenu::LEAVELEVEL_LABEL = "Leave level";
+
+TitleMenu::TitleMenu(const std::string& label, GameState state): Menu(label, state)
 {
 
 }
@@ -16,7 +20,7 @@ void TitleMenu::toLevelMenu()
     for (size_t i = 0; i < items.size(); ++i)
     {
         std::string itemLabel = items[i]->getLabel();
-        if (itemLabel == MENU_RESUME_LABEL || itemLabel == MENU_LEAVELEVEL_LABEL || itemLabel == MENU_STATS_LABEL)
+        if (itemLabel == RESUME_LABEL || itemLabel == LEAVELEVEL_LABEL || itemLabel == STATS_LABEL)
         {
             items[i]->setVisibility(true);
         }
@@ -30,11 +34,11 @@ void TitleMenu::toNormalMenu()
     for (size_t i = 0; i < items.size(); ++i)
     {
         std::string itemLabel = items[i]->getLabel();
-        if (itemLabel == MENU_RESUME_LABEL || itemLabel == MENU_LEAVELEVEL_LABEL)
+        if (itemLabel == RESUME_LABEL || itemLabel == LEAVELEVEL_LABEL)
         {
             items[i]->setVisibility(false);
         }
-        else if (itemLabel == MENU_STATS_LABEL)
+        else if (itemLabel == STATS_LABEL)
         {
             items[i]->setVisibility(true);
         }
@@ -48,7 +52,7 @@ void TitleMenu::toTitleMenu()
     for (size_t i = 0; i < items.size(); ++i)
     {
         std::string itemLabel = items[i]->getLabel();
-        if (itemLabel == MENU_RESUME_LABEL || itemLabel == MENU_LEAVELEVEL_LABEL || itemLabel == MENU_STATS_LABEL)
+        if (itemLabel == RESUME_LABEL || itemLabel == LEAVELEVEL_LABEL || itemLabel == STATS_LABEL)
         {
             items[i]->setVisibility(false);
         }

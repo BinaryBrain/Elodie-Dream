@@ -13,7 +13,9 @@ class Menu : public MenuComponent
 {
 
 public:
-    Menu(std::string label, GameState state);
+    static const std::string SELECTOR_PATH;
+
+    Menu(const std::string& label, GameState state);
     virtual ~Menu();
 
     void addItem(MenuComponent* item, bool isParent = false);

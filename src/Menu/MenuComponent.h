@@ -8,14 +8,14 @@
 class MenuComponent
 {
 public:
-    MenuComponent(std::string label, GameState state);
+    MenuComponent(const std::string& label, GameState state);
     virtual ~MenuComponent();
 
     sf::Text* getText();
     void setText(sf::Text* text);
 
-    std::string getLabel();
-    void setLabel(std::string label);
+    const std::string& getLabel();
+    void setLabel(const std::string& label);
 
     GameState getState();
     void setState(GameState state);
