@@ -14,9 +14,6 @@ const float Hud::IMMERSION_BG_W = 202;
 const float Hud::IMMERSION_BG_H = 18;
 const float Hud::IMMERSION_IMAGE_W = 406;
 const float Hud::IMMERSION_IMAGE_H = 38;
-const float Hud::IMMERSION_BAR_OUTLINE_THICKNESS = 2;
-const sf::Color Hud::IMMERSION_BAR_FILL = sf::Color(0x73, 0xC8, 0xA9, 0xFF);
-const sf::Color Hud::IMMERSION_BAR_OUTLINE = sf::Color(0x31, 0x55, 0x48, 0xFF);
 
 const int Hud::SCORE_CHAR_SIZE = 20;
 const float Hud::SCORE_BG_W = 120;

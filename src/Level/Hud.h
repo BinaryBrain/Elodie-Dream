@@ -21,9 +21,6 @@ public:
     static const float IMMERSION_BG_H;
     static const float IMMERSION_IMAGE_W;
     static const float IMMERSION_IMAGE_H;
-    static const float IMMERSION_BAR_OUTLINE_THICKNESS;
-    static const sf::Color IMMERSION_BAR_FILL;
-    static const sf::Color IMMERSION_BAR_OUTLINE;
 
     static const int SCORE_CHAR_SIZE;
     static const float SCORE_BG_W;
