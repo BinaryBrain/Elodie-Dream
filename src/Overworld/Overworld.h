@@ -55,15 +55,17 @@ private:
     };
 
     states currentState;
-    std::vector<sf::Sprite> overworldSprites;
-    std::vector<sf::Texture*> overworldTextures;
-    std::vector<sf::VertexArray*> paths;
-    std::vector<sf::Sprite*> pathSprites;
-    std::vector< std::vector<int> > levelPos;
+    std::vector<std::vector<sf::Sprite>> overworldSprites;
+    std::vector<std::vector<sf::Texture*>> overworldTextures;
+    std::vector<std::vector<sf::VertexArray*>> paths;
+    std::vector<std::vector<sf::Sprite*>> pathSprites;
+    std::vector < std::vector< std::vector<int> > >levelPos;
 
-    size_t curPosInPath=0;
+    unsigned int curSubWorld = 0;
 
-    std::vector<sf::Sprite*> levelSpotSprites;
+    size_t curPosInPath = 0;
+
+    std::vector<std::vector<sf::Sprite*>> levelSpotSprites;
 
     Elodie* elodie;
     sf::Music music;
