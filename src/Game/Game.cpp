@@ -445,9 +445,9 @@ void Game::displayScore()
         }
         else
         {
-            overworld->evolve(overworld->getState(), curLevelNbr + 1);
+            overworld->evolve(overworld->getState()[1], curLevelNbr + 1);
             overworld->setToLevel(curLevelNbr + 1);
-            statsBoard.setLDL(overworld->getState());
+            statsBoard.setLDL(overworld->getState()[1]);
             leaveLevel();
             if (autoSave)
             {
@@ -716,7 +716,7 @@ void Game::save()
     // creates save with current slot and name
     std::string path = "save/" + currentMenuSave->getLabel() + ".save";
 
-    int LDL = overworld->getState();
+    int LDL = overworld->getState()[1];
 
     // Displays the save name on the menu
     currentMenuSave->getText()->setString(saveHandler.computeLevelName(LDL));

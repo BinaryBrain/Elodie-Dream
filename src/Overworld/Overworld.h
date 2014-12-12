@@ -34,7 +34,7 @@ public:
 
     int getLevelToLoad();
 
-    int getState();
+    const std::vector<int>& getState();
     void setState(int state);
     void setPosInPath(int pos = 0);
     void setToLevel(int level);
@@ -54,7 +54,7 @@ private:
         FRELJORD2 = 7
     };
 
-    states currentState;
+    std::vector<int> currentState;
     std::vector<std::vector<sf::Sprite>> overworldSprites;
     std::vector<std::vector<sf::Texture*>> overworldTextures;
     std::vector<std::vector<sf::VertexArray*>> paths;
