@@ -60,7 +60,7 @@ private:
     Game(const Game&);
     Game& operator= (Game const&);
 
-    int curLevelNbr = 0;
+    std::vector<int> curLevelNbr;
     bool autoSave = false;
     bool mute;
     bool showTutoConsole = false;
@@ -105,8 +105,8 @@ private:
     void handleOverworld(sf::Time time);
     void displayMenu();
     void displayConsole();
-    void displayLevel(int curLevel, sf::Time time);
-    void loadLevel(int levelNbr);
+    void displayLevel(sf::Time time);
+    void loadLevel(std::vector<int> levelNbr);
     bool girlyMode = false;
     void dead();
     void displayEnd();

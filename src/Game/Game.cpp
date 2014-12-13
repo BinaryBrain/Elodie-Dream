@@ -7,7 +7,8 @@ Game::Game() :
     statsManager(StatsManager::getInstance())
 {
     configManager.load(SETTINGS_PATH + "/settings.json");
-
+    curLevelNbr.push_back(0);
+    curLevelNbr.push_back(0);
     mute = DEFAULT_MUTE;
 
     title = new TitleScreen(view);
@@ -61,7 +62,7 @@ void Game::leaveLevel()
     menuHandler.getTitleMenu()->toNormalMenu();
 }
 
-void Game::displayLevel(int curLevelNbr, sf::Time time)
+void Game::displayLevel(sf::Time time)
 {
     //double ypos = ((Elodie*)curLevel->getEntities()["elodie"])->getPosition().y;
     //if (  ypos < miny) {
@@ -122,7 +123,7 @@ void Game::displayLevel(int curLevelNbr, sf::Time time)
             // level cleared
             if (curLevel->isCleared())
             {
-                scoreManager.setLevel(curLevelNbr);
+                scoreManager.setLevel(curLevelNbr[1]);
                 scoreManager.computeTotalPoints();
                 scoreManager.saveCurrentScore();
                 scoreBoard.prepareText();
@@ -145,12 +146,18 @@ void Game::displayLevel(int curLevelNbr, sf::Time time)
     }
 }
 
-void Game::loadLevel(int levelNbr)
+void Game::loadLevel(std::vector<int> level)
 {
     state = GameState::INLEVEL;
-    curLevelNbr = levelNbr;
+    curLevelNbr = level;
     LevelEnv env = LevelEnv::FIELD;
-    switch (levelNbr)
+    JsonAccessor accessor;
+    accessor.loadJsonFrom("assets/config/levels/subWorld" + Utils::itos(level[0]) + "/envs.json");
+    if (level[0] == 0 && level[1] == 0){
+        showTutoConsole = true;
+    }
+    env = static_cast<LevelEnv>(accessor.getInt(Utils::itos(level[1])));
+    /*switch (level[1])
     {
     case 0:
         showTutoConsole = true;
@@ -181,8 +188,8 @@ void Game::loadLevel(int levelNbr)
     default:
         env = LevelEnv::FIELD;
         break;
-    }
-    curLevel = new Level(view, "assets/levels/level"+Utils::itos(curLevelNbr)+".txt", env, overworld->getElodie());
+    }*/
+    curLevel = new Level(view, "assets/levels/subWorld" + Utils::itos(level[0]) + "/level"+Utils::itos(level[1])+".txt", env, overworld->getElodie());
     menuHandler.getTitleMenu()->toLevelMenu();
 }
 
@@ -228,9 +235,10 @@ void Game::handleOverworld(sf::Time time)
     }
     else if (event.keyIsPressed(sf::Keyboard::Return) || event.keyIsPressed(sf::Keyboard::Space))
     {
-        if (overworld->getLevelToLoad() >= 0)
+        std::vector<int> levelToload = overworld->getLevelToLoad();
+        if ( levelToload[1] >= 0)
         {
-            loadLevel(overworld->getLevelToLoad());
+            loadLevel(levelToload);
             view.hide(ViewLayer::OVERWORLD);
             overworld->getMusic().stop();
             view.show(ViewLayer::SKY);
@@ -437,7 +445,7 @@ void Game::displayScore()
         view.hide(ViewLayer::SCORE);
 
         // end of game
-        if (curLevelNbr == (NUMLEVELS-1))
+        if (curLevelNbr[1] == (NUMLEVELS-1))
         {
             endingScreen = new EndingScreen(view, mute);
             view.show(ViewLayer::ENDINGSCREEN);
@@ -445,8 +453,7 @@ void Game::displayScore()
         }
         else
         {
-            overworld->evolve(overworld->getState()[1], curLevelNbr + 1);
-            overworld->setToLevel(curLevelNbr + 1);
+            overworld->evolve(curLevelNbr);
             statsBoard.setLDL(overworld->getState()[1]);
             leaveLevel();
             if (autoSave)
@@ -528,7 +535,7 @@ void Game::run()
         switch(state)
         {
         case GameState::INLEVEL:
-            displayLevel(curLevelNbr, sfTime);
+            displayLevel(sfTime);
             break;
         case GameState::INOVERWORLD:
             handleOverworld(sfTime);
@@ -682,8 +689,8 @@ void Game::load()
                 overworld = new Overworld(view, mute);
                 view.addView(ViewLayer::OVERWORLD, overworld);
             }
-            overworld->setState(LDL[1]); // todo
-            overworld->setToLevel(LDL[1]); // todo
+            overworld->setState(LDL);
+            overworld->setToLevel(LDL);
             overworld->resetPos();
             overworld->getElodie().play();
 

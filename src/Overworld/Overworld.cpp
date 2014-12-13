@@ -3,20 +3,18 @@
 Overworld::Overworld(GameView& gameView, bool muted) : Displayable(gameView)
 {
 
-    std::cout << "Constructing overworld" << std::endl;
     JsonAccessor worldStructureAcccessor;
 
     worldStructureAcccessor.loadJsonFrom("assets/config/levels/worldStruct.json");
 
-    int subWorldsNumber = worldStructureAcccessor.getInt("subWorldsNumber");
+    subWorldsNumber = worldStructureAcccessor.getInt("subWorldsNumber");
 
     std::vector<int> envsPerSubworld = worldStructureAcccessor.getIntVector("envsPerSubworld");
 
-    std::vector<int> levelsPerSubworld = worldStructureAcccessor.getIntVector("levelsPerSubworld");
+    levelsPerSubworld = worldStructureAcccessor.getIntVector("levelsPerSubworld");
 
     for (int w = 0; w < subWorldsNumber; ++w)
     {
-        std::cout << "Loading new subworld : " << w << std::endl;
         overworldSprites.push_back(std::vector<sf::Sprite>());
         overworldTextures.push_back(std::vector<sf::Texture*>());
         for (int i = 0; i < envsPerSubworld[w]; ++i)
@@ -26,7 +24,6 @@ Overworld::Overworld(GameView& gameView, bool muted) : Displayable(gameView)
             overworldTextures[w].back()->loadFromFile("assets/img/overworld/subWorld"+ Utils::itos(w) +"/overworld" + Utils::itos(i) + ".png");
             overworldSprites[w].push_back(sf::Sprite(*(overworldTextures[w].back())));
         }
-        std::cout << "Images loaded" << std::endl;
         JsonAccessor accessor;
         accessor.loadJsonFrom("assets/config/levels/subWorld" + Utils::itos(w) + "/pos.json");
 
@@ -35,8 +32,6 @@ Overworld::Overworld(GameView& gameView, bool muted) : Displayable(gameView)
         {
             levelPos[w].push_back(accessor.getIntVector(Utils::itos(i)));
         }
-
-        std::cout << "Pos loaded" << std::endl;
 
         levelSpotSprites.push_back(std::vector<sf::Sprite*>());
         for (int i = 0; i < levelsPerSubworld[w]; ++i)
@@ -47,8 +42,6 @@ Overworld::Overworld(GameView& gameView, bool muted) : Displayable(gameView)
             spotSprite->setPosition((levelPos[w][i])[0] - 16, (levelPos[w][i])[1] - 16);
             levelSpotSprites[w].push_back(spotSprite);
         }
-
-        std::cout << "Spots loaded" << std::endl;
 
         pathSprites.push_back(std::vector<sf::Sprite*>());
         pathSprites[w].push_back(new sf::Sprite);
@@ -61,8 +54,6 @@ Overworld::Overworld(GameView& gameView, bool muted) : Displayable(gameView)
             pathSprite->setPosition(-8, -7);
             pathSprites[w].push_back(pathSprite);
         }
-
-        std::cout << "Paths sprites loaded" << std::endl;
 
         accessor.loadJsonFrom("assets/config/levels/subWorld" + Utils::itos(w) + "/paths.json");
 
@@ -93,7 +84,6 @@ Overworld::Overworld(GameView& gameView, bool muted) : Displayable(gameView)
             paths[w].push_back(path);
         }
 
-        std::cout << "Paths loaded" << std::endl;
     }
     currentState.push_back(0);
     currentState.push_back(UNIL1);
@@ -277,37 +267,23 @@ int Overworld::moveLeft()
     return 0;
 }
 
-void Overworld::evolve(int minLevel, int maxLevel)
+void Overworld::evolve(std::vector<int> succLevel)
 {
-    maxLevel = minLevel > maxLevel ? minLevel : maxLevel;
-    switch(currentState[1])
+    if (succLevel[0] >= currentState[0] )
     {
-    case states::UNIL1:
-        currentState[1] = states::UNIL2;
-        break;
-    case states::UNIL2:
-        currentState[1] = states::CASTLE1;
-        break;
-    case states::CASTLE1:
-        currentState[1] = states::CASTLE2;
-        break;
-    case states::CASTLE2:
-        currentState[1] = states::VOLCANO1;
-        break;
-    case states::VOLCANO1:
-        currentState[1] = states::VOLCANO2;
-        break;
-    case states::VOLCANO2:
-        currentState[1] = states::FRELJORD1;
-        break;
-    case states::FRELJORD1:
-        currentState[1] = states::FRELJORD2;
-        break;
-    default:
-        break;
+        if (succLevel[1] >= currentState[1])
+        {
+            if (succLevel[1] < levelsPerSubworld[currentState[0]] - 1)
+            {
+                currentState[1] = succLevel[1] + 1;
+            }
+            else if (currentState[0] < subWorldsNumber - 1)
+            {
+                currentState[0] += 1;
+                currentState[1] = 0;
+            }
+        }
     }
-
-    currentState[1] = (int)currentState[1] > maxLevel ? (states) maxLevel : currentState[1];
 }
 
 int Overworld::whichOverworld()
@@ -352,44 +328,12 @@ sf::Music& Overworld::getMusic()
     return music;
 }
 
-int Overworld::getLevelToLoad()
+std::vector<int> Overworld::getLevelToLoad()
 {
-    if(curPosInPath == 0)
-    {
-        return 0;
-    }
-    else if (curPosInPath == 1)
-    {
-        return 1;
-    }
-    else if (curPosInPath == 3)
-    {
-        return 2;
-    }
-    else if (curPosInPath == 4)
-    {
-        return 3;
-    }
-    else if (curPosInPath == 5)
-    {
-        return 4;
-    }
-    else if (curPosInPath == 7)
-    {
-        return 5;
-    }
-    else if (curPosInPath == 8)
-    {
-        return 6;
-    }
-    else if (curPosInPath == 10)
-    {
-        return 7;
-    }
-    else
-    {
-        return -1;
-    }
+    std::vector<int> toReturn;
+    toReturn.push_back(curSubWorld);
+    toReturn.push_back(getLevelFromPath());
+    return toReturn;
 }
 
 const std::vector<int>& Overworld::getState()
@@ -397,46 +341,56 @@ const std::vector<int>& Overworld::getState()
     return currentState;
 }
 
-void Overworld::setState(int state)
+void Overworld::setState(std::vector<int> state)
 {
-    this->currentState[1] = static_cast<states>(state);
+    currentState[0] = state[0];
+    currentState[1] = state[1];
 }
 
-void Overworld::setToLevel(int level)
+void Overworld::setToLevel(std::vector<int> level)
 {
-    switch(level)
+    if (level[0] < subWorldsNumber)
     {
-    case 0:
-        curPosInPath = 0;
-        break;
-    case 1:
-        curPosInPath = 1;
-        break;
-    case 2:
-        curPosInPath = 3;
-        break;
-    case 3:
-        curPosInPath = 4;
-        break;
-    case 4:
-        curPosInPath = 5;
-        break;
-    case 5:
-        curPosInPath = 7;
-        break;
-    case 6:
-        curPosInPath = 8;
-        break;
-    case 7:
-        curPosInPath = 10;
-        break;
-    default:
-        curPosInPath = 0;
+        curSubWorld = (unsigned int) level[0];
+    }
+
+    if (level[1] < levelsPerSubworld[curSubWorld])
+    {
+        std::vector<int> wantedPos = levelPos[curSubWorld][level[1]];
+        sf::VertexArray path = (* (paths[curSubWorld][currentState[1]]));
+        bool found = false;
+        size_t i = 0;
+        while (!found)
+        {
+            if (path[i].position.x == wantedPos[0] && path[i].position.y == wantedPos[1])
+            {
+                found = true;
+                curPosInPath = i;
+            }
+            else
+            {
+                ++i;
+            }
+        }
     }
 }
 
-void Overworld::switchOverworlds(){
+void Overworld::switchOverworlds()
+{
     curPosInPath = 0;
     curSubWorld = curSubWorld == 0 ? 1 : 0;
     currentState[1] = 0;
+}
+
+int Overworld::getLevelFromPath()
+{
+    sf::Vertex curPos = (* (paths[curSubWorld][currentState[1]]))[curPosInPath];
+    for (size_t i = 0; i < levelPos[curSubWorld].size(); ++i)
+    {
+        if(levelPos[curSubWorld][i][0] == curPos.position.x && levelPos[curSubWorld][i][1] == curPos.position.y)
+        {
+            return i;
+        }
+    }
+    return -1;
 }

@@ -26,19 +26,19 @@ public:
     int moveDown();
     int moveRight();
     int moveLeft();
-    void evolve(int minLevel = 0, int maxLevel = 7);
+    void evolve(std::vector<int> succLevel);
     void display();
     void resetPos();
     void playMusic();
     void stopMusic();
 
-    int getLevelToLoad();
+    std::vector<int> getLevelToLoad();
 
     const std::vector<int>& getState();
-    void setState(int state);
+    void setState(std::vector<int> state);
     void switchOverworlds();//TODO : REMOVE ME !!!
     void setPosInPath(int pos = 0);
-    void setToLevel(int level);
+    void setToLevel(std::vector<int> level);
     sf::Music& getMusic();
 
 protected:
@@ -61,6 +61,9 @@ private:
     std::vector<std::vector<sf::VertexArray*>> paths;
     std::vector<std::vector<sf::Sprite*>> pathSprites;
     std::vector < std::vector< std::vector<int> > >levelPos;
+    std::vector<int> levelsPerSubworld;
+
+    int subWorldsNumber ;
 
     unsigned int curSubWorld = 0;
 
@@ -72,6 +75,8 @@ private:
     sf::Music music;
 
     int whichOverworld();
+
+    int getLevelFromPath();
 };
 
 #endif // OVERWORLD_H
