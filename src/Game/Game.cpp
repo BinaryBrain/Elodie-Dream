@@ -236,6 +236,8 @@ void Game::handleOverworld(sf::Time time)
     else if (event.keyIsPressed(sf::Keyboard::Return) || event.keyIsPressed(sf::Keyboard::Space))
     {
         std::vector<int> levelToload = overworld->getLevelToLoad();
+        std::cout << levelToload[0] << std::endl;
+        std::cout << levelToload[1] << std::endl;
         if ( levelToload[1] >= 0)
         {
             loadLevel(levelToload);
@@ -450,6 +452,7 @@ void Game::displayScore()
             endingScreen = new EndingScreen(view, mute);
             view.show(ViewLayer::ENDINGSCREEN);
             state = GameState::ENDINGSCREEN;
+            overworld->evolve(curLevelNbr);
         }
         else
         {

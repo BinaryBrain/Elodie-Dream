@@ -70,6 +70,8 @@ private:
     std::vector< std::string > trigIn;
     std::vector< std::string > trigOut;
     std::vector<int> levelsPerSubworld;
+    std::vector<int> envsPerSubworld;
+    std::vector< std::vector<int> > envs;
 
     int subWorldsNumber ;
 
@@ -81,8 +83,6 @@ private:
 
     Elodie* elodie;
     sf::Music music;
-
-    int whichOverworld();
 
     int getLevelFromPath();
 };

@@ -13,8 +13,8 @@ Meteorite::Meteorite() : Meteorite(sf::Vector2f(0, 0))
 }
 
 Meteorite::Meteorite(sf::Vector2f position) :
-    Entity(position, EntityType::ENEMY, EntityName::METEORITE,
-           ENTITYTYPE_ENEMY+"/"+ENTITYNAME_METEORITE+".png", "standing",
+    Entity(position, EntityType::ENEMY, EntityName::SHEEP,
+           ENTITYTYPE_ENEMY+"/"+""+".png", "standing",
            Meteorite::ANIMATIONS, Meteorite::State::STANDING,
 {-Meteorite::SPEED_X, 0}, 1, Meteorite::DAMAGE)
 {
