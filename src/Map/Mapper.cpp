@@ -6,6 +6,9 @@
 #include "../Entity/Enemy/Bristle.h"
 #include "../Entity/Portal.h"
 #include "../Entity/Enemy/Spikes.h"
+#include "../Entity/Enemy/Alien.h"
+#include "../Entity/Enemy/Laser.h"
+#include "../Entity/Enemy/Meteorite.h"
 #include "../Entity/Poro.h"
 #include "../Entity/Bonus.h"
 
