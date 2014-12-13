@@ -5,22 +5,25 @@
 #include <vector>
 #include <string>
 
+#include "../Score/Score.h"
+
 class StatsManager
 {
 public:
-    static const std::string BONI_KEY;
     static const std::string DAMAGES_KEY;
     static const std::string DEATHS_KEY;
-    static const std::string SHEEPS_KEY;
-    static const std::string MAGMACUBE_KEY;
-    static const std::string BRISTLES_KEY;
 
-    static const std::string BONI_LABEL;
     static const std::string DAMAGES_LABEL;
     static const std::string DEATHS_LABEL;
+    static const std::string BONI_LABEL;
     static const std::string SHEEPS_LABEL;
-    static const std::string MAGMACUBE_LABEL;
+    static const std::string MAGMACUBES_LABEL;
     static const std::string BRISTLES_LABEL;
+    static const std::string CROWS_LABEL;
+    static const std::string REDLIGHTS_LABEL;
+    static const std::string METEORITES_LABEL;
+    static const std::string ALIENS_LABEL;
+    static const std::string LASERS_LABEL;
 
     static StatsManager& getInstance();
 
@@ -38,10 +41,10 @@ public:
     std::vector<int> getAllValues();
     std::vector<std::string> getAllKeys();
 
-    void setTotalBoni(int totalBoni);
     void setTotalDamages(int totalDamages);
     void setTotalDeaths(int totalDeaths);
 
+    void setTotalBoni(int totalBoni);
     void setTotalSheeps(int totalSheeps);
     void setTotalMagmaCubes(int totalMagmaCubes);
     void setTotalBristles(int totalBristles);
@@ -58,6 +61,7 @@ private:
     StatsManager& operator= (StatsManager const&);
 
     std::map<std::string, int> datas;
+    std::vector< std::pair<std::string, std::string> > keysLabels;
 };
 
 #endif // STATSMANAGER_H

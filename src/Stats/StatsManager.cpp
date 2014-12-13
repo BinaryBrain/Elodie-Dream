@@ -1,21 +1,33 @@
 #include "StatsManager.h"
 
-const std::string StatsManager::BONI_KEY = "boni";
 const std::string StatsManager::DAMAGES_KEY = "damages";
 const std::string StatsManager::DEATHS_KEY = "deaths";
-const std::string StatsManager::SHEEPS_KEY = "sheeps";
-const std::string StatsManager::MAGMACUBE_KEY = "magmacubes";
-const std::string StatsManager::BRISTLES_KEY = "bristles";
 
 const std::string StatsManager::BONI_LABEL = "Boni collected";
 const std::string StatsManager::DAMAGES_LABEL = "Damages taken";
 const std::string StatsManager::DEATHS_LABEL = "Deaths";
 const std::string StatsManager::SHEEPS_LABEL = "Sheeps killed";
-const std::string StatsManager::MAGMACUBE_LABEL = "Magma cubes killed";
+const std::string StatsManager::MAGMACUBES_LABEL = "Magma cubes killed";
 const std::string StatsManager::BRISTLES_LABEL = "Bristles killed";
+const std::string StatsManager::CROWS_LABEL = "Crows killed";
+const std::string StatsManager::REDLIGHTS_LABEL = "Red lights killed";
+const std::string StatsManager::METEORITES_LABEL = "Meteorites killed";
+const std::string StatsManager::ALIENS_LABEL = "Aliens killed";
+const std::string StatsManager::LASERS_LABEL = "Lasers killed";
 
 StatsManager::StatsManager()
 {
+    keysLabels.push_back({DAMAGES_KEY, DAMAGES_LABEL});
+    keysLabels.push_back({DEATHS_KEY, DEATHS_LABEL});
+    keysLabels.push_back({Score::BONI_KEY, BONI_LABEL});
+    keysLabels.push_back({Score::SHEEPS_KEY, SHEEPS_LABEL});
+    keysLabels.push_back({Score::MAGMACUBES_KEY, MAGMACUBES_LABEL});
+    keysLabels.push_back({Score::BRISTLES_KEY, BRISTLES_LABEL});
+    keysLabels.push_back({Score::CROWS_KEY, CROWS_LABEL});
+    keysLabels.push_back({Score::REDLIGHTS_KEY, REDLIGHTS_LABEL});
+    keysLabels.push_back({Score::METEORITES_KEY, METEORITES_LABEL});
+    keysLabels.push_back({Score::ALIENS_KEY, ALIENS_LABEL});
+    keysLabels.push_back({Score::LASERS_KEY, LASERS_LABEL});
     reset();
 }
 
@@ -32,7 +44,7 @@ StatsManager& StatsManager::getInstance()
 
 int StatsManager::getTotalBoni()
 {
-    return datas[BONI_KEY];
+    return datas[Score::BONI_KEY];
 }
 
 int StatsManager::getTotalDamages()
@@ -47,22 +59,22 @@ int StatsManager::getTotalDeaths()
 
 int StatsManager::getTotalSheeps()
 {
-    return datas[SHEEPS_KEY];
+    return datas[Score::SHEEPS_KEY];
 }
 
 int StatsManager::getTotalMagmaCubes()
 {
-    return datas[MAGMACUBE_KEY];
+    return datas[Score::MAGMACUBES_KEY];
 }
 
 int StatsManager::getTotalBristles()
 {
-    return datas[BRISTLES_KEY];
+    return datas[Score::BRISTLES_KEY];
 }
 
 int StatsManager::getTotalEnemiesKilled()
 {
-    return datas[SHEEPS_KEY] + datas[MAGMACUBE_KEY] + datas[BRISTLES_KEY];
+    return datas[Score::SHEEPS_KEY] + datas[Score::MAGMACUBES_KEY] + datas[Score::BRISTLES_KEY];
 }
 
 const std::map<std::string, int>& StatsManager::getAllDatas()
@@ -72,42 +84,28 @@ const std::map<std::string, int>& StatsManager::getAllDatas()
 
 std::vector< std::pair<std::string, int> > StatsManager::getLabelledValues()
 {
-    std::vector< std::pair<std::string, int> > namesValues;
-    namesValues.push_back(std::make_pair(BONI_LABEL, datas[BONI_KEY]));
-    namesValues.push_back(std::make_pair(DAMAGES_LABEL, datas[DAMAGES_KEY]));
-    namesValues.push_back(std::make_pair(DEATHS_LABEL, datas[DEATHS_KEY]));
-    namesValues.push_back(std::make_pair(SHEEPS_LABEL, datas[SHEEPS_KEY]));
-    namesValues.push_back(std::make_pair(MAGMACUBE_LABEL, datas[MAGMACUBE_KEY]));
-    namesValues.push_back(std::make_pair(BRISTLES_LABEL, datas[BRISTLES_KEY]));
-    return namesValues;
+    std::vector< std::pair<std::string, int> > labelsValues;
+    for (size_t i = 0; i < keysLabels.size(); ++i) {
+        labelsValues.push_back(std::make_pair(keysLabels[i].second, datas[keysLabels[i].first]));
+    }
+    return labelsValues;
 }
 
 std::vector<int> StatsManager::getAllValues()
 {
     std::vector<int> values;
-    values.push_back(datas[BONI_KEY]);
-    values.push_back(datas[DAMAGES_KEY]);
-    values.push_back(datas[DEATHS_KEY]);
-    values.push_back(datas[SHEEPS_KEY]);
-    values.push_back(datas[MAGMACUBE_KEY]);
-    values.push_back(datas[BRISTLES_KEY]);
+    for (size_t i = 0; i < keysLabels.size(); ++i) {
+        values.push_back(datas[keysLabels[i].first]);
+    }
     return values;
 }
 
 std::vector<std::string> StatsManager::getAllKeys() {
     std::vector<std::string> keys;
-    keys.push_back(BONI_KEY);
-    keys.push_back(DAMAGES_KEY);
-    keys.push_back(DEATHS_KEY);
-    keys.push_back(SHEEPS_KEY);
-    keys.push_back(MAGMACUBE_KEY);
-    keys.push_back(BRISTLES_KEY);
+    for (size_t i = 0; i < keysLabels.size(); ++i) {
+        keys.push_back(keysLabels[i].first);
+    }
     return keys;
-}
-
-void StatsManager::setTotalBoni(int totalBoni)
-{
-    datas[BONI_KEY] = totalBoni;
 }
 
 void StatsManager::setTotalDamages(int totalDamages)
@@ -120,19 +118,24 @@ void StatsManager::setTotalDeaths(int totalDeaths)
     datas[DEATHS_KEY] = totalDeaths;
 }
 
+void StatsManager::setTotalBoni(int totalBoni)
+{
+    datas[Score::BONI_KEY] = totalBoni;
+}
+
 void StatsManager::setTotalSheeps(int totalSheeps)
 {
-    datas[SHEEPS_KEY] = totalSheeps;
+    datas[Score::SHEEPS_KEY] = totalSheeps;
 }
 
 void StatsManager::setTotalMagmaCubes(int totalMagmaCubes)
 {
-    datas[MAGMACUBE_KEY] = totalMagmaCubes;
+    datas[Score::MAGMACUBES_KEY] = totalMagmaCubes;
 }
 
 void StatsManager::setTotalBristles(int totalBristles)
 {
-    datas[BRISTLES_KEY] = totalBristles;
+    datas[Score::BRISTLES_KEY] = totalBristles;
 }
 
 void StatsManager::setAllDatas(const std::map<std::string, int>& datas)
@@ -143,10 +146,7 @@ void StatsManager::setAllDatas(const std::map<std::string, int>& datas)
 void StatsManager::reset()
 {
     datas.clear();
-    datas.insert({BONI_KEY, 0});
-    datas.insert({DAMAGES_KEY, 0});
-    datas.insert({DEATHS_KEY, 0});
-    datas.insert({SHEEPS_KEY, 0});
-    datas.insert({MAGMACUBE_KEY, 0});
-    datas.insert({BRISTLES_KEY, 0});
+    for (size_t i = 0; i < keysLabels.size(); ++i) {
+        datas.insert({keysLabels[i].first, 0});
+    }
 }

@@ -638,6 +638,7 @@ void Game::load()
         // retrieves the saved values
         JsonAccessor accessor;
         bool jsonOk = accessor.setJson(saveHandler.getDecryptedContentFrom(path));
+        std::cout << accessor.getCurrentJson() << std::endl;
 
         // if the save is valid
         if (jsonOk && accessor.canTakeElementFrom(SaveHandler::DATE_KEY) && accessor.canTakeElementFrom(SaveHandler::LDL_KEY))

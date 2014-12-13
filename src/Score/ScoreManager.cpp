@@ -75,6 +75,11 @@ std::vector<std::string> ScoreManager::getAllKeys() {
     keys.push_back(Score::SHEEPS_KEY);
     keys.push_back(Score::MAGMACUBES_KEY);
     keys.push_back(Score::BRISTLES_KEY);
+    keys.push_back(Score::CROWS_KEY);
+    keys.push_back(Score::REDLIGHTS_KEY);
+    keys.push_back(Score::METEORITES_KEY);
+    keys.push_back(Score::ALIENS_KEY);
+    keys.push_back(Score::LASERS_KEY);
     return keys;
 }
 
@@ -138,6 +143,7 @@ void ScoreManager::addEnemyKilled(EnemyType type)
         currentScore.setBristles(currentScore.getBristles() + 1);
         statsManager.setTotalBristles(statsManager.getTotalBristles() + 1);
         break;
+    // todo other cases
     default:
         break;
     }

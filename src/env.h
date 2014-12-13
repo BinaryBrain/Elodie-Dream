@@ -33,7 +33,7 @@ enum class SoundType
 
 enum class EnemyType
 {
-    SHEEP, MAGMACUBE, BRISTLE, SPIKES, GHOST
+    SHEEP, MAGMACUBE, BRISTLE, SPIKES, GHOST, CROW, REDLIGHT, METEORITE, ALIEN, LASER
 };
 
 #endif // ENV_H
