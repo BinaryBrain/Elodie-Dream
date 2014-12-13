@@ -36,6 +36,7 @@ public:
 
     const std::vector<int>& getState();
     void setState(int state);
+    void switchOverworlds();//TODO : REMOVE ME !!!
     void setPosInPath(int pos = 0);
     void setToLevel(int level);
     sf::Music& getMusic();

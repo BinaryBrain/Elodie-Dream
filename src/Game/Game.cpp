@@ -521,6 +521,10 @@ void Game::run()
             girlyMode = !girlyMode;
         }
 
+        if (event.keyIsPressed(sf::Keyboard::S)){
+            overworld->switchOverworlds();
+        }
+
         switch(state)
         {
         case GameState::INLEVEL:

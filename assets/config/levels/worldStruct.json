@@ -1,5 +1,5 @@
 {
-	"subWorldsNumber" : 1,
-	"envsPerSubworld" : [4],
-	"levelsPerSubworld" : [8]
+	"subWorldsNumber" : 2,
+	"envsPerSubworld" : [4, 2],
+	"levelsPerSubworld" : [8, 6]
 }

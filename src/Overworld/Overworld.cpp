@@ -2,6 +2,8 @@
 
 Overworld::Overworld(GameView& gameView, bool muted) : Displayable(gameView)
 {
+
+    std::cout << "Constructing overworld" << std::endl;
     JsonAccessor worldStructureAcccessor;
 
     worldStructureAcccessor.loadJsonFrom("assets/config/levels/worldStruct.json");
@@ -12,11 +14,9 @@ Overworld::Overworld(GameView& gameView, bool muted) : Displayable(gameView)
 
     std::vector<int> levelsPerSubworld = worldStructureAcccessor.getIntVector("levelsPerSubworld");
 
-    std::cout << subWorldsNumber << std::endl;
-    std::cout << envsPerSubworld[0] << std::endl;
-    std::cout << levelsPerSubworld[0] << std::endl;
     for (int w = 0; w < subWorldsNumber; ++w)
     {
+        std::cout << "Loading new subworld : " << w << std::endl;
         overworldSprites.push_back(std::vector<sf::Sprite>());
         overworldTextures.push_back(std::vector<sf::Texture*>());
         for (int i = 0; i < envsPerSubworld[w]; ++i)
@@ -26,7 +26,7 @@ Overworld::Overworld(GameView& gameView, bool muted) : Displayable(gameView)
             overworldTextures[w].back()->loadFromFile("assets/img/overworld/subWorld"+ Utils::itos(w) +"/overworld" + Utils::itos(i) + ".png");
             overworldSprites[w].push_back(sf::Sprite(*(overworldTextures[w].back())));
         }
-
+        std::cout << "Images loaded" << std::endl;
         JsonAccessor accessor;
         accessor.loadJsonFrom("assets/config/levels/subWorld" + Utils::itos(w) + "/pos.json");
 
@@ -35,6 +35,8 @@ Overworld::Overworld(GameView& gameView, bool muted) : Displayable(gameView)
         {
             levelPos[w].push_back(accessor.getIntVector(Utils::itos(i)));
         }
+
+        std::cout << "Pos loaded" << std::endl;
 
         levelSpotSprites.push_back(std::vector<sf::Sprite*>());
         for (int i = 0; i < levelsPerSubworld[w]; ++i)
@@ -45,6 +47,8 @@ Overworld::Overworld(GameView& gameView, bool muted) : Displayable(gameView)
             spotSprite->setPosition((levelPos[w][i])[0] - 16, (levelPos[w][i])[1] - 16);
             levelSpotSprites[w].push_back(spotSprite);
         }
+
+        std::cout << "Spots loaded" << std::endl;
 
         pathSprites.push_back(std::vector<sf::Sprite*>());
         pathSprites[w].push_back(new sf::Sprite);
@@ -57,6 +61,8 @@ Overworld::Overworld(GameView& gameView, bool muted) : Displayable(gameView)
             pathSprite->setPosition(-8, -7);
             pathSprites[w].push_back(pathSprite);
         }
+
+        std::cout << "Paths sprites loaded" << std::endl;
 
         accessor.loadJsonFrom("assets/config/levels/subWorld" + Utils::itos(w) + "/paths.json");
 
@@ -86,6 +92,8 @@ Overworld::Overworld(GameView& gameView, bool muted) : Displayable(gameView)
 
             paths[w].push_back(path);
         }
+
+        std::cout << "Paths loaded" << std::endl;
     }
     currentState.push_back(0);
     currentState.push_back(UNIL1);
@@ -425,4 +433,10 @@ void Overworld::setToLevel(int level)
     default:
         curPosInPath = 0;
     }
+}
+
+void Overworld::switchOverworlds(){
+    curPosInPath = 0;
+    curSubWorld = curSubWorld == 0 ? 1 : 0;
+    currentState[1] = 0;
 }
