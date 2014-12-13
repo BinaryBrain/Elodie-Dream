@@ -1,3 +1,5 @@
+#include "../../Score/ScoreManager.h"
+#include "../../Sound/SoundManager.h"
 #include "Meteorite.h"
 
 const int Meteorite::DAMAGE = 70;
@@ -38,6 +40,15 @@ void Meteorite::doAttack(std::map< std::string, Entity* >& entities)
 
 void  Meteorite::takeDamage(int, bool)
 {
+    if (!damageCD && damage > 0)
+    {
+        life = 0;
+        damageCD = DAMAGE_CD;
+        // SoundManager::getInstance().play(SoundType::METEORITE);  // WHY DIS NO WORK PSL
+    }
+    SoundManager::getInstance().play(SoundType::PUNCH);
+    ScoreManager& sm = ScoreManager::getInstance();
+    sm.addEnemyKilled(EnemyType::METEORITE);
 }
 
 void Meteorite::doStuff(const EventHandler&, const std::vector< std::vector<TileSprite*> >&,

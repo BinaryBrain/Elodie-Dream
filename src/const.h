@@ -43,6 +43,8 @@ static const char MAP_MAGMACUBE = 'M';
 static const char MAP_GHOST = 'G';
 static const char MAP_BRISTLE = 'B';
 static const char MAP_METEORITE = 'W';
+static const char MAP_ALIEN = 'A';
+static const char MAP_LASER = 'L';
 static const char MAP_SPIKES = 'P';
 static const char MAP_PORO = 'O';
 static const char MAP_BONUS = 'N';
@@ -84,6 +86,8 @@ const string ENTITYNAME_GHOST = "ghost";
 const string ENTITYNAME_MAGMACUBE = "magmacube";
 const string ENTITYNAME_BRISTLE = "bristle";
 const string ENTITYNAME_METEORITE = "meteorite";
+const string ENTITYNAME_ALIEN = "alien";
+const string ENTITYNAME_LASER = "laser";
 const string ENTITYNAME_SPIKES = "spikes";
 const string ENTITYNAME_PORTAL = "portal";
 const string ENTITYNAME_PORO = "poro";
@@ -119,6 +123,15 @@ const int SOUND_TYPE_FOOTSTEP_GRASS_MAX = 3;
 
 const string SOUND_TYPE_BRISTLE = "bristle";
 const int SOUND_TYPE_BRISTLE_MAX = 2;
+
+const string SOUND_TYPE_METEORITE = "meteorite";
+const int SOUND_TYPE_METEORITE_MAX = 3;
+
+const string SOUND_TYPE_ALIEN = "alien";
+const int SOUND_TYPE_ALIEN_MAX = 1;
+
+const string SOUND_TYPE_LASER = "laser";
+const int SOUND_TYPE_LASER_MAX = 1;
 
 const string SOUND_TYPE_BOTTLE = "bottle";
 const int SOUND_TYPE_BOTTLE_MAX = 1;
