@@ -380,6 +380,10 @@ std::vector<int> Overworld::getLevelToLoad()
     return toReturn;
 }
 
+const std::vector<int>& Overworld::getLevelsPerSubworld() {
+    return levelsPerSubworld;
+}
+
 const std::vector<int>& Overworld::getState()
 {
     return currentState;

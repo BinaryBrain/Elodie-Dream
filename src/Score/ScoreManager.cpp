@@ -17,14 +17,14 @@ ScoreManager& ScoreManager::getInstance()
     return instance;
 }
 
-void ScoreManager::init(const std::vector<int>& envPerSubworld) {
-    this->envPerSubworld = envPerSubworld;
+void ScoreManager::init(const std::vector<int>& levelsPerSubworld) {
+    this->levelsPerSubworld = levelsPerSubworld;
     totalWords = 0;
 
-    for (size_t i = 0; i < envPerSubworld.size(); ++i)
+    for (size_t i = 0; i < levelsPerSubworld.size(); ++i)
     {
         std::vector<Score> subWorld;
-        for (int j = 0; j < envPerSubworld[i]; ++j)
+        for (int j = 0; j < levelsPerSubworld[i]; ++j)
         {
             Score score;
             subWorld.push_back(score);
@@ -63,9 +63,9 @@ std::vector< std::map<std::string, int> > ScoreManager::getAllDatas()
 {
     std::vector< std::map<std::string, int> > datas;
 
-    for (size_t i = 0; i < envPerSubworld.size(); ++i)
+    for (size_t i = 0; i < levelsPerSubworld.size(); ++i)
     {
-        for (int j = 0; j < envPerSubworld[i]; ++j)
+        for (int j = 0; j < levelsPerSubworld[i]; ++j)
         {
             datas.push_back(gameScore[i][j].getDatas());
         }
@@ -96,9 +96,9 @@ std::vector<std::string> ScoreManager::getAllKeys()
 void ScoreManager::setAllDatas(const std::vector< std::map<std::string, int> >& datas)
 {
     int nWorldsBefore = 0;
-    for (size_t i = 0; i < envPerSubworld.size(); ++i)
+    for (size_t i = 0; i < levelsPerSubworld.size(); ++i)
     {
-        for (int j = 0; j < envPerSubworld[i]; ++j)
+        for (int j = 0; j < levelsPerSubworld[i]; ++j)
         {
             (gameScore[i][j]).setDatas(datas[nWorldsBefore]);
             ++nWorldsBefore;
@@ -197,9 +197,9 @@ void ScoreManager::resetCurrentScore()
 
 void ScoreManager::resetAllScores()
 {
-    for (size_t i = 0; i < envPerSubworld.size(); ++i)
+    for (size_t i = 0; i < levelsPerSubworld.size(); ++i)
     {
-        for (int j = 0; j < envPerSubworld[i]; ++j)
+        for (int j = 0; j < levelsPerSubworld[i]; ++j)
         {
             gameScore[i][j].reset();
         }

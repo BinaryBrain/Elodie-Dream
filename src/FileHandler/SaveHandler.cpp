@@ -54,7 +54,7 @@ std::string SaveHandler::computeLevelName(const std::vector<int>& levelNumber)
     }
     else
     {
-        return "Level " + Utils::itos(levelNumber[0]) + "-" + Utils::itos(levelNumber[1]);
+        return "Level " + Utils::itos(levelNumber[0] + 1) + "-" + Utils::itos(levelNumber[1]);
     }
 }
 

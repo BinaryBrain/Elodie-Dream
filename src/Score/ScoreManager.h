@@ -52,7 +52,7 @@ private:
     ScoreManager(const ScoreManager&);
     ScoreManager& operator= (ScoreManager const&); // Makes operator= private
 
-    std::vector<int> envPerSubworld = {0,0};
+    std::vector<int> levelsPerSubworld = {0,0};
     int totalWords;
     Score currentScore;
     std::vector< std::vector<Score> > gameScore;

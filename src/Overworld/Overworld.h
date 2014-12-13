@@ -33,6 +33,7 @@ public:
     void stopMusic();
 
     std::vector<int> getLevelToLoad();
+    const std::vector<int>& getLevelsPerSubworld();
 
     const std::vector<int>& getState();
     void setState(std::vector<int> state);
@@ -43,7 +44,6 @@ public:
 
     void printCoord(std::vector<int> coord); //TODO : REMOVE ME (or pass me private)
 
-protected:
 private:
     enum states
     {

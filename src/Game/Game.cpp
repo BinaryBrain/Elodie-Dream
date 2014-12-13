@@ -15,8 +15,7 @@ Game::Game() :
     menuHandler.setInLevel(false);
     view.show(ViewLayer::TITLESCREEN);
 
-    std::vector<int> testEnvPerSub = {8,6};
-    scoreManager.init(testEnvPerSub);
+    scoreManager.init(overworld->getLevelsPerSubworld());
 }
 
 Game::~Game()
