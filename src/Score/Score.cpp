@@ -1,6 +1,5 @@
 #include "Score.h"
 
-const std::string Score::LEVELID_KEY = "levelid";
 const std::string Score::TOTALPOINTS_KEY = "totalpoints";
 const std::string Score::BONI_KEY = "boni";
 const std::string Score::DAMAGESTAKEN_KEY = "damagestaken";
@@ -26,9 +25,9 @@ Score::~Score()
 
 }
 
-int Score::getLevelId()
+const std::vector<int>& Score::getLevelId()
 {
-    return datas[LEVELID_KEY];
+    return levelId;
 }
 
 int Score::getTotalPoints()
@@ -105,9 +104,9 @@ bool Score::isRegistered()
     return registered;
 }
 
-void Score::setLevelId(int levelId)
+void Score::setLevelId(const std::vector<int>& levelId)
 {
-    datas[LEVELID_KEY] = levelId;
+    this->levelId = levelId;
 }
 
 void Score::setTotalPoints(int totalPoints)
@@ -187,7 +186,6 @@ void Score::setRegistered(bool registered)
 void Score::reset()
 {
     datas.clear();
-    datas.insert({LEVELID_KEY, 0});
     datas.insert({TOTALPOINTS_KEY, 0});
     datas.insert({BONI_KEY, 0});
     datas.insert({DAMAGESTAKEN_KEY, 0});

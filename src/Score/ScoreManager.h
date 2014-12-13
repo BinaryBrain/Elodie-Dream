@@ -19,12 +19,14 @@ public:
     static const int BONUS_NODAMAGES;
 
     static ScoreManager& getInstance();
+
+    void init(const std::vector<int>& envPerSubworld);
+
     int getKillPoints();
     int getLevelPoints();
     std::string getScoreString();
-    Score& getScore(int level);
+    Score& getScore(const std::vector<int>& level);
     Score& getCurrentScore();
-    std::vector<Score>& getGameScore();
     /**
     * \brief Returns in a vector of map of string and int: all the values in the Scores with their keys. Used to prepare datas for the save.
     * \return A vector of vector of int containing each value of a Score, in the same order as in Score.h.
@@ -32,9 +34,8 @@ public:
     std::vector< std::map<std::string, int> > getAllDatas();
     std::vector<std::string> getAllKeys();
     void setAllDatas(const std::vector< std::map<std::string, int> >& datas);
-    void setLevel(int level);
+    void setLevel(const std::vector<int>& level);
     void setKillPoints(int points);
-    void setLevelScore(int level, int totalPoints);
 
     void takeBonus();
     void takeDamage(int damage);
@@ -51,8 +52,10 @@ private:
     ScoreManager(const ScoreManager&);
     ScoreManager& operator= (ScoreManager const&); // Makes operator= private
 
+    std::vector<int> envPerSubworld = {0,0};
+    int totalWords;
     Score currentScore;
-    std::vector<Score> gameScore;
+    std::vector< std::vector<Score> > gameScore;
 
     StatsManager& statsManager;
 

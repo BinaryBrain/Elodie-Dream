@@ -6,7 +6,6 @@
 class Score
 {
 public:
-    static const std::string LEVELID_KEY;
     static const std::string TOTALPOINTS_KEY;
     static const std::string BONI_KEY;
     static const std::string DAMAGESTAKEN_KEY;
@@ -24,7 +23,7 @@ public:
     Score();
     ~Score();
 
-    int getLevelId();
+    const std::vector<int>& getLevelId();
     int getTotalPoints();
     int getBoni();
     int getDamagesTaken();
@@ -41,7 +40,7 @@ public:
     const std::map<std::string, int>& getDatas();
     bool isRegistered();
 
-    void setLevelId(int levelId);
+    void setLevelId(const std::vector<int>& levelId);
     void setTotalPoints(int totalPoints);
     void setBoni(int boni);
     void setDamagesTaken(int damagesTaken);
@@ -62,6 +61,7 @@ public:
 
 private:
     std::map<std::string, int> datas;
+    std::vector<int> levelId;
     bool registered;
 };
 

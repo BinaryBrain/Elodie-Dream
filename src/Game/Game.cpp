@@ -7,8 +7,6 @@ Game::Game() :
     statsManager(StatsManager::getInstance())
 {
     configManager.load(SETTINGS_PATH + "/settings.json");
-    curLevelNbr.push_back(0);
-    curLevelNbr.push_back(0);
     mute = DEFAULT_MUTE;
 
     title = new TitleScreen(view);
@@ -16,6 +14,9 @@ Game::Game() :
 
     menuHandler.setInLevel(false);
     view.show(ViewLayer::TITLESCREEN);
+
+    std::vector<int> testEnvPerSub = {8,6};
+    scoreManager.init(testEnvPerSub);
 }
 
 Game::~Game()
@@ -123,7 +124,7 @@ void Game::displayLevel(sf::Time time)
             // level cleared
             if (curLevel->isCleared())
             {
-                scoreManager.setLevel(curLevelNbr[1]);
+                scoreManager.setLevel(curLevelNbr);
                 scoreManager.computeTotalPoints();
                 scoreManager.saveCurrentScore();
                 scoreBoard.prepareText();
@@ -666,17 +667,18 @@ void Game::load()
             {
                 LDL = accessor.getIntVector(SaveHandler::LDL_KEY);
 
+                if (accessor.canTakeElementFrom(SaveHandler::MORESTATS_KEY))
+                {
+                    std::map<std::string, int> datas = accessor.getMap(SaveHandler::MORESTATS_KEY, statsManager.getAllKeys());
+                    statsManager.setAllDatas(datas);
+                }
+
                 if (accessor.canTakeElementFrom(SaveHandler::SCORES_KEY))
                 {
                     std::vector< std::map<std::string, int> > datas = accessor.getVectMaps(SaveHandler::SCORES_KEY, scoreManager.getAllKeys());
                     scoreManager.setAllDatas(datas);
                 }
 
-                if (accessor.canTakeElementFrom(SaveHandler::MORESTATS_KEY))
-                {
-                    std::map<std::string, int> datas = accessor.getMap(SaveHandler::MORESTATS_KEY, statsManager.getAllKeys());
-                    statsManager.setAllDatas(datas);
-                }
             }
             else
             {

@@ -60,7 +60,7 @@ private:
     Game(const Game&);
     Game& operator= (Game const&);
 
-    std::vector<int> curLevelNbr;
+    std::vector<int> curLevelNbr = {0,0};
     bool autoSave = false;
     bool mute;
     bool showTutoConsole = false;

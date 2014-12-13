@@ -4,11 +4,6 @@ const int ScoreManager::BONUS_NODAMAGES = 500;
 
 ScoreManager::ScoreManager() : statsManager(StatsManager::getInstance())
 {
-    for (size_t i = 0; i < NUMLEVELS; ++i)
-    {
-        Score score;
-        gameScore.push_back(score);
-    }
 }
 
 ScoreManager::~ScoreManager()
@@ -20,6 +15,23 @@ ScoreManager& ScoreManager::getInstance()
 {
     static ScoreManager instance;
     return instance;
+}
+
+void ScoreManager::init(const std::vector<int>& envPerSubworld) {
+    this->envPerSubworld = envPerSubworld;
+    totalWords = 0;
+
+    for (size_t i = 0; i < envPerSubworld.size(); ++i)
+    {
+        std::vector<Score> subWorld;
+        for (int j = 0; j < envPerSubworld[i]; ++j)
+        {
+            Score score;
+            subWorld.push_back(score);
+            ++totalWords;
+        }
+        gameScore.push_back(subWorld);
+    }
 }
 
 int ScoreManager::getKillPoints()
@@ -37,9 +49,9 @@ std::string ScoreManager::getScoreString()
     return scoreString;
 }
 
-Score& ScoreManager::getScore(int level)
+Score& ScoreManager::getScore(const std::vector<int>& level)
 {
-    return gameScore[level];
+    return gameScore[level[0]][level[1]];
 }
 
 Score& ScoreManager::getCurrentScore()
@@ -47,26 +59,24 @@ Score& ScoreManager::getCurrentScore()
     return currentScore;
 }
 
-std::vector<Score>& ScoreManager::getGameScore()
-{
-    return gameScore;
-}
-
 std::vector< std::map<std::string, int> > ScoreManager::getAllDatas()
 {
     std::vector< std::map<std::string, int> > datas;
 
-    for (size_t i = 0; i < gameScore.size(); ++i)
+    for (size_t i = 0; i < envPerSubworld.size(); ++i)
     {
-        datas.push_back(gameScore[i].getDatas());
+        for (int j = 0; j < envPerSubworld[i]; ++j)
+        {
+            datas.push_back(gameScore[i][j].getDatas());
+        }
     }
 
     return datas;
 }
 
-std::vector<std::string> ScoreManager::getAllKeys() {
+std::vector<std::string> ScoreManager::getAllKeys()
+{
     std::vector<std::string> keys;
-    keys.push_back(Score::LEVELID_KEY);
     keys.push_back(Score::TOTALPOINTS_KEY);
     keys.push_back(Score::BONI_KEY);
     keys.push_back(Score::DAMAGESTAKEN_KEY);
@@ -85,20 +95,20 @@ std::vector<std::string> ScoreManager::getAllKeys() {
 
 void ScoreManager::setAllDatas(const std::vector< std::map<std::string, int> >& datas)
 {
-    for (size_t i = 0; i < datas.size(); ++i)
+    int nWorldsBefore = 0;
+    for (size_t i = 0; i < envPerSubworld.size(); ++i)
     {
-        gameScore[i].setDatas(datas[i]);
+        for (int j = 0; j < envPerSubworld[i]; ++j)
+        {
+            (gameScore[i][j]).setDatas(datas[nWorldsBefore]);
+            ++nWorldsBefore;
+        }
     }
 }
 
-void ScoreManager::setLevel(int level)
+void ScoreManager::setLevel(const std::vector<int>& level)
 {
     currentScore.setLevelId(level);
-}
-
-void ScoreManager::setLevelScore(int level, int totalPoints)
-{
-    gameScore[level].setTotalPoints(totalPoints);
 }
 
 void ScoreManager::takeBonus()
@@ -161,19 +171,19 @@ void ScoreManager::computeTotalPoints()
 
 void ScoreManager::saveCurrentScore()
 {
-    int level = currentScore.getLevelId();
-    bool registered = gameScore[level].isRegistered();
-    bool betterScore = gameScore[level].getTotalPoints() < currentScore.getTotalPoints();
+    std::vector<int> level = currentScore.getLevelId();
+    bool registered = (gameScore[level[0]][level[1]]).isRegistered();
+    bool betterScore = (gameScore[level[0]][level[1]]).getTotalPoints() < currentScore.getTotalPoints();
 
     if (!registered || betterScore)
     {
-        gameScore[level] = currentScore;
-        gameScore[level].setRegistered(true);
+        gameScore[level[0]][level[1]] = currentScore;
+        (gameScore[level[0]][level[1]]).setRegistered(true);
         scoreString = "(new record! :3)";
     }
     else
     {
-        scoreString = "(best score: " + Utils::itos(gameScore[level].getTotalPoints()) + ")";
+        scoreString = "(best score: " + Utils::itos((gameScore[level[0]][level[1]]).getTotalPoints()) + ")";
     }
 }
 
@@ -187,8 +197,11 @@ void ScoreManager::resetCurrentScore()
 
 void ScoreManager::resetAllScores()
 {
-    for (size_t i = 0; i < NUMLEVELS; ++i)
+    for (size_t i = 0; i < envPerSubworld.size(); ++i)
     {
-        gameScore[i].reset();
+        for (int j = 0; j < envPerSubworld[i]; ++j)
+        {
+            gameScore[i][j].reset();
+        }
     }
 }
