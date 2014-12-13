@@ -325,6 +325,8 @@ void Overworld::evolve(std::vector<int> succLevel)
             }
         }
     }
+
+    printCoord(currentState);
 }
 
 int Overworld::whichOverworld()
