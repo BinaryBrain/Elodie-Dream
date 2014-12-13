@@ -10,6 +10,7 @@ EntityManager::EntityManager()
         {EntityName::BRISTLE, ENTITYNAME_BRISTLE},
         {EntityName::GHOST, ENTITYNAME_GHOST},
         {EntityName::SPIKES, ENTITYNAME_SPIKES},
+        {EntityName::METEORITE, ENTITYNAME_METEORITE},
         {EntityName::PORTAL, ENTITYNAME_PORTAL},
         {EntityName::PORO, ENTITYNAME_PORO},
         {EntityName::SPRITE, ENTITYNAME_SPRITE}
