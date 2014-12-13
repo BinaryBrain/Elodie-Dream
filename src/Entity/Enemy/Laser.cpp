@@ -14,8 +14,8 @@ Laser::Laser() : Laser(sf::Vector2f(0, 0))
 }
 
 Laser::Laser(sf::Vector2f position) :
-    Entity(position, EntityType::ENEMY, EntityName::SPIKES,
-           ENTITYTYPE_ENEMY+"/"+ENTITYNAME_SPIKES+".png", "waiting",
+    Entity(position, EntityType::ENEMY, EntityName::LASER,
+           ENTITYTYPE_ENEMY+"/"+ENTITYNAME_LASER+".png", "waiting",
            Laser::ANIMATIONS, Laser::State::WAITING,
 {0, 0}, 1, Laser::DAMAGE)
 {
@@ -44,7 +44,7 @@ void Laser::doAttack(std::map< std::string, Entity* >& entities)
         changeStance(animations.at(state), sf::seconds(0.05f));
         activated = true;
 
-        SoundManager::getInstance().play(SoundType::SPIKES);
+        SoundManager::getInstance().play(SoundType::LASER);
     }
 }
 
