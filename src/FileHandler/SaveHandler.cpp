@@ -45,15 +45,16 @@ std::string SaveHandler::nextFreeSlot()
     return "";
 }
 
-std::string SaveHandler::computeLevelName(int levelNumber)
+std::string SaveHandler::computeLevelName(const std::vector<int>& levelNumber)
 {
-    if (levelNumber == 0)
+    std::vector<int> tuto = {0,0};
+    if (levelNumber == tuto)
     {
         return "Tutorial";
     }
     else
     {
-        return "Level " + Utils::itos(levelNumber);
+        return "Level " + Utils::itos(levelNumber[0]) + "-" + Utils::itos(levelNumber[1]);
     }
 }
 

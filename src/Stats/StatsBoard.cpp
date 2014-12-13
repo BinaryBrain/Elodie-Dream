@@ -21,6 +21,10 @@ StatsBoard::~StatsBoard()
 
 }
 
+void StatsBoard::setLDL(const std::vector<int>& LDL) {
+    this->LDL = LDL;
+}
+
 void StatsBoard::display()
 {
     gameView.addDrawable(ViewLayer::STATS, &background);
@@ -45,21 +49,18 @@ void StatsBoard::prepareText()
     createMoreStats();
 }
 
-void StatsBoard::setLDL(int LDL)
-{
-    this->LDL = LDL;
-}
-
 void StatsBoard::createLevelTexts(float beginX, float beginY)
 {
     float y = beginY;
 
-    for (int i = 0; i <= LDL; i++)
+    for (int i = 0; i <= LDL[1]; i++)
     {
         sf::Text levelText;
+        std::vector<int> level = {LDL[0], i};
+
         levelText.setFont(globalFont);
         levelText.setCharacterSize(CHAR_SIZE);
-        levelText.setString(SaveHandler::computeLevelName(i));
+        levelText.setString(SaveHandler::computeLevelName(level));
         levelText.setPosition(beginX, y + levelText.getLocalBounds().height);
         y += levelText.getLocalBounds().height + LINES_INTERSPACE;
         allTexts.push_back(levelText);
@@ -87,7 +88,7 @@ void StatsBoard::createAllCategoriesTexts()
     std::vector< std::vector<int> > categories(titles.size());
 
     // for each level, store its values in the right category
-    for (int i = 0; i <= LDL; ++i)
+    for (int i = 0; i <= LDL[1]; ++i)
     {
         for (size_t j = 0; j < titles.size(); ++j)
         {

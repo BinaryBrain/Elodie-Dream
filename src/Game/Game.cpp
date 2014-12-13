@@ -454,7 +454,7 @@ void Game::displayScore()
         else
         {
             overworld->evolve(curLevelNbr);
-            statsBoard.setLDL(overworld->getState()[1]);
+            statsBoard.setLDL(overworld->getState());
             leaveLevel();
             if (autoSave)
             {
@@ -613,7 +613,9 @@ void Game::newGame()
     view.hide(ViewLayer::TITLESCREEN);
     scoreManager.resetAllScores();
     statsManager.reset();
-    statsBoard.setLDL(0);
+
+    std::vector<int> LDL = {0,0};
+    statsBoard.setLDL(LDL);
     menuHandler.getTitleMenu()->toNormalMenu();
 
     // if there is a free slot, save on it
@@ -694,7 +696,7 @@ void Game::load()
             overworld->resetPos();
             overworld->getElodie().play();
 
-            statsBoard.setLDL(LDL[1]); // todo
+            statsBoard.setLDL(LDL);
 
             console.clearAndWrite("Successfully loaded " + currentMenuComponent->getLabel() + ", from " + date + ".");
             console.setNextState(GameState::INOVERWORLD);
@@ -733,8 +735,7 @@ void Game::save()
     std::vector<int> LDL = overworld->getState();
 
     // Displays the save name on the menu
-    currentMenuSave->getText()->setString(saveHandler.computeLevelName(LDL[1])); // todo
-
+    currentMenuSave->getText()->setString(saveHandler.computeLevelName(LDL));
     std::vector< std::map<std::string, int> > scoresDatas = scoreManager.getAllDatas();
     std::map<std::string, int> moreStatsDatas = statsManager.getAllDatas();
 

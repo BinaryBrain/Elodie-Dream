@@ -76,7 +76,7 @@ MenuHandler::MenuHandler(GameView& gameView) : Displayable(gameView)
                 LDL[1] = accessor.getInt(SaveHandler::LDL_KEY);
             }
 
-            lastDiscoveredLevels[i] = sh.computeLevelName(LDL[1]); // todo
+            lastDiscoveredLevels[i] = sh.computeLevelName(LDL);
         }
         else
         {

@@ -29,7 +29,7 @@ public:
     static SaveHandler& getInstance();
     static bool isSlotFree(const std::string& slot);
     static std::string nextFreeSlot();
-    static std::string computeLevelName(int LDL);
+    static std::string computeLevelName(const std::vector<int>& LDL);
 
     JsonStringifier& getStringifier();
     void clearStringifier();

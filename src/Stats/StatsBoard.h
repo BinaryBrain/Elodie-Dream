@@ -19,9 +19,9 @@ public:
     StatsBoard(GameView& gameView);
     virtual ~StatsBoard();
 
+    void setLDL(const std::vector<int>& LDL);
     void display();
     void prepareText();
-    void setLDL(int LDL);
 
 private:
     void createLevelTexts(float beginX, float beginY);
@@ -30,7 +30,7 @@ private:
     void createMoreStats();
     float findLargestTextWidth();
 
-    int LDL = 0;
+    std::vector<int> LDL = {0,0};
     sf::RectangleShape background;
     std::vector<sf::Text> allTexts;
     StatsManager& statsManager;
