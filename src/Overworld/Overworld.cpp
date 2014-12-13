@@ -33,6 +33,21 @@ Overworld::Overworld(GameView& gameView, bool muted) : Displayable(gameView)
             levelPos[w].push_back(accessor.getIntVector(Utils::itos(i)));
         }
 
+        accessor.loadJsonFrom("assets/config/levels/subWorld" + Utils::itos(w) + "/in.json");
+
+        inPos.push_back(accessor.getIntVector("coord"));
+        trigIn.push_back(accessor.getString("trigBy"));
+
+        accessor.loadJsonFrom("assets/config/levels/subWorld" + Utils::itos(w) + "/out.json");
+
+        outPos.push_back(accessor.getIntVector("coord"));
+        trigOut.push_back(accessor.getString("trigBy"));
+
+        std::cout << trigIn[w] << std::endl;
+        printCoord(inPos[w]);
+        std::cout << trigOut[w] << std::endl;
+        printCoord(outPos[w]);
+
         levelSpotSprites.push_back(std::vector<sf::Sprite*>());
         for (int i = 0; i < levelsPerSubworld[w]; ++i)
         {
@@ -56,11 +71,18 @@ Overworld::Overworld(GameView& gameView, bool muted) : Displayable(gameView)
             pathSprites[w].push_back(pathSprite);
         }
 
+        if (trigOut[w] != "NONE") {
+            sf::Texture* pathTexture = new sf::Texture;
+            pathTexture->loadFromFile("assets/img/overworld/subWorld" + Utils::itos(w) + "/outpath.png");
+            sf::Sprite* pathSprite = new sf::Sprite(*pathTexture);
+            pathSprite->setPosition(-8, -7);
+            pathSprites[w].push_back(pathSprite);
+        }
+
         accessor.loadJsonFrom("assets/config/levels/subWorld" + Utils::itos(w) + "/paths.json");
 
         paths.push_back(std::vector<sf::VertexArray*>());
-        unsigned int pathNumber = levelPos[w].size();
-        for(size_t i = 0; i < pathNumber; i++)
+        for(size_t i = 0; i < levelPos[w].size(); i++)
         {
             int curPos = -1;
 
@@ -87,6 +109,14 @@ Overworld::Overworld(GameView& gameView, bool muted) : Displayable(gameView)
         }
 
     }
+
+    float viewX = gameView.getSizeX();
+    float viewY = gameView.getSizeY();
+
+    fader.setSize(sf::Vector2f(viewX, viewY));
+    fader.setFillColor(sf::Color(0x00, 0x00, 0x00, 0x00));
+    fader.setPosition(0, 0);
+
     currentState.push_back(0);
     currentState.push_back(UNIL1);
     elodie = new Elodie(0,0);
@@ -157,12 +187,20 @@ void Overworld::setPosInPath(int pos)
 void Overworld::display()
 {
     gameView.addDrawable(ViewLayer::OVERWORLD, &overworldSprites[curSubWorld][whichOverworld()]);
-    gameView.addDrawable(ViewLayer::OVERWORLD, pathSprites[curSubWorld][currentState[1]]);
+    if (curSubWorld < (unsigned int) currentState[0])
+    {
+        gameView.addDrawable(ViewLayer::OVERWORLD, pathSprites[curSubWorld][levelsPerSubworld[curSubWorld]]);
+    }
+    else
+    {
+        gameView.addDrawable(ViewLayer::OVERWORLD, pathSprites[curSubWorld][currentState[1]]);
+    }
     for(int i = 0; i <= currentState[1]; ++i)
     {
         gameView.addDrawable(ViewLayer::OVERWORLD, levelSpotSprites[curSubWorld][i]);
     }
     gameView.addDrawable(ViewLayer::OVERWORLD, elodie->getSprite());
+    gameView.addDrawable(ViewLayer::OVERWORLD, &fader);
 }
 
 int Overworld::moveUp()
@@ -187,6 +225,7 @@ int Overworld::moveUp()
             return curPos.position.y - prevPos.position.y;
         }
     }
+
 
     return 0;
 }
@@ -395,4 +434,8 @@ int Overworld::getLevelFromPath()
         }
     }
     return -1;
+}
+
+void Overworld::printCoord(std::vector<int> coord){
+    std::cout << "(" << coord[0] << ", " << coord[1] << ")" << std::endl;
 }

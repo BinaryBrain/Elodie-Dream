@@ -36,10 +36,12 @@ public:
 
     const std::vector<int>& getState();
     void setState(std::vector<int> state);
-    void switchOverworlds();//TODO : REMOVE ME !!!
+    void switchOverworlds();//TODO : REMOVE ME (or pass me private)
     void setPosInPath(int pos = 0);
     void setToLevel(std::vector<int> level);
     sf::Music& getMusic();
+
+    void printCoord(std::vector<int> coord); //TODO : REMOVE ME (or pass me private)
 
 protected:
 private:
@@ -55,6 +57,8 @@ private:
         FRELJORD2 = 7
     };
 
+    sf::RectangleShape fader;
+
     std::vector<int> currentState;
     std::vector<std::vector<sf::Sprite>> overworldSprites;
     std::vector<std::vector<sf::Texture*>> overworldTextures;
@@ -63,6 +67,8 @@ private:
     std::vector < std::vector< std::vector<int> > >levelPos;
     std::vector< std::vector<int> > inPos;
     std::vector< std::vector<int> > outPos;
+    std::vector< std::string > trigIn;
+    std::vector< std::string > trigOut;
     std::vector<int> levelsPerSubworld;
 
     int subWorldsNumber ;
