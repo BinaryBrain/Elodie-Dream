@@ -43,6 +43,7 @@ Overworld::Overworld(GameView& gameView, bool muted) : Displayable(gameView)
             levelSpotSprites[w].push_back(spotSprite);
         }
 
+
         pathSprites.push_back(std::vector<sf::Sprite*>());
         pathSprites[w].push_back(new sf::Sprite);
 
@@ -58,7 +59,8 @@ Overworld::Overworld(GameView& gameView, bool muted) : Displayable(gameView)
         accessor.loadJsonFrom("assets/config/levels/subWorld" + Utils::itos(w) + "/paths.json");
 
         paths.push_back(std::vector<sf::VertexArray*>());
-        for(size_t i = 0; i < levelPos[w].size(); i++)
+        unsigned int pathNumber = levelPos[w].size();
+        for(size_t i = 0; i < pathNumber; i++)
         {
             int curPos = -1;
 

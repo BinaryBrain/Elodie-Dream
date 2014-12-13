@@ -61,6 +61,8 @@ private:
     std::vector<std::vector<sf::VertexArray*>> paths;
     std::vector<std::vector<sf::Sprite*>> pathSprites;
     std::vector < std::vector< std::vector<int> > >levelPos;
+    std::vector< std::vector<int> > inPos;
+    std::vector< std::vector<int> > outPos;
     std::vector<int> levelsPerSubworld;
 
     int subWorldsNumber ;
