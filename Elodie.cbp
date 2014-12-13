@@ -93,6 +93,8 @@
 		<Unit filename="src/Entity/Enemy/Ghost.h" />
 		<Unit filename="src/Entity/Enemy/MagmaCube.cpp" />
 		<Unit filename="src/Entity/Enemy/MagmaCube.h" />
+		<Unit filename="src/Entity/Enemy/Meteorite.cpp" />
+		<Unit filename="src/Entity/Enemy/Meteorite.h" />
 		<Unit filename="src/Entity/Enemy/Sheep.cpp" />
 		<Unit filename="src/Entity/Enemy/Sheep.h" />
 		<Unit filename="src/Entity/Enemy/Spikes.cpp" />
