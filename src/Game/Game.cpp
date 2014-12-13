@@ -643,11 +643,13 @@ void Game::load()
         if (jsonOk && accessor.canTakeElementFrom(SaveHandler::DATE_KEY) && accessor.canTakeElementFrom(SaveHandler::LDL_KEY))
         {
             std::string date = accessor.getString(SaveHandler::DATE_KEY);
-            int LDL = accessor.getInt(SaveHandler::LDL_KEY);
+            std::vector<int> LDL = {0,0};
 
             // if the version number exists
             if (accessor.canTakeElementFrom(SaveHandler::VERSION_KEY))
             {
+                LDL = accessor.getIntVector(SaveHandler::LDL_KEY);
+
                 if (accessor.canTakeElementFrom(SaveHandler::SCORES_KEY))
                 {
                     std::vector< std::map<std::string, int> > datas = accessor.getVectMaps(SaveHandler::SCORES_KEY, scoreManager.getAllKeys());
@@ -662,7 +664,8 @@ void Game::load()
             }
             else
             {
-                std::cout << "Save from version prior to 1.1" << std::endl;
+                 // save from version prior to 1.1
+                 LDL[1] = accessor.getInt(SaveHandler::LDL_KEY);
             }
 
 
@@ -675,12 +678,12 @@ void Game::load()
                 overworld = new Overworld(view, mute);
                 view.addView(ViewLayer::OVERWORLD, overworld);
             }
-            overworld->setState(LDL);
-            overworld->setToLevel(LDL);
+            overworld->setState(LDL[1]); // todo
+            overworld->setToLevel(LDL[1]); // todo
             overworld->resetPos();
             overworld->getElodie().play();
 
-            statsBoard.setLDL(LDL);
+            statsBoard.setLDL(LDL[1]); // todo
 
             console.clearAndWrite("Successfully loaded " + currentMenuComponent->getLabel() + ", from " + date + ".");
             console.setNextState(GameState::INOVERWORLD);
@@ -716,10 +719,10 @@ void Game::save()
     // creates save with current slot and name
     std::string path = "save/" + currentMenuSave->getLabel() + ".save";
 
-    int LDL = overworld->getState()[1];
+    std::vector<int> LDL = overworld->getState();
 
     // Displays the save name on the menu
-    currentMenuSave->getText()->setString(saveHandler.computeLevelName(LDL));
+    currentMenuSave->getText()->setString(saveHandler.computeLevelName(LDL[1])); // todo
 
     std::vector< std::map<std::string, int> > scoresDatas = scoreManager.getAllDatas();
     std::map<std::string, int> moreStatsDatas = statsManager.getAllDatas();

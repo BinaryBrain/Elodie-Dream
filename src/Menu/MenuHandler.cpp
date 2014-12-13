@@ -66,8 +66,17 @@ MenuHandler::MenuHandler(GameView& gameView) : Displayable(gameView)
 
         if (FileHandler::fileExists(path))
         {
-            int LDL = accessor.getIntWithDefault("lastdiscoveredlevel", 0);
-            lastDiscoveredLevels[i] = sh.computeLevelName(LDL);
+            std::vector<int> LDL = {0,0};
+            if (accessor.canTakeElementFrom(SaveHandler::VERSION_KEY))
+            {
+                LDL = accessor.getIntVector(SaveHandler::LDL_KEY);
+            }
+            else
+            {
+                LDL[1] = accessor.getInt(SaveHandler::LDL_KEY);
+            }
+
+            lastDiscoveredLevels[i] = sh.computeLevelName(LDL[1]); // todo
         }
         else
         {
