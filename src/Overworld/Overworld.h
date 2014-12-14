@@ -41,7 +41,7 @@ public:
     void setToLevel(std::vector<int> level);
     sf::Music& getMusic();
 
-    void printCoord(std::vector<int> coord); //TODO : REMOVE ME (or pass me private)
+    LevelEnv getEnvFromLevel(std::vector<int> level);
 
 private:
     enum states
@@ -87,6 +87,8 @@ private:
 
     void prevOverWorld();
     void nextOverWorld();
+
+    void printCoord(std::vector<int> coord);
 };
 
 #endif // OVERWORLD_H

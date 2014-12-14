@@ -151,12 +151,12 @@ void Game::loadLevel(std::vector<int> level)
     state = GameState::INLEVEL;
     curLevelNbr = level;
     LevelEnv env = LevelEnv::FIELD;
-    JsonAccessor accessor;
-    accessor.loadJsonFrom("assets/config/levels/subWorld" + Utils::itos(level[0]) + "/envs.json");
+
     if (level[0] == 0 && level[1] == 0){
         showTutoConsole = true;
     }
-    env = static_cast<LevelEnv>(accessor.getInt(Utils::itos(level[1])));
+
+    env = overworld->getEnvFromLevel(level);
     /*switch (level[1])
     {
     case 0:

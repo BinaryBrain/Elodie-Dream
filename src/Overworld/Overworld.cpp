@@ -208,7 +208,6 @@ void Overworld::setPosInPath(int pos)
 
 void Overworld::display()
 {
-
     if (curSubWorld < (unsigned int) currentState[0])
     {
         gameView.addDrawable(ViewLayer::OVERWORLD, &overworldSprites[curSubWorld][envsPerSubworld[curSubWorld]-1]);
@@ -506,6 +505,19 @@ int Overworld::getLevelFromPath()
         }
     }
     return -1;
+}
+
+LevelEnv Overworld::getEnvFromLevel(std::vector<int> level)
+{
+    int finalRes = 0;
+
+    for (size_t i = 0; i < (size_t) level[0]; ++i)
+    {
+        finalRes += envsPerSubworld[i];
+    }
+
+    finalRes += envs[level[0]][level[1]];
+    return static_cast<LevelEnv>(finalRes);
 }
 
 void Overworld::printCoord(std::vector<int> coord)

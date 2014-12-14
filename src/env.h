@@ -23,7 +23,7 @@ enum class GameState
 
 enum class LevelEnv
 {
-    FIELD = 0, CASTLE = 1, VOLCANO = 2, FRELJORD = 3, SPACE = 4, UNIL = 1000
+    FIELD = 0, CASTLE = 1, VOLCANO = 2, FRELJORD = 3, MODERN = 4, SPACE = 5, UNIL = 1000
 };
 
 enum class SoundType
