@@ -432,13 +432,11 @@ void Overworld::switchOverworlds()
 
 int Overworld::getLevelFromPath()
 {
-
     int pathnumber = curSubWorld < (unsigned int) currentState[0] ? levelsPerSubworld[curSubWorld] - 1 : currentState[1];
     sf::Vertex curPos = (* (paths[curSubWorld][pathnumber]))[curPosInPath];
     std::cout<< curPosInPath << "," << curSubWorld <<std::endl;
     printCoord({(int)curPos.position.x,(int)curPos.position.y});
     std::cout << "Path number :" << pathnumber << std::endl;
-    return 20; // FIXME dev
     for (size_t i = 0; i < levelPos[curSubWorld].size(); ++i)
     {
         if(levelPos[curSubWorld][i][0] == curPos.position.x && levelPos[curSubWorld][i][1] == curPos.position.y)
