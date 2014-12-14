@@ -9,14 +9,15 @@
 using std::string;
 
 // -- GAME --//
-const int DEFAULT_MUTE = false; // TODO Change me to false
-const int FULLSCREEN = false; // TODO Change me to true
+const int DEFAULT_MUTE = true; // TODO Change me to false
+const int FULLSCREEN = false;
 const int WINDOW_WIDTH = 1280;
 const int WINDOW_HEIGHT = 720;
 const int FPS = 40;
 const int LIVE_SCOPE = 2000;
 const float MAX_TIME_FRAME = 1.0/10.0;
 const double GAME_VERSION = 1.1;
+const bool DEV_MODE = true;
 
 // -- LEVEL -- //
 const float ZOOM_LEVEL = 2;
@@ -33,6 +34,7 @@ const unsigned int NUMLEVELS = 8;
 static const char MAP_GROUND = '#';
 static const char MAP_ICE = 'I';
 static const char MAP_DIRT = 'D';
+static const char MAP_THIN = 'T';
 
 // Characters
 static const char MAP_ELODIE = 'E';
@@ -46,6 +48,7 @@ static const char MAP_METEORITE = 'W';
 static const char MAP_ALIEN = 'A';
 static const char MAP_LASER = 'L';
 static const char MAP_SPIKES = 'P';
+static const char MAP_RAVEN = 'v';
 static const char MAP_PORO = 'O';
 static const char MAP_BONUS = 'N';
 
@@ -71,11 +74,13 @@ const string LEVELENV_CASTLE = "castle";
 const string LEVELENV_VOLCANO = "volcano";
 const string LEVELENV_FRELJORD = "freljord";
 const string LEVELENV_SPACE = "space";
+const string LEVELENV_MODERN = "modern";
 
 const string TILETYPE_GROUND = "ground";
 const string TILETYPE_DIRT = "dirt";
 const string TILETYPE_ROCK = "rock";
 const string TILETYPE_ICE = "ice";
+const string TILETYPE_THIN = "thin";
 
 // Entities
 const string ENTITIES_JSON_PATH = "assets/img/sprites";
@@ -89,6 +94,7 @@ const string ENTITYNAME_METEORITE = "meteorite";
 const string ENTITYNAME_ALIEN = "alien";
 const string ENTITYNAME_LASER = "laser";
 const string ENTITYNAME_SPIKES = "spikes";
+const string ENTITYNAME_RAVEN = "raven";
 const string ENTITYNAME_PORTAL = "portal";
 const string ENTITYNAME_PORO = "poro";
 const string ENTITYNAME_SPRITE = "sprite";
@@ -114,6 +120,9 @@ const int SOUND_TYPE_SHEEP_MAX = 4;
 
 const string SOUND_TYPE_MAGMACUBE = "magmacube";
 const int SOUND_TYPE_MAGMACUBE_MAX = 3;
+
+const string SOUND_TYPE_RAVEN = "raven";
+const int SOUND_TYPE_RAVEN_MAX = 0;
 
 const string SOUND_TYPE_FOOTSTEP_GROUND = "footstep_ground";
 const int SOUND_TYPE_FOOTSTEP_GROUND_MAX = 4;

@@ -185,6 +185,9 @@ void Game::loadLevel(std::vector<int> level)
     case 7:
         env = LevelEnv::FRELJORD;
         break;
+    case 20:
+        env = LevelEnv::MODERN; // FIXME dev
+        break;
     default:
         env = LevelEnv::FIELD;
         break;

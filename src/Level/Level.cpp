@@ -250,6 +250,10 @@ std::pair <float,float> Level::getSlowVariables(LevelEnv env)
         skyS = 0;
         earthS = 0.2;
         break;
+    case LevelEnv::MODERN:
+        skyS = 0.2;
+        earthS = 1;
+        break;
     default:
         skyS = 0;
         earthS = 0;

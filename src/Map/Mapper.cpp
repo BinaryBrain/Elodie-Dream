@@ -4,6 +4,7 @@
 #include "../Entity/Enemy/MagmaCube.h"
 #include "../Entity/Enemy/Ghost.h"
 #include "../Entity/Enemy/Bristle.h"
+#include "../Entity/Enemy/Raven.h"
 #include "../Entity/Portal.h"
 #include "../Entity/Enemy/Spikes.h"
 #include "../Entity/Poro.h"
@@ -53,6 +54,9 @@ void Mapper::parse(std::string asciiLevel, TileMap& tiles, EntityMap& entities, 
         case MAP_SPIKES:
             entities.insert(std::make_pair(getFreshID("spikes"), new Spikes(x*32, y*32)));
             break;
+        case MAP_RAVEN:
+            entities.insert(std::make_pair(getFreshID("raven"), new Raven(x*32, y*32)));
+            break;
         case MAP_PORTAL:
             entities.insert(std::make_pair("portal", new Portal(x*32, y*32)));
             break;
@@ -80,6 +84,10 @@ void Mapper::parse(std::string asciiLevel, TileMap& tiles, EntityMap& entities, 
 
         case MAP_DIRT:
             tiles[y].push_back(new TileSprite(TileType::DIRT));
+            break;
+
+        case MAP_THIN:
+            tiles[y].push_back(new TileSprite(TileType::THIN));
             break;
 
         case MAP_LINE_BREAK:

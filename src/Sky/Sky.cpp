@@ -22,6 +22,9 @@ Sky::Sky(GameView& gameView, LevelEnv env, int tilesNumber, sf::Vector2f& camera
     case LevelEnv::SPACE:
         filename = ENVIRONMENT_TEXTURES_PATH + "/" + LEVELENV_SPACE + "/background.png";
         break;
+    case LevelEnv::MODERN:
+        filename = ENVIRONMENT_TEXTURES_PATH + "/" + LEVELENV_MODERN + "/background.png";
+        break;
     default:
         filename = ENVIRONMENT_TEXTURES_PATH + "/" + LEVELENV_FIELD + "/background.png";
         break;

@@ -10,7 +10,13 @@ TitleScreen::TitleScreen(GameView& gameView) : Displayable(gameView)
     if(!MENU_PORO_IS_LOADED)
     {
         poroIndex = MENU_BACKGROUND_FIRST_FRAME;
-        for(int i = MENU_BACKGROUND_FIRST_FRAME; i <= MENU_BACKGROUND_LAST_FRAME; i++)
+        int lastFrame = MENU_BACKGROUND_LAST_FRAME;
+
+        if(DEV_MODE) {
+            lastFrame = MENU_BACKGROUND_FIRST_FRAME;
+        }
+
+        for(int i = MENU_BACKGROUND_FIRST_FRAME; i <= lastFrame; i++)
         {
             sf::Texture* poroTexture = new sf::Texture();
             if (!poroTexture->loadFromFile(ANIMATED_BACKGROUND_PATH+"/"+Utils::toStringWithLength(i, 4)+".png"))
@@ -45,7 +51,14 @@ void TitleScreen::display()
 
     // Animating title poro
     poroIndex++;
-    if(poroIndex > MENU_BACKGROUND_LAST_FRAME)
+
+    int lastFrame = MENU_BACKGROUND_LAST_FRAME;
+
+    if(DEV_MODE) {
+        lastFrame = MENU_BACKGROUND_FIRST_FRAME;
+    }
+
+    if(poroIndex > lastFrame)
     {
         poroIndex = MENU_BACKGROUND_FIRST_FRAME;
     }
