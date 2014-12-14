@@ -6,6 +6,9 @@
 #include "../Entity/Enemy/Bristle.h"
 #include "../Entity/Portal.h"
 #include "../Entity/Enemy/Spikes.h"
+#include "../Entity/Enemy/Alien.h"
+#include "../Entity/Enemy/Laser.h"
+#include "../Entity/Enemy/Meteorite.h"
 #include "../Entity/Poro.h"
 #include "../Entity/Bonus.h"
 
@@ -52,6 +55,15 @@ void Mapper::parse(std::string asciiLevel, TileMap& tiles, EntityMap& entities, 
             break;
         case MAP_SPIKES:
             entities.insert(std::make_pair(getFreshID("spikes"), new Spikes(x*32, y*32)));
+            break;
+        case MAP_LASER:
+            entities.insert(std::make_pair(getFreshID("laser"), new Laser(x*32, y*32)));
+            break;
+        case MAP_ALIEN:
+            entities.insert(std::make_pair(getFreshID("alien"), new Alien(x*32, y*32)));
+            break;
+        case MAP_METEORITE:
+            entities.insert(std::make_pair(getFreshID("meteorite"), new Meteorite(x*32, y*32)));
             break;
         case MAP_PORTAL:
             entities.insert(std::make_pair("portal", new Portal(x*32, y*32)));

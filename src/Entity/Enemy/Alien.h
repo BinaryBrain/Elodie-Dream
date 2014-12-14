@@ -1,5 +1,5 @@
-#ifndef GHOST_H_INCLUDED
-#define GHOST_H_INCLUDED
+#ifndef ALIEN_H_INCLUDED
+#define ALIEN_H_INCLUDED
 
 #include "../Entity.h"
 #include "../../Sprite/EntitySprite.h"

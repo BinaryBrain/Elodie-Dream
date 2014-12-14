@@ -1,5 +1,5 @@
-#ifndef GHOST_H_INCLUDED
-#define GHOST_H_INCLUDED
+#ifndef METEORITE_H_INCLUDED
+#define METEORITE_H_INCLUDED
 
 #include "../Entity.h"
 #include "../../Sprite/EntitySprite.h"
@@ -35,4 +35,4 @@ public:
                          std::map< std::string, Entity* >& entities, sf::Time animate);
 };
 
-#endif // GHOST_H_INCLUDED
+#endif // METEORITE_H_INCLUDED

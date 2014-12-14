@@ -1,5 +1,5 @@
-#ifndef SPIKES_H_INCLUDED
-#define SPIKES_H_INCLUDED
+#ifndef LASER_H_INCLUDED
+#define LASER_H_INCLUDED
 
 #include "../Entity.h"
 #include "../../Sprite/EntitySprite.h"
@@ -38,4 +38,4 @@ private:
     bool activated = false;
 };
 
-#endif // SPIKES_H_INCLUDED
+#endif // LASER_H_INCLUDED
