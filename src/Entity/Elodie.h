@@ -14,10 +14,6 @@
 class Elodie : public Entity
 {
 public:
-    static const int JUMP;
-    static const int SPEED;
-    static const float INC_PV_TIMER;
-    static const float ATTACK_COOLDOWN;
     static const std::map< int, std::string > ANIMATIONS;
 
     enum State
@@ -143,11 +139,21 @@ public:
     sf::Vector2f& getCameraPosRef();
     void handleEvent(const EventHandler& event, EntityMap& entities, Collide collideTiles);
 
+    void setJumpSpeed(int newJumpSpeed);
+    void setMoveSpeed(int newMoveSpeed);
+    void setInterRecoveryTime(float newInterRecoveryTime);
+    void setAttackCD(float newAttackCD);
+
 private:
     /**
      * Makes Elodie's sprite walk.
      */
     void walk();
+
+    int jumpSpeed = -430;
+    int moveSpeed = 250;
+    float interRecoveryTime = 0.2;
+    float attackCD = 0.5;
 
     ElodieSprite* spriteCast;
 

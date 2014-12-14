@@ -1,17 +1,38 @@
 #include "Level.h"
+#include "../Json/JsonAccessor.h"
 
-Level::Level(GameView& gameView, std::string filename, LevelEnv env, Elodie& elodie) :
+Level::Level(GameView& gameView, std::vector<int> levelNbr, LevelEnv env, Elodie& elodie) :
     Displayable(gameView),
     environement(env)
 {
-    loadLevel(filename, elodie);
+    loadLevel("assets/levels/subWorld" + Utils::itos(levelNbr[0]) + "/level" + Utils::itos(levelNbr[1]) + ".txt", elodie);
+    JsonAccessor accessor;
+
+    accessor.loadJsonFrom("assets/levels/subWorld" + Utils::itos(levelNbr[0]) + "/level" + Utils::itos(levelNbr[1]) + ".json");
+
+    int gravity = accessor.getInt("gravity");
+    int jumpSpeed = accessor.getInt("jumpSpeed");
+    int moveSpeed = accessor.getInt("moveSpeed");
+    float zoom = accessor.getDouble("zoom");
+    float interRecoveryTime = accessor.getDouble("interRecoveryTime");
+    float attackCD = accessor.getDouble("attackCD");
+
+
+    HORIZONTAL_DISPLAY_MARGIN = WINDOW_WIDTH/(2*zoom) + 2*BLOCK_SIZE;
+    VERTICAL_DISPLAY_MARGIN = WINDOW_HEIGHT/(2*zoom) + 2*BLOCK_SIZE;
+
+    elodie.setGravity(gravity);
+    elodie.setJumpSpeed(jumpSpeed);
+    elodie.setMoveSpeed(moveSpeed);
+    elodie.setInterRecoveryTime(interRecoveryTime);
+    elodie.setAttackCD(attackCD);
 
     std::pair< float, float > slow = getSlowVariables(env);
     this->sky = new Sky(gameView, env, tiles[0].size(), elodie.getCameraPosRef(), slow.first);
     this->earth = new Earth(gameView, env, tiles[0].size(), elodie.getCameraPosRef(), slow.second);
 
     gameView.addView(ViewLayer::LEVEL, this);
-    gameView.setZoom(ViewLayer::LEVEL, ZOOM_LEVEL);
+    gameView.setZoom(ViewLayer::LEVEL, zoom);
 
     gameView.setCameraCenter(ViewLayer::LEVEL, elodie.getPosition());
 

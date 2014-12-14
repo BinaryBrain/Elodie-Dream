@@ -328,7 +328,7 @@ Collide Entity::collideWithTiles(const std::vector< std::vector<TileSprite*> >& 
 
 void Entity::computeGravity(sf::Time time)
 {
-    speed.y += 1000*time.asSeconds();
+    speed.y += gravity*time.asSeconds();
 }
 
 void Entity::move(sf::Vector2f& diff)
@@ -376,4 +376,9 @@ void Entity::play()
     {
         sprite->play();
     }
+}
+
+void Entity::setGravity(int newGravity)
+{
+    gravity = newGravity > 0 ? newGravity : gravity;
 }

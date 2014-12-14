@@ -19,12 +19,9 @@ const float MAX_TIME_FRAME = 1.0/10.0;
 const double GAME_VERSION = 1.1;
 
 // -- LEVEL -- //
-const float ZOOM_LEVEL = 2;
 const int BLOCK_SIZE = 32;
 const int CAMERA_TOL = 50;
 const bool GOD_MODE = false; // TODO set to false
-const int HORIZONTAL_DISPLAY_MARGIN = WINDOW_WIDTH/(2*ZOOM_LEVEL) + 2*BLOCK_SIZE;
-const int VERTICAL_DISPLAY_MARGIN = WINDOW_HEIGHT/(2*ZOOM_LEVEL) + 2*BLOCK_SIZE;
 const unsigned int NUMLEVELS = 8;
 
 // -- MAPS --

@@ -83,6 +83,7 @@ public:
     void update(sf::Time deltaTime);
     void pause();
     void play();
+    void setGravity(int newGravity);
 
 protected:
     AnimatedSprite* sprite;
@@ -100,6 +101,7 @@ protected:
 private:
     int checkTiles(std::vector< std::vector<TileSprite*> > const& world, int x, int y);
     std::map< std::string, std::vector< Hitbox > > hitboxes;
+    int gravity = 1000;
 };
 
 #endif // ENTITIES_H

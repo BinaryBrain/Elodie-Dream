@@ -2,10 +2,6 @@
 #include "../Sound/SoundManager.h"
 #include "Elodie.h"
 
-const int Elodie::JUMP = -430;
-const int Elodie::SPEED = 250;
-const float Elodie::INC_PV_TIMER = 0.2;
-const float Elodie::ATTACK_COOLDOWN = 0.5;
 const std::map< int, std::string > Elodie::ANIMATIONS =
 {
     {Elodie::State::STANDING, "standing"},
@@ -15,7 +11,7 @@ const std::map< int, std::string > Elodie::ANIMATIONS =
     {Elodie::State::JUMPING, "jumping"}
 };
 
-Elodie::Elodie() : Entity(Elodie::ANIMATIONS, Elodie::State::STANDING, {Elodie::SPEED, 0})
+Elodie::Elodie() : Entity(Elodie::ANIMATIONS, Elodie::State::STANDING, {(float) moveSpeed, 0})
 {
     JsonAccessor accessor = JsonAccessor();
     accessor.loadJsonFrom(ENTITIES_JSON_PATH+"/"+ENTITYNAME_ELODIE+".json");
@@ -252,10 +248,10 @@ void Elodie::handleEvent(const EventHandler& event, EntityMap& entities, Collide
              (state == Elodie::State::PUNCHING && collideTiles.bottom["surface"])))
     {
         changeState(Elodie::State::JUMPING);
-        speed.y = JUMP;
+        speed.y = jumpSpeed;
         spriteCast->changeStance(animations.at(state), sf::seconds(0.1f));
     }
-    else if (event.keyIsPressed(sf::Keyboard::A) && (attackTimer > ATTACK_COOLDOWN))
+    else if (event.keyIsPressed(sf::Keyboard::A) && (attackTimer > attackCD))
     {
         attackTimer = 0;
         changeState(Elodie::State::PUNCHING);
@@ -285,7 +281,7 @@ void Elodie::doStuff(const EventHandler& event, const std::vector< std::vector<T
 
     if (0 == speed.x && !collideTiles.right["surface"])
     {
-        speed.x = SPEED;
+        speed.x = moveSpeed;
     }
 
     float dist = cameraPos.x - spriteCast->getPosition().x;
@@ -293,7 +289,7 @@ void Elodie::doStuff(const EventHandler& event, const std::vector< std::vector<T
     if (dist > 0 && !collideTiles.right["surface"] && !buffed)
     {
         buffed = true;
-        speed.x = SPEED + dist;
+        speed.x = moveSpeed + dist;
     }
 
     buffed = !collideTiles.right["surface"];
@@ -301,13 +297,13 @@ void Elodie::doStuff(const EventHandler& event, const std::vector< std::vector<T
     if (buffed && dist <= 0)
     {
         buffed = false;
-        speed.x = SPEED;
+        speed.x = moveSpeed;
     }
 
     //Other stuff to do
     attackTimer += animate.asSeconds();
     pvTimer += animate.asSeconds();
-    if (pvTimer > INC_PV_TIMER)
+    if (pvTimer > interRecoveryTime)
     {
         pvTimer = 0;
         immersionLevel = immersionLevel == 100 ? 100 : immersionLevel + 1;
@@ -316,7 +312,7 @@ void Elodie::doStuff(const EventHandler& event, const std::vector< std::vector<T
     {
         --damageCD;
     }
-    cameraPos.x += SPEED*animate.asSeconds();
+    cameraPos.x += (moveSpeed)*animate.asSeconds();
     cameraPos.y = spriteCast->getPosition().y;
 }
 
@@ -327,7 +323,7 @@ void Elodie::changeState(Elodie::State to)
 
     if (from == Elodie::State::WALKING && to == Elodie::State::JUMPING)
     {
-        speed.y = JUMP;
+        speed.y = jumpSpeed;
         spriteCast->changeStance(animations.at(state), sf::seconds(0.1f));
     }
     else if (from == Elodie::State::FALLING && to == Elodie::State::WALKING)
@@ -352,7 +348,7 @@ void Elodie::reset()
     pvTimer = 0;
     attackTimer = 2;
     state = Elodie::State::WALKING;
-    speed.x = SPEED;
+    speed.x = moveSpeed;
     speed.y = 0;
 
     delete sprite;
@@ -386,4 +382,24 @@ sf::Vector2f Elodie::getCameraPos()
 sf::Vector2f& Elodie::getCameraPosRef()
 {
     return cameraPos;
+}
+
+void Elodie::setJumpSpeed(int newJumpSpeed)
+{
+    jumpSpeed = newJumpSpeed < 0 ? newJumpSpeed : jumpSpeed;
+}
+
+void Elodie::setMoveSpeed(int newMoveSpeed)
+{
+    moveSpeed = newMoveSpeed > 0 ? newMoveSpeed : moveSpeed;
+}
+
+void Elodie::setInterRecoveryTime(float newInterRecoveryTime)
+{
+    interRecoveryTime = newInterRecoveryTime > 0 ? newInterRecoveryTime : interRecoveryTime;
+}
+
+void Elodie::setAttackCD(float newAttackCD)
+{
+    attackCD = newAttackCD > 0 ? newAttackCD : attackCD;
 }

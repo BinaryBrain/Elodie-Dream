@@ -1,0 +1,8 @@
+{
+	"gravity" : 1000,
+	"jumpSpeed" : -430,
+	"moveSpeed" : 250,
+	"zoom" : 2.0,
+	"interRecoveryTime" : 0.2,
+	"attackCD" : 0.5
+}

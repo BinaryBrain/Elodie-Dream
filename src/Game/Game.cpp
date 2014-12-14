@@ -189,7 +189,7 @@ void Game::loadLevel(std::vector<int> level)
         env = LevelEnv::FIELD;
         break;
     }*/
-    curLevel = new Level(view, "assets/levels/subWorld" + Utils::itos(level[0]) + "/level"+Utils::itos(level[1])+".txt", env, overworld->getElodie());
+    curLevel = new Level(view, level, env, overworld->getElodie());
     menuHandler.getTitleMenu()->toLevelMenu();
 }
 

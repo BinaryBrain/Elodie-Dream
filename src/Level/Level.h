@@ -21,7 +21,7 @@ class Elodie;
 class Level : public Displayable
 {
 public:
-    Level(GameView& gameView, std::string filename, LevelEnv env, Elodie& elodie);
+    Level(GameView& gameView, std::vector<int> levelNbr, LevelEnv env, Elodie& elodie);
     virtual ~Level();
 
     void loadLevel(std::string filename, Elodie& elodie);
@@ -51,6 +51,8 @@ private:
     sf::Music music;
     Sky* sky;
     Earth* earth;
+    int HORIZONTAL_DISPLAY_MARGIN = WINDOW_WIDTH/(2*2.0) + 2*BLOCK_SIZE; //2 * 2.0 for historical reasons
+    int VERTICAL_DISPLAY_MARGIN = WINDOW_HEIGHT/(2*2.0) + 2*BLOCK_SIZE;
 };
 
 #endif // LEVEL_H
