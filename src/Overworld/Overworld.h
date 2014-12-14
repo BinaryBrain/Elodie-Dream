@@ -37,7 +37,6 @@ public:
 
     const std::vector<int>& getState();
     void setState(std::vector<int> state);
-    void switchOverworlds();//TODO : REMOVE ME (or pass me private)
     void setPosInPath(int pos = 0);
     void setToLevel(std::vector<int> level);
     sf::Music& getMusic();
@@ -85,6 +84,9 @@ private:
     sf::Music music;
 
     int getLevelFromPath();
+
+    void prevOverWorld();
+    void nextOverWorld();
 };
 
 #endif // OVERWORLD_H

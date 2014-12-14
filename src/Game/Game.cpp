@@ -236,8 +236,6 @@ void Game::handleOverworld(sf::Time time)
     else if (event.keyIsPressed(sf::Keyboard::Return) || event.keyIsPressed(sf::Keyboard::Space))
     {
         std::vector<int> levelToload = overworld->getLevelToLoad();
-        std::cout << levelToload[0] << std::endl;
-        std::cout << levelToload[1] << std::endl;
         if ( levelToload[1] >= 0)
         {
             loadLevel(levelToload);
@@ -529,10 +527,6 @@ void Game::run()
         if (event.keyIsPressed(sf::Keyboard::G))
         {
             girlyMode = !girlyMode;
-        }
-
-        if (event.keyIsPressed(sf::Keyboard::S)){
-            overworld->switchOverworlds();
         }
 
         switch(state)

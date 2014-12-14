@@ -43,11 +43,6 @@ Overworld::Overworld(GameView& gameView, bool muted) : Displayable(gameView)
         outPos.push_back(accessor.getIntVector("coord"));
         trigOut.push_back(accessor.getString("trigBy"));
 
-        std::cout << trigIn[w] << std::endl;
-        printCoord(inPos[w]);
-        std::cout << trigOut[w] << std::endl;
-        printCoord(outPos[w]);
-
         levelSpotSprites.push_back(std::vector<sf::Sprite*>());
         for (int i = 0; i < levelsPerSubworld[w]; ++i)
         {
@@ -60,7 +55,18 @@ Overworld::Overworld(GameView& gameView, bool muted) : Displayable(gameView)
 
 
         pathSprites.push_back(std::vector<sf::Sprite*>());
-        pathSprites[w].push_back(new sf::Sprite);
+        if (w > 0)
+        {
+            sf::Texture* pathTexture = new sf::Texture;
+            pathTexture->loadFromFile("assets/img/overworld/subWorld" + Utils::itos(w) + "/inPath.png");
+            sf::Sprite* pathSprite = new sf::Sprite(*pathTexture);
+            pathSprite->setPosition(-8, -7);
+            pathSprites[w].push_back(pathSprite);
+        }
+        else
+        {
+            pathSprites[w].push_back(new sf::Sprite);
+        }
 
         for (int i = 1; i < levelsPerSubworld[w]; ++i)
         {
@@ -250,7 +256,15 @@ int Overworld::moveUp()
         }
     }
 
+    if (curPosInPath == 0 && trigIn[curSubWorld] == "UP")
+    {
+        prevOverWorld();
+    }
 
+    if (getLevelFromPath() == (levelsPerSubworld[curSubWorld]-1) && trigOut[curSubWorld] == "UP" && curSubWorld < (size_t) currentState[0])
+    {
+        nextOverWorld();
+    }
     return 0;
 }
 
@@ -277,6 +291,16 @@ int Overworld::moveDown()
             curPosInPath--;
             return prevPos.position.y - curPos.position.y;
         }
+    }
+
+    if (curPosInPath == 0 && trigIn[curSubWorld] == "DOWN")
+    {
+        prevOverWorld();
+    }
+
+    if (getLevelFromPath() == (levelsPerSubworld[curSubWorld]-1) && trigOut[curSubWorld] == "DOWN" && curSubWorld < (size_t) currentState[0])
+    {
+        nextOverWorld();
     }
 
     return 0;
@@ -306,6 +330,16 @@ int Overworld::moveRight()
         }
     }
 
+    if (curPosInPath == 0 && trigIn[curSubWorld] == "RIGHT")
+    {
+        prevOverWorld();
+    }
+
+    if (getLevelFromPath() ==  (levelsPerSubworld[curSubWorld]-1) && trigOut[curSubWorld] == "RIGHT" && curSubWorld < (size_t) currentState[0])
+    {
+        nextOverWorld();
+    }
+
     return 0;
 }
 
@@ -332,7 +366,15 @@ int Overworld::moveLeft()
             return curPos.position.x - prevPos.position.x;
         }
     }
+    if (curPosInPath == 0 && trigIn[curSubWorld] == "LEFT")
+    {
+        prevOverWorld();
+    }
 
+    if (getLevelFromPath() ==  (levelsPerSubworld[curSubWorld]-1) && trigOut[curSubWorld] == "LEFT" && curSubWorld < (size_t) currentState[0])
+    {
+        nextOverWorld();
+    }
     return 0;
 }
 
@@ -353,8 +395,6 @@ void Overworld::evolve(std::vector<int> succLevel)
             }
         }
     }
-
-    printCoord(currentState);
 }
 
 Elodie& Overworld::getElodie()
@@ -380,7 +420,8 @@ std::vector<int> Overworld::getLevelToLoad()
     return toReturn;
 }
 
-const std::vector<int>& Overworld::getLevelsPerSubworld() {
+const std::vector<int>& Overworld::getLevelsPerSubworld()
+{
     return levelsPerSubworld;
 }
 
@@ -423,20 +464,40 @@ void Overworld::setToLevel(std::vector<int> level)
     }
 }
 
-void Overworld::switchOverworlds()
+void Overworld::nextOverWorld()
 {
     curPosInPath = 0;
-    curSubWorld = curSubWorld == 0 ? 1 : 0;
-    currentState[1] = 0;
+    curSubWorld++;
+    resetPos();
+}
+
+void Overworld::prevOverWorld()
+{
+    curSubWorld--;
+    std::vector<int> wantedPos = levelPos[curSubWorld][levelsPerSubworld[curSubWorld]-1];
+    sf::VertexArray path = (* (paths[curSubWorld][levelsPerSubworld[curSubWorld]-1]));
+    bool found = false;
+    size_t i = 0;
+    while (!found)
+    {
+        if (path[i].position.x == wantedPos[0] && path[i].position.y == wantedPos[1])
+        {
+            found = true;
+            curPosInPath = i;
+        }
+        else
+        {
+            ++i;
+        }
+    }
+
+    resetPos();
 }
 
 int Overworld::getLevelFromPath()
 {
     int pathnumber = curSubWorld < (unsigned int) currentState[0] ? levelsPerSubworld[curSubWorld] - 1 : currentState[1];
     sf::Vertex curPos = (* (paths[curSubWorld][pathnumber]))[curPosInPath];
-    std::cout<< curPosInPath << "," << curSubWorld <<std::endl;
-    printCoord({(int)curPos.position.x,(int)curPos.position.y});
-    std::cout << "Path number :" << pathnumber << std::endl;
     for (size_t i = 0; i < levelPos[curSubWorld].size(); ++i)
     {
         if(levelPos[curSubWorld][i][0] == curPos.position.x && levelPos[curSubWorld][i][1] == curPos.position.y)
