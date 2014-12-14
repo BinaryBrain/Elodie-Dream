@@ -19,7 +19,7 @@ public:
     static const std::string SHEEPS_LABEL;
     static const std::string MAGMACUBES_LABEL;
     static const std::string BRISTLES_LABEL;
-    static const std::string CROWS_LABEL;
+    static const std::string RAVENS_LABEL;
     static const std::string REDLIGHTS_LABEL;
     static const std::string METEORITES_LABEL;
     static const std::string ALIENS_LABEL;

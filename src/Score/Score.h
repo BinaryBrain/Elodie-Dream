@@ -14,7 +14,7 @@ public:
     static const std::string SHEEPS_KEY;
     static const std::string MAGMACUBES_KEY;
     static const std::string BRISTLES_KEY;
-    static const std::string CROWS_KEY;
+    static const std::string RAVENS_KEY;
     static const std::string REDLIGHTS_KEY;
     static const std::string METEORITES_KEY;
     static const std::string ALIENS_KEY;
@@ -32,7 +32,7 @@ public:
     int getSheeps();
     int getMagmaCubes();
     int getBristles();
-    int getCrows();
+    int getRavens();
     int getRedLights();
     int getMeteorites();
     int getAliens();
@@ -49,7 +49,7 @@ public:
     void setSheeps(int sheeps);
     void setMagmaCubes(int magmaCubes);
     void setBristles(int bristles);
-    void setCrows(int crows);
+    void setRavens(int ravens);
     void setRedLights(int redLights);
     void setMeteorites(int meteorites);
     void setAliens(int aliens);

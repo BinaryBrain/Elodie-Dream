@@ -8,7 +8,7 @@ const std::string Score::LARGESTKILLINGSPREE_KEY = "largestkillingspree";
 const std::string Score::SHEEPS_KEY = "sheeps";
 const std::string Score::MAGMACUBES_KEY = "magmacubes";
 const std::string Score::BRISTLES_KEY = "bristles";
-const std::string Score::CROWS_KEY = "crows";
+const std::string Score::RAVENS_KEY = "ravens";
 const std::string Score::REDLIGHTS_KEY = "redlights";
 const std::string Score::METEORITES_KEY = "meteorites";
 const std::string Score::ALIENS_KEY = "aliens";
@@ -70,9 +70,9 @@ int Score::getBristles()
     return datas[BRISTLES_KEY];
 }
 
-int Score::getCrows()
+int Score::getRavens()
 {
-    return datas[CROWS_KEY];
+    return datas[RAVENS_KEY];
 }
 
 int Score::getRedLights()
@@ -149,9 +149,9 @@ void Score::setBristles(int bristles)
     datas[BRISTLES_KEY] = bristles;
 }
 
-void Score::setCrows(int crows)
+void Score::setRavens(int ravens)
 {
-    datas[CROWS_KEY] = crows;
+    datas[RAVENS_KEY] = ravens;
 }
 
 void Score::setRedLights(int redLights)
@@ -194,7 +194,7 @@ void Score::reset()
     datas.insert({SHEEPS_KEY, 0});
     datas.insert({MAGMACUBES_KEY, 0});
     datas.insert({BRISTLES_KEY, 0});
-    datas.insert({CROWS_KEY, 0});
+    datas.insert({RAVENS_KEY, 0});
     datas.insert({REDLIGHTS_KEY, 0});
     datas.insert({METEORITES_KEY, 0});
     datas.insert({ALIENS_KEY, 0});

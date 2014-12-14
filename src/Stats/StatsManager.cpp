@@ -9,7 +9,7 @@ const std::string StatsManager::DEATHS_LABEL = "Deaths";
 const std::string StatsManager::SHEEPS_LABEL = "Sheeps killed";
 const std::string StatsManager::MAGMACUBES_LABEL = "Magma cubes killed";
 const std::string StatsManager::BRISTLES_LABEL = "Bristles killed";
-const std::string StatsManager::CROWS_LABEL = "Crows killed";
+const std::string StatsManager::RAVENS_LABEL = "Ravens killed";
 const std::string StatsManager::REDLIGHTS_LABEL = "Red lights killed";
 const std::string StatsManager::METEORITES_LABEL = "Meteorites killed";
 const std::string StatsManager::ALIENS_LABEL = "Aliens killed";
@@ -23,7 +23,7 @@ StatsManager::StatsManager()
     keysLabels.push_back({Score::SHEEPS_KEY, SHEEPS_LABEL});
     keysLabels.push_back({Score::MAGMACUBES_KEY, MAGMACUBES_LABEL});
     keysLabels.push_back({Score::BRISTLES_KEY, BRISTLES_LABEL});
-    keysLabels.push_back({Score::CROWS_KEY, CROWS_LABEL});
+    keysLabels.push_back({Score::RAVENS_KEY, RAVENS_LABEL});
     keysLabels.push_back({Score::REDLIGHTS_KEY, REDLIGHTS_LABEL});
     keysLabels.push_back({Score::METEORITES_KEY, METEORITES_LABEL});
     keysLabels.push_back({Score::ALIENS_KEY, ALIENS_LABEL});

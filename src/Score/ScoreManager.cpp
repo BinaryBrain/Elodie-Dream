@@ -85,7 +85,7 @@ std::vector<std::string> ScoreManager::getAllKeys()
     keys.push_back(Score::SHEEPS_KEY);
     keys.push_back(Score::MAGMACUBES_KEY);
     keys.push_back(Score::BRISTLES_KEY);
-    keys.push_back(Score::CROWS_KEY);
+    keys.push_back(Score::RAVENS_KEY);
     keys.push_back(Score::REDLIGHTS_KEY);
     keys.push_back(Score::METEORITES_KEY);
     keys.push_back(Score::ALIENS_KEY);
