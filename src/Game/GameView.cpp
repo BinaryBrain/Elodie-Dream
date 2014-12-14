@@ -167,5 +167,4 @@ bool GameView::isPointOutsideView(ViewLayer, float x, float y)
     float relY = y-(centers[ViewLayer::LEVEL].y-layerSize.y);
 
     return (relX < - CAMERA_TOL || relY < - CAMERA_TOL || relX > windowSize.x + CAMERA_TOL || relY > windowSize.y + CAMERA_TOL);
-
 }

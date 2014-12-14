@@ -13,6 +13,7 @@ EntityManager::EntityManager()
         {EntityName::METEORITE, ENTITYNAME_METEORITE},
         {EntityName::PORTAL, ENTITYNAME_PORTAL},
         {EntityName::PORO, ENTITYNAME_PORO},
+        {EntityName::RAVEN, ENTITYNAME_RAVEN},
         {EntityName::SPRITE, ENTITYNAME_SPRITE}
     };
 
