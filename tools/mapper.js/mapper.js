@@ -11,7 +11,7 @@ var MAP_NULL = ' ';
 
 // Images
 images = []
-images[MAP_GROUND] = "../../assets/img/sprites/tiles/extended/modern/thin.png"
+images[MAP_GROUND] = "../../assets/img/sprites/tiles/extended/modern/metal.png"
 images[MAP_ELODIE] = "../../assets/img/sprites/tiles/extended/field/ground.png"
 // images[MAP_GROUND] = "../../assets/img/sprites/tiles/extended/field/ground.png"
 

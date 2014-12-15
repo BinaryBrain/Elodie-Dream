@@ -26,6 +26,8 @@ obj/*
 *.layout
 *.db
 *.cscope_file_list
+*.blend1
+*.blend2
 
 # Game
 save
