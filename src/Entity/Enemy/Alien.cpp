@@ -1,6 +1,8 @@
+#include "../../Score/ScoreManager.h"
+#include "../../Sound/SoundManager.h"
 #include "Alien.h"
 
-const int Alien::DAMAGE = 12;
+const int Alien::DAMAGE = 25;
 const int Alien::STEP = 5;
 const int Alien::LIMIT_Y = 150;
 const int Alien::SPEED_X = 100;
@@ -39,6 +41,15 @@ void Alien::doAttack(std::map< std::string, Entity* >& entities)
 
 void  Alien::takeDamage(int, bool)
 {
+    if (!damageCD && damage > 0)
+    {
+        life = 0;
+        damageCD = DAMAGE_CD;
+        SoundManager::getInstance().play(SoundType::ALIEN);
+    }
+    SoundManager::getInstance().play(SoundType::PUNCH);
+    ScoreManager& sm = ScoreManager::getInstance();
+    sm.addEnemyKilled(EnemyType::ALIEN);
 }
 
 void Alien::doStuff(const EventHandler&, const std::vector< std::vector<TileSprite*> >&,
