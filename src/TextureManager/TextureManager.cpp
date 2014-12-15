@@ -9,14 +9,16 @@ TextureManager::TextureManager()
         {LevelEnv::CASTLE, LEVELENV_CASTLE},
         {LevelEnv::VOLCANO, LEVELENV_VOLCANO},
         {LevelEnv::FRELJORD, LEVELENV_FRELJORD},
-        {LevelEnv::SPACE, LEVELENV_SPACE}
+        {LevelEnv::SPACE, LEVELENV_SPACE},
+        {LevelEnv::MODERN, LEVELENV_MODERN}
     };
 
     TILE_TYPE =
     {
         { TileType::DIRT, TILETYPE_DIRT },
         { TileType::ROCK, TILETYPE_ROCK },
-        { TileType::ICE, TILETYPE_ICE }
+        { TileType::ICE, TILETYPE_ICE },
+        { TileType::THIN, TILETYPE_THIN }
     };
 }
 

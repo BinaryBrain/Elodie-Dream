@@ -22,6 +22,9 @@ Earth::Earth(GameView& gameView, LevelEnv env, int tilesNumber, sf::Vector2f& ca
     case LevelEnv::SPACE:
         filename = ENVIRONMENT_TEXTURES_PATH + "/" + LEVELENV_SPACE + "/backlayer.png";
         break;
+    case LevelEnv::MODERN:
+        filename = ENVIRONMENT_TEXTURES_PATH + "/" + LEVELENV_MODERN + "/backlayer.png";
+        break;
     default:
         filename = ENVIRONMENT_TEXTURES_PATH + "/" + LEVELENV_FIELD + "/backlayer.png";
         break;
