@@ -19,7 +19,7 @@ Level::Level(GameView& gameView, std::vector<int> levelNbr, LevelEnv env, Elodie
 
 
     HORIZONTAL_DISPLAY_MARGIN = WINDOW_WIDTH/(2*zoom) + 2*BLOCK_SIZE;
-    VERTICAL_DISPLAY_MARGIN = WINDOW_HEIGHT/(2*zoom) + 2*BLOCK_SIZE;
+    VERTICAL_DISPLAY_MARGIN = WINDOW_HEIGHT/(2*zoom) + 12*BLOCK_SIZE;
 
     elodie.setGravity(gravity);
     elodie.setJumpSpeed(jumpSpeed);
