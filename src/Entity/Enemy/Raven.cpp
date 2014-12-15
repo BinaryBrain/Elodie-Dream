@@ -2,7 +2,13 @@
 #include "../../Sound/SoundManager.h"
 #include "Raven.h"
 
-const int Raven::DAMAGE = 10;
+const int Raven::DAMAGE = 20;
+const int Raven::SPEED_Y_MULT = 4;
+const int Raven::STANDING_SPEED_X = 50;
+const int Raven::ATTACK_SPEED_X = 150;
+const int Raven::DETECTION_X = 350;
+const int Raven::DETECTION_Y = 300;
+
 const std::map< int, std::string > Raven::ANIMATIONS =
 {
     {Raven::State::STANDING, "standing"}
@@ -51,16 +57,29 @@ void Raven::takeDamage(int damage, bool)
     sm.addEnemyKilled(EnemyType::RAVEN);
 }
 
-void Raven::doStuff(const EventHandler&, const std::vector< std::vector<TileSprite*> >& tiles,
+bool Raven::checkCharge(std::map< std::string, Entity* >& entities) {
+    sf::FloatRect elo = ((Elodie*) entities["elodie"])->returnCurrentHitbox().getArea();
+    sf::FloatRect me = returnCurrentHitbox().getArea();
+
+    return (abs(elo.left - me.left) < DETECTION_X && abs(elo.top - me.top) < DETECTION_Y);
+}
+
+void Raven::doStuff(const EventHandler&, const std::vector< std::vector<TileSprite*> >&,
                     std::map< std::string, Entity* >& entities, sf::Time animate)
 {
-    //Compute the gravity
-    computeGravity(animate);
+    speed.x = -STANDING_SPEED_X;
 
-    //Check the collisions, set the new distances and do the move
-    Collide collideTiles = collideWithTiles(tiles, animate.asSeconds());
-    setDistance(collideTiles);
-    move(animate.asSeconds()*(speed.x), animate.asSeconds()*speed.y);
+    if (checkCharge(entities))
+    {
+        sf::FloatRect eloArea = ((Elodie*) entities["elodie"])->returnCurrentHitbox().getArea();
+        float targetY = eloArea.top + eloArea.height/4;
+        float myY = returnCurrentHitbox().getArea().top;
+
+        speed.x = -ATTACK_SPEED_X;
+        speed.y = (targetY - myY) * SPEED_Y_MULT;
+    }
+
+    move(animate.asSeconds()*(speed.x), animate.asSeconds()*(speed.y));
     sprite->update(animate);
 
     doAttack(entities);

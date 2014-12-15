@@ -13,6 +13,12 @@ class Raven : public Entity
 {
 public:
     static const int DAMAGE;
+    static const int SPEED_Y_MULT;
+    static const int STANDING_SPEED_X;
+    static const int ATTACK_SPEED_X;
+    static const int DETECTION_X;
+    static const int DETECTION_Y;
+
     static const std::map< int, std::string > ANIMATIONS;
 
     enum State
@@ -26,6 +32,7 @@ public:
     Raven(float x, float y);
     virtual ~Raven();
 
+    bool checkCharge(std::map< std::string, Entity* >& entities);
     void doAttack(std::map< std::string, Entity* >& entities);
 
     virtual void takeDamage(int damage, bool ignore);
