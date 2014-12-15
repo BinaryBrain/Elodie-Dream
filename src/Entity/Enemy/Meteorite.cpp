@@ -3,8 +3,9 @@
 #include "Meteorite.h"
 
 const int Meteorite::DAMAGE = 70;
-const int Meteorite::SPEED_X = 100;
+const int Meteorite::SPEED_X = -60;
 const int Meteorite::SPEED_Y = 100;
+const int Meteorite::ACCELERATION = 5;
 const std::map< int, std::string > Meteorite::ANIMATIONS =
 {
     {Meteorite::State::STANDING, "standing"}
@@ -15,8 +16,8 @@ Meteorite::Meteorite() : Meteorite(sf::Vector2f(0, 0))
 }
 
 Meteorite::Meteorite(sf::Vector2f position) :
-    Entity(position, EntityType::ENEMY, EntityName::SHEEP,
-           ENTITYTYPE_ENEMY+"/"+""+".png", "standing",
+    Entity(position, EntityType::ENEMY, EntityName::METEORITE,
+           ENTITYTYPE_ENEMY+"/"+"meteorite"+".png", "standing",
            Meteorite::ANIMATIONS, Meteorite::State::STANDING,
 {-Meteorite::SPEED_X, 0}, 1, Meteorite::DAMAGE)
 {
@@ -54,10 +55,10 @@ void  Meteorite::takeDamage(int, bool)
 void Meteorite::doStuff(const EventHandler&, const std::vector< std::vector<TileSprite*> >&,
                     std::map< std::string, Entity* >& entities, sf::Time animate)
 {
-    move(animate.asSeconds()*(Meteorite::SPEED_X), animate.asSeconds()*Meteorite::SPEED_Y);
+    move(animate.asSeconds()*(Meteorite::SPEED_X), animate.asSeconds()*(Meteorite::SPEED_Y+framesSinceStart*ACCELERATION));
     sprite->update(animate);
     doAttack(entities);
-
+    framesSinceStart++;
     if (damageCD)
     {
         --damageCD;

@@ -15,6 +15,7 @@ public:
     static const int DAMAGE;
     static const int SPEED_X;
     static const int SPEED_Y;
+    static const int ACCELERATION;
     static const std::map< int, std::string > ANIMATIONS;
 
     enum State
@@ -33,6 +34,9 @@ public:
     virtual void takeDamage(int damage, bool ignore);
     virtual void doStuff(const EventHandler& event, const std::vector< std::vector<TileSprite*> >& tiles,
                          std::map< std::string, Entity* >& entities, sf::Time animate);
+
+private:
+    int framesSinceStart = 0;
 };
 
 #endif // METEORITE_H_INCLUDED

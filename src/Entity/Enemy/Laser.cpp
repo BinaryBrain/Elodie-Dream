@@ -5,8 +5,8 @@ const int Laser::DAMAGE = 50;
 const std::map< int, std::string > Laser::ANIMATIONS =
 {
     {Laser::State::WAITING, "waiting"},
-    {Laser::State::ACTIVATED, "activating"},
-    {Laser::State::UNACTIVATED, "activated"}
+    {Laser::State::ACTIVATED, "activated"},
+    {Laser::State::UNACTIVATED, "unactivated"}
 };
 
 Laser::Laser() : Laser(sf::Vector2f(0, 0))
