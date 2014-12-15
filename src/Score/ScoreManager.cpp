@@ -158,7 +158,7 @@ void ScoreManager::addEnemyKilled(EnemyType type)
         break;
     case EnemyType::ALIEN:
         killPoints += Alien::DAMAGE * nKillsInARow;
-        currentScore.setAliens(currentScore.getMeteorites() + 1);
+        currentScore.setAliens(currentScore.getAliens() + 1);
         statsManager.setAliens(statsManager.getTotalAliens() + 1);
         break;
     case EnemyType::METEORITE:
