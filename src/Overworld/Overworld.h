@@ -41,7 +41,22 @@ public:
     void setToLevel(std::vector<int> level);
     sf::Music& getMusic();
 
+    void incFaderAlpha();
+    void decFaderAlpha();
+    int getFaderAlpha();
+
+    std::vector<int> getInPos();
+    std::vector<int> getOutPos();
+
+    std::string getTrigIn();
+    std::string getTrigOut();
+
+    void prevOverWorld();
+    void nextOverWorld();
+
     LevelEnv getEnvFromLevel(std::vector<int> level);
+
+    void printCoord(std::vector<int> coord);
 
 private:
     enum states
@@ -72,6 +87,8 @@ private:
     std::vector<int> envsPerSubworld;
     std::vector< std::vector<int> > envs;
 
+    float fadeTime;
+
     int subWorldsNumber ;
 
     unsigned int curSubWorld = 0;
@@ -84,11 +101,6 @@ private:
     sf::Music music;
 
     int getLevelFromPath();
-
-    void prevOverWorld();
-    void nextOverWorld();
-
-    void printCoord(std::vector<int> coord);
 };
 
 #endif // OVERWORLD_H

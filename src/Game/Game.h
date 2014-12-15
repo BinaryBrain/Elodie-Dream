@@ -112,6 +112,12 @@ private:
     void displayEnd();
     void newGame();
     void leaveLevel();
+    void animPrevOw();
+    void animNextOw();
+
+    bool owfadeIn = false;
+    bool owfadeOut = false;
+    bool moveout = false;
     //double miny = 200;
     //int totframe = 0;
     //double frametime = 0;

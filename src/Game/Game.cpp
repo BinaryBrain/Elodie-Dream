@@ -152,7 +152,8 @@ void Game::loadLevel(std::vector<int> level)
     curLevelNbr = level;
     LevelEnv env = LevelEnv::FIELD;
 
-    if (level[0] == 0 && level[1] == 0){
+    if (level[0] == 0 && level[1] == 0)
+    {
         showTutoConsole = true;
     }
 
@@ -569,6 +570,12 @@ void Game::run()
         case GameState::INSTATS:
             displayStats();
             break;
+        case GameState::NEXTOW:
+            animNextOw();
+            break;
+        case GameState::PREVOW:
+            animPrevOw();
+            break;
         default :
             std::cerr << "Error: unknown state" << std::endl;
             break;
@@ -675,8 +682,8 @@ void Game::load()
             }
             else
             {
-                 // save from version prior to 1.1
-                 LDL[1] = accessor.getInt(SaveHandler::LDL_KEY);
+                // save from version prior to 1.1
+                LDL[1] = accessor.getInt(SaveHandler::LDL_KEY);
             }
 
 
@@ -810,4 +817,109 @@ void Game::toggleMute(sf::Music& music)
 bool Game::isMute()
 {
     return mute;
+}
+
+void Game::animPrevOw()
+{
+    if (!owfadeIn && !owfadeOut && !moveout)
+    {
+        owfadeIn = true;
+        owfadeOut = true;
+        moveout = true;
+    }
+    Elodie& elodie = overworld->getElodie();
+
+    if (overworld->getTrigIn() == "RIGHT" && overworld->getInPos()[0] - elodie.getPosition().x > 300/FPS && moveout)
+    {
+        elodie.move(300/FPS, 0);
+    }
+    else if (overworld->getTrigIn() == "LEFT" && elodie.getPosition().x - overworld->getInPos()[0] > 300/FPS && moveout)
+    {
+        elodie.move(-300/FPS, 0);
+    }
+    else if (overworld->getTrigIn() == "DOWN" && overworld->getInPos()[1] - elodie.getPosition().y > 300/FPS && moveout)
+    {
+        elodie.move(0, 300/FPS);
+    }
+    else if (overworld->getTrigIn() == "UP" && elodie.getPosition().y - overworld->getInPos()[1] > 300/FPS && moveout)
+    {
+        elodie.move(0, -300/FPS);
+    }
+    else if (owfadeOut)
+    {
+        elodie.noMoves();
+        elodie.stand();
+        moveout = false;
+        overworld->incFaderAlpha();
+        if (overworld->getFaderAlpha() == 255)
+        {
+            owfadeOut = false;
+        }
+    }
+    else if (owfadeIn)
+    {
+        if (overworld->getFaderAlpha() == 255)
+        {
+            overworld->prevOverWorld();
+        }
+        overworld->decFaderAlpha();
+
+        if (overworld->getFaderAlpha() == 0)
+        {
+            owfadeIn = false;
+            this->state = GameState::INOVERWORLD;
+        }
+    }
+}
+void Game::animNextOw()
+{
+    if (!owfadeIn && !owfadeOut && !moveout)
+    {
+        owfadeIn = true;
+        owfadeOut = true;
+        moveout = true;
+    }
+    Elodie& elodie = overworld->getElodie();
+
+    if (overworld->getTrigOut() == "RIGHT" && overworld->getOutPos()[0] - elodie.getPosition().x > 300/FPS && moveout)
+    {
+        elodie.move(300/FPS, 0);
+    }
+    else if (overworld->getTrigOut() == "LEFT" && elodie.getPosition().x - overworld->getOutPos()[0] > 300/FPS && moveout)
+    {
+        elodie.move(-300/FPS, 0);
+    }
+    else if (overworld->getTrigOut() == "DOWN" && overworld->getOutPos()[1] - elodie.getPosition().y > 300/FPS && moveout)
+    {
+        elodie.move(0, 300/FPS);
+    }
+    else if (overworld->getTrigOut() == "UP" && elodie.getPosition().y - overworld->getOutPos()[1] > 300/FPS && moveout)
+    {
+        elodie.move(0, -300/FPS);
+    }
+    else if (owfadeOut)
+    {
+        elodie.noMoves();
+        elodie.stand();
+        moveout = false;
+        overworld->incFaderAlpha();
+        if (overworld->getFaderAlpha() == 255)
+        {
+            owfadeOut = false;
+        }
+    }
+    else if (owfadeIn)
+    {
+        if (overworld->getFaderAlpha() == 255)
+        {
+            overworld->nextOverWorld();
+        }
+        overworld->decFaderAlpha();
+
+        if (overworld->getFaderAlpha() == 0)
+        {
+            owfadeIn = false;
+            this->state = GameState::INOVERWORLD;
+        }
+    }
 }

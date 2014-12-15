@@ -13,6 +13,8 @@ Overworld::Overworld(GameView& gameView, bool muted) : Displayable(gameView)
 
     levelsPerSubworld = worldStructureAcccessor.getIntVector("levelsPerSubworld");
 
+    fadeTime = worldStructureAcccessor.getDouble("fadeTime");
+
     for (int w = 0; w < subWorldsNumber; ++w)
     {
         overworldSprites.push_back(std::vector<sf::Sprite>());
@@ -257,12 +259,14 @@ int Overworld::moveUp()
 
     if (curPosInPath == 0 && trigIn[curSubWorld] == "UP")
     {
-        prevOverWorld();
+        Game::getInstance().setState(GameState::PREVOW);
+        elodie->setWalkUp();
     }
 
     if (getLevelFromPath() == (levelsPerSubworld[curSubWorld]-1) && trigOut[curSubWorld] == "UP" && curSubWorld < (size_t) currentState[0])
     {
-        nextOverWorld();
+        Game::getInstance().setState(GameState::NEXTOW);
+        elodie->setWalkUp();
     }
     return 0;
 }
@@ -294,12 +298,14 @@ int Overworld::moveDown()
 
     if (curPosInPath == 0 && trigIn[curSubWorld] == "DOWN")
     {
-        prevOverWorld();
+        Game::getInstance().setState(GameState::PREVOW);
+        elodie->setWalkDown();
     }
 
     if (getLevelFromPath() == (levelsPerSubworld[curSubWorld]-1) && trigOut[curSubWorld] == "DOWN" && curSubWorld < (size_t) currentState[0])
     {
-        nextOverWorld();
+        Game::getInstance().setState(GameState::NEXTOW);
+        elodie->setWalkDown();
     }
 
     return 0;
@@ -331,12 +337,14 @@ int Overworld::moveRight()
 
     if (curPosInPath == 0 && trigIn[curSubWorld] == "RIGHT")
     {
-        prevOverWorld();
+        Game::getInstance().setState(GameState::PREVOW);
+        elodie->setWalkRight();
     }
 
     if (getLevelFromPath() ==  (levelsPerSubworld[curSubWorld]-1) && trigOut[curSubWorld] == "RIGHT" && curSubWorld < (size_t) currentState[0])
     {
-        nextOverWorld();
+        Game::getInstance().setState(GameState::NEXTOW);
+        elodie->setWalkRight();
     }
 
     return 0;
@@ -367,12 +375,14 @@ int Overworld::moveLeft()
     }
     if (curPosInPath == 0 && trigIn[curSubWorld] == "LEFT")
     {
-        prevOverWorld();
+        Game::getInstance().setState(GameState::PREVOW);
+        elodie->setWalkLeft();
     }
 
     if (getLevelFromPath() ==  (levelsPerSubworld[curSubWorld]-1) && trigOut[curSubWorld] == "LEFT" && curSubWorld < (size_t) currentState[0])
     {
-        nextOverWorld();
+        Game::getInstance().setState(GameState::NEXTOW);
+        elodie->setWalkLeft();
     }
     return 0;
 }
@@ -518,6 +528,49 @@ LevelEnv Overworld::getEnvFromLevel(std::vector<int> level)
 
     finalRes += envs[level[0]][level[1]];
     return static_cast<LevelEnv>(finalRes);
+}
+
+void Overworld::incFaderAlpha()
+{
+    int actAlpha = getFaderAlpha();
+    double incframes = (FPS * fadeTime)/2.0;
+    int increment = (int) 255/incframes;
+    //std::cout << Utils::itos(increment) << std::endl;
+    int newAlpha = (actAlpha + increment) > 255 ? 255 : (actAlpha + increment);
+    fader.setFillColor(sf::Color(0x00, 0x00, 0x00, newAlpha));
+}
+
+void Overworld::decFaderAlpha()
+{
+    int actAlpha = getFaderAlpha();
+    double incframes = (FPS * fadeTime)/2.0;
+    int increment = (int) 255/incframes;
+    int newAlpha = (actAlpha - increment) < 0 ? 0 : (actAlpha - increment);
+    fader.setFillColor(sf::Color(0x00, 0x00, 0x00, newAlpha));
+}
+
+int Overworld::getFaderAlpha()
+{
+    return fader.getFillColor().a;
+}
+
+std::vector<int> Overworld::getInPos()
+{
+    return inPos[curSubWorld];
+}
+
+std::vector<int> Overworld::getOutPos()
+{
+    return outPos[curSubWorld];
+}
+
+std::string Overworld::getTrigIn()
+{
+    return trigIn[curSubWorld];
+}
+std::string Overworld::getTrigOut()
+{
+    return trigOut[curSubWorld];
 }
 
 void Overworld::printCoord(std::vector<int> coord)

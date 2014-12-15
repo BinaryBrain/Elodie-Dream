@@ -1,5 +1,6 @@
 {
 	"subWorldsNumber" : 2,
 	"envsPerSubworld" : [4, 2],
-	"levelsPerSubworld" : [8, 6]
+	"levelsPerSubworld" : [8, 6],
+	"fadeTime" : 0.6
 }
