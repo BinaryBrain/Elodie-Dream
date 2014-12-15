@@ -158,13 +158,13 @@ void ScoreManager::addEnemyKilled(EnemyType type)
         break;
     case EnemyType::ALIEN:
         killPoints += Alien::DAMAGE * nKillsInARow;
-        currentScore.setAliens(currentScore.getBristles() + 1);
-        statsManager.setTotalBristles(statsManager.getTotalBristles() + 1);
+        currentScore.setAliens(currentScore.getMeteorites() + 1);
+        statsManager.setAliens(statsManager.getTotalAliens() + 1);
         break;
     case EnemyType::METEORITE:
         killPoints += Meteorite::DAMAGE * nKillsInARow;
-        currentScore.setMeteorites(currentScore.getBristles() + 1);
-        statsManager.setTotalBristles(statsManager.getTotalBristles() + 1);
+        currentScore.setMeteorites(currentScore.getMeteorites() + 1);
+        statsManager.setTotalMeteorites(statsManager.getTotalMeteorites() + 1);
         break;
     default:
         break;
