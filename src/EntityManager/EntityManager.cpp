@@ -11,6 +11,8 @@ EntityManager::EntityManager()
         {EntityName::GHOST, ENTITYNAME_GHOST},
         {EntityName::SPIKES, ENTITYNAME_SPIKES},
         {EntityName::METEORITE, ENTITYNAME_METEORITE},
+        {EntityName::LASER, ENTITYNAME_LASER},
+        {EntityName::ALIEN, ENTITYNAME_ALIEN},
         {EntityName::PORTAL, ENTITYNAME_PORTAL},
         {EntityName::PORO, ENTITYNAME_PORO},
         {EntityName::SPRITE, ENTITYNAME_SPRITE}
