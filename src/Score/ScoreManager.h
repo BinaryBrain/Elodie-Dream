@@ -10,6 +10,9 @@
 #include "../Entity/Enemy/Sheep.h"
 #include "../Entity/Enemy/MagmaCube.h"
 #include "../Entity/Enemy/Bristle.h"
+#include "../Entity/Enemy/Raven.h"
+#include "../Entity/Enemy/Alien.h"
+#include "../Entity/Enemy/Meteorite.h"
 #include "../Entity/Bonus.h"
 #include "../Stats/StatsManager.h"
 

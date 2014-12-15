@@ -10,10 +10,8 @@ const std::string StatsManager::SHEEPS_LABEL = "Sheeps killed";
 const std::string StatsManager::MAGMACUBES_LABEL = "Magma cubes killed";
 const std::string StatsManager::BRISTLES_LABEL = "Bristles killed";
 const std::string StatsManager::RAVENS_LABEL = "Ravens killed";
-const std::string StatsManager::REDLIGHTS_LABEL = "Red lights killed";
 const std::string StatsManager::METEORITES_LABEL = "Meteorites killed";
 const std::string StatsManager::ALIENS_LABEL = "Aliens killed";
-const std::string StatsManager::LASERS_LABEL = "Lasers killed";
 
 StatsManager::StatsManager()
 {
@@ -24,10 +22,8 @@ StatsManager::StatsManager()
     keysLabels.push_back({Score::MAGMACUBES_KEY, MAGMACUBES_LABEL});
     keysLabels.push_back({Score::BRISTLES_KEY, BRISTLES_LABEL});
     keysLabels.push_back({Score::RAVENS_KEY, RAVENS_LABEL});
-    keysLabels.push_back({Score::REDLIGHTS_KEY, REDLIGHTS_LABEL});
     keysLabels.push_back({Score::METEORITES_KEY, METEORITES_LABEL});
     keysLabels.push_back({Score::ALIENS_KEY, ALIENS_LABEL});
-    keysLabels.push_back({Score::LASERS_KEY, LASERS_LABEL});
     reset();
 }
 
@@ -70,6 +66,21 @@ int StatsManager::getTotalMagmaCubes()
 int StatsManager::getTotalBristles()
 {
     return datas[Score::BRISTLES_KEY];
+}
+
+int StatsManager::getTotalRavens()
+{
+    return datas[Score::RAVENS_KEY];
+}
+
+int StatsManager::getTotalAliens()
+{
+    return datas[Score::ALIENS_KEY];
+}
+
+int StatsManager::getTotalMeteorites()
+{
+    return datas[Score::METEORITES_KEY];
 }
 
 int StatsManager::getTotalEnemiesKilled()
@@ -136,6 +147,21 @@ void StatsManager::setTotalMagmaCubes(int totalMagmaCubes)
 void StatsManager::setTotalBristles(int totalBristles)
 {
     datas[Score::BRISTLES_KEY] = totalBristles;
+}
+
+void StatsManager::setTotalRavens(int totalRavens)
+{
+    datas[Score::RAVENS_KEY] = totalRavens;
+}
+
+void StatsManager::setTotalAliens(int totalAliens)
+{
+    datas[Score::ALIENS_KEY] = totalAliens;
+}
+
+void StatsManager::setTotalMeteorites(int totalMeteorites)
+{
+    datas[Score::METEORITES_KEY] = totalMeteorites;
 }
 
 void StatsManager::setAllDatas(const std::map<std::string, int>& datas)

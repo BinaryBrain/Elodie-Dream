@@ -86,10 +86,8 @@ std::vector<std::string> ScoreManager::getAllKeys()
     keys.push_back(Score::MAGMACUBES_KEY);
     keys.push_back(Score::BRISTLES_KEY);
     keys.push_back(Score::RAVENS_KEY);
-    keys.push_back(Score::REDLIGHTS_KEY);
     keys.push_back(Score::METEORITES_KEY);
     keys.push_back(Score::ALIENS_KEY);
-    keys.push_back(Score::LASERS_KEY);
     return keys;
 }
 
@@ -153,7 +151,21 @@ void ScoreManager::addEnemyKilled(EnemyType type)
         currentScore.setBristles(currentScore.getBristles() + 1);
         statsManager.setTotalBristles(statsManager.getTotalBristles() + 1);
         break;
-    // todo other cases
+    case EnemyType::RAVEN:
+        killPoints += Raven::DAMAGE * nKillsInARow;
+        currentScore.setRavens(currentScore.getRavens() + 1);
+        statsManager.setTotalRavens(statsManager.getTotalRavens() + 1);
+        break;
+    case EnemyType::ALIEN:
+        killPoints += Alien::DAMAGE * nKillsInARow;
+        currentScore.setAliens(currentScore.getBristles() + 1);
+        statsManager.setTotalBristles(statsManager.getTotalBristles() + 1);
+        break;
+    case EnemyType::METEORITE:
+        killPoints += Meteorite::DAMAGE * nKillsInARow;
+        currentScore.setMeteorites(currentScore.getBristles() + 1);
+        statsManager.setTotalBristles(statsManager.getTotalBristles() + 1);
+        break;
     default:
         break;
     }

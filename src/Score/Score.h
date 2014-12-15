@@ -15,10 +15,8 @@ public:
     static const std::string MAGMACUBES_KEY;
     static const std::string BRISTLES_KEY;
     static const std::string RAVENS_KEY;
-    static const std::string REDLIGHTS_KEY;
     static const std::string METEORITES_KEY;
     static const std::string ALIENS_KEY;
-    static const std::string LASERS_KEY;
 
     Score();
     ~Score();
@@ -33,10 +31,8 @@ public:
     int getMagmaCubes();
     int getBristles();
     int getRavens();
-    int getRedLights();
     int getMeteorites();
     int getAliens();
-    int getLasers();
     const std::map<std::string, int>& getDatas();
     bool isRegistered();
 
@@ -50,10 +46,8 @@ public:
     void setMagmaCubes(int magmaCubes);
     void setBristles(int bristles);
     void setRavens(int ravens);
-    void setRedLights(int redLights);
     void setMeteorites(int meteorites);
     void setAliens(int aliens);
-    void setLasers(int lasers);
     void setDatas(const std::map<std::string, int>& datas);
     void setRegistered(bool firstTimeSet);
 

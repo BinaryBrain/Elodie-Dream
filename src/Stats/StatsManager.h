@@ -20,10 +20,8 @@ public:
     static const std::string MAGMACUBES_LABEL;
     static const std::string BRISTLES_LABEL;
     static const std::string RAVENS_LABEL;
-    static const std::string REDLIGHTS_LABEL;
     static const std::string METEORITES_LABEL;
     static const std::string ALIENS_LABEL;
-    static const std::string LASERS_LABEL;
 
     static StatsManager& getInstance();
 
@@ -34,6 +32,9 @@ public:
     int getTotalSheeps();
     int getTotalMagmaCubes();
     int getTotalBristles();
+    int getTotalRavens();
+    int getTotalAliens();
+    int getTotalMeteorites();
     int getTotalEnemiesKilled();
 
     const std::map<std::string, int>& getAllDatas();
@@ -48,6 +49,9 @@ public:
     void setTotalSheeps(int totalSheeps);
     void setTotalMagmaCubes(int totalMagmaCubes);
     void setTotalBristles(int totalBristles);
+    void setTotalRavens(int totalRavens);
+    void setTotalAliens(int totalAliens);
+    void setTotalMeteorites(int totalMeteorites);
 
     void setAllDatas(const std::map<std::string, int>& datas);
 
