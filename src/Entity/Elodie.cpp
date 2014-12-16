@@ -159,6 +159,7 @@ void Elodie::takeDamage(int damage, bool ignore)
             immersionLevel = 0;
         }
         damageCD = DAMAGE_CD;
+        SoundManager::getInstance().play(SoundType::OUTCH);
     }
 }
 

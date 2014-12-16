@@ -15,7 +15,8 @@ SoundManager::SoundManager()
         { SoundType::LASER, {SOUND_TYPE_LASER, SOUND_TYPE_LASER_MAX } },
         { SoundType::ALIEN, {SOUND_TYPE_ALIEN, SOUND_TYPE_ALIEN_MAX } },
         { SoundType::BOTTLE, {SOUND_TYPE_BOTTLE, SOUND_TYPE_BOTTLE_MAX} },
-        { SoundType::WOOSH, {SOUND_TYPE_WOOSH, SOUND_TYPE_WOOSH_MAX} }
+        { SoundType::WOOSH, {SOUND_TYPE_WOOSH, SOUND_TYPE_WOOSH_MAX} },
+        { SoundType::OUTCH, {SOUND_TYPE_OUTCH, SOUND_TYPE_OUTCH_MAX} }
     };
 }
 

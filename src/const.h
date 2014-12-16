@@ -23,8 +23,6 @@ const bool DEV_MODE = false;
 const int BLOCK_SIZE = 32;
 const int CAMERA_TOL = 50;
 const bool GOD_MODE = false;
-const unsigned int NUMLEVELS = 8;
-
 // -- MAPS --
 // ASCII Map
 // Terrain
@@ -105,6 +103,9 @@ const string ENTITYTYPE_MISC = "misc";
 const string ENTITYTYPE_BONUS = "bonus";
 // Sounds
 const string SOUNDS_PATH = "assets/sounds";
+
+const string SOUND_TYPE_OUTCH = "outch";
+const int SOUND_TYPE_OUTCH_MAX = 2;
 
 const string SOUND_TYPE_PUNCH = "punch";
 const int SOUND_TYPE_PUNCH_MAX = 2;
