@@ -4,7 +4,7 @@
 
 const int Alien::DAMAGE = 25;
 const int Alien::STEP = 5;
-const int Alien::LIMIT_Y = 150;
+const int Alien::LIMIT_Y = 100;
 const int Alien::SPEED_X = 100;
 const std::map< int, std::string > Alien::ANIMATIONS =
 {
