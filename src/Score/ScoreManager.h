@@ -28,15 +28,20 @@ public:
     int getKillPoints();
     int getLevelPoints();
     std::string getScoreString();
+    const std::vector<int>& getLevelsPerSubworld();
+
     Score& getScore(const std::vector<int>& level);
     Score& getCurrentScore();
     /**
-    * \brief Returns in a vector of map of string and int: all the values in the Scores with their keys. Used to prepare datas for the save.
+    * \brief Returns in a vector of map of string and int (representing a vector of all the Scores). Used to prepare datas for the save.
     * \return A vector of vector of int containing each value of a Score, in the same order as in Score.h.
     */
-    std::vector< std::map<std::string, int> > getAllDatas();
+    std::vector< std::map<std::string, int> > getVectMapDatas();
+    std::vector< std::vector <std::map<std::string, int> > > get2DVectMapDatas();
     std::vector<std::string> getAllKeys();
-    void setAllDatas(const std::vector< std::map<std::string, int> >& datas);
+    const std::vector< std::vector<Score> >& getGameScore();
+
+    void setVectMapDatas(const std::vector< std::map<std::string, int> >& datas);
     void setLevel(const std::vector<int>& level);
     void setKillPoints(int points);
 

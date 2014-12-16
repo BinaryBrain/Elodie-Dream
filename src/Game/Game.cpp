@@ -16,7 +16,6 @@ Game::Game() :
     view.show(ViewLayer::TITLESCREEN);
 
     scoreManager.init(overworld->getLevelsPerSubworld());
-    statsBoard.setLevelsPerSubworld(overworld->getLevelsPerSubworld());
 }
 
 Game::~Game()
@@ -652,7 +651,7 @@ void Game::load()
                 if (accessor.canTakeElementFrom(SaveHandler::SCORES_KEY))
                 {
                     std::vector< std::map<std::string, int> > datas = accessor.getVectMaps(SaveHandler::SCORES_KEY, scoreManager.getAllKeys());
-                    scoreManager.setAllDatas(datas);
+                    scoreManager.setVectMapDatas(datas);
                 }
 
             }
@@ -718,7 +717,7 @@ void Game::save()
 
     // Displays the save name on the menu
     currentMenuSave->getText()->setString(saveHandler.computeLevelName(LDL));
-    std::vector< std::map<std::string, int> > scoresDatas = scoreManager.getAllDatas();
+    std::vector< std::map<std::string, int> > scoresDatas = scoreManager.getVectMapDatas();
     std::map<std::string, int> moreStatsDatas = statsManager.getAllDatas();
 
     // saves the datas to the save file

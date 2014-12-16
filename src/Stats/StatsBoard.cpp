@@ -26,11 +26,6 @@ void StatsBoard::setLDL(const std::vector<int>& LDL)
     this->LDL = LDL;
 }
 
-void StatsBoard::setLevelsPerSubworld(const std::vector<int>& levelsPerSubworld)
-{
-    this->levelsPerSubworld = levelsPerSubworld;
-}
-
 void StatsBoard::setCurrentSubworld(int curSubworld)
 {
     this->curSubworld = curSubworld;
@@ -48,6 +43,8 @@ void StatsBoard::display()
 
 void StatsBoard::prepareText()
 {
+    levelsPerSubworld = ScoreManager::getInstance().getLevelsPerSubworld();
+
     allTexts.clear();
 
     // Levels (Tutorial, Level 1, ...)
@@ -87,7 +84,7 @@ void StatsBoard::createLevelTexts(float beginX, float beginY)
 
 void StatsBoard::createAllCategoriesTexts()
 {
-    std::vector< std::map<std::string, int> > allDatas = ScoreManager::getInstance().getAllDatas();
+    std::vector< std::vector< std::map<std::string, int> > > datas = ScoreManager::getInstance().get2DVectMapDatas();
     std::vector<std::string> titles;
     std::vector<std::string> keys;
 
@@ -116,7 +113,7 @@ void StatsBoard::createAllCategoriesTexts()
         {
             for (size_t j = 0; j < titles.size(); ++j)
             {
-                categories[j].push_back(allDatas[i][keys[j]]);
+                categories[j].push_back(datas[curSubworld][i][keys[j]]);
             }
         }
     }

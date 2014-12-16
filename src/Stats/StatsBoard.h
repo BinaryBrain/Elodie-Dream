@@ -20,7 +20,6 @@ public:
     virtual ~StatsBoard();
 
     void setLDL(const std::vector<int>& LDL);
-    void setLevelsPerSubworld(const std::vector<int>& levelsPerSubworld);
     void setCurrentSubworld(int curSubworld);
     void display();
     void prepareText();

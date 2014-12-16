@@ -49,6 +49,11 @@ std::string ScoreManager::getScoreString()
     return scoreString;
 }
 
+const std::vector<int>& ScoreManager::getLevelsPerSubworld()
+{
+    return levelsPerSubworld;
+}
+
 Score& ScoreManager::getScore(const std::vector<int>& level)
 {
     return gameScore[level[0]][level[1]];
@@ -59,7 +64,7 @@ Score& ScoreManager::getCurrentScore()
     return currentScore;
 }
 
-std::vector< std::map<std::string, int> > ScoreManager::getAllDatas()
+std::vector< std::map<std::string, int> > ScoreManager::getVectMapDatas()
 {
     std::vector< std::map<std::string, int> > datas;
 
@@ -69,6 +74,23 @@ std::vector< std::map<std::string, int> > ScoreManager::getAllDatas()
         {
             datas.push_back(gameScore[i][j].getDatas());
         }
+    }
+
+    return datas;
+}
+
+std::vector< std::vector <std::map<std::string, int> > > ScoreManager::get2DVectMapDatas()
+{
+    std::vector< std::vector <std::map<std::string, int> > > datas;
+
+    for (size_t i = 0; i < levelsPerSubworld.size(); ++i)
+    {
+        std::vector< std::map <std::string, int> > subworldScores;
+        for (int j = 0; j < levelsPerSubworld[i]; ++j)
+        {
+            subworldScores.push_back(gameScore[i][j].getDatas());
+        }
+        datas.push_back(subworldScores);
     }
 
     return datas;
@@ -91,7 +113,11 @@ std::vector<std::string> ScoreManager::getAllKeys()
     return keys;
 }
 
-void ScoreManager::setAllDatas(const std::vector< std::map<std::string, int> >& datas)
+const std::vector< std::vector<Score> >& ScoreManager::getGameScore() {
+    return gameScore;
+}
+
+void ScoreManager::setVectMapDatas(const std::vector< std::map<std::string, int> >& datas)
 {
     int nWorldsBefore = 0;
     for (size_t i = 0; i < levelsPerSubworld.size(); ++i)
