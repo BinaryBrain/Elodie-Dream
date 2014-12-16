@@ -507,6 +507,14 @@ void Game::run()
 
             FileHandler::createDirIfNotExisting(screensDirPath);
             screen.saveToFile(screensDirPath+"/"+date+".jpg");
+            console.clearAndWrite("Screenshot saved as " + date + ".jpg in save folder.");
+
+            if (state != GameState::INCONSOLE)
+            {
+                console.setNextState(state);
+                state = GameState::INCONSOLE;
+                view.show(ViewLayer::CONSOLE);
+            }
         }
 
         if (event.keyIsPressed(sf::Keyboard::G))
