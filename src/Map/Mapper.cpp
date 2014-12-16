@@ -109,6 +109,10 @@ void Mapper::parse(std::string asciiLevel, TileMap& tiles, EntityMap& entities, 
             tiles[y].push_back(new TileSprite(TileType::METAL));
             break;
 
+        case MAP_ASTEROID:
+            tiles[y].push_back(new TileSprite(TileType::ASTEROID));
+            break;
+
         case MAP_LINE_BREAK:
             y++;
             x=-1;

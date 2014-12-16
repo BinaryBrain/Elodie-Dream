@@ -19,7 +19,8 @@ TextureManager::TextureManager()
         { TileType::ROCK, TILETYPE_ROCK },
         { TileType::ICE, TILETYPE_ICE },
         { TileType::BOX, TILETYPE_BOX },
-        { TileType::METAL, TILETYPE_METAL }
+        { TileType::METAL, TILETYPE_METAL },
+        { TileType::ASTEROID, TILETYPE_ASTEROID }
     };
 }
 

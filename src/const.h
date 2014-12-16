@@ -31,6 +31,7 @@ static const char MAP_ICE = 'I';
 static const char MAP_DIRT = 'D';
 static const char MAP_BOX = 'T';
 static const char MAP_METAL = 'o';
+static const char MAP_ASTEROID = 'X';
 
 // Characters
 static const char MAP_ELODIE = 'E';
@@ -79,6 +80,7 @@ const string TILETYPE_ROCK = "rock";
 const string TILETYPE_ICE = "ice";
 const string TILETYPE_BOX = "box";
 const string TILETYPE_METAL = "metal";
+const string TILETYPE_ASTEROID = "asteroid";
 
 // Entities
 const string ENTITIES_JSON_PATH = "assets/img/sprites";
