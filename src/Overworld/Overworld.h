@@ -22,6 +22,7 @@ public:
 
     Elodie& getElodie();
     int getCurrentEnv();
+    unsigned int getCurrentSubworld();
     int moveUp();
     int moveDown();
     int moveRight();
@@ -89,7 +90,7 @@ private:
 
     float fadeTime;
 
-    int subWorldsNumber ;
+    int subWorldsNumber;
 
     unsigned int curSubWorld = 0;
 

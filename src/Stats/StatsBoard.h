@@ -20,6 +20,8 @@ public:
     virtual ~StatsBoard();
 
     void setLDL(const std::vector<int>& LDL);
+    void setLevelsPerSubworld(const std::vector<int>& levelsPerSubworld);
+    void setCurrentSubworld(int curSubworld);
     void display();
     void prepareText();
 
@@ -30,7 +32,9 @@ private:
     void createMoreStats();
     float findLargestTextWidth();
 
-    std::vector<int> LDL = {0,0};
+    int curSubworld;
+    std::vector<int> LDL;
+    std::vector<int> levelsPerSubworld;
     sf::RectangleShape background;
     std::vector<sf::Text> allTexts;
     StatsManager& statsManager;

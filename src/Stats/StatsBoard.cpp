@@ -21,8 +21,19 @@ StatsBoard::~StatsBoard()
 
 }
 
-void StatsBoard::setLDL(const std::vector<int>& LDL) {
+void StatsBoard::setLDL(const std::vector<int>& LDL)
+{
     this->LDL = LDL;
+}
+
+void StatsBoard::setLevelsPerSubworld(const std::vector<int>& levelsPerSubworld)
+{
+    this->levelsPerSubworld = levelsPerSubworld;
+}
+
+void StatsBoard::setCurrentSubworld(int curSubworld)
+{
+    this->curSubworld = curSubworld;
 }
 
 void StatsBoard::display()
@@ -53,17 +64,24 @@ void StatsBoard::createLevelTexts(float beginX, float beginY)
 {
     float y = beginY;
 
-    for (int i = 0; i <= LDL[1]; i++)
-    {
-        sf::Text levelText;
-        std::vector<int> level = {LDL[0], i};
+    int lastSubDisc = LDL[0];
+    int lastLvlDisc = LDL[1];
+    int limitToDisplay = levelsPerSubworld[curSubworld];
 
-        levelText.setFont(globalFont);
-        levelText.setCharacterSize(CHAR_SIZE);
-        levelText.setString(SaveHandler::computeLevelName(level));
-        levelText.setPosition(beginX, y + levelText.getLocalBounds().height);
-        y += levelText.getLocalBounds().height + LINES_INTERSPACE;
-        allTexts.push_back(levelText);
+    for (int i = 0; i < limitToDisplay; i++)
+    {
+        if (curSubworld != lastSubDisc || i <= lastLvlDisc)
+        {
+            sf::Text levelText;
+            std::vector<int> level = {curSubworld, i};
+
+            levelText.setFont(globalFont);
+            levelText.setCharacterSize(CHAR_SIZE);
+            levelText.setString(SaveHandler::computeLevelName(level));
+            levelText.setPosition(beginX, y + levelText.getLocalBounds().height);
+            y += levelText.getLocalBounds().height + LINES_INTERSPACE;
+            allTexts.push_back(levelText);
+        }
     }
 }
 
@@ -87,12 +105,19 @@ void StatsBoard::createAllCategoriesTexts()
 
     std::vector< std::vector<int> > categories(titles.size());
 
+    int lastSubDisc = LDL[0];
+    int lastLvlDisc = LDL[1];
+    int limitToDisplay = levelsPerSubworld[curSubworld];
+
     // for each level, store its values in the right category
-    for (int i = 0; i <= LDL[1]; ++i)
+    for (int i = 0; i < limitToDisplay; ++i)
     {
-        for (size_t j = 0; j < titles.size(); ++j)
+        if (curSubworld != lastSubDisc || i <= lastLvlDisc)
         {
-            categories[j].push_back(allDatas[i][keys[j]]);
+            for (size_t j = 0; j < titles.size(); ++j)
+            {
+                categories[j].push_back(allDatas[i][keys[j]]);
+            }
         }
     }
 

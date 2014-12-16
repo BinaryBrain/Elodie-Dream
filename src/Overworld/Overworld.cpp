@@ -416,6 +416,10 @@ int Overworld::getCurrentEnv()
     return (int)currentState[1];
 }
 
+unsigned int Overworld::getCurrentSubworld() {
+    return curSubWorld;
+}
+
 sf::Music& Overworld::getMusic()
 {
     return music;

@@ -16,6 +16,7 @@ Game::Game() :
     view.show(ViewLayer::TITLESCREEN);
 
     scoreManager.init(overworld->getLevelsPerSubworld());
+    statsBoard.setLevelsPerSubworld(overworld->getLevelsPerSubworld());
 }
 
 Game::~Game()
@@ -457,6 +458,7 @@ void Game::displayScore()
         {
             overworld->evolve(curLevelNbr);
             statsBoard.setLDL(overworld->getState());
+            statsBoard.setCurrentSubworld((int)(overworld->getCurrentSubworld()));
             leaveLevel();
             if (autoSave)
             {
@@ -620,6 +622,7 @@ void Game::newGame()
 
     std::vector<int> LDL = {0,0};
     statsBoard.setLDL(LDL);
+    statsBoard.setCurrentSubworld((int)(overworld->getCurrentSubworld()));
     menuHandler.getTitleMenu()->toNormalMenu();
 
     // if there is a free slot, save on it
@@ -702,6 +705,7 @@ void Game::load()
             overworld->getElodie().play();
 
             statsBoard.setLDL(LDL);
+            statsBoard.setCurrentSubworld((int)(overworld->getCurrentSubworld()));
 
             console.clearAndWrite("Successfully loaded " + currentMenuComponent->getLabel() + ", from " + date + ".");
             console.setNextState(GameState::INOVERWORLD);
@@ -861,6 +865,7 @@ void Game::animPrevOw()
         if (overworld->getFaderAlpha() == 255)
         {
             overworld->prevOverWorld();
+            statsBoard.setCurrentSubworld((int)(overworld->getCurrentSubworld()));
         }
         overworld->decFaderAlpha();
 
@@ -913,6 +918,7 @@ void Game::animNextOw()
         if (overworld->getFaderAlpha() == 255)
         {
             overworld->nextOverWorld();
+            statsBoard.setCurrentSubworld((int)(overworld->getCurrentSubworld()));
         }
         overworld->decFaderAlpha();
 
