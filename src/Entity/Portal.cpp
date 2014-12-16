@@ -5,18 +5,19 @@ const std::map< int, std::string > Portal::ANIMATIONS =
     {Portal::State::STANDING, "standing"}
 };
 
-Portal::Portal() : Portal(sf::Vector2f(0, 0))
+Portal::Portal() : Portal(sf::Vector2f(0, 0), ENTITYTYPE_MISC, ENTITYNAME_PORTAL, EntityType::MISC, EntityName::PORTAL)
 {
 }
 
-Portal::Portal(sf::Vector2f position) :
-    Entity(position, EntityType::MISC, EntityName::PORTAL,
-           ENTITYTYPE_MISC+"/"+ENTITYNAME_PORTAL+".png", "standing",
+Portal::Portal(sf::Vector2f position, std::string entityType, std::string entityName, EntityType type, EntityName name) :
+    Entity(position, type, name,
+           entityType+"/"+entityName+".png", "standing",
            Portal::ANIMATIONS, Portal::State::STANDING, {0, 0}, 1)
 {
 }
 
-Portal::Portal(float x, float y) : Portal(sf::Vector2f(x, y))
+Portal::Portal(float x, float y, std::string entityType, std::string entityName, EntityType type, EntityName name) :
+    Portal(sf::Vector2f(x, y), entityType, entityName, type, name)
 {
 }
 

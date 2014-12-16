@@ -22,8 +22,8 @@ public:
 
 public:
     Portal();
-    Portal(sf::Vector2f position);
-    Portal(float x, float y);
+    Portal(sf::Vector2f position, std::string entityType, std::string entityName, EntityType type, EntityName name);
+    Portal(float x, float y, std::string entityType, std::string entityName, EntityType type, EntityName name);
     virtual ~Portal();
 
     virtual void takeDamage(int damage, bool ignore);
