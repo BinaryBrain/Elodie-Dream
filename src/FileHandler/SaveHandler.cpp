@@ -47,14 +47,18 @@ std::string SaveHandler::nextFreeSlot()
 
 std::string SaveHandler::computeLevelName(const std::vector<int>& levelNumber)
 {
+    int firstSubworld = 0;
     std::vector<int> tuto = {0,0};
     if (levelNumber == tuto)
     {
         return "Tutorial";
     }
-    else
+    else if (levelNumber[0] == firstSubworld)
     {
         return "Level " + Utils::itos(levelNumber[0] + 1) + "-" + Utils::itos(levelNumber[1]);
+    }
+    else {
+         return "Level " + Utils::itos(levelNumber[0] + 1) + "-" + Utils::itos(levelNumber[1] + 1);
     }
 }
 
