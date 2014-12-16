@@ -38,6 +38,8 @@ public:
     virtual void takeDamage(int damage, bool ignore);
     virtual void doStuff(const EventHandler& event, const std::vector< std::vector<TileSprite*> >& tiles,
                          std::map< std::string, Entity* >& entities, sf::Time animate);
+
+    bool chargeSoundPlayed = false;
 };
 
 #endif // RAVEN_H_INCLUDED

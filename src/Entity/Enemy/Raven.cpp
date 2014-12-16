@@ -71,12 +71,21 @@ void Raven::doStuff(const EventHandler&, const std::vector< std::vector<TileSpri
 
     if (checkCharge(entities))
     {
+        if (!chargeSoundPlayed)
+        {
+            SoundManager::getInstance().play(SoundType::RAVEN);
+        }
         sf::FloatRect eloArea = ((Elodie*) entities["elodie"])->returnCurrentHitbox().getArea();
         float targetY = eloArea.top + eloArea.height/4;
         float myY = returnCurrentHitbox().getArea().top;
 
         speed.x = -ATTACK_SPEED_X;
         speed.y = (targetY - myY) * SPEED_Y_MULT;
+        chargeSoundPlayed = true;;
+    }
+    else
+    {
+        chargeSoundPlayed = false;
     }
 
     move(animate.asSeconds()*(speed.x), animate.asSeconds()*(speed.y));

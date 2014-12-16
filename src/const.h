@@ -126,7 +126,7 @@ const string SOUND_TYPE_MAGMACUBE = "magmacube";
 const int SOUND_TYPE_MAGMACUBE_MAX = 3;
 
 const string SOUND_TYPE_RAVEN = "raven";
-const int SOUND_TYPE_RAVEN_MAX = 0;
+const int SOUND_TYPE_RAVEN_MAX = 2;
 
 const string SOUND_TYPE_FOOTSTEP_GROUND = "footstep_ground";
 const int SOUND_TYPE_FOOTSTEP_GROUND_MAX = 4;

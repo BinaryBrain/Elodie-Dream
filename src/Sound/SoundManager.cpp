@@ -16,7 +16,8 @@ SoundManager::SoundManager()
         { SoundType::ALIEN, {SOUND_TYPE_ALIEN, SOUND_TYPE_ALIEN_MAX } },
         { SoundType::BOTTLE, {SOUND_TYPE_BOTTLE, SOUND_TYPE_BOTTLE_MAX} },
         { SoundType::WOOSH, {SOUND_TYPE_WOOSH, SOUND_TYPE_WOOSH_MAX} },
-        { SoundType::OUTCH, {SOUND_TYPE_OUTCH, SOUND_TYPE_OUTCH_MAX} }
+        { SoundType::OUTCH, {SOUND_TYPE_OUTCH, SOUND_TYPE_OUTCH_MAX} },
+        { SoundType::RAVEN, {SOUND_TYPE_RAVEN, SOUND_TYPE_RAVEN_MAX} }
     };
 }
 
