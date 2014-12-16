@@ -16,6 +16,11 @@ Level::Level(GameView& gameView, std::vector<int> levelNbr, LevelEnv env, Elodie
     float zoom = accessor.getDouble("zoom");
     float interRecoveryTime = accessor.getDouble("interRecoveryTime");
     float attackCD = accessor.getDouble("attackCD");
+    if (accessor.canTakeElementFrom("ending"))
+    {
+        std::string endingPath = accessor.getString("ending");
+        endingScreen = new EndingScreen(gameView, Game::getInstance().isMute(), endingPath);
+    }
 
 
     HORIZONTAL_DISPLAY_MARGIN = WINDOW_WIDTH/(2*zoom) + 2*BLOCK_SIZE;
@@ -71,6 +76,11 @@ Level::~Level()
     }
     delete this->sky;
     delete this->earth;
+    if (endingScreen)
+    {
+        delete endingScreen;
+        endingScreen = nullptr;
+    }
 }
 
 void Level::setEnvironement(LevelEnv env)
@@ -282,4 +292,9 @@ std::pair <float,float> Level::getSlowVariables(LevelEnv env)
         break;
     }
     return std::make_pair(skyS,earthS);
+}
+
+EndingScreen* Level::getEndingScreen()
+{
+    return endingScreen;
 }

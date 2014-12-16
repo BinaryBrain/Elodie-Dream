@@ -41,6 +41,7 @@ public:
     bool isDead();
     bool isCleared();
     bool mustLeave();
+    EndingScreen* getEndingScreen();
 
 private:
     std::pair <float,float> getSlowVariables(LevelEnv env);
@@ -53,6 +54,7 @@ private:
     Earth* earth;
     int HORIZONTAL_DISPLAY_MARGIN = WINDOW_WIDTH/(2*2.0) + 2*BLOCK_SIZE; //2 * 2.0 for historical reasons
     int VERTICAL_DISPLAY_MARGIN = WINDOW_HEIGHT/(2*2.0) + 2*BLOCK_SIZE;
+    EndingScreen* endingScreen = nullptr;
 };
 
 #endif // LEVEL_H

@@ -16,11 +16,13 @@ public:
 
     void display();
     sf::Music& getMusic();
+    void playMusic();
 
 private:
     sf::Texture texture;
     sf::Sprite endingImage;
     sf::Music music;
+    bool muted = false;
 };
 
 #endif // DEATH_H

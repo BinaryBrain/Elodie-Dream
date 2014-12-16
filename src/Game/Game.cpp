@@ -152,12 +152,6 @@ void Game::loadLevel(std::vector<int> level)
     state = GameState::INLEVEL;
     curLevelNbr = level;
     LevelEnv env = LevelEnv::FIELD;
-
-    if (level[0] == 0 && level[1] == 0)
-    {
-        showTutoConsole = true;
-    }
-
     env = overworld->getEnvFromLevel(level);
     if (level[0] == 0 && level[1] == 0)
     {
@@ -399,11 +393,6 @@ void Game::displayEnd()
     if (event.keyIsPressed(sf::Keyboard::Return) || event.keyIsPressed(sf::Keyboard::Space))
     {
         view.hide(ViewLayer::ENDINGSCREEN);
-        if (endingScreen)
-        {
-            delete endingScreen;
-            endingScreen = NULL;
-        }
         leaveLevel();
         if (autoSave)
         {
@@ -422,19 +411,13 @@ void Game::displayScore()
     {
         view.hide(ViewLayer::SCORE);
 
-        // end of first game
-        if (curLevelNbr[0] == 0 && curLevelNbr[1] == 7)
+        endingScreen = curLevel->getEndingScreen();
+        if (endingScreen)
         {
-            endingScreen = new EndingScreen(view, mute, "assets/img/sprites/menu/fin0.png");
             view.show(ViewLayer::ENDINGSCREEN);
             state = GameState::ENDINGSCREEN;
             overworld->evolve(curLevelNbr);
-        }
-        else if (curLevelNbr[0] == 1 && curLevelNbr[1] == 5)
-        {
-            endingScreen = new EndingScreen(view, mute, "assets/img/sprites/menu/fin1.png");
-            view.show(ViewLayer::ENDINGSCREEN);
-            state = GameState::ENDINGSCREEN;
+            endingScreen->playMusic();
         }
         else
         {

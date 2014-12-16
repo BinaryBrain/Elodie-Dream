@@ -8,20 +8,7 @@ EndingScreen::EndingScreen(GameView& view, bool isMute, std::string image) : Dis
 
     view.addView(ViewLayer::ENDINGSCREEN, this);
 
-    if (!music.openFromFile(MUSIC_PATH+"/"+END_MUSIC))
-    {
-        // TODO Handle error
-    }
-    else
-    {
-        music.setLoop(false);
-
-        if(!isMute)
-        {
-            music.play();
-        }
-    }
-
+    muted = isMute;
 }
 
 EndingScreen::~EndingScreen()
@@ -36,4 +23,22 @@ void EndingScreen::display()
 sf::Music& EndingScreen::getMusic()
 {
     return music;
+}
+
+void EndingScreen::playMusic()
+{
+    if (!music.openFromFile(MUSIC_PATH+"/"+END_MUSIC))
+    {
+        // TODO Handle error
+    }
+    else
+    {
+        music.setLoop(false);
+
+        if(!muted)
+        {
+            music.play();
+        }
+    }
+
 }
