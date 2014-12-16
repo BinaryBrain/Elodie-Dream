@@ -72,6 +72,9 @@ void Mapper::parse(std::string asciiLevel, TileMap& tiles, EntityMap& entities, 
         case MAP_PORTAL:
             entities.insert(std::make_pair("portal", new Portal(x*32, y*32)));
             break;
+        case MAP_ROCKET:
+            entities.insert(std::make_pair("rocket", new Portal(x*32, y*32))); // TODO new Rocket
+            break;
         case MAP_PORO:
             entities.insert(std::make_pair(getFreshID("poro"), new Poro(x*32, y*32)));
             break;
@@ -98,8 +101,12 @@ void Mapper::parse(std::string asciiLevel, TileMap& tiles, EntityMap& entities, 
             tiles[y].push_back(new TileSprite(TileType::DIRT));
             break;
 
-        case MAP_THIN:
-            tiles[y].push_back(new TileSprite(TileType::THIN));
+        case MAP_BOX:
+            tiles[y].push_back(new TileSprite(TileType::BOX));
+            break;
+
+        case MAP_METAL:
+            tiles[y].push_back(new TileSprite(TileType::METAL));
             break;
 
         case MAP_LINE_BREAK:

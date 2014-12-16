@@ -31,7 +31,8 @@ const unsigned int NUMLEVELS = 8;
 static const char MAP_GROUND = '#';
 static const char MAP_ICE = 'I';
 static const char MAP_DIRT = 'D';
-static const char MAP_THIN = 'T';
+static const char MAP_BOX = 'T';
+static const char MAP_METAL = 'o';
 
 // Characters
 static const char MAP_ELODIE = 'E';
@@ -51,6 +52,7 @@ static const char MAP_BONUS = 'N';
 
 // Misc
 static const char MAP_PORTAL = 'F';
+static const char MAP_ROCKET = 'R';
 static const char MAP_LINE_BREAK = '\n';
 static const char MAP_NULL = ' ';
 static const char MAP_NULL2 = '.';
@@ -77,7 +79,8 @@ const string TILETYPE_GROUND = "ground";
 const string TILETYPE_DIRT = "dirt";
 const string TILETYPE_ROCK = "rock";
 const string TILETYPE_ICE = "ice";
-const string TILETYPE_THIN = "thin";
+const string TILETYPE_BOX = "box";
+const string TILETYPE_METAL = "metal";
 
 // Entities
 const string ENTITIES_JSON_PATH = "assets/img/sprites";

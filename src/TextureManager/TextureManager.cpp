@@ -18,7 +18,8 @@ TextureManager::TextureManager()
         { TileType::DIRT, TILETYPE_DIRT },
         { TileType::ROCK, TILETYPE_ROCK },
         { TileType::ICE, TILETYPE_ICE },
-        { TileType::THIN, TILETYPE_THIN }
+        { TileType::BOX, TILETYPE_BOX },
+        { TileType::METAL, TILETYPE_METAL }
     };
 }
 

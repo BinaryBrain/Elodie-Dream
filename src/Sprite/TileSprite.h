@@ -7,7 +7,7 @@
 
 enum class TileType
 {
-    VOID = 0, GROUND, DIRT, ROCK, ICE, THIN
+    VOID = 0, GROUND, DIRT, ROCK, ICE, BOX, METAL
 };
 
 enum class TileSide
