@@ -159,38 +159,14 @@ void Game::loadLevel(std::vector<int> level)
     }
 
     env = overworld->getEnvFromLevel(level);
-    /*switch (level[1])
+    if (level[0] == 0 && level[1] == 0)
     {
-    case 0:
         showTutoConsole = true;
-        env = LevelEnv::FIELD;
-        break;
-    case 1:
-        env = LevelEnv::FIELD;
-        break;
-    case 2:
-        env = LevelEnv::CASTLE;
-        break;
-    case 3:
+    }
+    else if (level[0] == 0 && level[1] == 3)
+    {
         showCastleConsole = true;
-        env = LevelEnv::CASTLE;
-        break;
-    case 4:
-        env = LevelEnv::VOLCANO;
-        break;
-    case 5:
-        env = LevelEnv::VOLCANO;
-        break;
-    case 6:
-        env = LevelEnv::FRELJORD;
-        break;
-    case 7:
-        env = LevelEnv::FRELJORD;
-        break;
-    default:
-        env = LevelEnv::FIELD;
-        break;
-    }*/
+    }
     curLevel = new Level(view, level, env, overworld->getElodie());
     menuHandler.getTitleMenu()->toLevelMenu();
 }
@@ -446,13 +422,19 @@ void Game::displayScore()
     {
         view.hide(ViewLayer::SCORE);
 
-        // end of game
-        if (curLevelNbr[1] == (NUMLEVELS-1))
+        // end of first game
+        if (curLevelNbr[0] == 0 && curLevelNbr[1] == 7)
         {
-            endingScreen = new EndingScreen(view, mute);
+            endingScreen = new EndingScreen(view, mute, "assets/img/sprites/menu/fin0.png");
             view.show(ViewLayer::ENDINGSCREEN);
             state = GameState::ENDINGSCREEN;
             overworld->evolve(curLevelNbr);
+        }
+        else if (curLevelNbr[0] == 1 && curLevelNbr[1] == 5)
+        {
+            endingScreen = new EndingScreen(view, mute, "assets/img/sprites/menu/fin1.png");
+            view.show(ViewLayer::ENDINGSCREEN);
+            state = GameState::ENDINGSCREEN;
         }
         else
         {

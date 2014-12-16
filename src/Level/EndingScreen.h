@@ -11,7 +11,7 @@
 class EndingScreen : public Displayable
 {
 public:
-    EndingScreen(GameView& view, bool isMute);
+    EndingScreen(GameView& view, bool isMute, std::string image);
     virtual ~EndingScreen();
 
     void display();

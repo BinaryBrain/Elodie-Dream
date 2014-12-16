@@ -1,8 +1,8 @@
 #include "EndingScreen.h"
 
-EndingScreen::EndingScreen(GameView& view, bool isMute) : Displayable(view)
+EndingScreen::EndingScreen(GameView& view, bool isMute, std::string image) : Displayable(view)
 {
-    texture.loadFromFile("assets/img/sprites/menu/fin.png");
+    texture.loadFromFile(image);
     endingImage.setTexture(texture);
     endingImage.setPosition(0,0);
 
