@@ -507,7 +507,7 @@ void Game::run()
 
             FileHandler::createDirIfNotExisting(screensDirPath);
             screen.saveToFile(screensDirPath+"/"+date+".jpg");
-            console.clearAndWrite("Screenshot saved as " + date + ".jpg in save folder.");
+            console.clearAndWrite("Screenshot saved as " + date + ".jpg in screenshot folder.");
 
             if (state != GameState::INCONSOLE)
             {
