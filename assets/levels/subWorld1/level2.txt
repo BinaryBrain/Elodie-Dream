@@ -8,10 +8,12 @@
 .............................DDD...................DDDDDDDDDD
 ...................................................DDDDDDDDDD
 .E.........TTTTT...................................DDDDDDDDDD
-#####################ooooooooDDDoooooooo..F..ooooooDDDDDDDDDD
+#####################ooooooooDDDoooooooo.....ooooooDDDDDDDDDD
 #####################..o.....DDD.....o.........o...DDDDDDDDDD
 #####################..o.....DDD.....o.........o...DDDDDDDDDD
 #####################ooooooooDDDoooooooo.......o...DDDDDDDDDD
 #####################..o.....DDD.....o.........o...DDDDDDDDDD
 #####################..o.....DDD.....o.........o...DDDDDDDDDD
 #####################ooooooooDDDoooooooo.......o...DDDDDDDDDD
+#####################..o.....DDD.....o.........o...DDDDDDDDDD
+#####################..o.....DDD.....o..R......o...DDDDDDDDDD
