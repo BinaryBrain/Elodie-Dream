@@ -236,7 +236,12 @@ bool Level::isDead()
 bool Level::isCleared()
 {
     Elodie* elodie = dynamic_cast<Elodie*>(entities["elodie"]);
-    Portal* portal = dynamic_cast<Portal*>(entities["portal"]);
+    Portal* portal;
+    if ( entities.find("rocket") == entities.end() ) {
+        portal = dynamic_cast<Portal*>(entities["portal"]);
+    } else {
+        portal = dynamic_cast<Portal*>(entities["rocket"]);
+    }
     return portal->returnCurrentHitbox().getArea().intersects(elodie->returnCurrentHitbox().getArea());
 }
 
