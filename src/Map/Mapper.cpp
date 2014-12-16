@@ -70,10 +70,16 @@ void Mapper::parse(std::string asciiLevel, TileMap& tiles, EntityMap& entities, 
             entities.insert(std::make_pair(getFreshID("raven"), new Raven(x*32, y*32)));
             break;
         case MAP_PORTAL:
-            entities.insert(std::make_pair("portal", new Portal(x*32, y*32, ENTITYTYPE_MISC, ENTITYNAME_PORTAL, EntityType::MISC, EntityName::PORTAL)));
+            if(entities.find("portal") == entities.end())
+            {
+                entities.insert(std::make_pair("portal", new Portal(x*32, y*32, ENTITYTYPE_MISC, ENTITYNAME_PORTAL, EntityType::MISC, EntityName::PORTAL)));
+            }
             break;
         case MAP_ROCKET:
-            entities.insert(std::make_pair("portal", new Portal(x*32, y*32, ENTITYTYPE_MISC, ENTITYNAME_PORTAL, EntityType::MISC, EntityName::PORTAL))); // TODO new Rocket
+            if(entities.find("portal") == entities.end())
+            {
+                entities.insert(std::make_pair("portal", new Portal(x*32, y*32, ENTITYTYPE_MISC, ENTITYNAME_ROCKET, EntityType::MISC, EntityName::ROCKET)));
+            }
             break;
         case MAP_PORO:
             entities.insert(std::make_pair(getFreshID("poro"), new Poro(x*32, y*32)));

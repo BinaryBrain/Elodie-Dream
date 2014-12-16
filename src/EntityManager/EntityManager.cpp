@@ -16,7 +16,8 @@ EntityManager::EntityManager()
         {EntityName::PORTAL, ENTITYNAME_PORTAL},
         {EntityName::PORO, ENTITYNAME_PORO},
         {EntityName::RAVEN, ENTITYNAME_RAVEN},
-        {EntityName::SPRITE, ENTITYNAME_SPRITE}
+        {EntityName::SPRITE, ENTITYNAME_SPRITE},
+        {EntityName::ROCKET, ENTITYNAME_ROCKET}
     };
 
     ENTITY_TYPE =

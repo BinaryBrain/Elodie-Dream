@@ -13,7 +13,6 @@ Entity::Entity(sf::Vector2f position, EntityType type, EntityName name,
     animations(anim)
 {
     info = EntityManager::getInstance().getEnemyInfo(type, name);
-
     position.y -= (info->height - BLOCK_SIZE);
 
     sprite = new EntitySprite(info, ENTITIES_JSON_PATH + "/" + spritePath, spriteStance);

@@ -86,6 +86,7 @@ const string TILETYPE_ASTEROID = "asteroid";
 const string ENTITIES_JSON_PATH = "assets/img/sprites";
 
 const string ENTITYNAME_ELODIE = "elodie";
+const string ENTITYNAME_ROCKET = "rocket";
 const string ENTITYNAME_SHEEP = "sheep";
 const string ENTITYNAME_GHOST = "ghost";
 const string ENTITYNAME_MAGMACUBE = "magmacube";
