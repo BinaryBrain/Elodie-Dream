@@ -18,8 +18,15 @@ Level::Level(GameView& gameView, std::vector<int> levelNbr, LevelEnv env, Elodie
     float attackCD = accessor.getDouble("attackCD");
     if (accessor.canTakeElementFrom("ending"))
     {
-        std::string endingPath = accessor.getString("ending");
+        std::string endingPath = "assets/img/sprites/menu/" + accessor.getString("ending");
         endingScreen = new EndingScreen(gameView, Game::getInstance().isMute(), endingPath);
+    }
+
+    std::string musicPath = "NONE";
+
+    if (accessor.canTakeElementFrom("music"))
+    {
+        musicPath = accessor.getString("music");
     }
 
 
@@ -41,7 +48,8 @@ Level::Level(GameView& gameView, std::vector<int> levelNbr, LevelEnv env, Elodie
 
     gameView.setCameraCenter(ViewLayer::LEVEL, elodie.getPosition());
 
-    if (!music.openFromFile(MUSIC_PATH+"/"+LEVEL_MUSIC))
+    musicPath = musicPath == "NONE" ? LEVEL_MUSIC : musicPath;
+    if (!music.openFromFile(MUSIC_PATH+"/"+musicPath))
     {
         // TODO Handle error
     }

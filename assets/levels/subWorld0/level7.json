@@ -5,5 +5,5 @@
 	"zoom" : 2.0,
 	"interRecoveryTime" : 0.2,
 	"attackCD" : 0.5,
-	"ending" : "assets/img/sprites/menu/fin0.png"
+	"ending" : "fin0.png"
 }

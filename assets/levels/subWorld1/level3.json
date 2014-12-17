@@ -4,5 +4,6 @@
 	"moveSpeed" : 300,
 	"zoom" : 1.2,
 	"interRecoveryTime" : 0.2,
-	"attackCD" : 0.5
+	"attackCD" : 0.5,
+	"music" : "level2.ogg"
 }
