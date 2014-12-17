@@ -45,11 +45,19 @@ Overworld::Overworld(GameView& gameView, bool muted) : Displayable(gameView)
         outPos.push_back(accessor.getIntVector("coord"));
         trigOut.push_back(accessor.getString("trigBy"));
 
+
+        envs.push_back(std::vector<int>());
+        accessor.loadJsonFrom("assets/config/levels/subWorld" + Utils::itos(w) + "/envs.json");
+        for (int i = 0; i < levelsPerSubworld[w]; ++i)
+        {
+            envs[w].push_back(accessor.getInt(Utils::itos(i)));
+        }
+
         levelSpotSprites.push_back(std::vector<sf::Sprite*>());
         for (int i = 0; i < levelsPerSubworld[w]; ++i)
         {
             sf::Texture* spotTexture = new sf::Texture;
-            spotTexture->loadFromFile("assets/img/overworld/spot_level.png");
+            spotTexture->loadFromFile("assets/img/overworld/spot_level_" + Utils::itos(static_cast<int>(getEnvFromLevel({w,i}))) + ".png");
             sf::Sprite* spotSprite = new sf::Sprite(*spotTexture);
             spotSprite->setPosition((levelPos[w][i])[0] - 16, (levelPos[w][i])[1] - 16);
             levelSpotSprites[w].push_back(spotSprite);
@@ -116,14 +124,6 @@ Overworld::Overworld(GameView& gameView, bool muted) : Displayable(gameView)
 
             paths[w].push_back(path);
         }
-
-        envs.push_back(std::vector<int>());
-        accessor.loadJsonFrom("assets/config/levels/subWorld" + Utils::itos(w) + "/envs.json");
-        for (int i = 0; i < levelsPerSubworld[w]; ++i)
-        {
-            envs[w].push_back(accessor.getInt(Utils::itos(i)));
-        }
-
 
     }
 

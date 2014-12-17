@@ -64,10 +64,6 @@ void Game::leaveLevel()
 
 void Game::displayLevel(sf::Time time)
 {
-    //double ypos = ((Elodie*)curLevel->getEntities()["elodie"])->getPosition().y;
-    //if (  ypos < miny) {
-    //    miny = ypos;
-    //}
     if (showTutoConsole || showCastleConsole)
     {
         std::string key;
@@ -167,6 +163,10 @@ void Game::loadLevel(std::vector<int> level)
 void Game::handleOverworld(sf::Time time)
 {
     Elodie& elo = overworld->getElodie();
+
+    if (event.keyIsPressed(sf::Keyboard::E) && DEV_MODE) {
+        overworld->evolve(overworld->getState());
+    }
 
     if (elo.isMoving())
     {
