@@ -32,7 +32,7 @@ INC_RELEASE = $(INC) -Irapidjson/include -Isfml/include -Isrc/Menu -Isrc/FileHan
 CFLAGS_RELEASE = $(CFLAGS) -O2 -std=c++11 -Wextra -fexceptions -Werror
 RESINC_RELEASE = $(RESINC)
 RCFLAGS_RELEASE = $(RCFLAGS)
-LIBDIR_RELEASE = $(LIBDIR) -Lsfml/lib -Llibs
+LIBDIR_RELEASE = $(LIBDIR)
 LIB_RELEASE = 
 LDFLAGS_RELEASE = $(LDFLAGS) -s
 OBJDIR_RELEASE = obj/Release
