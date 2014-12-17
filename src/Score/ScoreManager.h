@@ -41,6 +41,7 @@ public:
     std::vector<std::string> getAllKeys();
     const std::vector< std::vector<Score> >& getGameScore();
 
+    void setRegisteredScoresTo(const std::vector<int>& LDL);
     void setVectMapDatas(const std::vector< std::map<std::string, int> >& datas);
     void setLevel(const std::vector<int>& level);
     void setKillPoints(int points);
@@ -61,7 +62,6 @@ private:
     ScoreManager& operator= (ScoreManager const&); // Makes operator= private
 
     std::vector<int> levelsPerSubworld = {0,0};
-    int totalWords;
     Score currentScore;
     std::vector< std::vector<Score> > gameScore;
 

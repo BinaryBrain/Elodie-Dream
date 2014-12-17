@@ -595,6 +595,7 @@ void Game::newGame()
     std::vector<int> LDL = {0,0};
     statsBoard.setLDL(LDL);
     statsBoard.setCurrentSubworld((int)(overworld->getCurrentSubworld()));
+    scoreManager.setRegisteredScoresTo(LDL);
     menuHandler.getTitleMenu()->toNormalMenu();
 
     // if there is a free slot, save on it
@@ -678,6 +679,7 @@ void Game::load()
 
             statsBoard.setLDL(LDL);
             statsBoard.setCurrentSubworld((int)(overworld->getCurrentSubworld()));
+            scoreManager.setRegisteredScoresTo(LDL);
 
             console.clearAndWrite("Successfully loaded " + currentMenuComponent->getLabel() + ", from " + date + ".");
             console.setNextState(GameState::INOVERWORLD);

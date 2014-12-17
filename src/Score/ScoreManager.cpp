@@ -19,7 +19,6 @@ ScoreManager& ScoreManager::getInstance()
 
 void ScoreManager::init(const std::vector<int>& levelsPerSubworld) {
     this->levelsPerSubworld = levelsPerSubworld;
-    totalWords = 0;
 
     for (size_t i = 0; i < levelsPerSubworld.size(); ++i)
     {
@@ -28,7 +27,6 @@ void ScoreManager::init(const std::vector<int>& levelsPerSubworld) {
         {
             Score score;
             subWorld.push_back(score);
-            ++totalWords;
         }
         gameScore.push_back(subWorld);
     }
@@ -115,6 +113,21 @@ std::vector<std::string> ScoreManager::getAllKeys()
 
 const std::vector< std::vector<Score> >& ScoreManager::getGameScore() {
     return gameScore;
+}
+
+void ScoreManager::setRegisteredScoresTo(const std::vector<int>& LDL) {
+    int lastSubworld = LDL[0];
+    for (int i = 0; i <= lastSubworld; ++i)
+    {
+        int nLevels = levelsPerSubworld[i];
+        for (int j = 0; j < nLevels; ++j)
+        {
+            if (i != lastSubworld || (i == lastSubworld && j < LDL[1]))
+            {
+                gameScore[i][j].setRegistered(true);
+            }
+        }
+    }
 }
 
 void ScoreManager::setVectMapDatas(const std::vector< std::map<std::string, int> >& datas)
