@@ -117,12 +117,13 @@ const std::vector< std::vector<Score> >& ScoreManager::getGameScore() {
 
 void ScoreManager::setRegisteredScoresTo(const std::vector<int>& LDL) {
     int lastSubworld = LDL[0];
+    int lastDiscoveredLevel = LDL[1];
     for (int i = 0; i <= lastSubworld; ++i)
     {
         int nLevels = levelsPerSubworld[i];
         for (int j = 0; j < nLevels; ++j)
         {
-            if (i != lastSubworld || (i == lastSubworld && j < LDL[1]))
+            if (i != lastSubworld || (i == lastSubworld && j < lastDiscoveredLevel))
             {
                 gameScore[i][j].setRegistered(true);
             }

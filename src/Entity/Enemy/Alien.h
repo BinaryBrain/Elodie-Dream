@@ -38,6 +38,9 @@ public:
 private:
     int limitSpeed = LIMIT_Y;
     int step = STEP;
+    bool charging = false;
+    float destX = 0;
+    float destY = 0;
 };
 
 #endif // ALIEN_H_INCLUDED

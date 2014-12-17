@@ -5,7 +5,7 @@
 const int Alien::DAMAGE = 25;
 const int Alien::STEP = 5;
 const int Alien::LIMIT_Y = 100;
-const int Alien::SPEED_X = 100;
+const int Alien::SPEED_X = 0;
 const std::map< int, std::string > Alien::ANIMATIONS =
 {
     {Alien::State::STANDING, "standing"}
@@ -55,18 +55,25 @@ void  Alien::takeDamage(int, bool)
 void Alien::doStuff(const EventHandler&, const std::vector< std::vector<TileSprite*> >&,
                     std::map< std::string, Entity* >& entities, sf::Time animate)
 {
+    if (!charging)
+    {
+        charging = true;
+        Elodie* elo = ((Elodie*) entities["elodie"]);
+        sf::FloatRect eloArea = elo->returnCurrentHitbox().getArea();
+
+        destX = elo->getPosition().x + eloArea.width;
+        destY = elo->getPosition().y + eloArea.height;
+    }
+
     move(animate.asSeconds()*(speed.x), animate.asSeconds()*speed.y);
     sprite->update(animate);
 
-    if (speed.y < 0 && speed.y < -limitSpeed)
-    {
-        step = STEP;
-    }
-    else if (speed.y > 0 && speed.y > limitSpeed)
-    {
-        step = -STEP;
-    }
-    speed.y += step;
+    sf::FloatRect hitbox = returnCurrentHitbox().getArea();
+    float centerX = hitbox.left + hitbox.width/2;
+    float centerY = hitbox.top + hitbox.height/2;
+
+    speed.x = destX - centerX;
+    speed.y = destY - centerY;
 
     doAttack(entities);
 
