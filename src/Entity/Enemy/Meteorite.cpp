@@ -4,7 +4,7 @@
 
 const int Meteorite::DAMAGE = 70;
 const int Meteorite::SPEED_X = -60;
-const int Meteorite::SPEED_Y = 100;
+const int Meteorite::SPEED_Y = -350;
 const int Meteorite::ACCELERATION = 5;
 const std::map< int, std::string > Meteorite::ANIMATIONS =
 {
