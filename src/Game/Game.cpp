@@ -246,7 +246,7 @@ void Game::displayMenu()
     {
         menuHandler.decIndex();
     }
-    if (event.keyIsPressed(sf::Keyboard::Return))
+    if (event.keyIsPressed(sf::Keyboard::Return) || event.keyIsPressed(sf::Keyboard::Space))
     {
         currentMenuComponent = menuHandler.getCurrentMenuComponent();
         state = currentMenuComponent->getState();
@@ -452,12 +452,7 @@ void Game::run()
 
     while (window.isOpen())
     {
-        sf::Time sfTime = sf::seconds(1.0/FPS);//frameClock.restart();
-        //if (sfTime.asSeconds() > MAX_TIME_FRAME)
-        //    sfTime = sf::seconds(MAX_TIME_FRAME);
-        //std::cout << 1.0/sfTime.asSeconds() << std::endl;
-        //totframe++;
-        //frametime += sfTime.asSeconds();
+        sf::Time sfTime = sf::seconds(1.0/FPS);
         event.listening();
 
         if (event.lostFocus())
