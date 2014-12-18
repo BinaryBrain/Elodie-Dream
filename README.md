@@ -24,6 +24,7 @@ If you are looking for a compiled version of the game, you can download it there
 
 ### Linux
 There's no compiled version now, but you can build your own :
+
 1. Download and install [SFML](http://www.sfml-dev.org/tutorials/2.0/start-linux.php) for your distribution
 2. Download the .zip sources from here
 3. Unzip the file somewhere and go to that place
@@ -31,6 +32,7 @@ There's no compiled version now, but you can build your own :
 
 ### MacOS
 There's no compiled version now, but you can build your own :
+
 1. Download and install [SFML](http://brewformulas.org/Sfml)
 2. Download the .zip sources from here
 3. Unzip the file somewhere and go to that place
