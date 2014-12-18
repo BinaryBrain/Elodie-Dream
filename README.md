@@ -20,9 +20,7 @@ Download
 If you are looking for a compiled version of the game, you can download it there:
 
 ### Windows
-- [Magnet Link (Torrent)](http://mgnet.me/.ElodieDream)
-- [Mirror 1](http://protectator.ch/files/Elodie's Dream - Quest for Poros v1.0.zip) 62.2 Mo
-- [Mirror 2](http://pecamo.protectator.ch/protectator/Elodie-game.zip)
+- [Mirror 1](http://protectator.ch/EloDream1_1.zip) 106 Mo
 
 ### Linux
 Wait a little bit...
