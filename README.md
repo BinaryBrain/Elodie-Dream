@@ -20,7 +20,7 @@ Download
 If you are looking for a compiled version of the game, you can download it there:
 
 ### Windows
-- [Mirror 1](http://protectator.ch/EloDream1_1.zip) 68 Mo
+- [Mirror 1](http://protectator.ch/EloDream1_1.zip) 63 Mo
 
 ### Linux
 There's no compiled version now, but you can build your own :
